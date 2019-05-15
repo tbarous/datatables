@@ -80,16 +80,11 @@ class LoginController extends Controller
      */
     protected function attemptLogin(Request $request)
     {
-        $credentials = $request->only($this->username(), 'password');
-        $username = $credentials[$this->username()];
-        $password = $credentials['password'];
-
         $user_format = env('LDAP_USER_FORMAT', 'cn=%s,' . env('LDAP_BASE_DN', ''));
-        $userdn = sprintf($user_format, $username);
-//        dd($userdn);
-
+        $userdn = sprintf($user_format, $request->username);
         // Adldap::auth()->bind($userdn, $password);
-        if (Adldap::auth()->attempt($userdn, $password, $bindAsUser=true)) {
+
+        if (Adldap::auth()->attempt($userdn, $request->password, $bindAsUser = true)) {
             $user = User::where($this->username(), $username)->first();
             if (!$user) {
                 $user = new User();
@@ -100,72 +95,6 @@ class LoginController extends Controller
             $this->guard()->login($user, true);
             return true;
         }
-
         return false;
-    }
-
-    /**
-     * @param $username
-     * @return array|bool
-     * @throws ReflectionException
-     */
-    protected function retrieveSyncAttributes($username)
-    {
-        $ldapuser = Adldap::search()->where(env('LDAP_USER_ATTRIBUTE'), '=', $username)->first();
-        if (!$ldapuser) {
-            return false;
-        }
-
-        $ldapuser_attrs = null;
-
-        $attrs = [];
-
-        foreach (config('ldap_auth.sync_attributes') as $local_attr => $ldap_attr) {
-            if ($local_attr == 'username') {
-                continue;
-            }
-
-            $method = 'get' . $ldap_attr;
-            if (method_exists($ldapuser, $method)) {
-                $attrs[$local_attr] = $ldapuser->$method();
-                continue;
-            }
-
-            if ($ldapuser_attrs === null) {
-                $ldapuser_attrs = self::accessProtected($ldapuser, 'attributes');
-            }
-
-            if (!isset($ldapuser_attrs[$ldap_attr])) {
-                $attrs[$local_attr] = null;
-                continue;
-            }
-
-            if (!is_array($ldapuser_attrs[$ldap_attr])) {
-                $attrs[$local_attr] = $ldapuser_attrs[$ldap_attr];
-            }
-
-            if (count($ldapuser_attrs[$ldap_attr]) == 0) {
-                $attrs[$local_attr] = null;
-                continue;
-            }
-
-            $attrs[$local_attr] = $ldapuser_attrs[$ldap_attr][0];
-        }
-
-        return $attrs;
-    }
-
-    /**
-     * @param $obj
-     * @param $prop
-     * @return mixed
-     * @throws ReflectionException
-     */
-    protected static function accessProtected($obj, $prop)
-    {
-        $reflection = new \ReflectionClass($obj);
-        $property = $reflection->getProperty($prop);
-        $property->setAccessible(true);
-        return $property->getValue($obj);
     }
 }

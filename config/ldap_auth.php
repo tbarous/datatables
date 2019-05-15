@@ -6,8 +6,16 @@ return [
     'model' => App\User::class,
     'rules' => [
         Adldap\Laravel\Validation\Rules\DenyTrashed::class,
+        App\Rules\OnlyManagersAndAccounting::class,
+        App\Rules\IsAccountant::class
     ],
-    'scopes' => [],
+    'scopes' => [
+        // Only allows users with a user principal name to authenticate.
+        Adldap\Laravel\Scopes\UpnScope::class,
+
+        // Only allow members of 'Accounting' to login.
+        App\Scopes\AccountingScope::class,
+    ],
     'identifiers' => [
         'ldap' => [
             'locate_users_by' => 'userprincipalname',
