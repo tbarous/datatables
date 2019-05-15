@@ -10,12 +10,12 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/">{{env('APP_NAME')}}</a>
-        </div>
-    </div>
+<nav class="navbar navbar-expand-sm bg-dark">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link text-white" href="#">{{env('APP_NAME')}}</a>
+        </li>
+    </ul>
 </nav>
 
 <div class="container">
@@ -56,8 +56,8 @@
                         </div>
 
                         <div class="form-group row mb-0 mt-4">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary w-100">
                                     Login
                                 </button>
                             </div>
