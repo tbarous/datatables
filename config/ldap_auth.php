@@ -31,33 +31,9 @@ return [
         'email' => 'userprincipalname',
         'name' => 'cn',
     ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Logging
-    |--------------------------------------------------------------------------
-    |
-    | User authentication attempts will be logged using Laravel's
-    | default logger if this setting is enabled.
-    |
-    | No credentials are logged, only usernames.
-    |
-    | This is usually stored in the '/storage/logs' directory
-    | in the root of your application.
-    |
-    | This option is useful for debugging as well as auditing.
-    |
-    | You can freely remove any events you would not like to log below,
-    | as well as use your own listeners if you would prefer.
-    |
-    */
-
     'logging' => [
-
         'enabled' => env('LDAP_LOGGING', true),
-
         'events' => [
-
             \Adldap\Laravel\Events\Importing::class => \Adldap\Laravel\Listeners\LogImport::class,
             \Adldap\Laravel\Events\Synchronized::class => \Adldap\Laravel\Listeners\LogSynchronized::class,
             \Adldap\Laravel\Events\Synchronizing::class => \Adldap\Laravel\Listeners\LogSynchronizing::class,
@@ -69,8 +45,6 @@ return [
             \Adldap\Laravel\Events\DiscoveredWithCredentials::class => \Adldap\Laravel\Listeners\LogDiscovery::class,
             \Adldap\Laravel\Events\AuthenticatedWithWindows::class => \Adldap\Laravel\Listeners\LogWindowsAuth::class,
             \Adldap\Laravel\Events\AuthenticatedModelTrashed::class => \Adldap\Laravel\Listeners\LogTrashedModel::class,
-
         ],
     ],
-
 ];
