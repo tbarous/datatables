@@ -4,9 +4,15 @@
       <w>adldap</w>
       <w>authenticatable</w>
       <w>axios</w>
+      <w>distinguishedname</w>
+      <w>eett</w>
       <w>fillable</w>
       <w>ldapuser</w>
+      <w>objectguid</w>
+      <w>samaccountname</w>
       <w>userdn</w>
+      <w>usernames</w>
+      <w>userprincipalname</w>
     </words>
   </dictionary>
 </component>
