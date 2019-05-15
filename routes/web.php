@@ -1,8 +1,14 @@
 <?php
 
-Route::get('ldap', function(){
-    $results = $provider->search()->where('cn', '=', 'John Doe')->get();
-    return $results;
+use Adldap\Laravel\Facades\Adldap;
+
+Route::get('/ldap', function () {
+    try {
+        Adldap::connect();
+        return 'ok';
+    } catch (\Exception $e) {
+        return 'bad';
+    }
 });
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
