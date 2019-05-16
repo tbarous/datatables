@@ -1,20 +1,16 @@
 <?php
 
-use Adldap\Laravel\Facades\Adldap;
+Route::get('ldap', function () {
+    $user = Adldap::search()->users()->where('cn', '=', 'testvdi1')->first();
 
-Route::get('ldap4', function () {
-    // return Adldap::users()->all();
-    // ini_set('memory_limit', '-1');
-    // $users = Adldap::search()->users()->get();
-    // return $users;
+    $groups = $user->getGroups();
+    // return $groups[0];
 
-    // $users = Adldap::search()->where('uid', '=', 'newton')->get();
-    // return $users;
-    // $user_format = env('LDAP_USER_FORMAT', 'cn=%s,' . env('LDAP_BASE_DN', ''));
-    // $userdn = sprintf($user_format, 'testvdi1');
-
-    $attempt = Adldap::auth()->attempt('testvdi1', 'P@ssw0rd');
-    return json_encode($attempt);
+    if ($user->inGroup(['Application Users', 'Victus Users', 'MASSUPDATE_enabled'])) {
+        return 'in group';
+    } else {
+        return 'not in group';
+    }
 });
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

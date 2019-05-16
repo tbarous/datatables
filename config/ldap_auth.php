@@ -6,12 +6,15 @@ return [
     'model' => App\User::class,
     'rules' => [
         Adldap\Laravel\Validation\Rules\DenyTrashed::class,
+        // App\Rules\OnlyManagersAndAccounting::class,
     ],
-    'scopes' => [],
+    'scopes' => [
+        // App\Scopes\AccountingScope::class,
+    ],
     'identifiers' => [
         'ldap' => [
-            'locate_users_by' => 'uid',
-            'bind_users_by' => 'uid',
+            'locate_users_by' => 'username',
+            'bind_users_by' => 'username',
         ],
         'database' => [
             'guid_column' => 'objectguid',
@@ -28,7 +31,7 @@ return [
     ],
     'login_fallback' => env('LDAP_LOGIN_FALLBACK', false),
     'sync_attributes' => [
-        'username' => 'uid',
+        'username' => 'username',
         'first_name' => 'givenName',
         'last_name' => 'sn',
         'email' => 'mail',
