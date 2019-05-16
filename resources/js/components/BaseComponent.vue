@@ -29,7 +29,7 @@
             </v-list>
         </v-navigation-drawer>
 
-        <v-toolbar color="indigo" dark fixed app>
+        <v-toolbar dark fixed app>
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
             <v-toolbar-title>EETT Halted Cell Status Handler</v-toolbar-title>
             <v-spacer></v-spacer>

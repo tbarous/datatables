@@ -1,11 +1,11 @@
 <template>
-    <v-layout row>
+    <v-layout row pl-5 pr-5>
         <v-flex xs12 sm12>
             <v-card>
                 <v-toolbar color="teal" dark>
                     <v-toolbar-side-icon></v-toolbar-side-icon>
 
-                    <v-toolbar-title>Topics</v-toolbar-title>
+                    <v-toolbar-title>Scripts</v-toolbar-title>
 
                     <v-spacer></v-spacer>
 
@@ -65,7 +65,6 @@
                     {
                         action: 'restaurant',
                         title: 'Dining',
-                        active: true,
                         items: [
                             {title: 'Breakfast & brunch'},
                             {title: 'New American'},

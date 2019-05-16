@@ -2606,7 +2606,6 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         action: 'restaurant',
         title: 'Dining',
-        active: true,
         items: [{
           title: 'Breakfast & brunch'
         }, {
@@ -38264,7 +38263,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "v-toolbar",
-        { attrs: { color: "indigo", dark: "", fixed: "", app: "" } },
+        { attrs: { dark: "", fixed: "", app: "" } },
         [
           _c("v-toolbar-side-icon", {
             on: {
@@ -38675,7 +38674,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-layout",
-    { attrs: { row: "" } },
+    { attrs: { row: "", "pl-5": "", "pr-5": "" } },
     [
       _c(
         "v-flex",
@@ -38690,7 +38689,7 @@ var render = function() {
                 [
                   _c("v-toolbar-side-icon"),
                   _vm._v(" "),
-                  _c("v-toolbar-title", [_vm._v("Topics")]),
+                  _c("v-toolbar-title", [_vm._v("Scripts")]),
                   _vm._v(" "),
                   _c("v-spacer"),
                   _vm._v(" "),
