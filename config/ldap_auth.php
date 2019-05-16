@@ -1,81 +1,40 @@
 <?php
 
 return [
-
     'connection' => env('LDAP_CONNECTION', 'default'),
-
     'provider' => Adldap\Laravel\Auth\DatabaseUserProvider::class,
-
     'model' => App\User::class,
-
     'rules' => [
         Adldap\Laravel\Validation\Rules\DenyTrashed::class,
     ],
-
-    'scopes' => [
-
-        // Only allows users with a user principal name to authenticate.
-        // Suitable when using ActiveDirectory.
-        // Adldap\Laravel\Scopes\UpnScope::class,
-
-        // Only allows users with a uid to authenticate.
-        // Suitable when using OpenLDAP.
-        // Adldap\Laravel\Scopes\UidScope::class,
-
-    ],
-
+    'scopes' => [],
     'identifiers' => [
-
         'ldap' => [
-
             'locate_users_by' => 'userprincipalname',
-
             'bind_users_by' => 'distinguishedname',
-
         ],
-
         'database' => [
-
             'guid_column' => 'objectguid',
-
-            'username_column' => 'email',
-
+            'username_column' => 'username',
         ],
-
         'windows' => [
-
             'locate_users_by' => 'samaccountname',
-
             'server_key' => 'AUTH_USER',
-
         ],
-
     ],
-
     'passwords' => [
-
         'sync' => env('LDAP_PASSWORD_SYNC', false),
-
         'column' => 'password',
-
     ],
-
     'login_fallback' => env('LDAP_LOGIN_FALLBACK', false),
-
     'sync_attributes' => [
-
-        'email' => 'userprincipalname',
-
-        'name' => 'cn',
-
+        'first_name' => 'givenName',
+        'last_name' => 'sn',
+        'email' => 'mail',
     ],
-
     'logging' => [
-
         'enabled' => env('LDAP_LOGGING', true),
-
         'events' => [
-
             \Adldap\Laravel\Events\Importing::class => \Adldap\Laravel\Listeners\LogImport::class,
             \Adldap\Laravel\Events\Synchronized::class => \Adldap\Laravel\Listeners\LogSynchronized::class,
             \Adldap\Laravel\Events\Synchronizing::class => \Adldap\Laravel\Listeners\LogSynchronizing::class,
@@ -87,8 +46,6 @@ return [
             \Adldap\Laravel\Events\DiscoveredWithCredentials::class => \Adldap\Laravel\Listeners\LogDiscovery::class,
             \Adldap\Laravel\Events\AuthenticatedWithWindows::class => \Adldap\Laravel\Listeners\LogWindowsAuth::class,
             \Adldap\Laravel\Events\AuthenticatedModelTrashed::class => \Adldap\Laravel\Listeners\LogTrashedModel::class,
-
         ],
     ],
-
 ];

@@ -1819,10 +1819,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1879,6 +1875,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1888,24 +1895,29 @@ __webpack_require__.r(__webpack_exports__);
       pagination: {},
       headers: [{
         text: 'Dessert (100g serving)',
-        align: 'left',
+        align: 'center',
         sortable: false,
         value: 'name'
       }, {
         text: 'Calories',
-        value: 'calories'
+        value: 'calories',
+        align: 'center'
       }, {
         text: 'Fat (g)',
-        value: 'fat'
+        value: 'fat',
+        align: 'center'
       }, {
         text: 'Carbs (g)',
-        value: 'carbs'
+        value: 'carbs',
+        align: 'center'
       }, {
         text: 'Protein (g)',
-        value: 'protein'
+        value: 'protein',
+        align: 'center'
       }, {
         text: 'Iron (%)',
-        value: 'iron'
+        value: 'iron',
+        align: 'center'
       }]
     };
   },
@@ -1931,6 +1943,9 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
+    search: function search() {
+      alert(5);
+    },
     getDataFromApi: function getDataFromApi() {
       var _this3 = this;
 
@@ -2096,113 +2111,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      items: [{
-        action: 'local_activity',
-        title: 'Attractions',
-        items: [{
-          title: 'List Item'
-        }]
-      }, {
-        action: 'restaurant',
-        title: 'Dining',
-        active: true,
-        items: [{
-          title: 'Breakfast & brunch'
-        }, {
-          title: 'New American'
-        }, {
-          title: 'Sushi'
-        }]
-      }, {
-        action: 'school',
-        title: 'Education',
-        items: [{
-          title: 'List Item'
-        }]
-      }, {
-        action: 'directions_run',
-        title: 'Family',
-        items: [{
-          title: 'List Item'
-        }]
-      }, {
-        action: 'healing',
-        title: 'Health',
-        items: [{
-          title: 'List Item'
-        }]
-      }, {
-        action: 'content_cut',
-        title: 'Office',
-        items: [{
-          title: 'List Item'
-        }]
-      }, {
-        action: 'local_offer',
-        title: 'Promotions',
-        items: [{
-          title: 'List Item'
-        }]
-      }]
-    };
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Overview.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Overview.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2212,24 +2120,29 @@ __webpack_require__.r(__webpack_exports__);
       pagination: {},
       headers: [{
         text: 'Dessert (100g serving)',
-        align: 'left',
+        align: 'center',
         sortable: false,
         value: 'name'
       }, {
         text: 'Calories',
-        value: 'calories'
+        value: 'calories',
+        align: 'center'
       }, {
         text: 'Fat (g)',
-        value: 'fat'
+        value: 'fat',
+        align: 'center'
       }, {
         text: 'Carbs (g)',
-        value: 'carbs'
+        value: 'carbs',
+        align: 'center'
       }, {
         text: 'Protein (g)',
-        value: 'protein'
+        value: 'protein',
+        align: 'center'
       }, {
         text: 'Iron (%)',
-        value: 'iron'
+        value: 'iron',
+        align: 'center'
       }]
     };
   },
@@ -2255,6 +2168,9 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
+    search: function search() {
+      alert(5);
+    },
     getDataFromApi: function getDataFromApi() {
       var _this3 = this;
 
@@ -2378,6 +2294,363 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Overview.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Overview.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      totalDesserts: 0,
+      desserts: [],
+      loading: true,
+      pagination: {},
+      headers: [{
+        text: 'Dessert (100g serving)',
+        align: 'center',
+        sortable: false,
+        value: 'name'
+      }, {
+        text: 'Calories',
+        value: 'calories',
+        align: 'center'
+      }, {
+        text: 'Fat (g)',
+        value: 'fat',
+        align: 'center'
+      }, {
+        text: 'Carbs (g)',
+        value: 'carbs',
+        align: 'center'
+      }, {
+        text: 'Protein (g)',
+        value: 'protein',
+        align: 'center'
+      }, {
+        text: 'Iron (%)',
+        value: 'iron',
+        align: 'center'
+      }]
+    };
+  },
+  watch: {
+    pagination: {
+      handler: function handler() {
+        var _this = this;
+
+        this.getDataFromApi().then(function (data) {
+          _this.desserts = data.items;
+          _this.totalDesserts = data.total;
+        });
+      },
+      deep: true
+    }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    this.getDataFromApi().then(function (data) {
+      _this2.desserts = data.items;
+      _this2.totalDesserts = data.total;
+    });
+  },
+  methods: {
+    search: function search() {
+      alert(5);
+    },
+    getDataFromApi: function getDataFromApi() {
+      var _this3 = this;
+
+      this.loading = true;
+      return new Promise(function (resolve, reject) {
+        var _this3$pagination = _this3.pagination,
+            sortBy = _this3$pagination.sortBy,
+            descending = _this3$pagination.descending,
+            page = _this3$pagination.page,
+            rowsPerPage = _this3$pagination.rowsPerPage;
+
+        var items = _this3.getDesserts();
+
+        var total = items.length;
+
+        if (_this3.pagination.sortBy) {
+          items = items.sort(function (a, b) {
+            var sortA = a[sortBy];
+            var sortB = b[sortBy];
+
+            if (descending) {
+              if (sortA < sortB) return 1;
+              if (sortA > sortB) return -1;
+              return 0;
+            } else {
+              if (sortA < sortB) return -1;
+              if (sortA > sortB) return 1;
+              return 0;
+            }
+          });
+        }
+
+        if (rowsPerPage > 0) {
+          items = items.slice((page - 1) * rowsPerPage, page * rowsPerPage);
+        }
+
+        setTimeout(function () {
+          _this3.loading = false;
+          resolve({
+            items: items,
+            total: total
+          });
+        }, 1000);
+      });
+    },
+    getDesserts: function getDesserts() {
+      return [{
+        name: 'Frozen Yogurt',
+        calories: 159,
+        fat: 6.0,
+        carbs: 24,
+        protein: 4.0,
+        iron: '1%'
+      }, {
+        name: 'Ice cream sandwich',
+        calories: 237,
+        fat: 9.0,
+        carbs: 37,
+        protein: 4.3,
+        iron: '1%'
+      }, {
+        name: 'Eclair',
+        calories: 262,
+        fat: 16.0,
+        carbs: 23,
+        protein: 6.0,
+        iron: '7%'
+      }, {
+        name: 'Cupcake',
+        calories: 305,
+        fat: 3.7,
+        carbs: 67,
+        protein: 4.3,
+        iron: '8%'
+      }, {
+        name: 'Gingerbread',
+        calories: 356,
+        fat: 16.0,
+        carbs: 49,
+        protein: 3.9,
+        iron: '16%'
+      }, {
+        name: 'Jelly bean',
+        calories: 375,
+        fat: 0.0,
+        carbs: 94,
+        protein: 0.0,
+        iron: '0%'
+      }, {
+        name: 'Lollipop',
+        calories: 392,
+        fat: 0.2,
+        carbs: 98,
+        protein: 0,
+        iron: '2%'
+      }, {
+        name: 'Honeycomb',
+        calories: 408,
+        fat: 3.2,
+        carbs: 87,
+        protein: 6.5,
+        iron: '45%'
+      }, {
+        name: 'Donut',
+        calories: 452,
+        fat: 25.0,
+        carbs: 51,
+        protein: 4.9,
+        iron: '22%'
+      }, {
+        name: 'KitKat',
+        calories: 518,
+        fat: 26.0,
+        carbs: 65,
+        protein: 7,
+        iron: '6%'
+      }];
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Scripts.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Scripts.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      items: [{
+        action: 'local_activity',
+        title: 'Attractions',
+        items: [{
+          title: 'List Item'
+        }]
+      }, {
+        action: 'restaurant',
+        title: 'Dining',
+        active: true,
+        items: [{
+          title: 'Breakfast & brunch'
+        }, {
+          title: 'New American'
+        }, {
+          title: 'Sushi'
+        }]
+      }, {
+        action: 'school',
+        title: 'Education',
+        items: [{
+          title: 'List Item'
+        }]
+      }, {
+        action: 'directions_run',
+        title: 'Family',
+        items: [{
+          title: 'List Item'
+        }]
+      }, {
+        action: 'healing',
+        title: 'Health',
+        items: [{
+          title: 'List Item'
+        }]
+      }, {
+        action: 'content_cut',
+        title: 'Office',
+        items: [{
+          title: 'List Item'
+        }]
+      }, {
+        action: 'local_offer',
+        title: 'Promotions',
+        items: [{
+          title: 'List Item'
+        }]
+      }]
+    };
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/UsersComponent.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/UsersComponent.vue?vue&type=script&lang=js& ***!
@@ -2399,32 +2672,206 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-var users = data;
-console.log(users);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      snack: false,
-      snackColor: '',
-      snackText: '',
-      max25chars: function max25chars(v) {
-        return v.length <= 25 || 'Input too long!';
-      },
+      totalDesserts: 0,
+      desserts: [],
+      loading: true,
       pagination: {},
       headers: [{
-        text: 'Name',
+        text: 'Dessert (100g serving)',
+        align: 'center',
+        sortable: false,
         value: 'name'
       }, {
-        text: 'Role',
-        value: 'calories'
+        text: 'Calories',
+        value: 'calories',
+        align: 'center'
       }, {
-        text: 'Permissions',
-        value: 'fat'
-      }],
-      users: users
+        text: 'Fat (g)',
+        value: 'fat',
+        align: 'center'
+      }, {
+        text: 'Carbs (g)',
+        value: 'carbs',
+        align: 'center'
+      }, {
+        text: 'Protein (g)',
+        value: 'protein',
+        align: 'center'
+      }, {
+        text: 'Iron (%)',
+        value: 'iron',
+        align: 'center'
+      }]
     };
   },
-  methods: {}
+  watch: {
+    pagination: {
+      handler: function handler() {
+        var _this = this;
+
+        this.getDataFromApi().then(function (data) {
+          _this.desserts = data.items;
+          _this.totalDesserts = data.total;
+        });
+      },
+      deep: true
+    }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    this.getDataFromApi().then(function (data) {
+      _this2.desserts = data.items;
+      _this2.totalDesserts = data.total;
+    });
+  },
+  methods: {
+    search: function search() {
+      alert(5);
+    },
+    getDataFromApi: function getDataFromApi() {
+      var _this3 = this;
+
+      this.loading = true;
+      return new Promise(function (resolve, reject) {
+        var _this3$pagination = _this3.pagination,
+            sortBy = _this3$pagination.sortBy,
+            descending = _this3$pagination.descending,
+            page = _this3$pagination.page,
+            rowsPerPage = _this3$pagination.rowsPerPage;
+
+        var items = _this3.getDesserts();
+
+        var total = items.length;
+
+        if (_this3.pagination.sortBy) {
+          items = items.sort(function (a, b) {
+            var sortA = a[sortBy];
+            var sortB = b[sortBy];
+
+            if (descending) {
+              if (sortA < sortB) return 1;
+              if (sortA > sortB) return -1;
+              return 0;
+            } else {
+              if (sortA < sortB) return -1;
+              if (sortA > sortB) return 1;
+              return 0;
+            }
+          });
+        }
+
+        if (rowsPerPage > 0) {
+          items = items.slice((page - 1) * rowsPerPage, page * rowsPerPage);
+        }
+
+        setTimeout(function () {
+          _this3.loading = false;
+          resolve({
+            items: items,
+            total: total
+          });
+        }, 1000);
+      });
+    },
+    getDesserts: function getDesserts() {
+      return [{
+        name: 'Frozen Yogurt',
+        calories: 159,
+        fat: 6.0,
+        carbs: 24,
+        protein: 4.0,
+        iron: '1%'
+      }, {
+        name: 'Ice cream sandwich',
+        calories: 237,
+        fat: 9.0,
+        carbs: 37,
+        protein: 4.3,
+        iron: '1%'
+      }, {
+        name: 'Eclair',
+        calories: 262,
+        fat: 16.0,
+        carbs: 23,
+        protein: 6.0,
+        iron: '7%'
+      }, {
+        name: 'Cupcake',
+        calories: 305,
+        fat: 3.7,
+        carbs: 67,
+        protein: 4.3,
+        iron: '8%'
+      }, {
+        name: 'Gingerbread',
+        calories: 356,
+        fat: 16.0,
+        carbs: 49,
+        protein: 3.9,
+        iron: '16%'
+      }, {
+        name: 'Jelly bean',
+        calories: 375,
+        fat: 0.0,
+        carbs: 94,
+        protein: 0.0,
+        iron: '0%'
+      }, {
+        name: 'Lollipop',
+        calories: 392,
+        fat: 0.2,
+        carbs: 98,
+        protein: 0,
+        iron: '2%'
+      }, {
+        name: 'Honeycomb',
+        calories: 408,
+        fat: 3.2,
+        carbs: 87,
+        protein: 6.5,
+        iron: '45%'
+      }, {
+        name: 'Donut',
+        calories: 452,
+        fat: 25.0,
+        carbs: 51,
+        protein: 4.9,
+        iron: '22%'
+      }, {
+        name: 'KitKat',
+        calories: 518,
+        fat: 26.0,
+        carbs: 65,
+        protein: 7,
+        iron: '6%'
+      }];
+    }
+  }
 });
 
 /***/ }),
@@ -37735,7 +38182,7 @@ var render = function() {
       _c(
         "v-navigation-drawer",
         {
-          attrs: { fixed: "", app: "" },
+          attrs: { fixed: "", app: "", dark: "" },
           model: {
             value: _vm.drawer,
             callback: function($$v) {
@@ -37845,7 +38292,7 @@ var render = function() {
       _c(
         "v-content",
         [
-          _c("h3", { staticClass: "mt-5 ml-5" }, [
+          _c("h3", { staticClass: "mt-4 ml-3" }, [
             _vm._v(_vm._s(_vm.$route.name))
           ]),
           _vm._v(" "),
@@ -37853,7 +38300,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-container",
-            { attrs: { fluid: "" } },
+            { attrs: { fluid: "", "pt-0": "" } },
             [
               _c(
                 "v-layout",
@@ -37873,11 +38320,7 @@ var render = function() {
           )
         ],
         1
-      ),
-      _vm._v(" "),
-      _c("v-footer", { attrs: { color: "indigo", app: "" } }, [
-        _c("span", { staticClass: "white--text" }, [_vm._v("© 2017")])
-      ])
+      )
     ],
     1
   )
@@ -37907,6 +38350,31 @@ var render = function() {
   return _c(
     "div",
     [
+      _c(
+        "v-container",
+        { attrs: { fluid: "", "pt-0": "", "pl-0": "" } },
+        [
+          _c(
+            "v-layout",
+            [
+              _c(
+                "v-flex",
+                { attrs: { "text-xs-center": "", xs4: "" } },
+                [
+                  _c("v-text-field", {
+                    attrs: { label: "Search", "prepend-icon": "search" },
+                    on: { keyup: _vm.search }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
       _c("v-data-table", {
         staticClass: "elevation-1",
         attrs: {
@@ -37928,23 +38396,23 @@ var render = function() {
               return [
                 _c("td", [_vm._v(_vm._s(props.item.name))]),
                 _vm._v(" "),
-                _c("td", { staticClass: "text-xs-right" }, [
+                _c("td", { staticClass: "text-xs-center" }, [
                   _vm._v(_vm._s(props.item.calories))
                 ]),
                 _vm._v(" "),
-                _c("td", { staticClass: "text-xs-right" }, [
+                _c("td", { staticClass: "text-xs-center" }, [
                   _vm._v(_vm._s(props.item.fat))
                 ]),
                 _vm._v(" "),
-                _c("td", { staticClass: "text-xs-right" }, [
+                _c("td", { staticClass: "text-xs-center" }, [
                   _vm._v(_vm._s(props.item.carbs))
                 ]),
                 _vm._v(" "),
-                _c("td", { staticClass: "text-xs-right" }, [
+                _c("td", { staticClass: "text-xs-center" }, [
                   _vm._v(_vm._s(props.item.protein))
                 ]),
                 _vm._v(" "),
-                _c("td", { staticClass: "text-xs-right" }, [
+                _c("td", { staticClass: "text-xs-center" }, [
                   _vm._v(_vm._s(props.item.iron))
                 ])
               ]
@@ -37979,12 +38447,239 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
+    "div",
+    [
+      _c(
+        "v-container",
+        { attrs: { fluid: "", "pt-0": "", "pl-0": "" } },
+        [
+          _c(
+            "v-layout",
+            [
+              _c(
+                "v-flex",
+                { attrs: { "text-xs-center": "", xs4: "" } },
+                [
+                  _c("v-text-field", {
+                    attrs: { label: "Search", "prepend-icon": "search" },
+                    on: { keyup: _vm.search }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("v-data-table", {
+        staticClass: "elevation-1",
+        attrs: {
+          headers: _vm.headers,
+          items: _vm.desserts,
+          pagination: _vm.pagination,
+          "total-items": _vm.totalDesserts,
+          loading: _vm.loading
+        },
+        on: {
+          "update:pagination": function($event) {
+            _vm.pagination = $event
+          }
+        },
+        scopedSlots: _vm._u([
+          {
+            key: "items",
+            fn: function(props) {
+              return [
+                _c("td", [_vm._v(_vm._s(props.item.name))]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-xs-center" }, [
+                  _vm._v(_vm._s(props.item.calories))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-xs-center" }, [
+                  _vm._v(_vm._s(props.item.fat))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-xs-center" }, [
+                  _vm._v(_vm._s(props.item.carbs))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-xs-center" }, [
+                  _vm._v(_vm._s(props.item.protein))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-xs-center" }, [
+                  _vm._v(_vm._s(props.item.iron))
+                ])
+              ]
+            }
+          }
+        ])
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Overview.vue?vue&type=template&id=7f4ac338&":
+/*!***********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Overview.vue?vue&type=template&id=7f4ac338& ***!
+  \***********************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "v-container",
+        { attrs: { fluid: "", "pt-0": "", "pl-0": "", "pb-0": "" } },
+        [
+          _c(
+            "v-layout",
+            [
+              _c(
+                "v-flex",
+                { attrs: { "text-xs-center": "", xs4: "", "offset-xs8": "" } },
+                [
+                  _c("v-text-field", {
+                    attrs: {
+                      solo: "",
+                      label: "Generic Search",
+                      "prepend-inner-icon": "search"
+                    },
+                    on: { keyup: _vm.search }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-container",
+        { attrs: { fluid: "", "pt-0": "", "pb-0": "", "pl-0": "" } },
+        [
+          _c(
+            "v-layout",
+            [
+              _c(
+                "v-flex",
+                { attrs: { "text-xs-center": "", xs3: "" } },
+                [
+                  _c("v-text-field", {
+                    attrs: { solo: "", label: "Search" },
+                    on: { keyup: _vm.search }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("v-data-table", {
+        staticClass: "elevation-1",
+        attrs: {
+          headers: _vm.headers,
+          items: _vm.desserts,
+          pagination: _vm.pagination,
+          "total-items": _vm.totalDesserts,
+          loading: _vm.loading
+        },
+        on: {
+          "update:pagination": function($event) {
+            _vm.pagination = $event
+          }
+        },
+        scopedSlots: _vm._u([
+          {
+            key: "items",
+            fn: function(props) {
+              return [
+                _c("td", [_vm._v(_vm._s(props.item.name))]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-xs-center" }, [
+                  _vm._v(_vm._s(props.item.calories))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-xs-center" }, [
+                  _vm._v(_vm._s(props.item.fat))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-xs-center" }, [
+                  _vm._v(_vm._s(props.item.carbs))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-xs-center" }, [
+                  _vm._v(_vm._s(props.item.protein))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-xs-center" }, [
+                  _vm._v(_vm._s(props.item.iron))
+                ])
+              ]
+            }
+          }
+        ])
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Scripts.vue?vue&type=template&id=74c4a326&":
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Scripts.vue?vue&type=template&id=74c4a326& ***!
+  \**********************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
     "v-layout",
     { attrs: { row: "" } },
     [
       _c(
         "v-flex",
-        { attrs: { xs12: "", sm6: "", "offset-sm3": "" } },
+        { attrs: { xs12: "", sm12: "" } },
         [
           _c(
             "v-card",
@@ -38106,10 +38801,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Overview.vue?vue&type=template&id=7f4ac338&":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Overview.vue?vue&type=template&id=7f4ac338& ***!
-  \***********************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/UsersComponent.vue?vue&type=template&id=47d47080&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/UsersComponent.vue?vue&type=template&id=47d47080& ***!
+  \*****************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -38124,6 +38819,31 @@ var render = function() {
   return _c(
     "div",
     [
+      _c(
+        "v-container",
+        { attrs: { fluid: "", "pt-0": "", "pl-0": "" } },
+        [
+          _c(
+            "v-layout",
+            [
+              _c(
+                "v-flex",
+                { attrs: { "text-xs-center": "", xs4: "" } },
+                [
+                  _c("v-text-field", {
+                    attrs: { label: "Search", "prepend-icon": "search" },
+                    on: { keyup: _vm.search }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
       _c("v-data-table", {
         staticClass: "elevation-1",
         attrs: {
@@ -38145,100 +38865,24 @@ var render = function() {
               return [
                 _c("td", [_vm._v(_vm._s(props.item.name))]),
                 _vm._v(" "),
-                _c("td", { staticClass: "text-xs-right" }, [
+                _c("td", { staticClass: "text-xs-center" }, [
                   _vm._v(_vm._s(props.item.calories))
                 ]),
                 _vm._v(" "),
-                _c("td", { staticClass: "text-xs-right" }, [
+                _c("td", { staticClass: "text-xs-center" }, [
                   _vm._v(_vm._s(props.item.fat))
                 ]),
                 _vm._v(" "),
-                _c("td", { staticClass: "text-xs-right" }, [
+                _c("td", { staticClass: "text-xs-center" }, [
                   _vm._v(_vm._s(props.item.carbs))
                 ]),
                 _vm._v(" "),
-                _c("td", { staticClass: "text-xs-right" }, [
+                _c("td", { staticClass: "text-xs-center" }, [
                   _vm._v(_vm._s(props.item.protein))
                 ]),
                 _vm._v(" "),
-                _c("td", { staticClass: "text-xs-right" }, [
+                _c("td", { staticClass: "text-xs-center" }, [
                   _vm._v(_vm._s(props.item.iron))
-                ])
-              ]
-            }
-          }
-        ])
-      })
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Scripts.vue?vue&type=template&id=74c4a326&":
-/*!**********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Scripts.vue?vue&type=template&id=74c4a326& ***!
-  \**********************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    scripts\n")])
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/UsersComponent.vue?vue&type=template&id=47d47080&":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/UsersComponent.vue?vue&type=template&id=47d47080& ***!
-  \*****************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("v-data-table", {
-        attrs: { headers: _vm.headers, items: _vm.users },
-        scopedSlots: _vm._u([
-          {
-            key: "items",
-            fn: function(props) {
-              return [
-                _c("td", { staticClass: "text-xs-left" }, [
-                  _vm._v(_vm._s(props.item.name))
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "text-xs-left" }, [
-                  _vm._v(_vm._s(props.item.role))
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "text-xs-left" }, [
-                  _vm._v(_vm._s(props.item.permissions))
                 ])
               ]
             }
@@ -79123,11 +79767,6 @@ var app = new Vue({
 /***/ (function(module, exports, __webpack_require__) {
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/**
- * We'll load jQuery and the Bootstrap jQuery plugin which provides support
- * for JavaScript based Bootstrap features such as modals and tabs. This
- * code may be modified to fit the specific needs of your application.
- */
 
 try {
   window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
@@ -79135,21 +79774,9 @@ try {
 
   __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
 } catch (e) {}
-/**
- * We'll load the axios HTTP library which allows us to easily issue requests
- * to our Laravel back-end. This library automatically handles sending the
- * CSRF token as a header based on the value of the "XSRF" token cookie.
- */
-
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-/**
- * Next we will register the CSRF Token as a common header with Axios so that
- * all outgoing HTTP requests automatically have it attached. This is just
- * a simple convenience so we don't have to attach every token manually.
- */
-
 var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
@@ -79157,19 +79784,6 @@ if (token) {
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-// import Echo from 'laravel-echo'
-// window.Pusher = require('pusher-js');
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     encrypted: true
-// });
 
 /***/ }),
 
@@ -79459,15 +80073,17 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Scripts_vue_vue_type_template_id_74c4a326___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Scripts.vue?vue&type=template&id=74c4a326& */ "./resources/js/components/Scripts.vue?vue&type=template&id=74c4a326&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _Scripts_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Scripts.vue?vue&type=script&lang=js& */ "./resources/js/components/Scripts.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-var script = {}
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  script,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Scripts_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _Scripts_vue_vue_type_template_id_74c4a326___WEBPACK_IMPORTED_MODULE_0__["render"],
   _Scripts_vue_vue_type_template_id_74c4a326___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -79481,6 +80097,20 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 if (false) { var api; }
 component.options.__file = "resources/js/components/Scripts.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Scripts.vue?vue&type=script&lang=js&":
+/*!**********************************************************************!*\
+  !*** ./resources/js/components/Scripts.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Scripts_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Scripts.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Scripts.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Scripts_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 

@@ -32,6 +32,14 @@ class LoginController extends Controller
     }
 
     /**
+     * @return string
+     */
+    public function username()
+    {
+        return 'username';
+    }
+
+    /**
      * @param Request $request
      */
     public function logout(Request $request)
@@ -47,13 +55,5 @@ class LoginController extends Controller
     protected function authenticated()
     {
         return redirect('/eett-overview');
-    }
-
-    /**
-     * @return string
-     */
-    public function username()
-    {
-        return 'username';
     }
 }

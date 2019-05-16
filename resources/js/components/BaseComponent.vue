@@ -1,6 +1,6 @@
 <template>
     <v-app id="inspire">
-        <v-navigation-drawer v-model="drawer" fixed app>
+        <v-navigation-drawer v-model="drawer" fixed app dark>
 
             <v-toolbar flat class="transparent">
                 <v-list class="pa-0">
@@ -40,9 +40,9 @@
         </v-toolbar>
 
         <v-content>
-            <h3 class="mt-5 ml-5">{{$route.name}}</h3>
+            <h3 class="mt-4 ml-3">{{$route.name}}</h3>
             <hr>
-            <v-container fluid>
+            <v-container fluid pt-0>
                 <v-layout justify-center align-center>
                     <v-flex text-xs-center>
                         <router-view></router-view>
@@ -50,10 +50,6 @@
                 </v-layout>
             </v-container>
         </v-content>
-
-        <v-footer color="indigo" app>
-            <span class="white--text">&copy; 2017</span>
-        </v-footer>
     </v-app>
 </template>
 

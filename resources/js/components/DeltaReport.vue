@@ -1,20 +1,31 @@
 <template>
     <div>
+        <v-container fluid pt-0 pl-0>
+            <v-layout>
+                <v-flex text-xs-center xs4>
+                    <v-text-field
+                        label="Search"
+                        prepend-icon="search"
+                        @keyup="search"
+                    ></v-text-field>
+                </v-flex>
+            </v-layout>
+        </v-container>
+
         <v-data-table
                 :headers="headers"
                 :items="desserts"
                 :pagination.sync="pagination"
                 :total-items="totalDesserts"
                 :loading="loading"
-                class="elevation-1"
-        >
+                class="elevation-1">
             <template v-slot:items="props">
                 <td>{{ props.item.name }}</td>
-                <td class="text-xs-right">{{ props.item.calories }}</td>
-                <td class="text-xs-right">{{ props.item.fat }}</td>
-                <td class="text-xs-right">{{ props.item.carbs }}</td>
-                <td class="text-xs-right">{{ props.item.protein }}</td>
-                <td class="text-xs-right">{{ props.item.iron }}</td>
+                <td class="text-xs-center">{{ props.item.calories }}</td>
+                <td class="text-xs-center">{{ props.item.fat }}</td>
+                <td class="text-xs-center">{{ props.item.carbs }}</td>
+                <td class="text-xs-center">{{ props.item.protein }}</td>
+                <td class="text-xs-center">{{ props.item.iron }}</td>
             </template>
         </v-data-table>
     </div>
@@ -31,15 +42,15 @@
                 headers: [
                     {
                         text: 'Dessert (100g serving)',
-                        align: 'left',
+                        align: 'center',
                         sortable: false,
                         value: 'name'
                     },
-                    {text: 'Calories', value: 'calories'},
-                    {text: 'Fat (g)', value: 'fat'},
-                    {text: 'Carbs (g)', value: 'carbs'},
-                    {text: 'Protein (g)', value: 'protein'},
-                    {text: 'Iron (%)', value: 'iron'}
+                    {text: 'Calories', value: 'calories', align: 'center'},
+                    {text: 'Fat (g)', value: 'fat', align: 'center'},
+                    {text: 'Carbs (g)', value: 'carbs', align: 'center'},
+                    {text: 'Protein (g)', value: 'protein', align: 'center'},
+                    {text: 'Iron (%)', value: 'iron', align: 'center'}
                 ]
             }
         },
@@ -63,6 +74,10 @@
                 })
         },
         methods: {
+            search() {
+                alert(5);
+            },
+
             getDataFromApi() {
                 this.loading = true
                 return new Promise((resolve, reject) => {
