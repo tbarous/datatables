@@ -4,8 +4,8 @@ return [
     'logging' => env('LDAP_LOGGING', false),
     'connections' => [
         'default' => [
-            'auto_connect' => env('LDAP_AUTO_CONNECT', true),
-            'connection' => Adldap\Connections\Ldap::class,
+            'auto_connect' => env('LDAP_AUTO_CONNECT', false),
+            'connection' => Adldap\Connections\Ldap::class, # Adldap\Schemas\OpenLDAP::class,
             'settings' => [
                 'schema' => Adldap\Schemas\ActiveDirectory::class,
                 'account_prefix' => env('LDAP_ACCOUNT_PREFIX', ''),

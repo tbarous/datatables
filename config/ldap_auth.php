@@ -10,8 +10,8 @@ return [
     'scopes' => [],
     'identifiers' => [
         'ldap' => [
-            'locate_users_by' => 'userprincipalname',
-            'bind_users_by' => 'distinguishedname',
+            'locate_users_by' => 'uid',
+            'bind_users_by' => 'uid',
         ],
         'database' => [
             'guid_column' => 'objectguid',
@@ -28,6 +28,7 @@ return [
     ],
     'login_fallback' => env('LDAP_LOGIN_FALLBACK', false),
     'sync_attributes' => [
+        'username' => 'uid',
         'first_name' => 'givenName',
         'last_name' => 'sn',
         'email' => 'mail',
