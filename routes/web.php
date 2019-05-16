@@ -1,17 +1,13 @@
 <?php
 
-Route::get('ldap', function () {
-    $user = Adldap::search()->users()->where('cn', '=', 'testvdi1')->first();
+use App\Exports\UsersExport;
 
-    $groups = $user->getGroups();
-    // return $groups[0];
-
-    if ($user->inGroup(['Application Users', 'Victus Users', 'MASSUPDATE_enabled'])) {
-        return 'in group';
-    } else {
-        return 'not in group';
-    }
+Route::get('excel', function () {
+    return Excel::download(new UsersExport, 'users.xlsx');
 });
+
+Route::get('datatables', 'DatatablesController@getIndex');
+Route::post('datatables', 'DatatablesController@anyData')->name('datatables.data');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
