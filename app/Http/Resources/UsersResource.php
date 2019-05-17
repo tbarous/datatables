@@ -16,10 +16,10 @@ class UsersResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'username'       => $this->username,
+            'username'   => $this->username,
             'email'      => $this->email,
-            'created_at'    => Carbon::parse($this->created_at)->toDayDateTimeString(),
-            'created_at' => Carbon::parse($this->updated_at)->toDayDateTimeString(),
+            'created_at' => Carbon::parse($this->created_at)->format('d/m/Y'),
+            'updated_at' => Carbon::parse($this->updated_at)->format('d/m/Y'),
         ];
     }
 }

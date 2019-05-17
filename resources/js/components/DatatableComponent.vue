@@ -1,42 +1,38 @@
 <template>
     <div class="data-table">
         <div class="main-table">
-
             <div class="entries mb-5">
-              <span class="d-inline-block mr-3">Show</span> 
-              <v-select class="d-inline-block mr-3" style="width: 100px;" :items="itemsShow" label="Show" solo v-model="perPage" @change="fetchData"></v-select>
-              <span class="d-inline-block mr-3">entries</span>
+                <span class="d-inline-block mr-3">Show</span>
+                <v-select class="d-inline-block mr-3" style="width: 100px;" :items="itemsShow" label="Show" solo v-model="perPage" @change="fetchData"></v-select>
+                <span class="d-inline-block mr-3">entries</span>
             </div>
-
             <div class="general-search float-right mb-3">
-              <v-text-field @input="fetchData" v-model="generalSearch" style="width: 300px;" solo name="name" label="Search" id="id"></v-text-field>
+                <v-text-field @input="fetchData" v-model="generalSearch" style="width: 300px;" solo name="name" label="Search" id="id"></v-text-field>
             </div>
-            
             <div class="loader" style="height: 20px;">
-              <v-progress-linear class="mb-0" v-show="loading" :indeterminate="true"></v-progress-linear>
+                <v-progress-linear class="mb-0" v-show="loading" :indeterminate="true"></v-progress-linear>
             </div>
-
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th class="table-head">#</th>
-                        <th v-for="column in columns" :key="column.title" @click="sortByColumn(column.title)" class="table-head text-center" style="cursor: pointer;">
+                        <th v-for="column in columns" :key="column.title" @click="sortByColumn(column)" class="table-head text-center" style="cursor: pointer;">
                             {{ column.title | columnHead }}
                             <span v-if="column.title === sortedColumn">
                                 <i v-if="order === 'asc' " class="fas fa-arrow-up"></i>
                                 <i v-else class="fas fa-arrow-down"></i>
                             </span>
                         </th>
+                        <th class="table-head text-center">Actions</th>
                     </tr>
-
                     <tr>
                         <th class="table-head">#</th>
                         <th v-for="column in columns" :key="column.title">
-                            <v-text-field @input="fetchData" v-model="queries[column.title]" solo name="name" :label="column.title | columnLow" id="id"></v-text-field>
+                            <v-text-field @input="fetchData" v-model="queries[column.title]" solo autocomplete="off" name="name" :label="column.title | columnLow" id="id"></v-text-field>
                         </th>
+                        <th></th>
                     </tr>
                 </thead>
-
                 <tbody>
                     <tr class="" v-if="tableData.length === 0">
                         <td class="lead text-center" :colspan="columns.length + 1">No data found.</td>
@@ -44,11 +40,18 @@
                     <tr v-for="(data, key1) in tableData" :key="data.id" class="m-datatable__row" v-else>
                         <td>{{ serialNumber(key1) }}</td>
                         <td v-for="(value, key) in data">{{ value }}</td>
+                        <td class="d-flex">
+                            <v-btn @click="editDialog=true; editingIndex=key1; editingRow=data" class="d-inline-block" fab dark small color="info">
+                                <v-icon dark>edit</v-icon>
+                            </v-btn>
+                            <v-btn class="d-inline-block" fab dark small color="red">
+                                <v-icon dark>remove</v-icon>
+                            </v-btn>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-
         <nav v-if="pagination && tableData.length > 0" class="text-center ml-auto mr-auto d-flex align-center justify-content-center mt-5">
             <ul class="pagination justify-content-center">
                 <li class="page-item" :class="{'disabled' : currentPage === 1}">
@@ -63,9 +66,30 @@
                 <!-- <span style="margin-top: 8px;"> &nbsp; <i>Displaying {{ pagination.data.length }} of {{ pagination.meta.total }} entries.</i></span> -->
             </ul>
         </nav>
+
+        <v-dialog v-model="editDialog" width="500">
+            <v-card>
+                <v-card-title class="headline grey lighten-2" primary-title>
+                    Privacy Policy
+                </v-card-title>
+                <v-card-text>
+                    <v-form method="post" @submit.prevent="update(editingIndex, editingRow)">
+                      <v-text-field :label="column.title" solo v-for="(column, key) in columns" :key="column.title" v-if="column.type == 'text'" type="text" v-model="editingRow[column.title]"></v-text-field>
+                      <br><br>
+                      <v-btn color="primary" type="submit">edit</v-btn>
+                    </v-form>
+                </v-card-text>
+                <v-divider></v-divider>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="primary" flat @click="editDialog = false">
+                        I accept
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
-
 <script>
 export default {
     props: {
@@ -85,10 +109,13 @@ export default {
             perPage: 5,
             sortedColumn: this.columns[0].title,
             order: 'asc',
-            itemsShow: [5, 10, 15],
+            itemsShow: [5, 10, 15, 50, 100, 500],
             loading: false,
             generalSearch: '',
-            queries: {}
+            queries: {},
+            editDialog: false,
+            editingIndex: 0, 
+            editingRow: {}
         }
     },
 
@@ -102,11 +129,11 @@ export default {
     },
 
     created() {
-      this.columns.map(column=>{
-        this.queries[column.title] = '';
-      });
+        this.columns.map(column => {
+            this.queries[column.title] = '';
+        });
 
-      return this.fetchData()
+        return this.fetchData()
     },
 
     computed: {
@@ -166,6 +193,18 @@ export default {
                 this.order = 'asc'
             }
             this.fetchData()
+        },
+
+        update(index, row) {
+            axios.update({
+                data: {
+                    row: row
+                }
+            }).then(response => {
+                this.tableData[index] = response.data;
+            }).catch(error => {
+                //
+            })
         }
     },
 
@@ -179,4 +218,5 @@ export default {
     },
     name: 'DataTable'
 }
+
 </script>

@@ -8,7 +8,7 @@ import DatatableComponent from './DatatableComponent'
 export default {
     data() {
         return {
-            url: '/users/data-table',
+            url: 'api/users/data-table',
             columns: [
                 {
                     title: 'username',

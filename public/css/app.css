@@ -10682,9 +10682,22 @@ td {
   text-align: center !important;
 }
 
+button {
+  outline: none !important;
+}
+
+.v-input__slot {
+  margin: 0 !important;
+}
+
 .v-table__overflow {
   width: 100%;
   overflow-x: hidden;
   overflow-y: hidden;
+}
+
+td {
+  padding: 0 !important;
+  vertical-align: middle !important;
 }
 

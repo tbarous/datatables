@@ -41,6 +41,10 @@ class UserController extends Controller
             $query = $query->where('username', 'LIKE', '%' . $queries->username . '%');
         }
 
+        if (!$this->isEmpty($queries->email)) {
+            $query = $query->where('email', 'LIKE', '%' . $queries->email . '%');
+        }
+
         $users = $query->paginate($request->per_page);
         return UsersResource::collection($users);
     }
