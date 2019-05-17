@@ -79,6 +79,7 @@ class LoginController extends Controller
     {
         if (Adldap::auth()->attempt($request->username, $request->password)) {
             $user = Adldap::search()->users()->where('cn', '=', $request->username)->first();
+
             if (! $user->inGroup(['MASSUPDATE_enabled'])) {
                 return false;
             }

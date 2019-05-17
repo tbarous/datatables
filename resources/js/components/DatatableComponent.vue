@@ -1,17 +1,21 @@
 <template>
     <div class="data-table">
         <div class="main-table">
-            <div class="entries mb-5">
+
+            <div class="entries mb-5 d-inline">
                 <span class="d-inline-block mr-3">Show</span>
                 <v-select class="d-inline-block mr-3" style="width: 100px;" :items="itemsShow" label="Show" solo v-model="perPage" @change="fetchData"></v-select>
                 <span class="d-inline-block mr-3">entries</span>
             </div>
+
             <div class="general-search float-right mb-3">
                 <v-text-field @input="fetchData" v-model="generalSearch" style="width: 300px;" solo name="name" label="Search" id="id"></v-text-field>
             </div>
+
             <div class="loader" style="height: 20px;">
                 <v-progress-linear class="mb-0" v-show="loading" :indeterminate="true"></v-progress-linear>
             </div>
+
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -40,7 +44,7 @@
                     <tr v-for="(data, key1) in tableData" :key="data.id" class="m-datatable__row" v-else>
                         <td>{{ serialNumber(key1) }}</td>
                         <td v-for="(value, key) in data">{{ value }}</td>
-                        <td class="d-flex">
+                        <td>
                             <v-btn @click="editDialog=true; editingIndex=key1; editingRow=data" class="d-inline-block" fab dark small color="info">
                                 <v-icon dark>edit</v-icon>
                             </v-btn>
@@ -66,17 +70,16 @@
                 <!-- <span style="margin-top: 8px;"> &nbsp; <i>Displaying {{ pagination.data.length }} of {{ pagination.meta.total }} entries.</i></span> -->
             </ul>
         </nav>
-
         <v-dialog v-model="editDialog" width="500">
             <v-card>
                 <v-card-title class="headline grey lighten-2" primary-title>
-                    Privacy Policy
+                    Edit
                 </v-card-title>
                 <v-card-text>
                     <v-form method="post" @submit.prevent="update(editingIndex, editingRow)">
-                      <v-text-field :label="column.title" solo v-for="(column, key) in columns" :key="column.title" v-if="column.type == 'text'" type="text" v-model="editingRow[column.title]"></v-text-field>
-                      <br><br>
-                      <v-btn color="primary" type="submit">edit</v-btn>
+                        <v-text-field :label="column.title" solo v-for="(column, key) in columns" :key="column.title" v-if="column.type == 'text'" type="text" v-model="editingRow[column.title]"></v-text-field>
+                        <br><br>
+                        <v-btn color="primary" type="submit">edit</v-btn>
                     </v-form>
                 </v-card-text>
                 <v-divider></v-divider>
@@ -114,7 +117,7 @@ export default {
             generalSearch: '',
             queries: {},
             editDialog: false,
-            editingIndex: 0, 
+            editingIndex: 0,
             editingRow: {}
         }
     },
@@ -196,10 +199,8 @@ export default {
         },
 
         update(index, row) {
-            axios.update({
-                data: {
-                    row: row
-                }
+            axios.post('api/users/update', {
+                row: JSON.stringify(row)
             }).then(response => {
                 this.tableData[index] = response.data;
             }).catch(error => {

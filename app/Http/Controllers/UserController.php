@@ -26,6 +26,17 @@ class UserController extends Controller
         return User::get();
     }
 
+    public function update(Request $request)
+    {
+        $data = json_decode($request);
+
+        User::update([
+            $data
+        ]);
+
+        return $data;
+    }
+
     public function getUsersForDataTable(Request $request)
     {
         $queries = json_decode($request->queries);

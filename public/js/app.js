@@ -1945,6 +1945,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     fetchUrl: {
@@ -2062,10 +2065,8 @@ __webpack_require__.r(__webpack_exports__);
     update: function update(index, row) {
       var _this3 = this;
 
-      axios.update({
-        data: {
-          row: row
-        }
+      axios.post('api/users/update', {
+        row: JSON.stringify(row)
       }).then(function (response) {
         _this3.tableData[index] = response.data;
       })["catch"](function (error) {//
@@ -38116,7 +38117,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "v-content",
-        { staticStyle: { "padding-bottom": "100px" } },
+        { staticStyle: { "padding-bottom": "50px" } },
         [
           _c("h3", { staticClass: "mt-4 ml-3" }, [
             _vm._v(_vm._s(_vm.$route.name))
@@ -38166,7 +38167,7 @@ var render = function() {
       _c("div", { staticClass: "main-table" }, [
         _c(
           "div",
-          { staticClass: "entries mb-5" },
+          { staticClass: "entries mb-5 d-inline" },
           [
             _c("span", { staticClass: "d-inline-block mr-3" }, [
               _vm._v("Show")
@@ -38342,7 +38343,6 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "td",
-                          { staticClass: "d-flex" },
                           [
                             _c(
                               "v-btn",
@@ -38520,7 +38520,7 @@ var render = function() {
                   staticClass: "headline grey lighten-2",
                   attrs: { "primary-title": "" }
                 },
-                [_vm._v("\n                Privacy Policy\n            ")]
+                [_vm._v("\n                Edit\n            ")]
               ),
               _vm._v(" "),
               _c(

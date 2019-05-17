@@ -8,3 +8,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('users/data-table', 'UserController@getUsersForDataTable')->middleware('auth:api');
+Route::post('users/update', 'UserController@update')->middleware('auth:api');
