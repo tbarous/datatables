@@ -39,12 +39,12 @@
             </v-btn>
         </v-toolbar>
 
-        <v-content>
+        <v-content style="padding-bottom: 100px;">
             <h3 class="mt-4 ml-3">{{$route.name}}</h3>
             <hr>
             <v-container fluid pt-0>
-                <v-layout justify-center align-center>
-                    <v-flex text-xs-center>
+                <v-layout >
+                    <v-flex >
                         <router-view></router-view>
                     </v-flex>
                 </v-layout>

@@ -29,7 +29,17 @@ class UserController extends Controller
     public function getUsersForDataTable(Request $request)
     {
         $query = $this->user->orderBy($request->column, $request->order);
+
+        if (!$this->isEmpty($request->search)) {
+            $query = $query->where('username', 'LIKE', '%' . $request->search . '%');
+        }
+
         $users = $query->paginate($request->per_page);
         return UsersResource::collection($users);
+    }
+
+    public function isEmpty($string)
+    {
+        return $string == '';
     }
 }
