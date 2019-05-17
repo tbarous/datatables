@@ -1919,6 +1919,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     fetchUrl: {
@@ -1943,11 +1945,12 @@ __webpack_require__.r(__webpack_exports__);
       offset: 4,
       currentPage: 1,
       perPage: 5,
-      sortedColumn: this.columns[0],
+      sortedColumn: this.columns[0].title,
       order: 'asc',
       itemsShow: [5, 10, 15],
       loading: false,
-      generalSearch: ''
+      generalSearch: '',
+      queries: {}
     };
   },
   watch: {
@@ -1959,6 +1962,11 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
+    var _this = this;
+
+    this.columns.map(function (column) {
+      _this.queries[column.title] = '';
+    });
     return this.fetchData();
   },
   computed: {
@@ -1993,17 +2001,18 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     fetchData: function fetchData() {
-      var _this = this;
+      var _this2 = this;
 
       this.loading = true;
-      var dataFetchUrl = "".concat(this.url, "?page=").concat(this.currentPage, "&column=").concat(this.sortedColumn, "&order=").concat(this.order, "&per_page=").concat(this.perPage, "&search=").concat(this.generalSearch);
+      var queries = JSON.stringify(this.queries);
+      var dataFetchUrl = "".concat(this.url, "?page=").concat(this.currentPage, "&column=").concat(this.sortedColumn, "&order=").concat(this.order, "&per_page=").concat(this.perPage, "&search=").concat(this.generalSearch, "&queries=").concat(queries);
       axios.get(dataFetchUrl).then(function (_ref) {
         var data = _ref.data;
-        _this.pagination = data;
-        _this.tableData = data.data;
-        _this.loading = false;
+        _this2.pagination = data;
+        _this2.tableData = data.data;
+        _this2.loading = false;
       })["catch"](function (error) {
-        return _this.tableData = [];
+        return _this2.tableData = [];
       });
     },
     serialNumber: function serialNumber(key) {
@@ -2014,10 +2023,10 @@ __webpack_require__.r(__webpack_exports__);
       this.fetchData();
     },
     sortByColumn: function sortByColumn(column) {
-      if (column === this.sortedColumn) {
+      if (column.title === this.sortedColumn) {
         this.order = this.order === 'asc' ? 'desc' : 'asc';
       } else {
-        this.sortedColumn = column;
+        this.sortedColumn = column.title;
         this.order = 'asc';
       }
 
@@ -2618,11 +2627,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      url: '/users/data-table',
+      columns: [{
+        title: 'username',
+        sortable: true,
+        searchable: true,
+        type: 'text'
+      }, {
+        title: 'email',
+        sortable: true,
+        searchable: true,
+        type: 'text'
+      }, {
+        title: 'created_at',
+        sortable: true,
+        searchable: true,
+        type: 'date'
+      }, {
+        title: 'updated_at',
+        sortable: true,
+        searchable: true,
+        type: 'date'
+      }]
+    };
+  },
   components: {
     DatatableComponent: _DatatableComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
@@ -37936,7 +37968,7 @@ var render = function() {
       _c(
         "v-navigation-drawer",
         {
-          attrs: { fixed: "", app: "", dark: "" },
+          attrs: { fixed: "", app: "", light: "" },
           model: {
             value: _vm.drawer,
             callback: function($$v) {
@@ -38168,22 +38200,22 @@ var render = function() {
                 return _c(
                   "th",
                   {
-                    key: column,
+                    key: column.title,
                     staticClass: "table-head text-center",
                     staticStyle: { cursor: "pointer" },
                     on: {
                       click: function($event) {
-                        return _vm.sortByColumn(column)
+                        return _vm.sortByColumn(column.title)
                       }
                     }
                   },
                   [
                     _vm._v(
                       "\n                        " +
-                        _vm._s(_vm._f("columnHead")(column)) +
+                        _vm._s(_vm._f("columnHead")(column.title)) +
                         "\n                        "
                     ),
-                    column === _vm.sortedColumn
+                    column.title === _vm.sortedColumn
                       ? _c("span", [
                           _vm.order === "asc"
                             ? _c("i", { staticClass: "fas fa-arrow-up" })
@@ -38205,14 +38237,22 @@ var render = function() {
               _vm._l(_vm.columns, function(column) {
                 return _c(
                   "th",
-                  { key: column },
+                  { key: column.title },
                   [
                     _c("v-text-field", {
                       attrs: {
                         solo: "",
                         name: "name",
-                        label: _vm._f("columnLow")(column),
+                        label: _vm._f("columnLow")(column.title),
                         id: "id"
+                      },
+                      on: { input: _vm.fetchData },
+                      model: {
+                        value: _vm.queries[column.title],
+                        callback: function($$v) {
+                          _vm.$set(_vm.queries, column.title, $$v)
+                        },
+                        expression: "queries[column.title]"
                       }
                     })
                   ],
@@ -38720,10 +38760,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("DatatableComponent", {
-    attrs: {
-      "fetch-url": "/users/data-table",
-      columns: ["username", "email", "created_at", "updated_at"]
-    }
+    attrs: { "fetch-url": _vm.url, columns: _vm.columns }
   })
 }
 var staticRenderFns = []

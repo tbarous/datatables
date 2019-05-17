@@ -20,21 +20,23 @@
                 <thead>
                     <tr>
                         <th class="table-head">#</th>
-                        <th v-for="column in columns" :key="column" @click="sortByColumn(column)" class="table-head text-center" style="cursor: pointer;">
-                            {{ column | columnHead }}
-                            <span v-if="column === sortedColumn">
+                        <th v-for="column in columns" :key="column.title" @click="sortByColumn(column.title)" class="table-head text-center" style="cursor: pointer;">
+                            {{ column.title | columnHead }}
+                            <span v-if="column.title === sortedColumn">
                                 <i v-if="order === 'asc' " class="fas fa-arrow-up"></i>
                                 <i v-else class="fas fa-arrow-down"></i>
                             </span>
                         </th>
                     </tr>
+
                     <tr>
                         <th class="table-head">#</th>
-                        <th v-for="column in columns" :key="column">
-                            <v-text-field solo name="name" :label="column | columnLow" id="id"></v-text-field>
+                        <th v-for="column in columns" :key="column.title">
+                            <v-text-field @input="fetchData" v-model="queries[column.title]" solo name="name" :label="column.title | columnLow" id="id"></v-text-field>
                         </th>
                     </tr>
                 </thead>
+
                 <tbody>
                     <tr class="" v-if="tableData.length === 0">
                         <td class="lead text-center" :colspan="columns.length + 1">No data found.</td>
@@ -81,11 +83,12 @@ export default {
             offset: 4,
             currentPage: 1,
             perPage: 5,
-            sortedColumn: this.columns[0],
+            sortedColumn: this.columns[0].title,
             order: 'asc',
             itemsShow: [5, 10, 15],
             loading: false,
-            generalSearch: ''
+            generalSearch: '',
+            queries: {}
         }
     },
 
@@ -99,7 +102,11 @@ export default {
     },
 
     created() {
-        return this.fetchData()
+      this.columns.map(column=>{
+        this.queries[column.title] = '';
+      });
+
+      return this.fetchData()
     },
 
     computed: {
@@ -130,7 +137,10 @@ export default {
     methods: {
         fetchData() {
             this.loading = true;
-            let dataFetchUrl = `${this.url}?page=${this.currentPage}&column=${this.sortedColumn}&order=${this.order}&per_page=${this.perPage}&search=${this.generalSearch}`
+
+            let queries = JSON.stringify(this.queries);
+
+            let dataFetchUrl = `${this.url}?page=${this.currentPage}&column=${this.sortedColumn}&order=${this.order}&per_page=${this.perPage}&search=${this.generalSearch}&queries=${queries}`
             axios.get(dataFetchUrl)
                 .then(({ data }) => {
                     this.pagination = data
@@ -149,10 +159,10 @@ export default {
         },
 
         sortByColumn(column) {
-            if (column === this.sortedColumn) {
+            if (column.title === this.sortedColumn) {
                 this.order = (this.order === 'asc') ? 'desc' : 'asc'
             } else {
-                this.sortedColumn = column
+                this.sortedColumn = column.title
                 this.order = 'asc'
             }
             this.fetchData()

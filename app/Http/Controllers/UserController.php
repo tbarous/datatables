@@ -28,10 +28,17 @@ class UserController extends Controller
 
     public function getUsersForDataTable(Request $request)
     {
+        $queries = json_decode($request->queries);
+
         $query = $this->user->orderBy($request->column, $request->order);
 
         if (!$this->isEmpty($request->search)) {
-            $query = $query->where('username', 'LIKE', '%' . $request->search . '%');
+            $query = $query->where('username', 'LIKE', '%' . $request->search . '%')
+                           ->orWhere('email', 'LIKE', '%' . $request->search . '%');
+        }
+
+        if (!$this->isEmpty($queries->username)) {
+            $query = $query->where('username', 'LIKE', '%' . $queries->username . '%');
         }
 
         $users = $query->paginate($request->per_page);

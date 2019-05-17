@@ -1,6 +1,6 @@
 <template>
     <v-app id="inspire">
-        <v-navigation-drawer v-model="drawer" fixed app dark>
+        <v-navigation-drawer v-model="drawer" fixed app light>
 
             <v-toolbar flat class="transparent">
                 <v-list class="pa-0">
