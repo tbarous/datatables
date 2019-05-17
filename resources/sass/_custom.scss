@@ -2,10 +2,21 @@ a:hover{
   text-decoration: none!important;
 }
 
-td {
-  text-align: center!important;
-}
-
 h3{
 	font-family: 'Playfair Display';
+}
+
+.v-text-field__details{
+	display: none!important;
+}
+
+td{
+	// border: 1px solid rgba(0,0,0,0.3);
+	text-align: center!important;
+}
+
+.v-table__overflow {
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }

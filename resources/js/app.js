@@ -5,6 +5,7 @@ window.Vue = require('vue');
 require('vuetify/dist/vuetify.min');
 
 Vue.component('base-component', require('./components/BaseComponent.vue').default);
+Vue.component('pagination', require('laravel-vue-pagination'));
 
 import Vuetify from 'vuetify'
 import router from './router'
