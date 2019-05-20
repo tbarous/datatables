@@ -10729,3 +10729,7 @@ th {
   letter-spacing: 2px;
 }
 
+.v-input--selection-controls {
+  justify-content: center;
+}
+

@@ -2131,6 +2131,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     fetchUrl: {
@@ -2167,7 +2175,7 @@ __webpack_require__.r(__webpack_exports__);
       viewColumns: false,
       activeColumns: {},
       oldCurrentPage: 1,
-      checkbox: true
+      selected: {}
     };
   },
   watch: {
@@ -2240,6 +2248,10 @@ __webpack_require__.r(__webpack_exports__);
         _this2.pagination = data;
         _this2.tableData = data.data;
         _this2.loading = false;
+
+        _this2.tableData.map(function (item) {
+          _this2.selected[item.id] = false;
+        });
       })["catch"](function (error) {
         return _this2.tableData = [];
       });
@@ -2288,6 +2300,15 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         _this4.tableData[index] = response.data;
       })["catch"](function (error) {//
+      });
+    },
+    updateMultiple: function updateMultiple() {
+      var _this5 = this;
+
+      Object.keys(this.selected).map(function (item) {
+        if (_this5.selected[item] == true) {
+          console.log(item);
+        }
       });
     }
   },
@@ -37969,6 +37990,16 @@ var render = function() {
               [_vm._v("\n                Active Columns\n            ")]
             ),
             _vm._v(" "),
+            _c(
+              "v-btn",
+              {
+                staticClass: "ml-0 mb-0 mt-5",
+                attrs: { color: "secondary", dark: "" },
+                on: { click: _vm.updateMultiple }
+              },
+              [_vm._v("\n                Edit all\n            ")]
+            ),
+            _vm._v(" "),
             _c("br"),
             _c("br"),
             _vm._v(" "),
@@ -38144,11 +38175,11 @@ var render = function() {
                           [
                             _c("v-checkbox", {
                               model: {
-                                value: _vm.checkbox,
+                                value: _vm.selected[data.id],
                                 callback: function($$v) {
-                                  _vm.checkbox = $$v
+                                  _vm.$set(_vm.selected, data.id, $$v)
                                 },
-                                expression: "checkbox"
+                                expression: "selected[data.id]"
                               }
                             })
                           ],

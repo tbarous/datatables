@@ -38,6 +38,14 @@
                     Active Columns
                 </v-btn>
 
+                <v-btn 
+                    class="ml-0 mb-0 mt-5" 
+                    color="secondary" 
+                    dark 
+                    @click="updateMultiple">
+                    Edit all
+                </v-btn>
+
                 <br><br>
 
                 <span> 
@@ -118,7 +126,7 @@
                         <td>{{ serialNumber(key1) }}</td>
                         <td>
                             <v-checkbox
-                              v-model="checkbox"
+                              v-model="selected[data.id]"
                             ></v-checkbox>
                         </td>
                         <td 
@@ -303,7 +311,7 @@ export default {
             viewColumns: false,
             activeColumns: {},
             oldCurrentPage: 1,
-            checkbox: true
+            selected: {}
         }
     },
 
@@ -374,6 +382,10 @@ export default {
                     this.pagination = data
                     this.tableData = data.data
                     this.loading = false;
+
+                    this.tableData.map(item=>{
+                        this.selected[item.id] = false;
+                    });
                 }).catch(error => this.tableData = [])
         },
 
@@ -422,6 +434,14 @@ export default {
                 this.tableData[index] = response.data;
             }).catch(error => {
                 //
+            })
+        },
+
+        updateMultiple(){
+            Object.keys(this.selected).map(item=>{
+                if(this.selected[item] == true){
+                    console.log(item)
+                }
             })
         }
     },
