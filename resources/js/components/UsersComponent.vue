@@ -1,14 +1,11 @@
 <template>
     <div>
-        <Chart></Chart>
-        <v-divider></v-divider>
         <DatatableComponent :fetch-url="url" :columns="columns"></DatatableComponent>
     </div>
 </template>
 
 <script>
 import DatatableComponent from './DatatableComponent'
-import Chart from './Chart'
 
 export default {
     data() {
