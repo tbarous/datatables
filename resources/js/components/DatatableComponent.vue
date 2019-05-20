@@ -29,10 +29,11 @@
                         </th>
                         <th class="table-head text-center">Actions</th>
                     </tr>
+
                     <tr>
-                        <th class="table-head">#</th>
+                        <th class="table-head"></th>
                         <th v-for="column in columns" :key="column.title">
-                            <v-text-field @input="fetchData" v-model="queries[column.title]" solo autocomplete="off" name="name" :label="column.title | columnLow" id="id"></v-text-field>
+                            <v-text-field @input="fetchData" v-model="queries[column.title]" solo autocomplete="off" name="name" label="" id="id" prepend-inner-icon="search"></v-text-field>
                         </th>
                         <th></th>
                     </tr>
@@ -49,13 +50,14 @@
                                 <v-icon dark>edit</v-icon>
                             </v-btn>
                             <v-btn class="d-inline-block" fab dark small color="red">
-                                <v-icon dark>remove</v-icon>
+                                <v-icon dark>delete</v-icon>
                             </v-btn>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
+
         <nav v-if="pagination && tableData.length > 0" class="text-center ml-auto mr-auto d-flex align-center justify-content-center mt-5">
             <ul class="pagination justify-content-center">
                 <li class="page-item" :class="{'disabled' : currentPage === 1}">

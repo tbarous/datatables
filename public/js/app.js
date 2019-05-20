@@ -1948,6 +1948,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     fetchUrl: {
@@ -38281,7 +38283,7 @@ var render = function() {
             _c(
               "tr",
               [
-                _c("th", { staticClass: "table-head" }, [_vm._v("#")]),
+                _c("th", { staticClass: "table-head" }),
                 _vm._v(" "),
                 _vm._l(_vm.columns, function(column) {
                   return _c(
@@ -38293,8 +38295,9 @@ var render = function() {
                           solo: "",
                           autocomplete: "off",
                           name: "name",
-                          label: _vm._f("columnLow")(column.title),
-                          id: "id"
+                          label: "",
+                          id: "id",
+                          "prepend-inner-icon": "search"
                         },
                         on: { input: _vm.fetchData },
                         model: {
@@ -38383,7 +38386,7 @@ var render = function() {
                               },
                               [
                                 _c("v-icon", { attrs: { dark: "" } }, [
-                                  _vm._v("remove")
+                                  _vm._v("delete")
                                 ])
                               ],
                               1
