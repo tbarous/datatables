@@ -2265,12 +2265,24 @@ __webpack_require__.r(__webpack_exports__);
       return (this.currentPage - 1) * this.perPage + 1 + key;
     },
     changePage: function changePage(pageNumber) {
+      this.oldCurrentPage = pageNumber;
       this.currentPage = pageNumber;
       this.fetchData();
     },
     reset: function reset() {
-      if (this.generalSearch != '') {
+      var _this3 = this;
+
+      var empty = true;
+      this.columns.map(function (item) {
+        if (_this3.queries[item.title] != '') {
+          empty = false;
+        }
+      });
+
+      if (this.generalSearch != '' || !empty) {
         this.currentPage = 1;
+      } else {
+        this.currentPage = this.oldCurrentPage;
       }
     },
     sortByColumn: function sortByColumn(column) {
@@ -2284,12 +2296,12 @@ __webpack_require__.r(__webpack_exports__);
       this.fetchData();
     },
     update: function update(index, row) {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.post('api/users/update', {
         row: JSON.stringify(row)
       }).then(function (response) {
-        _this3.tableData[index] = response.data;
+        _this4.tableData[index] = response.data;
       })["catch"](function (error) {//
       });
     }

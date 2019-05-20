@@ -354,13 +354,24 @@ export default {
         },
 
         changePage(pageNumber) {
+            this.oldCurrentPage = pageNumber
             this.currentPage = pageNumber
             this.fetchData()
         },
 
         reset(){
-            if(this.generalSearch != ''){
-                this.currentPage = 1;
+            let empty = true;
+
+            this.columns.map(item => {
+                if(this.queries[item.title] != ''){
+                    empty = false;
+                }
+            });
+
+            if(this.generalSearch != '' || !empty){
+                this.currentPage = 1
+            } else {
+                this.currentPage = this.oldCurrentPage
             }
         },
 
