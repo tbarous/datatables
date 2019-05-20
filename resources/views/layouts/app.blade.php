@@ -6,8 +6,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
     <script>
-        {{--let data = JSON.parse({!! json_encode($data->toArray(), JSON_HEX_TAG) !!});--}}
-        let data = [];
+        let data = @json($data);
+        console.log(data)
     </script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <script src="{{ asset('js/app.js') }}" defer></script>

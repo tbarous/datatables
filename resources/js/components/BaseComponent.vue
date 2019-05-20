@@ -1,16 +1,16 @@
 <template>
     <v-app id="inspire">
-        <v-navigation-drawer v-model="drawer" fixed app light>
+        <v-navigation-drawer v-model="drawer" fixed app light width="250">
 
             <v-toolbar flat class="transparent">
                 <v-list class="pa-0">
                     <v-list-tile avatar>
                         <v-list-tile-avatar>
-                            <img alt="alt" src="https://randomuser.me/api/portraits/men/85.jpg">
+                            <img alt="alt" src="https://randomuser.me/api/portraits/men/86.jpg">
                         </v-list-tile-avatar>
 
                         <v-list-tile-content>
-                            <v-list-tile-title>John Leider</v-list-tile-title>
+                            <v-list-tile-title>{{user.username}}</v-list-tile-title>
                         </v-list-tile-content>
                     </v-list-tile>
                 </v-list>
@@ -50,6 +50,11 @@
                 </v-layout>
             </v-container>
         </v-content>
+
+        <v-footer color="black" dark class="pa-3" style="z-index: 9999;">
+            <v-spacer></v-spacer>
+            <div>&copy; {{ new Date().getFullYear() }}</div>
+        </v-footer>
     </v-app>
 </template>
 
@@ -59,11 +64,16 @@
     export default {
         data: () => ({
             drawer: null,
-            pages: pages
+            pages: pages,
+            user: {}
         }),
 
         props: {
             source: String
+        },
+
+        created(){
+            this.user = data.user;
         },
 
         methods: {

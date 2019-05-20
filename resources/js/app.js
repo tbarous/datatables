@@ -8,7 +8,6 @@ Vue.component('base-component', require('./components/BaseComponent.vue').defaul
 
 import Vuetify from 'vuetify'
 import router from './router'
-import store from './store'
 import axios from 'axios'
 
 Vue.use(Vuetify);
@@ -21,7 +20,6 @@ axios.create({
 
 const app = new Vue({
     router,
-    store,
     axios,
     el: '#app'
 });

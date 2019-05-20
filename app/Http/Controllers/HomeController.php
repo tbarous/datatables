@@ -25,13 +25,8 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $data = [];
+        $data = ['user' => auth()->user()];
 
         return view('layouts.app', compact('data'));
-    }
-
-    public function redirect(Request $request)
-    {
-        return redirect('/eett-overview');
     }
 }

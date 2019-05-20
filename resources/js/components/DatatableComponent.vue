@@ -12,27 +12,31 @@
                 <v-text-field @input="fetchData" v-model="generalSearch" style="width: 300px;" solo name="name" label="Search" id="id"></v-text-field>
             </div>
 
+            <div class="viewColumns">
+                <v-btn class="ml-0 mb-0 mt-5" color="black" dark @click="viewColumns=true">Active Columns</v-btn>
+            </div>
+
             <div class="loader" style="height: 20px;">
                 <v-progress-linear class="mb-0" v-show="loading" :indeterminate="true"></v-progress-linear>
             </div>
 
             <table class="table table-bordered">
                 <thead>
-                    <tr>
+                    <tr class="bg-dark text-white">
                         <th class="table-head">#</th>
-                        <th v-for="column in columns" :key="column.title" @click="sortByColumn(column)" class="table-head text-center" style="cursor: pointer;">
+                        <th v-if="activeColumns[column.title]" v-for="column in columns" :key="column.title" @click="sortByColumn(column)" class="table-head text-center" style="cursor: pointer;">
                             {{ column.title | columnHead }}
                             <span v-if="column.title === sortedColumn">
                                 <i v-if="order === 'asc' " class="fas fa-arrow-up"></i>
                                 <i v-else class="fas fa-arrow-down"></i>
                             </span>
                         </th>
-                        <th class="table-head text-center">Actions</th>
+                        <th class="table-head text-center">ACTIONS</th>
                     </tr>
 
-                    <tr>
+                    <tr class="bg-dark text-white">
                         <th class="table-head"></th>
-                        <th v-for="column in columns" :key="column.title">
+                        <th v-if="activeColumns[column.title]" v-for="column in columns" :key="column.title">
                             <v-text-field @input="fetchData" v-model="queries[column.title]" solo autocomplete="off" name="name" label="" id="id" prepend-inner-icon="search"></v-text-field>
                         </th>
                         <th></th>
@@ -44,12 +48,12 @@
                     </tr>
                     <tr v-for="(data, key1) in tableData" :key="data.id" class="m-datatable__row" v-else>
                         <td>{{ serialNumber(key1) }}</td>
-                        <td v-for="(value, key) in data">{{ value }}</td>
+                        <td v-if="activeColumns[key]" v-for="(value, key) in data">{{ value }}</td>
                         <td>
-                            <v-btn @click="editDialog=true; editingIndex=key1; editingRow=data" class="d-inline-block" fab dark small color="info">
+                            <v-btn @click="editDialog=true; editingIndex=key1; editingRow=data" fab dark small color="info">
                                 <v-icon dark>edit</v-icon>
                             </v-btn>
-                            <v-btn class="d-inline-block" fab dark small color="red">
+                            <v-btn fab dark small color="red">
                                 <v-icon dark>delete</v-icon>
                             </v-btn>
                         </td>
@@ -72,6 +76,30 @@
                 <!-- <span style="margin-top: 8px;"> &nbsp; <i>Displaying {{ pagination.data.length }} of {{ pagination.meta.total }} entries.</i></span> -->
             </ul>
         </nav>
+
+        <v-dialog v-model="viewColumns" width="500">
+            <v-card>
+                <v-card-title class="headline grey lighten-2" primary-title>
+                    Active Columns
+                </v-card-title>
+                <v-card-text>
+                    <v-checkbox
+                        v-for="(column,key) in columns" :key="column.title"
+                      v-model="activeColumns[column.title]"
+                      :label="column.title"
+                      color="black"
+                    ></v-checkbox>
+                </v-card-text>
+                <v-divider></v-divider>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="primary" flat @click="viewColumns = false">
+                        Done
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
         <v-dialog v-model="editDialog" width="500">
             <v-card>
                 <v-card-title class="headline grey lighten-2" primary-title>
@@ -93,6 +121,7 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+
     </div>
 </template>
 <script>
@@ -120,7 +149,9 @@ export default {
             queries: {},
             editDialog: false,
             editingIndex: 0,
-            editingRow: {}
+            editingRow: {},
+            viewColumns: false,
+            activeColumns: {}
         }
     },
 
@@ -135,8 +166,11 @@ export default {
 
     created() {
         this.columns.map(column => {
+            this.activeColumns[column.title] = true;
             this.queries[column.title] = '';
         });
+
+
 
         return this.fetchData()
     },

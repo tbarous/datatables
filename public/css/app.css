@@ -10701,3 +10701,8 @@ td {
   vertical-align: middle !important;
 }
 
+.v-label {
+  color: black !important;
+  margin: 0;
+}
+

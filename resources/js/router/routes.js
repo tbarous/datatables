@@ -5,6 +5,10 @@ import ScriptsComponent from '../components/ScriptsComponent';
 import LogComponent from '../components/LogComponent';
 
 export default [
+    { 
+        path: '/', 
+        redirect: '/eett-overview' 
+    },
     {
         path: '/users',
         component: UsersComponent,
