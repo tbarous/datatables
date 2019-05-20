@@ -57,7 +57,8 @@
             <table class="table table-bordered">
                 <thead>
                     <tr class="bg-dark text-white">
-                        <th class="table-head border-0">#</th>
+                        <th class="table-head border-0"></th>
+                        <th class="table-head border-0">Select</th>
                         <th 
                             v-if="activeColumns[column.title]" 
                             v-for="column in columns" 
@@ -76,6 +77,7 @@
 
                     <tr class="bg-dark text-white">
                         <th class="table-head border-0 pt-0 pb-0"></th>
+                        <th class="table-head border-0"></th>
                         <th 
                             class="border-0 pt-0 pb-0"
                             v-if="activeColumns[column.title]" 
@@ -84,6 +86,7 @@
                             <v-text-field 
                                 @input="reset(); fetchData();" 
                                 v-model="queries[column.title]"
+                                v-if="column.type=='text'"
                                 solo 
                                 autocomplete="off" 
                                 name="name" 
@@ -91,6 +94,8 @@
                                 id="id" 
                                 prepend-inner-icon="search">
                             </v-text-field>
+
+                            <input class="form-control d-picker elevation-2" v-if="column.type=='date'" type="text" name="daterangepicker" value="01/01/2018 - 01/15/2018" />
                         </th>
                         <th class="border-0 pt-0 pb-0"></th>
                     </tr>
@@ -111,6 +116,11 @@
                         class="m-datatable__row" 
                         v-else>
                         <td>{{ serialNumber(key1) }}</td>
+                        <td>
+                            <v-checkbox
+                              v-model="checkbox"
+                            ></v-checkbox>
+                        </td>
                         <td 
                             v-if="activeColumns[key]" 
                             v-for="(value, key) in data">
@@ -200,6 +210,7 @@
                 </v-card-title>
                 <v-card-text>
                     <v-checkbox 
+                        class="d-inline-block ml-3"
                         v-for="(column,key) in columns" 
                         :key="column.title" 
                         v-model="activeColumns[column.title]" 
@@ -291,7 +302,8 @@ export default {
             editingRow: {},
             viewColumns: false,
             activeColumns: {},
-            oldCurrentPage: 1
+            oldCurrentPage: 1,
+            checkbox: true
         }
     },
 
@@ -311,6 +323,17 @@ export default {
         });
 
         return this.fetchData();
+    },
+
+    mounted(){
+        $('input[name="daterangepicker"]').daterangepicker({
+            timePicker: true,
+            startDate: moment().startOf('hour'),
+            endDate: moment().startOf('hour').add(32, 'hour'),
+            locale: {
+              format: 'DD/MM/YYYY hh:mm'
+            }
+        });
     },
 
     computed: {

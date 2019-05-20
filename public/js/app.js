@@ -2120,6 +2120,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     fetchUrl: {
@@ -2155,7 +2166,8 @@ __webpack_require__.r(__webpack_exports__);
       editingRow: {},
       viewColumns: false,
       activeColumns: {},
-      oldCurrentPage: 1
+      oldCurrentPage: 1,
+      checkbox: true
     };
   },
   watch: {
@@ -2174,6 +2186,16 @@ __webpack_require__.r(__webpack_exports__);
       _this.queries[column.title] = '';
     });
     return this.fetchData();
+  },
+  mounted: function mounted() {
+    $('input[name="daterangepicker"]').daterangepicker({
+      timePicker: true,
+      startDate: moment().startOf('hour'),
+      endDate: moment().startOf('hour').add(32, 'hour'),
+      locale: {
+        format: 'DD/MM/YYYY hh:mm'
+      }
+    });
   },
   computed: {
     pagesNumber: function pagesNumber() {
@@ -37979,7 +38001,11 @@ var render = function() {
               "tr",
               { staticClass: "bg-dark text-white" },
               [
-                _c("th", { staticClass: "table-head border-0" }, [_vm._v("#")]),
+                _c("th", { staticClass: "table-head border-0" }),
+                _vm._v(" "),
+                _c("th", { staticClass: "table-head border-0" }, [
+                  _vm._v("Select")
+                ]),
                 _vm._v(" "),
                 _vm._l(_vm.columns, function(column) {
                   return _vm.activeColumns[column.title]
@@ -38028,6 +38054,8 @@ var render = function() {
               [
                 _c("th", { staticClass: "table-head border-0 pt-0 pb-0" }),
                 _vm._v(" "),
+                _c("th", { staticClass: "table-head border-0" }),
+                _vm._v(" "),
                 _vm._l(_vm.columns, function(column) {
                   return _vm.activeColumns[column.title]
                     ? _c(
@@ -38037,29 +38065,43 @@ var render = function() {
                           staticClass: "border-0 pt-0 pb-0"
                         },
                         [
-                          _c("v-text-field", {
-                            attrs: {
-                              solo: "",
-                              autocomplete: "off",
-                              name: "name",
-                              label: "",
-                              id: "id",
-                              "prepend-inner-icon": "search"
-                            },
-                            on: {
-                              input: function($event) {
-                                _vm.reset()
-                                _vm.fetchData()
-                              }
-                            },
-                            model: {
-                              value: _vm.queries[column.title],
-                              callback: function($$v) {
-                                _vm.$set(_vm.queries, column.title, $$v)
-                              },
-                              expression: "queries[column.title]"
-                            }
-                          })
+                          column.type == "text"
+                            ? _c("v-text-field", {
+                                attrs: {
+                                  solo: "",
+                                  autocomplete: "off",
+                                  name: "name",
+                                  label: "",
+                                  id: "id",
+                                  "prepend-inner-icon": "search"
+                                },
+                                on: {
+                                  input: function($event) {
+                                    _vm.reset()
+                                    _vm.fetchData()
+                                  }
+                                },
+                                model: {
+                                  value: _vm.queries[column.title],
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.queries, column.title, $$v)
+                                  },
+                                  expression: "queries[column.title]"
+                                }
+                              })
+                            : _vm._e(),
+                          _vm._v(" "),
+                          column.type == "date"
+                            ? _c("input", {
+                                staticClass:
+                                  "form-control d-picker elevation-2",
+                                attrs: {
+                                  type: "text",
+                                  name: "daterangepicker",
+                                  value: "01/01/2018 - 01/15/2018"
+                                }
+                              })
+                            : _vm._e()
                         ],
                         1
                       )
@@ -38096,6 +38138,22 @@ var render = function() {
                       { key: data.id, staticClass: "m-datatable__row" },
                       [
                         _c("td", [_vm._v(_vm._s(_vm.serialNumber(key1)))]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          [
+                            _c("v-checkbox", {
+                              model: {
+                                value: _vm.checkbox,
+                                callback: function($$v) {
+                                  _vm.checkbox = $$v
+                                },
+                                expression: "checkbox"
+                              }
+                            })
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
                         _vm._l(data, function(value, key) {
                           return _vm.activeColumns[key]
@@ -38323,6 +38381,7 @@ var render = function() {
                 _vm._l(_vm.columns, function(column, key) {
                   return _c("v-checkbox", {
                     key: column.title,
+                    staticClass: "d-inline-block ml-3",
                     attrs: {
                       label: _vm._f("columnLow")(column.title),
                       color: "black"
@@ -79475,8 +79534,7 @@ var app = new Vue({
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 
 try {
-  window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
-  window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+  window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"]; // window.$ = window.jQuery = require('jquery');
 
   __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
 } catch (e) {}

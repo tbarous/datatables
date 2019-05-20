@@ -10719,3 +10719,13 @@ td {
   border-bottom-left-radius: 0 !important;
 }
 
+.d-picker {
+  border-radius: 0px;
+  height: 48px;
+  border: none;
+}
+
+th {
+  letter-spacing: 2px;
+}
+
