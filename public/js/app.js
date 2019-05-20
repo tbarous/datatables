@@ -1988,6 +1988,127 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     fetchUrl: {
@@ -2011,7 +2132,7 @@ __webpack_require__.r(__webpack_exports__);
       },
       offset: 4,
       currentPage: 1,
-      perPage: 5,
+      perPage: 15,
       sortedColumn: this.columns[0].title,
       order: 'asc',
       itemsShow: [5, 10, 15, 50, 100, 500],
@@ -38209,7 +38330,7 @@ var render = function() {
         [
           _c("v-spacer"),
           _vm._v(" "),
-          _c("div", [_vm._v("© " + _vm._s(new Date().getFullYear()))])
+          _c("div", [_vm._v("Victus © " + _vm._s(new Date().getFullYear()))])
         ],
         1
       )
@@ -38241,12 +38362,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "data-table" },
     [
-      _c("div", { staticClass: "main-table" }, [
+      _c("div", [
         _c(
           "div",
-          { staticClass: "entries mb-5 d-inline" },
+          { staticClass: "mb-5 d-inline" },
           [
             _c("span", { staticClass: "d-inline-block mr-3" }, [
               _vm._v("Show")
@@ -38279,7 +38399,14 @@ var render = function() {
           [
             _c("v-text-field", {
               staticStyle: { width: "300px" },
-              attrs: { solo: "", name: "name", label: "Search", id: "id" },
+              attrs: {
+                solo: "",
+                name: "name",
+                "prepend-inner-icon": "search",
+                autocomplete: "off",
+                label: "Search",
+                id: "id"
+              },
               on: { input: _vm.fetchData },
               model: {
                 value: _vm.generalSearch,
@@ -38301,14 +38428,14 @@ var render = function() {
               "v-btn",
               {
                 staticClass: "ml-0 mb-0 mt-5",
-                attrs: { color: "black", dark: "" },
+                attrs: { color: "secondary", dark: "" },
                 on: {
                   click: function($event) {
                     _vm.viewColumns = true
                   }
                 }
               },
-              [_vm._v("Active Columns")]
+              [_vm._v("\n                Active Columns\n            ")]
             )
           ],
           1
@@ -38316,17 +38443,9 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "loader", staticStyle: { height: "20px" } },
+          { staticClass: "loader", class: { nopacity: !_vm.loading } },
           [
             _c("v-progress-linear", {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.loading,
-                  expression: "loading"
-                }
-              ],
               staticClass: "mb-0",
               attrs: { indeterminate: true }
             })
@@ -38429,14 +38548,18 @@ var render = function() {
             "tbody",
             [
               _vm.tableData.length === 0
-                ? _c("tr", {}, [
+                ? _c("tr", [
                     _c(
                       "td",
                       {
-                        staticClass: "lead text-center",
+                        staticClass: "lead text-center p-5",
                         attrs: { colspan: _vm.columns.length + 1 }
                       },
-                      [_vm._v("No data found.")]
+                      [
+                        _vm._v(
+                          "\n                        No was data found\n                    "
+                        )
+                      ]
                     )
                   ])
                 : _vm._l(_vm.tableData, function(data, key1) {
@@ -38448,17 +38571,25 @@ var render = function() {
                         _vm._v(" "),
                         _vm._l(data, function(value, key) {
                           return _vm.activeColumns[key]
-                            ? _c("td", [_vm._v(_vm._s(value))])
+                            ? _c("td", [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(value) +
+                                    "\n                    "
+                                )
+                              ])
                             : _vm._e()
                         }),
                         _vm._v(" "),
                         _c(
                           "td",
+                          { staticStyle: { "white-space": "nowrap" } },
                           [
                             _c(
                               "v-btn",
                               {
                                 attrs: {
+                                  flat: "",
                                   fab: "",
                                   dark: "",
                                   small: "",
@@ -38474,7 +38605,9 @@ var render = function() {
                               },
                               [
                                 _c("v-icon", { attrs: { dark: "" } }, [
-                                  _vm._v("edit")
+                                  _vm._v(
+                                    "\n                                    edit\n                            "
+                                  )
                                 ])
                               ],
                               1
@@ -38484,6 +38617,7 @@ var render = function() {
                               "v-btn",
                               {
                                 attrs: {
+                                  flat: "",
                                   fab: "",
                                   dark: "",
                                   small: "",
@@ -38520,7 +38654,7 @@ var render = function() {
             [
               _c(
                 "ul",
-                { staticClass: "pagination justify-content-center" },
+                { staticClass: "pagination justify-content-center m-0" },
                 [
                   _c(
                     "li",
@@ -38541,7 +38675,11 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v("Previous")]
+                        [
+                          _vm._v(
+                            "\n                    Previous\n                "
+                          )
+                        ]
                       )
                     ]
                   ),
@@ -38568,7 +38706,13 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v(_vm._s(page))]
+                          [
+                            _vm._v(
+                              "\n                    " +
+                                _vm._s(page) +
+                                "\n                "
+                            )
+                          ]
                         )
                       ]
                     )
@@ -38596,10 +38740,23 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v("Next")]
+                        [_vm._v("\n                    Next\n                ")]
                       )
                     ]
-                  )
+                  ),
+                  _vm._v(" "),
+                  _c("span", { staticStyle: { "margin-top": "8px" } }, [
+                    _vm._v(" \n                  "),
+                    _c("i", [
+                      _vm._v(
+                        "Displaying " +
+                          _vm._s(_vm.pagination.data.length) +
+                          " of " +
+                          _vm._s(_vm.pagination.meta.total) +
+                          " entries."
+                      )
+                    ])
+                  ])
                 ],
                 2
               )
@@ -38637,7 +38794,10 @@ var render = function() {
                 _vm._l(_vm.columns, function(column, key) {
                   return _c("v-checkbox", {
                     key: column.title,
-                    attrs: { label: column.title, color: "black" },
+                    attrs: {
+                      label: _vm._f("columnLow")(column.title),
+                      color: "black"
+                    },
                     model: {
                       value: _vm.activeColumns[column.title],
                       callback: function($$v) {

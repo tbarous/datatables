@@ -43,8 +43,8 @@
             <h3 class="mt-4 ml-3">{{$route.name}}</h3>
             <hr>
             <v-container fluid pt-0>
-                <v-layout >
-                    <v-flex >
+                <v-layout>
+                    <v-flex>
                         <router-view></router-view>
                     </v-flex>
                 </v-layout>
@@ -53,7 +53,7 @@
 
         <v-footer color="black" dark class="pa-3" style="z-index: 9999;">
             <v-spacer></v-spacer>
-            <div>&copy; {{ new Date().getFullYear() }}</div>
+            <div>Victus &copy; {{ new Date().getFullYear() }}</div>
         </v-footer>
     </v-app>
 </template>

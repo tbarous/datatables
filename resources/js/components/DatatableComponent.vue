@@ -1,33 +1,67 @@
 <template>
-    <div class="data-table">
-        <div class="main-table">
-
-            <div class="entries mb-5 d-inline">
+    <div>
+        <div>
+            <div class="mb-5 d-inline">
                 <span class="d-inline-block mr-3">Show</span>
-                <v-select class="d-inline-block mr-3" style="width: 100px;" :items="itemsShow" label="Show" solo v-model="perPage" @change="fetchData"></v-select>
+                <v-select 
+                    class="d-inline-block mr-3" 
+                    style="width: 100px;" 
+                    :items="itemsShow" 
+                    label="Show" 
+                    solo 
+                    v-model="perPage" 
+                    @change="fetchData">
+                </v-select>
                 <span class="d-inline-block mr-3">entries</span>
             </div>
 
             <div class="general-search float-right mb-3">
-                <v-text-field @input="fetchData" v-model="generalSearch" style="width: 300px;" solo name="name" label="Search" id="id"></v-text-field>
+                <v-text-field 
+                    @input="fetchData" 
+                    v-model="generalSearch" 
+                    style="width: 300px;" 
+                    solo 
+                    name="name" 
+                    prepend-inner-icon="search" 
+                    autocomplete="off" 
+                    label="Search" 
+                    id="id">    
+                </v-text-field>
             </div>
 
             <div class="viewColumns">
-                <v-btn class="ml-0 mb-0 mt-5" color="black" dark @click="viewColumns=true">Active Columns</v-btn>
+                <v-btn 
+                    class="ml-0 mb-0 mt-5" 
+                    color="secondary" 
+                    dark 
+                    @click="viewColumns=true">
+                    Active Columns
+                </v-btn>
             </div>
 
-            <div class="loader" style="height: 20px;">
-                <v-progress-linear class="mb-0" v-show="loading" :indeterminate="true"></v-progress-linear>
+            <div 
+                class="loader" 
+                :class="{nopacity: !loading}">
+                <v-progress-linear 
+                    class="mb-0" 
+                    :indeterminate="true">
+                </v-progress-linear>
             </div>
 
             <table class="table table-bordered">
                 <thead>
                     <tr class="bg-dark text-white">
                         <th class="table-head">#</th>
-                        <th v-if="activeColumns[column.title]" v-for="column in columns" :key="column.title" @click="sortByColumn(column)" class="table-head text-center" style="cursor: pointer;">
+                        <th 
+                            v-if="activeColumns[column.title]" 
+                            v-for="column in columns" 
+                            :key="column.title" 
+                            @click="sortByColumn(column)"  
+                            style="cursor: pointer;"
+                            class="table-head text-center">
                             {{ column.title | columnHead }}
                             <span v-if="column.title === sortedColumn">
-                                <i v-if="order === 'asc' " class="fas fa-arrow-up"></i>
+                                <i v-if="order === 'asc'" class="fas fa-arrow-up"></i>
                                 <i v-else class="fas fa-arrow-down"></i>
                             </span>
                         </th>
@@ -36,24 +70,65 @@
 
                     <tr class="bg-dark text-white">
                         <th class="table-head"></th>
-                        <th v-if="activeColumns[column.title]" v-for="column in columns" :key="column.title">
-                            <v-text-field @input="fetchData" v-model="queries[column.title]" solo autocomplete="off" name="name" label="" id="id" prepend-inner-icon="search"></v-text-field>
+                        <th 
+                            v-if="activeColumns[column.title]" 
+                            v-for="column in columns" 
+                            :key="column.title">
+                            <v-text-field 
+                                @input="fetchData" 
+                                v-model="queries[column.title]" 
+                                solo 
+                                autocomplete="off" 
+                                name="name" 
+                                label="" 
+                                id="id" 
+                                prepend-inner-icon="search">
+                            </v-text-field>
                         </th>
                         <th></th>
                     </tr>
                 </thead>
+
                 <tbody>
-                    <tr class="" v-if="tableData.length === 0">
-                        <td class="lead text-center" :colspan="columns.length + 1">No data found.</td>
+                    <tr v-if="tableData.length === 0">
+                        <td 
+                            class="lead text-center p-5" 
+                            :colspan="columns.length + 1">
+                            No was data found
+                        </td>
                     </tr>
-                    <tr v-for="(data, key1) in tableData" :key="data.id" class="m-datatable__row" v-else>
+
+                    <tr 
+                        v-for="(data, key1) in tableData" 
+                        :key="data.id" 
+                        class="m-datatable__row" 
+                        v-else>
                         <td>{{ serialNumber(key1) }}</td>
-                        <td v-if="activeColumns[key]" v-for="(value, key) in data">{{ value }}</td>
-                        <td>
-                            <v-btn @click="editDialog=true; editingIndex=key1; editingRow=data" fab dark small color="info">
-                                <v-icon dark>edit</v-icon>
+                        <td 
+                            v-if="activeColumns[key]" 
+                            v-for="(value, key) in data">
+                            {{ value }}
+                        </td>
+                        <td 
+                            style="white-space: nowrap">
+                            <v-btn 
+                                flat 
+                                @click="editDialog=true; editingIndex=key1; editingRow=data" 
+                                fab 
+                                dark 
+                                small 
+                                color="info">
+                                <v-icon 
+                                    dark>
+                                        edit
+                                </v-icon>
                             </v-btn>
-                            <v-btn fab dark small color="red">
+                            <v-btn 
+                                flat 
+                                fab 
+                                dark 
+                                small 
+                                color="red">
                                 <v-icon dark>delete</v-icon>
                             </v-btn>
                         </td>
@@ -62,33 +137,64 @@
             </table>
         </div>
 
-        <nav v-if="pagination && tableData.length > 0" class="text-center ml-auto mr-auto d-flex align-center justify-content-center mt-5">
-            <ul class="pagination justify-content-center">
-                <li class="page-item" :class="{'disabled' : currentPage === 1}">
-                    <a class="page-link" href="#" @click.prevent="changePage(currentPage - 1)">Previous</a>
+        <nav 
+            v-if="pagination && tableData.length > 0" 
+            class="text-center ml-auto mr-auto d-flex align-center justify-content-center mt-5">
+            <ul class="pagination justify-content-center m-0">
+                <li 
+                    class="page-item" 
+                    :class="{'disabled' : currentPage === 1}">
+                    <a 
+                        class="page-link" 
+                        href="#" 
+                        @click.prevent="changePage(currentPage - 1)">
+                        Previous
+                    </a>
                 </li>
-                <li v-for="page in pagesNumber" class="page-item" :class="{'active': page == pagination.meta.current_page}">
-                    <a href="javascript:void(0)" @click.prevent="changePage(page)" class="page-link">{{ page }}</a>
+                <li 
+                    v-for="page in pagesNumber" 
+                    class="page-item" 
+                    :class="{'active': page == pagination.meta.current_page}">
+                    <a 
+                        href="javascript:void(0)" 
+                        @click.prevent="changePage(page)" 
+                        class="page-link">
+                        {{ page }}
+                    </a>
                 </li>
-                <li class="page-item" :class="{'disabled': currentPage === pagination.meta.last_page }">
-                    <a class="page-link" href="#" @click.prevent="changePage(currentPage + 1)">Next</a>
+
+                <li 
+                    class="page-item" 
+                    :class="{'disabled': currentPage === pagination.meta.last_page }">
+                    <a 
+                        class="page-link" 
+                        href="#" 
+                        @click.prevent="changePage(currentPage + 1)">
+                        Next
+                    </a>
                 </li>
-                <!-- <span style="margin-top: 8px;"> &nbsp; <i>Displaying {{ pagination.data.length }} of {{ pagination.meta.total }} entries.</i></span> -->
+
+                <span style="margin-top: 8px;"> 
+                    &nbsp; <i>Displaying {{ pagination.data.length }} of {{ pagination.meta.total }} entries.</i>
+                </span>
             </ul>
         </nav>
 
-        <v-dialog v-model="viewColumns" width="500">
+        <v-dialog 
+            v-model="viewColumns" 
+            width="500">
             <v-card>
                 <v-card-title class="headline grey lighten-2" primary-title>
                     Active Columns
                 </v-card-title>
                 <v-card-text>
-                    <v-checkbox
-                        v-for="(column,key) in columns" :key="column.title"
-                      v-model="activeColumns[column.title]"
-                      :label="column.title"
-                      color="black"
-                    ></v-checkbox>
+                    <v-checkbox 
+                        v-for="(column,key) in columns" 
+                        :key="column.title" 
+                        v-model="activeColumns[column.title]" 
+                        :label="column.title | columnLow" 
+                        color="black">
+                    </v-checkbox>
                 </v-card-text>
                 <v-divider></v-divider>
                 <v-card-actions>
@@ -100,14 +206,26 @@
             </v-card>
         </v-dialog>
 
-        <v-dialog v-model="editDialog" width="500">
+        <v-dialog 
+            v-model="editDialog" 
+            width="500">
             <v-card>
                 <v-card-title class="headline grey lighten-2" primary-title>
                     Edit
                 </v-card-title>
                 <v-card-text>
-                    <v-form method="post" @submit.prevent="update(editingIndex, editingRow)">
-                        <v-text-field :label="column.title" solo v-for="(column, key) in columns" :key="column.title" v-if="column.type == 'text'" type="text" v-model="editingRow[column.title]"></v-text-field>
+                    <v-form 
+                        method="post" 
+                        @submit.prevent="update(editingIndex, editingRow)">
+                        <v-text-field 
+                            :label="column.title" 
+                            solo 
+                            v-for="(column, key) in columns" 
+                            :key="column.title" 
+                            v-if="column.type == 'text'" 
+                            type="text" 
+                            v-model="editingRow[column.title]">
+                        </v-text-field>
                         <br><br>
                         <v-btn color="primary" type="submit">edit</v-btn>
                     </v-form>
@@ -115,20 +233,29 @@
                 <v-divider></v-divider>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="primary" flat @click="editDialog = false">
+                    <v-btn 
+                        color="primary" 
+                        flat 
+                        @click="editDialog = false">
                         I accept
                     </v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
-
     </div>
 </template>
+
 <script>
 export default {
     props: {
-        fetchUrl: { type: String, required: true },
-        columns: { type: Array, required: true },
+        fetchUrl: { 
+            type: String, 
+            required: true 
+        },
+        columns: { 
+            type: Array, 
+            required: true 
+        },
     },
 
     data() {
@@ -140,7 +267,7 @@ export default {
             },
             offset: 4,
             currentPage: 1,
-            perPage: 5,
+            perPage: 15,
             sortedColumn: this.columns[0].title,
             order: 'asc',
             itemsShow: [5, 10, 15, 50, 100, 500],
@@ -170,9 +297,7 @@ export default {
             this.queries[column.title] = '';
         });
 
-
-
-        return this.fetchData()
+        return this.fetchData();
     },
 
     computed: {
@@ -255,5 +380,4 @@ export default {
     },
     name: 'DataTable'
 }
-
 </script>

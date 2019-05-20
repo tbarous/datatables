@@ -10690,6 +10690,10 @@ button {
   margin: 0 !important;
 }
 
+.nopacity {
+  opacity: 0 !important;
+}
+
 .v-table__overflow {
   width: 100%;
   overflow-x: hidden;
@@ -10702,7 +10706,6 @@ td {
 }
 
 .v-label {
-  color: black !important;
   margin: 0;
 }
 
