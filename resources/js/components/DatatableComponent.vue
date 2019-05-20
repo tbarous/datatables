@@ -93,13 +93,13 @@
                                 prepend-inner-icon="search">
                             </v-text-field>
 
-                            <date-range-picker 
+                           <!--  <date-range-picker 
                                 v-if="column.type=='date'"
                                 v-model="queries[column.title]"
                                 @update="fetchData"
                                 :locale-data="locale"
                                 :opens="opens">
-                            </date-range-picker>
+                            </date-range-picker> -->
                         </th>
                         <th class="border-0 pt-0 pb-0"></th>
                     </tr>
@@ -266,9 +266,6 @@
 </template>
 
 <script>
-import moment from 'moment'
-import DateRangePicker from 'vue2-daterange-picker'
-import 'vue2-daterange-picker/dist/lib/vue-daterange-picker.min.css'
 
 export default {
     props: {
@@ -284,33 +281,6 @@ export default {
 
     data() {
         return {
-            dateRange: { // used for v-model prop
-                startDate: '05/03/1821',
-                endDate: '05/03/2021',
-            },
-            opens: "center",//which way the picker opens, default "center", can be "left"/"right"
-            locale: {
-                direction: 'ltr', //direction of text
-                format: 'DD/MM/YYYY', //fomart of the dates displayed
-                separator: ' - ', //separator between the two ranges
-                applyLabel: 'Apply',
-                cancelLabel: 'Cancel',
-                weekLabel: 'W',
-                customRangeLabel: 'Custom Range',
-                daysOfWeek: moment.weekdaysMin(), //array of days - see moment documenations for details
-                monthNames: moment.monthsShort(), //array of month names - see moment documenations for details
-                firstDay: 1, //ISO first day of week - see moment documenations for details
-                showWeekNumbers: true //show week numbers on each row of the calendar
-            },
-            ranges: { //default value for ranges object (if you set this to false ranges will no be rendered)
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'This month': [moment().startOf('month'), moment().endOf('month')],
-                'This year': [moment().startOf('year'), moment().endOf('year')],
-                'Last week': [moment().subtract(1, 'week').startOf('week'), moment().subtract(1, 'week').endOf('week')],
-                'Last month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-            },
-
             tableData: [],
             url: '',
             pagination: {
@@ -390,15 +360,6 @@ export default {
                     this.pagination = data
                     this.tableData = data.data
                     this.loading = false;
-
-                    this.columns.map(column => {
-                        if(column.type == 'date'){
-                            this.queries[column.title] = { // used for v-model prop
-                                startDate: data.data[0]['min_'+column.title],
-                                endDate: data.data[0]['max_'+column.title],
-                            }
-                        }
-                    })
                 }).catch(error => this.tableData = [])
         },
 
@@ -459,9 +420,6 @@ export default {
             return value.split('_').join(' ').toLowerCase()
         }
     },
-    name: 'DataTable',
-    components: {
-        DateRangePicker
-    }
+    name: 'DataTable'
 }
 </script>
