@@ -10,7 +10,7 @@ import DatatableComponent from './DatatableComponent'
 export default {
     data() {
         return {
-            url: 'api/users/data-table',
+            url: 'api/users',
             columns: [{
                     title: 'username',
                     sortable: true,

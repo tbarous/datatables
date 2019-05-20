@@ -84,7 +84,6 @@
                             <v-text-field 
                                 @input="reset(); fetchData();" 
                                 v-model="queries[column.title]"
-                                v-if="column.type=='text'"
                                 solo 
                                 autocomplete="off" 
                                 name="name" 
@@ -92,14 +91,6 @@
                                 id="id" 
                                 prepend-inner-icon="search">
                             </v-text-field>
-
-                           <!--  <date-range-picker 
-                                v-if="column.type=='date'"
-                                v-model="queries[column.title]"
-                                @update="fetchData"
-                                :locale-data="locale"
-                                :opens="opens">
-                            </date-range-picker> -->
                         </th>
                         <th class="border-0 pt-0 pb-0"></th>
                     </tr>

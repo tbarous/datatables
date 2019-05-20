@@ -16,28 +16,7 @@ class UserController extends Controller
         $this->user = $user;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
-    {
-        return User::get();
-    }
-
-    public function update(Request $request)
-    {
-        $data = json_decode($request);
-
-        User::update([
-            $data
-        ]);
-
-        return $data;
-    }
-
-    public function getUsersForDataTable(Request $request)
     {
         $queries = json_decode($request->queries);
 
@@ -55,15 +34,19 @@ class UserController extends Controller
             }
         }
 
-        // $date_attributes = ['created_at' => $queries->created_at];
-        // foreach ($date_attributes as $key => $date_attribute) {
-        //     if (!$this->isEmpty($date_attribute)) {
-        //         $query = $query->where($key, '>', $date_attribute);
-        //     }
-        // }
-
         $users = $query->paginate($request->per_page);
         return UsersResource::collection($users);
+    }
+
+    public function update(Request $request)
+    {
+        $data = json_decode($request);
+
+        User::update([
+            $data
+        ]);
+
+        return $data;
     }
 
     public function isEmpty($string)

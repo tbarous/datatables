@@ -7,5 +7,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('users/data-table', 'UserController@getUsersForDataTable')->middleware('auth:api');
+Route::get('users', 'UserController@index')->middleware('auth:api');
 Route::post('users/update', 'UserController@update')->middleware('auth:api');

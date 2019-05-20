@@ -2120,15 +2120,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     fetchUrl: {
@@ -2379,7 +2370,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      url: 'api/users/data-table',
+      url: 'api/users',
       columns: [{
         title: 'username',
         sortable: true,
@@ -38046,31 +38037,29 @@ var render = function() {
                           staticClass: "border-0 pt-0 pb-0"
                         },
                         [
-                          column.type == "text"
-                            ? _c("v-text-field", {
-                                attrs: {
-                                  solo: "",
-                                  autocomplete: "off",
-                                  name: "name",
-                                  label: "",
-                                  id: "id",
-                                  "prepend-inner-icon": "search"
-                                },
-                                on: {
-                                  input: function($event) {
-                                    _vm.reset()
-                                    _vm.fetchData()
-                                  }
-                                },
-                                model: {
-                                  value: _vm.queries[column.title],
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.queries, column.title, $$v)
-                                  },
-                                  expression: "queries[column.title]"
-                                }
-                              })
-                            : _vm._e()
+                          _c("v-text-field", {
+                            attrs: {
+                              solo: "",
+                              autocomplete: "off",
+                              name: "name",
+                              label: "",
+                              id: "id",
+                              "prepend-inner-icon": "search"
+                            },
+                            on: {
+                              input: function($event) {
+                                _vm.reset()
+                                _vm.fetchData()
+                              }
+                            },
+                            model: {
+                              value: _vm.queries[column.title],
+                              callback: function($$v) {
+                                _vm.$set(_vm.queries, column.title, $$v)
+                              },
+                              expression: "queries[column.title]"
+                            }
+                          })
                         ],
                         1
                       )
