@@ -2153,8 +2153,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       dateRange: {
         // used for v-model prop
-        startDate: '2017-09-05',
-        endDate: '2017-09-15'
+        startDate: '05/03/1821',
+        endDate: '05/03/2021'
       },
       opens: "center",
       //which way the picker opens, default "center", can be "left"/"right"
@@ -2226,14 +2226,6 @@ __webpack_require__.r(__webpack_exports__);
     this.columns.map(function (column) {
       _this.activeColumns[column.title] = true;
       _this.queries[column.title] = '';
-
-      if (column.type == 'date') {
-        _this.queries[column.title] = {
-          // used for v-model prop
-          startDate: '2017-09-05',
-          endDate: '2017-09-15'
-        };
-      }
     });
     return this.fetchData();
   },
@@ -2276,9 +2268,20 @@ __webpack_require__.r(__webpack_exports__);
       var dataFetchUrl = "".concat(this.url, "?page=").concat(this.currentPage, "&column=").concat(this.sortedColumn, "&order=").concat(this.order, "&per_page=").concat(this.perPage, "&search=").concat(this.generalSearch, "&queries=").concat(queries);
       axios.get(dataFetchUrl).then(function (_ref) {
         var data = _ref.data;
+        console.log(data);
         _this2.pagination = data;
         _this2.tableData = data.data;
         _this2.loading = false;
+
+        _this2.columns.map(function (column) {
+          if (column.type == 'date') {
+            _this2.queries[column.title] = {
+              // used for v-model prop
+              startDate: data.data[0]['min_' + column.title],
+              endDate: data.data[0]['max_' + column.title]
+            };
+          }
+        });
       })["catch"](function (error) {
         return _this2.tableData = [];
       });

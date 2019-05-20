@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
 
@@ -20,6 +21,8 @@ class UsersResource extends JsonResource
             'email'      => $this->email,
             'created_at' => Carbon::parse($this->created_at)->format('d/m/Y - H:i:s', 'Europe/Athens'),
             'updated_at' => Carbon::parse($this->updated_at)->format('d/m/Y - H:i:s', 'Europe/Athens'),
+            'min_created_at' => User::min('created_at'),
+            'max_created_at' => User::max('created_at')
         ];
     }
 }

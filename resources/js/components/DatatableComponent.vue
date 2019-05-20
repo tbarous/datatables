@@ -285,8 +285,8 @@ export default {
     data() {
         return {
             dateRange: { // used for v-model prop
-                startDate: '2017-09-05',
-                endDate: '2017-09-15',
+                startDate: '05/03/1821',
+                endDate: '05/03/2021',
             },
             opens: "center",//which way the picker opens, default "center", can be "left"/"right"
             locale: {
@@ -347,12 +347,6 @@ export default {
         this.columns.map(column => {
             this.activeColumns[column.title] = true;
             this.queries[column.title] = '';
-            if(column.type == 'date'){
-                this.queries[column.title] = { // used for v-model prop
-                    startDate: '2017-09-05',
-                    endDate: '2017-09-15',
-                }
-            }
         });
 
         return this.fetchData();
@@ -392,9 +386,19 @@ export default {
             let dataFetchUrl = `${this.url}?page=${this.currentPage}&column=${this.sortedColumn}&order=${this.order}&per_page=${this.perPage}&search=${this.generalSearch}&queries=${queries}`
             axios.get(dataFetchUrl)
                 .then(({ data }) => {
+                    console.log(data)
                     this.pagination = data
                     this.tableData = data.data
                     this.loading = false;
+
+                    this.columns.map(column => {
+                        if(column.type == 'date'){
+                            this.queries[column.title] = { // used for v-model prop
+                                startDate: data.data[0]['min_'+column.title],
+                                endDate: data.data[0]['max_'+column.title],
+                            }
+                        }
+                    })
                 }).catch(error => this.tableData = [])
         },
 
