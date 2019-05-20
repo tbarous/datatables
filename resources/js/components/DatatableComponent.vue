@@ -118,9 +118,8 @@
                                 dark 
                                 small 
                                 color="info">
-                                <v-icon 
-                                    dark>
-                                        edit
+                                <v-icon dark>
+                                    edit
                                 </v-icon>
                             </v-btn>
                             <v-btn 
@@ -139,44 +138,50 @@
 
         <nav 
             v-if="pagination && tableData.length > 0" 
-            class="text-center ml-auto mr-auto d-flex align-center justify-content-center mt-5">
+            class="text-center ml-auto mr-auto d-flex align-center justify-content-center mt-3">
             <ul class="pagination justify-content-center m-0">
                 <li 
-                    class="page-item" 
+                    class="" 
                     :class="{'disabled' : currentPage === 1}">
-                    <a 
-                        class="page-link" 
+                    <v-btn 
+                        dark
+                        fab 
+                        small
+                        class="page-link d-flex" 
                         href="#" 
                         @click.prevent="changePage(currentPage - 1)">
-                        Previous
-                    </a>
+                        <v-icon>chevron_left</v-icon>
+                    </v-btn>
                 </li>
                 <li 
                     v-for="page in pagesNumber" 
                     class="page-item" 
                     :class="{'active': page == pagination.meta.current_page}">
-                    <a 
+                    <v-btn fab small
                         href="javascript:void(0)" 
                         @click.prevent="changePage(page)" 
-                        class="page-link">
+                        class="page-link d-flex">
                         {{ page }}
-                    </a>
+                    </v-btn>
                 </li>
 
                 <li 
-                    class="page-item" 
+                    class="" 
                     :class="{'disabled': currentPage === pagination.meta.last_page }">
-                    <a 
-                        class="page-link" 
+                    <v-btn
+                        dark
+                        fab
+                        small
+                        class="page-link d-flex" 
                         href="#" 
                         @click.prevent="changePage(currentPage + 1)">
-                        Next
-                    </a>
+                        <v-icon>chevron_right</v-icon>
+                    </v-btn>
                 </li>
 
-                <span style="margin-top: 8px;"> 
+                <!-- <span style="margin-top: 8px;"> 
                     &nbsp; <i>Displaying {{ pagination.data.length }} of {{ pagination.meta.total }} entries.</i>
-                </span>
+                </span> -->
             </ul>
         </nav>
 

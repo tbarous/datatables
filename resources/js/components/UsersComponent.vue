@@ -1,16 +1,19 @@
 <template>
-    <DatatableComponent :fetch-url="url" :columns="columns"></DatatableComponent>
+    <div>
+        <Chart></Chart>
+        <DatatableComponent :fetch-url="url" :columns="columns"></DatatableComponent>
+    </div>
 </template>
 
 <script>
 import DatatableComponent from './DatatableComponent'
+import Chart from './Chart'
 
 export default {
     data() {
         return {
             url: 'api/users/data-table',
-            columns: [
-                {
+            columns: [{
                     title: 'username',
                     sortable: true,
                     searchable: true,
@@ -39,7 +42,8 @@ export default {
     },
 
     components: {
-        DatatableComponent
+        DatatableComponent,
+        Chart
     }
 }
 </script>
