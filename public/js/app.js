@@ -2139,6 +2139,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     fetchUrl: {
@@ -2265,22 +2274,19 @@ __webpack_require__.r(__webpack_exports__);
       this.fetchData();
     },
     reset: function reset() {
-      var _this3 = this;
-
-      if (this.oldCurrentPage != 1) {
-        var empty = true;
-        this.columns.map(function (item) {
-          if (_this3.queries[item.title] != '' && item.type == 'text') {
-            empty = false;
-          }
-        });
-
-        if (this.generalSearch != '' || !empty) {
-          this.currentPage = 1;
-        } else {
-          this.currentPage = this.oldCurrentPage;
-        }
-      }
+      this.currentPage = 1; // if(this.oldCurrentPage != 1){
+      //     let empty = true;
+      //     this.columns.map(item => {
+      //         if(this.queries[item.title] != '' && item.type=='text'){
+      //             empty = false;
+      //         }
+      //     });
+      //     if(this.generalSearch != '' || !empty){
+      //         this.currentPage = 1
+      //     } else {
+      //         this.currentPage = this.oldCurrentPage
+      //     }
+      // }
     },
     sortByColumn: function sortByColumn(column) {
       if (column.title === this.sortedColumn) {
@@ -2293,20 +2299,20 @@ __webpack_require__.r(__webpack_exports__);
       this.fetchData();
     },
     update: function update(index, row) {
-      var _this4 = this;
+      var _this3 = this;
 
       axios.post('api/users/update', {
         row: JSON.stringify(row)
       }).then(function (response) {
-        _this4.tableData[index] = response.data;
+        _this3.tableData[index] = response.data;
       })["catch"](function (error) {//
       });
     },
     updateMultiple: function updateMultiple() {
-      var _this5 = this;
+      var _this4 = this;
 
       Object.keys(this.selected).map(function (item) {
-        if (_this5.selected[item] == true) {
+        if (_this4.selected[item] == true) {
           console.log(item);
         }
       });
@@ -37923,7 +37929,12 @@ var render = function() {
               staticClass: "d-inline-block mr-3",
               staticStyle: { width: "100px" },
               attrs: { items: _vm.itemsShow, label: "Show", solo: "" },
-              on: { change: _vm.fetchData },
+              on: {
+                change: function($event) {
+                  _vm.reset()
+                  _vm.fetchData()
+                }
+              },
               model: {
                 value: _vm.perPage,
                 callback: function($$v) {
@@ -38026,7 +38037,7 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _c("table", { staticClass: "table table-bordered" }, [
+        _c("table", { staticClass: "table table-bordered mb-0" }, [
           _c("thead", [
             _c(
               "tr",
@@ -38260,6 +38271,18 @@ var render = function() {
           )
         ])
       ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "loader", class: { nopacity: !_vm.loading } },
+        [
+          _c("v-progress-linear", {
+            staticClass: "mt-0",
+            attrs: { indeterminate: true }
+          })
+        ],
+        1
+      ),
       _vm._v(" "),
       _vm.pagination && _vm.tableData.length > 0
         ? _c(

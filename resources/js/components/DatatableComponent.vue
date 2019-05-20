@@ -10,7 +10,7 @@
                     label="Show" 
                     solo 
                     v-model="perPage" 
-                    @change="fetchData">
+                    @change="reset(); fetchData()">
                 </v-select>
                 <span class="d-inline-block mr-3">entries</span>
             </div>
@@ -62,7 +62,7 @@
                 </v-progress-linear>
             </div>
 
-            <table class="table table-bordered">
+            <table class="table table-bordered mb-0">
                 <thead>
                     <tr class="bg-dark text-white">
                         <th class="table-head border-0"></th>
@@ -159,6 +159,15 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+        <div 
+            class="loader" 
+            :class="{nopacity: !loading}">
+            <v-progress-linear 
+                class="mt-0" 
+                :indeterminate="true">
+            </v-progress-linear>
         </div>
 
         <nav 
@@ -400,21 +409,23 @@ export default {
         },
 
         reset(){
-            if(this.oldCurrentPage != 1){
-                let empty = true;
+            this.currentPage = 1;
 
-                this.columns.map(item => {
-                    if(this.queries[item.title] != '' && item.type=='text'){
-                        empty = false;
-                    }
-                });
+            // if(this.oldCurrentPage != 1){
+            //     let empty = true;
 
-                if(this.generalSearch != '' || !empty){
-                    this.currentPage = 1
-                } else {
-                    this.currentPage = this.oldCurrentPage
-                }
-            }
+            //     this.columns.map(item => {
+            //         if(this.queries[item.title] != '' && item.type=='text'){
+            //             empty = false;
+            //         }
+            //     });
+
+            //     if(this.generalSearch != '' || !empty){
+            //         this.currentPage = 1
+            //     } else {
+            //         this.currentPage = this.oldCurrentPage
+            //     }
+            // }
         },
 
         sortByColumn(column) {
