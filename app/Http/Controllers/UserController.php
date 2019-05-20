@@ -48,12 +48,14 @@ class UserController extends Controller
                            ->orWhere('email', 'LIKE', '%' . $request->search . '%');
         }
 
-        if (!$this->isEmpty($queries->username)) {
-            $query = $query->where('username', 'LIKE', '%' . $queries->username . '%');
-        }
-
-        if (!$this->isEmpty($queries->email)) {
-            $query = $query->where('email', 'LIKE', '%' . $queries->email . '%');
+        $text_attributes = [
+            'username' => $queries->username,
+            'email' => $queries->email
+        ];
+        foreach ($text_attributes as $key => $text_attribute) {
+            if (!$this->isEmpty($text_attribute)) {
+                $query = $query->where($key, 'LIKE', '%' . $text_attribute . '%');
+            }
         }
 
         $users = $query->paginate($request->per_page);
