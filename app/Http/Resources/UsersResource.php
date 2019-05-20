@@ -18,8 +18,8 @@ class UsersResource extends JsonResource
         return [
             'username'   => $this->username,
             'email'      => $this->email,
-            'created_at' => Carbon::parse($this->created_at)->format('d/m/Y H:i:s', 'Europe/Athens'),
-            'updated_at' => Carbon::parse($this->updated_at)->format('d/m/Y H:i:s', 'Europe/Athens'),
+            'created_at' => Carbon::parse($this->created_at)->format('d/m/Y - H:i:s', 'Europe/Athens'),
+            'updated_at' => Carbon::parse($this->updated_at)->format('d/m/Y - H:i:s', 'Europe/Athens'),
         ];
     }
 }

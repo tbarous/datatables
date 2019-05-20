@@ -2117,6 +2117,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     fetchUrl: {
@@ -2152,7 +2153,7 @@ __webpack_require__.r(__webpack_exports__);
       editingRow: {},
       viewColumns: false,
       activeColumns: {},
-      oldCurrentPage: -1
+      oldCurrentPage: 1
     };
   },
   watch: {
@@ -2229,17 +2230,19 @@ __webpack_require__.r(__webpack_exports__);
     reset: function reset() {
       var _this3 = this;
 
-      var empty = true;
-      this.columns.map(function (item) {
-        if (_this3.queries[item.title] != '') {
-          empty = false;
-        }
-      });
+      if (this.oldCurrentPage != 1) {
+        var empty = true;
+        this.columns.map(function (item) {
+          if (_this3.queries[item.title] != '') {
+            empty = false;
+          }
+        });
 
-      if (this.generalSearch != '' || !empty) {
-        this.currentPage = 1;
-      } else {
-        this.currentPage = this.oldCurrentPage;
+        if (this.generalSearch != '' || !empty) {
+          this.currentPage = 1;
+        } else {
+          this.currentPage = this.oldCurrentPage;
+        }
       }
     },
     sortByColumn: function sortByColumn(column) {
@@ -37977,7 +37980,7 @@ var render = function() {
               "tr",
               { staticClass: "bg-dark text-white" },
               [
-                _c("th", { staticClass: "table-head" }, [_vm._v("#")]),
+                _c("th", { staticClass: "table-head border-0" }, [_vm._v("#")]),
                 _vm._v(" "),
                 _vm._l(_vm.columns, function(column) {
                   return _vm.activeColumns[column.title]
@@ -37985,7 +37988,7 @@ var render = function() {
                         "th",
                         {
                           key: column.title,
-                          staticClass: "table-head text-center",
+                          staticClass: "table-head text-center border-0",
                           staticStyle: { cursor: "pointer" },
                           on: {
                             click: function($event) {
@@ -38013,7 +38016,7 @@ var render = function() {
                     : _vm._e()
                 }),
                 _vm._v(" "),
-                _c("th", { staticClass: "table-head text-center" }, [
+                _c("th", { staticClass: "table-head text-center border-0" }, [
                   _vm._v("ACTIONS")
                 ])
               ],
@@ -38024,13 +38027,13 @@ var render = function() {
               "tr",
               { staticClass: "bg-dark text-white" },
               [
-                _c("th", { staticClass: "table-head" }),
+                _c("th", { staticClass: "table-head border-0" }),
                 _vm._v(" "),
                 _vm._l(_vm.columns, function(column) {
                   return _vm.activeColumns[column.title]
                     ? _c(
                         "th",
-                        { key: column.title },
+                        { key: column.title, staticClass: "border-0" },
                         [
                           _c("v-text-field", {
                             attrs: {
@@ -38061,7 +38064,7 @@ var render = function() {
                     : _vm._e()
                 }),
                 _vm._v(" "),
-                _c("th")
+                _c("th", { staticClass: "border-0" })
               ],
               2
             )

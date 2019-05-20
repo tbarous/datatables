@@ -51,26 +51,27 @@
             <table class="table table-bordered">
                 <thead>
                     <tr class="bg-dark text-white">
-                        <th class="table-head">#</th>
+                        <th class="table-head border-0">#</th>
                         <th 
                             v-if="activeColumns[column.title]" 
                             v-for="column in columns" 
                             :key="column.title" 
                             @click="sortByColumn(column)"  
                             style="cursor: pointer;"
-                            class="table-head text-center">
+                            class="table-head text-center border-0">
                             {{ column.title | columnHead }}
                             <span v-if="column.title === sortedColumn">
                                 <i v-if="order === 'asc'" class="fas fa-arrow-up"></i>
                                 <i v-else class="fas fa-arrow-down"></i>
                             </span>
                         </th>
-                        <th class="table-head text-center">ACTIONS</th>
+                        <th class="table-head text-center border-0">ACTIONS</th>
                     </tr>
 
                     <tr class="bg-dark text-white">
-                        <th class="table-head"></th>
+                        <th class="table-head border-0"></th>
                         <th 
+                            class="border-0"
                             v-if="activeColumns[column.title]" 
                             v-for="column in columns" 
                             :key="column.title">
@@ -85,7 +86,7 @@
                                 prepend-inner-icon="search">
                             </v-text-field>
                         </th>
-                        <th></th>
+                        <th class="border-0"></th>
                     </tr>
                 </thead>
 
@@ -287,7 +288,7 @@ export default {
             editingRow: {},
             viewColumns: false,
             activeColumns: {},
-            oldCurrentPage: -1
+            oldCurrentPage: 1
         }
     },
 
@@ -360,18 +361,20 @@ export default {
         },
 
         reset(){
-            let empty = true;
+            if(this.oldCurrentPage != 1){
+                let empty = true;
 
-            this.columns.map(item => {
-                if(this.queries[item.title] != ''){
-                    empty = false;
+                this.columns.map(item => {
+                    if(this.queries[item.title] != ''){
+                        empty = false;
+                    }
+                });
+
+                if(this.generalSearch != '' || !empty){
+                    this.currentPage = 1
+                } else {
+                    this.currentPage = this.oldCurrentPage
                 }
-            });
-
-            if(this.generalSearch != '' || !empty){
-                this.currentPage = 1
-            } else {
-                this.currentPage = this.oldCurrentPage
             }
         },
 
