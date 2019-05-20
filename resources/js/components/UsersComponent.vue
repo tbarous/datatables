@@ -1,6 +1,7 @@
 <template>
     <div>
         <Chart></Chart>
+        <v-divider></v-divider>
         <DatatableComponent :fetch-url="url" :columns="columns"></DatatableComponent>
     </div>
 </template>

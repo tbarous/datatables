@@ -2157,6 +2157,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     fetchUrl: {
@@ -2191,7 +2194,8 @@ __webpack_require__.r(__webpack_exports__);
       editingIndex: 0,
       editingRow: {},
       viewColumns: false,
-      activeColumns: {}
+      activeColumns: {},
+      oldCurrentPage: -1
     };
   },
   watch: {
@@ -2263,6 +2267,11 @@ __webpack_require__.r(__webpack_exports__);
     changePage: function changePage(pageNumber) {
       this.currentPage = pageNumber;
       this.fetchData();
+    },
+    reset: function reset() {
+      if (this.generalSearch != '') {
+        this.currentPage = 1;
+      }
     },
     sortByColumn: function sortByColumn(column) {
       if (column.title === this.sortedColumn) {
@@ -2893,6 +2902,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _DatatableComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DatatableComponent */ "./resources/js/components/DatatableComponent.vue");
 /* harmony import */ var _Chart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Chart */ "./resources/js/components/Chart.vue");
+//
 //
 //
 //
@@ -38485,7 +38495,12 @@ var render = function() {
                 label: "Search",
                 id: "id"
               },
-              on: { input: _vm.fetchData },
+              on: {
+                input: function($event) {
+                  _vm.reset()
+                  _vm.fetchData()
+                }
+              },
               model: {
                 value: _vm.generalSearch,
                 callback: function($$v) {
@@ -38601,7 +38616,12 @@ var render = function() {
                               id: "id",
                               "prepend-inner-icon": "search"
                             },
-                            on: { input: _vm.fetchData },
+                            on: {
+                              input: function($event) {
+                                _vm.reset()
+                                _vm.fetchData()
+                              }
+                            },
                             model: {
                               value: _vm.queries[column.title],
                               callback: function($$v) {
@@ -38742,7 +38762,13 @@ var render = function() {
                         "v-btn",
                         {
                           staticClass: "page-link d-flex",
-                          attrs: { dark: "", fab: "", small: "", href: "#" },
+                          attrs: {
+                            disabled: _vm.currentPage === 1,
+                            dark: "",
+                            fab: "",
+                            small: "",
+                            href: "#"
+                          },
                           on: {
                             click: function($event) {
                               $event.preventDefault()
@@ -38809,7 +38835,14 @@ var render = function() {
                         "v-btn",
                         {
                           staticClass: "page-link d-flex",
-                          attrs: { dark: "", fab: "", small: "", href: "#" },
+                          attrs: {
+                            disabled:
+                              _vm.currentPage === _vm.pagination.meta.last_page,
+                            dark: "",
+                            fab: "",
+                            small: "",
+                            href: "#"
+                          },
                           on: {
                             click: function($event) {
                               $event.preventDefault()
@@ -39403,6 +39436,8 @@ var render = function() {
     "div",
     [
       _c("Chart"),
+      _vm._v(" "),
+      _c("v-divider"),
       _vm._v(" "),
       _c("DatatableComponent", {
         attrs: { "fetch-url": _vm.url, columns: _vm.columns }

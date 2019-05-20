@@ -17,7 +17,7 @@
 
             <div class="general-search float-right mb-3">
                 <v-text-field 
-                    @input="fetchData" 
+                    @input="reset(); fetchData()" 
                     v-model="generalSearch" 
                     style="width: 300px;" 
                     solo 
@@ -75,7 +75,7 @@
                             v-for="column in columns" 
                             :key="column.title">
                             <v-text-field 
-                                @input="fetchData" 
+                                @input="reset(); fetchData();" 
                                 v-model="queries[column.title]" 
                                 solo 
                                 autocomplete="off" 
@@ -144,6 +144,7 @@
                     class="" 
                     :class="{'disabled' : currentPage === 1}">
                     <v-btn 
+                        :disabled="currentPage === 1"
                         dark
                         fab 
                         small
@@ -153,6 +154,7 @@
                         <v-icon>chevron_left</v-icon>
                     </v-btn>
                 </li>
+
                 <li 
                     v-for="page in pagesNumber" 
                     class="page-item" 
@@ -169,6 +171,7 @@
                     class="" 
                     :class="{'disabled': currentPage === pagination.meta.last_page }">
                     <v-btn
+                        :disabled="currentPage === pagination.meta.last_page"
                         dark
                         fab
                         small
@@ -283,7 +286,8 @@ export default {
             editingIndex: 0,
             editingRow: {},
             viewColumns: false,
-            activeColumns: {}
+            activeColumns: {},
+            oldCurrentPage: -1
         }
     },
 
@@ -352,6 +356,12 @@ export default {
         changePage(pageNumber) {
             this.currentPage = pageNumber
             this.fetchData()
+        },
+
+        reset(){
+            if(this.generalSearch != ''){
+                this.currentPage = 1;
+            }
         },
 
         sortByColumn(column) {
