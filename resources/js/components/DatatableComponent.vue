@@ -37,6 +37,12 @@
                     @click="viewColumns=true">
                     Active Columns
                 </v-btn>
+
+                <br><br>
+
+                <span> 
+                    <i>Total: {{ pagination.meta.total }} entries.</i>
+                </span>
             </div>
 
             <div 
@@ -69,15 +75,16 @@
                     </tr>
 
                     <tr class="bg-dark text-white">
-                        <th class="table-head border-0"></th>
+                        <th class="table-head border-0 pt-0 pb-0"></th>
                         <th 
-                            class="border-0"
+                            class="border-0 pt-0 pb-0"
                             v-if="activeColumns[column.title]" 
                             v-for="column in columns" 
                             :key="column.title">
                             <v-text-field 
                                 @input="reset(); fetchData();" 
-                                v-model="queries[column.title]" 
+                                v-model="queries[column.title]"
+                                v-if="column.type=='text'"
                                 solo 
                                 autocomplete="off" 
                                 name="name" 
@@ -85,8 +92,16 @@
                                 id="id" 
                                 prepend-inner-icon="search">
                             </v-text-field>
+
+                            <date-range-picker 
+                                v-if="column.type=='date'"
+                                v-model="queries[column.title]"
+                                @update="fetchData"
+                                :locale-data="locale"
+                                :opens="opens">
+                            </date-range-picker>
                         </th>
-                        <th class="border-0"></th>
+                        <th class="border-0 pt-0 pb-0"></th>
                     </tr>
                 </thead>
 
@@ -182,10 +197,6 @@
                         <v-icon>chevron_right</v-icon>
                     </v-btn>
                 </li>
-
-                <!-- <span style="margin-top: 8px;"> 
-                    &nbsp; <i>Displaying {{ pagination.data.length }} of {{ pagination.meta.total }} entries.</i>
-                </span> -->
             </ul>
         </nav>
 
@@ -255,6 +266,10 @@
 </template>
 
 <script>
+import moment from 'moment'
+import DateRangePicker from 'vue2-daterange-picker'
+import 'vue2-daterange-picker/dist/lib/vue-daterange-picker.min.css'
+
 export default {
     props: {
         fetchUrl: { 
@@ -269,6 +284,33 @@ export default {
 
     data() {
         return {
+            dateRange: { // used for v-model prop
+                startDate: '2017-09-05',
+                endDate: '2017-09-15',
+            },
+            opens: "center",//which way the picker opens, default "center", can be "left"/"right"
+            locale: {
+                direction: 'ltr', //direction of text
+                format: 'DD/MM/YYYY', //fomart of the dates displayed
+                separator: ' - ', //separator between the two ranges
+                applyLabel: 'Apply',
+                cancelLabel: 'Cancel',
+                weekLabel: 'W',
+                customRangeLabel: 'Custom Range',
+                daysOfWeek: moment.weekdaysMin(), //array of days - see moment documenations for details
+                monthNames: moment.monthsShort(), //array of month names - see moment documenations for details
+                firstDay: 1, //ISO first day of week - see moment documenations for details
+                showWeekNumbers: true //show week numbers on each row of the calendar
+            },
+            ranges: { //default value for ranges object (if you set this to false ranges will no be rendered)
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'This month': [moment().startOf('month'), moment().endOf('month')],
+                'This year': [moment().startOf('year'), moment().endOf('year')],
+                'Last week': [moment().subtract(1, 'week').startOf('week'), moment().subtract(1, 'week').endOf('week')],
+                'Last month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+            },
+
             tableData: [],
             url: '',
             pagination: {
@@ -305,6 +347,12 @@ export default {
         this.columns.map(column => {
             this.activeColumns[column.title] = true;
             this.queries[column.title] = '';
+            if(column.type == 'date'){
+                this.queries[column.title] = { // used for v-model prop
+                    startDate: '2017-09-05',
+                    endDate: '2017-09-15',
+                }
+            }
         });
 
         return this.fetchData();
@@ -365,7 +413,7 @@ export default {
                 let empty = true;
 
                 this.columns.map(item => {
-                    if(this.queries[item.title] != ''){
+                    if(this.queries[item.title] != '' && item.type=='text'){
                         empty = false;
                     }
                 });
@@ -407,6 +455,9 @@ export default {
             return value.split('_').join(' ').toLowerCase()
         }
     },
-    name: 'DataTable'
+    name: 'DataTable',
+    components: {
+        DateRangePicker
+    }
 }
 </script>

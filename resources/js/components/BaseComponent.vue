@@ -51,10 +51,10 @@
             </v-container>
         </v-content>
 
-        <v-footer color="black" dark class="pa-3" style="z-index: 9999;">
+        <!-- <v-footer color="black" dark class="pa-3" style="z-index: 9999;">
             <v-spacer></v-spacer>
             <div>Victus &copy; {{ new Date().getFullYear() }}</div>
-        </v-footer>
+        </v-footer> -->
     </v-app>
 </template>
 

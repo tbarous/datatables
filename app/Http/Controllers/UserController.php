@@ -48,15 +48,19 @@ class UserController extends Controller
                            ->orWhere('email', 'LIKE', '%' . $request->search . '%');
         }
 
-        $text_attributes = [
-            'username' => $queries->username,
-            'email' => $queries->email
-        ];
+        $text_attributes = ['username' => $queries->username, 'email' => $queries->email];
         foreach ($text_attributes as $key => $text_attribute) {
             if (!$this->isEmpty($text_attribute)) {
                 $query = $query->where($key, 'LIKE', '%' . $text_attribute . '%');
             }
         }
+
+        // $date_attributes = ['created_at' => $queries->created_at];
+        // foreach ($date_attributes as $key => $date_attribute) {
+        //     if (!$this->isEmpty($date_attribute)) {
+        //         $query = $query->where($key, '>', $date_attribute);
+        //     }
+        // }
 
         $users = $query->paginate($request->per_page);
         return UsersResource::collection($users);
