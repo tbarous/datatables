@@ -25,6 +25,9 @@
                     <i>Total: {{ pagination.meta.total }} entries.</i>
                 </span>
             </div>
+
+            <v-btn class="ml-0 mt-3" @click="downloadWithAxios">download excel</v-btn>
+
             <table-loader :loading="loading"></table-loader>
             <table class="table table-bordered mb-0">
                 <thead>
@@ -34,8 +37,8 @@
                         <th v-if="activeColumns[column.title]" v-for="column in columns" :key="column.title" @click="sortByColumn(column)" style="cursor: pointer;" class="table-head text-center border-0">
                             {{ column.title | columnHead }}
                             <span v-if="column.title === sortedColumn">
-                                <i v-if="order === 'asc'" class="fas fa-arrow-up"></i>
-                                <i v-else class="fas fa-arrow-down"></i>
+                                <i v-if="order === 'asc'" class="fas fa-chevron-up"></i>
+                                <i v-else class="fas fa-chevron-down"></i>
                             </span>
                         </th>
                         <th class="table-head text-center border-0">ACTIONS</th>
@@ -251,6 +254,27 @@ export default {
                     console.log(item)
                 }
             })
+        },
+
+        forceFileDownload(response){
+          const url = window.URL.createObjectURL(new Blob([response.data]))
+          const link = document.createElement('a')
+          link.href = url
+          link.setAttribute('download', 'file.png') //or any other extension
+          document.body.appendChild(link)
+          link.click()
+        },
+
+        downloadWithAxios(){
+          axios({
+            method: 'get',
+            url: 'http://project.local/images/screenshot.png',
+            responseType: 'arraybuffer'
+          })
+          .then(response => {
+            this.forceFileDownload(response)
+          })
+          .catch(() => console.log('error occured'))
         }
     },
 

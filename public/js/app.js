@@ -1992,6 +1992,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -2115,6 +2118,28 @@ __webpack_require__.r(__webpack_exports__);
         if (_this4.selected[item] == true) {
           console.log(item);
         }
+      });
+    },
+    forceFileDownload: function forceFileDownload(response) {
+      var url = window.URL.createObjectURL(new Blob([response.data]));
+      var link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'file.png'); //or any other extension
+
+      document.body.appendChild(link);
+      link.click();
+    },
+    downloadWithAxios: function downloadWithAxios() {
+      var _this5 = this;
+
+      axios({
+        method: 'get',
+        url: 'http://project.local/images/screenshot.png',
+        responseType: 'arraybuffer'
+      }).then(function (response) {
+        _this5.forceFileDownload(response);
+      })["catch"](function () {
+        return console.log('error occured');
       });
     }
   },
@@ -57903,6 +57928,12 @@ var render = function() {
             1
           ),
           _vm._v(" "),
+          _c(
+            "v-btn",
+            { staticClass: "ml-0 mt-3", on: { click: _vm.downloadWithAxios } },
+            [_vm._v("download excel")]
+          ),
+          _vm._v(" "),
           _c("table-loader", { attrs: { loading: _vm.loading } }),
           _vm._v(" "),
           _c("table", { staticClass: "table table-bordered mb-0" }, [
@@ -57941,10 +57972,10 @@ var render = function() {
                               ? _c("span", [
                                   _vm.order === "asc"
                                     ? _c("i", {
-                                        staticClass: "fas fa-arrow-up"
+                                        staticClass: "fas fa-chevron-up"
                                       })
                                     : _c("i", {
-                                        staticClass: "fas fa-arrow-down"
+                                        staticClass: "fas fa-chevron-down"
                                       })
                                 ])
                               : _vm._e()
