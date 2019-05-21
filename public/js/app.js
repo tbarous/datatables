@@ -1995,6 +1995,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -57931,7 +57937,23 @@ var render = function() {
           _c(
             "v-btn",
             { staticClass: "ml-0 mt-3", on: { click: _vm.downloadWithAxios } },
-            [_vm._v("download excel")]
+            [
+              _vm._v("\n           Excel "),
+              _c("v-icon", { staticClass: "ml-3" }, [
+                _vm._v("far fa-file-excel")
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            { staticClass: "ml-0 mt-3", on: { click: _vm.downloadWithAxios } },
+            [
+              _vm._v("\n           PDF "),
+              _c("v-icon", { staticClass: "ml-3" }, [_vm._v("far fa-file-pdf")])
+            ],
+            1
           ),
           _vm._v(" "),
           _c("table-loader", { attrs: { loading: _vm.loading } }),

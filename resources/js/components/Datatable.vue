@@ -26,7 +26,13 @@
                 </span>
             </div>
 
-            <v-btn class="ml-0 mt-3" @click="downloadWithAxios">download excel</v-btn>
+            <v-btn class="ml-0 mt-3" @click="downloadWithAxios">
+               Excel <v-icon class="ml-3">far fa-file-excel</v-icon>
+            </v-btn>
+
+            <v-btn class="ml-0 mt-3" @click="downloadWithAxios">
+               PDF <v-icon class="ml-3">far fa-file-pdf</v-icon>
+            </v-btn>
 
             <table-loader :loading="loading"></table-loader>
             <table class="table table-bordered mb-0">
