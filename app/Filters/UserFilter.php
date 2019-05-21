@@ -10,6 +10,8 @@ class UserFilter extends AbstractFilter
     protected $filters = [
         'username' => UsernamesFilter::class,
         'email' => EmailsFilter::class,
-        'created_at' => Created::class
+        'created_at' => Created::class,
+        'updated_at' => Updated::class,
+        'search' => UserGenericFilter::class
     ];
 }

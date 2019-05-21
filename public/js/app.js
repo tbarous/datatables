@@ -2177,6 +2177,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -2210,7 +2211,7 @@ __webpack_require__.r(__webpack_exports__);
         startDate: moment().startOf('hour'),
         endDate: moment().startOf('hour').add(32, 'hour'),
         locale: {
-          format: 'M/DD hh:mm A'
+          format: 'DD/MM/YY hh:mm A'
         }
       }
     };
@@ -2243,6 +2244,11 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.loading = true;
+
+      if (this.generalSearch == null) {
+        this.generalSearch = '';
+      }
+
       var dataFetchUrl = "".concat(this.url, "?page=").concat(this.currentPage, "&column=").concat(this.sortedColumn, "&order=").concat(this.order, "&per_page=").concat(this.perPage, "&search=").concat(this.generalSearch);
       Object.keys(this.queries).map(function (item) {
         var queryItem = _this2.queries[item];
@@ -58063,6 +58069,7 @@ var render = function() {
                           _vm._v(" "),
                           column.type == "date"
                             ? _c("date-range-picker", {
+                                staticClass: "date-range-picker elevation-2",
                                 attrs: { options: _vm.options },
                                 on: {
                                   input: function($event) {

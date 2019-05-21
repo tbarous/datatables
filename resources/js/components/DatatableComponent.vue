@@ -105,6 +105,7 @@
                              <date-range-picker 
                                 v-if="column.type=='date'" 
                                 v-model="queries[column.title]"
+                                class="date-range-picker elevation-2"
                                 :options="options"
                                 @input="fetchData(true)"/>
                         </th>
@@ -349,7 +350,7 @@ export default {
               startDate: moment().startOf('hour'),
               endDate: moment().startOf('hour').add(32, 'hour'),
               locale: {
-                format: 'M/DD hh:mm A'
+                format: 'DD/MM/YY hh:mm A'
               }
             }
         }
@@ -380,6 +381,10 @@ export default {
             }
 
             this.loading = true;
+
+            if(this.generalSearch==null){
+                this.generalSearch = '';
+            }
 
             let dataFetchUrl = `${this.url}?page=${this.currentPage}&column=${this.sortedColumn}&order=${this.order}&per_page=${this.perPage}&search=${this.generalSearch}`
 
