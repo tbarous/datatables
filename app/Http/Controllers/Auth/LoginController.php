@@ -89,11 +89,6 @@ class LoginController extends Controller
                 $user = new User();
                 $user->username = $request->username;
                 $user->password = $request->password;
-
-                // $sync_attrs = $this->retrieveSyncAttributes($username);
-                // foreach ($sync_attrs as $field => $value) {
-                //     $user->$field = $value !== null ? $value : '';
-                // }
             }
 
             $this->guard()->login($user, true);

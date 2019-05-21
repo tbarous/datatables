@@ -52,14 +52,7 @@
                 </span>
             </div>
 
-            <div 
-                class="loader" 
-                :class="{nopacity: !loading}">
-                <v-progress-linear 
-                    class="mb-0" 
-                    :indeterminate="true">
-                </v-progress-linear>
-            </div>
+            <table-loader :loading="loading"></table-loader>
 
             <table class="table table-bordered mb-0">
                 <thead>
@@ -102,12 +95,13 @@
                                 prepend-inner-icon="search">
                             </v-text-field>
 
-                             <date-range-picker 
+                            <date-range-picker 
                                 v-if="column.type=='date'" 
                                 v-model="queries[column.title]"
                                 class="date-range-picker elevation-2"
                                 :options="options"
-                                @input="fetchData(true)"/>
+                                @input="fetchData(true)"
+                            />
                         </th>
                         <th class="border-0 pt-0 pb-0"></th>
                     </tr>
@@ -165,86 +159,15 @@
             </table>
         </div>
 
-        <div 
-            class="loader" 
-            :class="{nopacity: !loading}">
-            <v-progress-linear 
-                class="mt-0" 
-                :indeterminate="true">
-            </v-progress-linear>
-        </div>
+        <table-loader :loading="loading"></table-loader>    
 
-        <nav 
-            v-if="pagination && tableData.length > 0" 
-            class="text-center ml-auto mr-auto d-flex align-center justify-content-center mt-3">
-            <ul class="pagination justify-content-center m-0">
-                <li 
-                    :class="{'disabled' : currentPage === 1}">
-                    <v-btn 
-                        :disabled="currentPage === 1"
-                        dark
-                        fab 
-                        small
-                        class="page-link d-flex" 
-                        href="#" 
-                        @click.prevent="changePage(1)">
-                        <v-icon>fast_rewind</v-icon>
-                    </v-btn>
-                </li>
-                <li 
-                    :class="{'disabled' : currentPage === 1}">
-                    <v-btn 
-                        :disabled="currentPage === 1"
-                        dark
-                        fab 
-                        small
-                        class="page-link d-flex" 
-                        href="#" 
-                        @click.prevent="changePage(currentPage - 1)">
-                        <v-icon>chevron_left</v-icon>
-                    </v-btn>
-                </li>
-
-                <li 
-                    v-for="page in pagesNumber" 
-                    class="page-item" 
-                    :class="{'active': page == pagination.meta.current_page}">
-                    <v-btn fab small
-                        href="javascript:void(0)" 
-                        @click.prevent="changePage(page)" 
-                        class="page-link d-flex">
-                        {{ page }}
-                    </v-btn>
-                </li>
-
-                <li 
-                    :class="{'disabled': currentPage === pagination.meta.last_page }">
-                    <v-btn
-                        :disabled="currentPage === pagination.meta.last_page"
-                        dark
-                        fab
-                        small
-                        class="page-link d-flex" 
-                        href="#" 
-                        @click.prevent="changePage(currentPage + 1)">
-                        <v-icon>chevron_right</v-icon>
-                    </v-btn>
-                </li>
-                <li 
-                    :class="{'disabled': currentPage === pagination.meta.last_page }">
-                    <v-btn
-                        :disabled="currentPage === pagination.meta.last_page"
-                        dark
-                        fab
-                        small
-                        class="page-link d-flex" 
-                        href="#" 
-                        @click.prevent="changePage(pagination.meta.last_page)">
-                        <v-icon>fast_forward</v-icon>
-                    </v-btn>
-                </li>
-            </ul>
-        </nav>
+        <pagination-nav 
+            :pagination="pagination" 
+            :tableData="tableData"
+            :currentPage="currentPage"
+            :pagesNumber="pagesNumber"
+            @changePage="changePage">
+        </pagination-nav>
 
         <v-dialog 
             v-model="viewColumns" 
@@ -314,6 +237,8 @@
 
 <script>
 import PaginationMixin from '../mixins/PaginationMixin'
+import TableLoader from './TableLoader'
+import PaginationNav from './PaginationNav'
 
 export default {
     props: {
@@ -350,7 +275,7 @@ export default {
               startDate: moment().startOf('hour'),
               endDate: moment().startOf('hour').add(32, 'hour'),
               locale: {
-                format: 'DD/MM/YY hh:mm A'
+                format: 'DD/MM/YY hh:mm'
               }
             }
         }
@@ -417,6 +342,11 @@ export default {
             return (this.currentPage - 1) * this.perPage + 1 + key
         },
 
+        changePage(pageNumber) {
+          this.currentPage = pageNumber
+          this.fetchData()
+        },
+
         sortByColumn(column) {
             if (column.title === this.sortedColumn) {
                 this.order = (this.order === 'asc') ? 'desc' : 'asc'
@@ -455,6 +385,10 @@ export default {
         }
     },
     name: 'DataTable',
-    mixins: [PaginationMixin]
+    mixins: [PaginationMixin],
+    components: {
+        TableLoader,
+        PaginationNav
+    }
 }
 </script>
