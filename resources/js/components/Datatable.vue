@@ -19,7 +19,7 @@
             
             <div class="float-left">
                 <v-btn class=" ml-0 mr-0 mt-3" color="secondary" dark @click="viewColumns=true">
-                    Active Columns <v-icon class="ml-3">fas fa-bolt</v-icon>
+                    Active Columns <v-icon small class="ml-3">fas fa-bolt</v-icon>
                 </v-btn>
 
                 <v-btn class="mr-0 mt-3" color="secondary" dark @click="updateMultiple">
@@ -27,11 +27,11 @@
                 </v-btn>
 
                 <v-btn color="secondary" class="mr-0 mt-3" @click="downloadWithAxios">
-                   Excel <v-icon class="ml-3">far fa-file-excel</v-icon>
+                   Excel <v-icon small class="ml-3">far fa-file-excel</v-icon>
                 </v-btn>
 
                 <v-btn color="secondary" class="mr-0 mt-3" @click="downloadWithAxios">
-                   PDF <v-icon class="ml-3">far fa-file-pdf</v-icon>
+                   PDF <v-icon small class="ml-3">far fa-file-pdf</v-icon>
                 </v-btn>
             </div>
 
@@ -90,8 +90,10 @@
             </table>
         </div>
         <table-loader :loading="loading"></table-loader>
+        
         <pagination-nav :pagination="pagination" :tableData="tableData" :currentPage="currentPage" :pagesNumber="pagesNumber" @changePage="changePage">
         </pagination-nav>
+
         <v-dialog v-model="viewColumns" width="500">
             <v-card>
                 <v-card-title class="headline grey lighten-2" primary-title>

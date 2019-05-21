@@ -2002,6 +2002,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -57960,7 +57962,9 @@ var render = function() {
                 },
                 [
                   _vm._v("\n                Active Columns "),
-                  _c("v-icon", { staticClass: "ml-3" }, [_vm._v("fas fa-bolt")])
+                  _c("v-icon", { staticClass: "ml-3", attrs: { small: "" } }, [
+                    _vm._v("fas fa-bolt")
+                  ])
                 ],
                 1
               ),
@@ -57984,7 +57988,7 @@ var render = function() {
                 },
                 [
                   _vm._v("\n               Excel "),
-                  _c("v-icon", { staticClass: "ml-3" }, [
+                  _c("v-icon", { staticClass: "ml-3", attrs: { small: "" } }, [
                     _vm._v("far fa-file-excel")
                   ])
                 ],
@@ -58000,7 +58004,7 @@ var render = function() {
                 },
                 [
                   _vm._v("\n               PDF "),
-                  _c("v-icon", { staticClass: "ml-3" }, [
+                  _c("v-icon", { staticClass: "ml-3", attrs: { small: "" } }, [
                     _vm._v("far fa-file-pdf")
                   ])
                 ],
@@ -58718,7 +58722,7 @@ var render = function() {
       _c(
         "v-navigation-drawer",
         {
-          attrs: { fixed: "", app: "", light: "", width: "280" },
+          attrs: { fixed: "", app: "", dark: "", width: "280" },
           model: {
             value: _vm.drawer,
             callback: function($$v) {
