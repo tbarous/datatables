@@ -19,7 +19,11 @@
                 <u>Selected: {{selected.length}}</u>
             </div>
             
-            <div class="float-left">
+            <div class="">
+                <v-btn class="ml-0 mr-0 mt-3" color="secondary" dark @click="fetchData">
+                    Reload <v-icon small class="ml-3">fas fa-sync</v-icon>
+                </v-btn>
+
                 <v-btn class=" ml-0 mr-0 mt-3" color="secondary" dark @click="viewColumns=true">
                     Active Columns <v-icon small class="ml-3">fas fa-bolt</v-icon>
                 </v-btn>

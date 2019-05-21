@@ -2006,6 +2006,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -57952,8 +57956,24 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "float-left" },
+            {},
             [
+              _c(
+                "v-btn",
+                {
+                  staticClass: "ml-0 mr-0 mt-3",
+                  attrs: { color: "secondary", dark: "" },
+                  on: { click: _vm.fetchData }
+                },
+                [
+                  _vm._v("\n                Reload "),
+                  _c("v-icon", { staticClass: "ml-3", attrs: { small: "" } }, [
+                    _vm._v("fas fa-sync")
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
               _c(
                 "v-btn",
                 {
@@ -58689,7 +58709,7 @@ var render = function() {
     { staticClass: "loader", class: { nopacity: !_vm.loading } },
     [
       _c("v-progress-linear", {
-        staticClass: "mb-0",
+        staticClass: "mb-0 mt-0",
         attrs: { indeterminate: true }
       })
     ],
