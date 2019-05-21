@@ -3,6 +3,7 @@ import Overview from '../views/Overview';
 import DeltaReport from '../views/DeltaReport';
 import Scripts from '../views/Scripts';
 import Log from '../views/Log';
+import Documentation from '../views/Documentation';
 
 export default [
     { 
@@ -33,5 +34,10 @@ export default [
         path: '/log',
         component: Log,
         name: 'Log'
+    },
+    {
+        path: '/documentation',
+        component: Documentation,
+        name: 'Documentation'
     },
 ];

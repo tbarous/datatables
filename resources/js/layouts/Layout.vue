@@ -35,7 +35,7 @@
 
                 <v-divider class="mt-0 mb-0"></v-divider>
 
-                <v-list-tile to="/documentation">
+                <v-list-tile to="/documentation"> 
                     <v-list-tile-action>
                         <v-icon>fa-file</v-icon>
                     </v-list-tile-action>
