@@ -1,8 +1,8 @@
-import UsersComponent from '../components/UsersComponent';
-import OverviewComponent from '../components/OverviewComponent';
-import DeltaReportComponent from '../components/DeltaReportComponent';
-import ScriptsComponent from '../components/ScriptsComponent';
-import LogComponent from '../components/LogComponent';
+import Users from '../views/Users';
+import Overview from '../views/Overview';
+import DeltaReport from '../views/DeltaReport';
+import Scripts from '../views/Scripts';
+import Log from '../views/Log';
 
 export default [
     { 
@@ -11,27 +11,27 @@ export default [
     },
     {
         path: '/users',
-        component: UsersComponent,
+        component: Users,
         name: 'Users'
     },
     {
         path: '/eett-overview',
-        component: OverviewComponent,
+        component: Overview,
         name: 'EETT Overview'
     },
     {
         path: '/eett-delta-report',
-        component: DeltaReportComponent,
+        component: DeltaReport,
         name: 'EETT Delta Report'
     },
     {
         path: '/eett-scripts',
-        component: ScriptsComponent,
+        component: Scripts,
         name: 'EETT Scripts'
     },
     {
         path: '/log',
-        component: LogComponent,
+        component: Log,
         name: 'Log'
     },
 ];

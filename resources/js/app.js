@@ -1,16 +1,18 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-
-require('vuetify/dist/vuetify.min');
-
-Vue.component('base-component', require('./components/BaseComponent.vue').default);
+Vue.component('layout', require('./layouts/Layout.vue').default);
 
 import Vuetify from 'vuetify'
 import router from './router'
 import axios from 'axios'
 
+require('vuetify/dist/vuetify.min');
 Vue.use(Vuetify);
+
+
+import DateRangePicker from "@gravitano/vue-date-range-picker";
+Vue.use(DateRangePicker);
 
 axios.create({
   baseURL: 'http://project.local',

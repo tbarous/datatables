@@ -6,6 +6,6 @@ class UsernamesFilter
 {
     public function filter($builder, $value)
     {
-        return $builder->where('username', $value);
+        return $builder->where('username', 'like', '%' . $value . '%');
     }
 }

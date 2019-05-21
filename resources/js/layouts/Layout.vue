@@ -50,11 +50,6 @@
                 </v-layout>
             </v-container>
         </v-content>
-
-        <!-- <v-footer color="black" dark class="pa-3" style="z-index: 9999;">
-            <v-spacer></v-spacer>
-            <div>Victus &copy; {{ new Date().getFullYear() }}</div>
-        </v-footer> -->
     </v-app>
 </template>
 
@@ -80,7 +75,6 @@
             logout() {
                 axios.post('/logout')
                     .then(response => {
-                        console.log(response);
                         window.location.href = '/';
                     })
                     .catch(e => {

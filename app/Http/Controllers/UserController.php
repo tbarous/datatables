@@ -16,23 +16,30 @@ class UserController extends Controller
         $this->user = $user;
     }
 
+    public function filter(Request $request)
+    {
+        return User::filter($request)->get();
+    }
+
     public function index(Request $request)
     {
-        $queries = json_decode($request->queries);
+        $query = User::filter($request)->orderBy($request->column, $request->order);
 
-        $query = $this->user->orderBy($request->column, $request->order);
+        // $queries = json_decode($request->queries);
 
-        if (!$this->isEmpty($request->search)) {
-            $query = $query->where('username', 'LIKE', '%' . $request->search . '%')
-                           ->orWhere('email', 'LIKE', '%' . $request->search . '%');
-        }
+        // $query = $this->user->orderBy($request->column, $request->order);
 
-        $text_attributes = ['username' => $queries->username, 'email' => $queries->email];
-        foreach ($text_attributes as $key => $text_attribute) {
-            if (!$this->isEmpty($text_attribute)) {
-                $query = $query->where($key, 'LIKE', '%' . $text_attribute . '%');
-            }
-        }
+        // if (!$this->isEmpty($request->search)) {
+        //     $query = $query->where('username', 'LIKE', '%' . $request->search . '%')
+        //                    ->orWhere('email', 'LIKE', '%' . $request->search . '%');
+        // }
+
+        // $text_attributes = ['username' => $queries->username, 'email' => $queries->email];
+        // foreach ($text_attributes as $key => $text_attribute) {
+        //     if (!$this->isEmpty($text_attribute)) {
+        //         $query = $query->where($key, 'LIKE', '%' . $text_attribute . '%');
+        //     }
+        // }
 
         $users = $query->paginate($request->per_page);
         return UsersResource::collection($users);
@@ -51,6 +58,6 @@ class UserController extends Controller
 
     public function isEmpty($string)
     {
-        return $string == '';
+        return $string == '' || $string == null;
     }
 }

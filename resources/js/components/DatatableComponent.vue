@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <div class="mb-5 d-inline">
+            <div class="d-inline mb-5">
                 <span class="d-inline-block mr-3">Show</span>
                 <v-select 
                     class="d-inline-block mr-3" 
@@ -9,23 +9,22 @@
                     :items="itemsShow" 
                     label="Show" 
                     solo 
-                    v-model="perPage" 
-                    @change="reset(); fetchData()">
+                    v-model="perPage"
+                    @change="fetchData(true)">
                 </v-select>
                 <span class="d-inline-block mr-3">entries</span>
             </div>
 
-            <div class="general-search float-right mb-3">
+            <div class="float-right mb-3">
                 <v-text-field 
-                    @input="reset(); fetchData()" 
+                    @input="fetchData(true)" 
                     v-model="generalSearch" 
                     style="width: 300px;" 
-                    solo 
-                    name="name" 
+                    solo
                     prepend-inner-icon="search" 
-                    autocomplete="off" 
-                    label="Search" 
-                    id="id">    
+                    autocomplete="off"
+                    clearable 
+                    label="Search">    
                 </v-text-field>
             </div>
 
@@ -92,18 +91,22 @@
                             v-for="column in columns" 
                             :key="column.title">
                             <v-text-field 
-                                @input="reset(); fetchData();" 
+                                clearable
+                                @input="fetchData(true)" 
                                 v-model="queries[column.title]"
                                 v-if="column.type=='text'"
                                 solo 
                                 autocomplete="off" 
                                 name="name" 
-                                label="" 
-                                id="id" 
+                                label=""
                                 prepend-inner-icon="search">
                             </v-text-field>
 
-                            <input class="form-control d-picker elevation-2" v-if="column.type=='date'" type="text" name="daterangepicker" value="01/01/2018 - 01/15/2018" />
+                             <date-range-picker 
+                                v-if="column.type=='date'" 
+                                v-model="queries[column.title]"
+                                :options="options"
+                                @input="fetchData(true)"/>
                         </th>
                         <th class="border-0 pt-0 pb-0"></th>
                     </tr>
@@ -132,7 +135,7 @@
                         <td 
                             v-if="activeColumns[key]" 
                             v-for="(value, key) in data">
-                            {{ value }}
+                            {{value}}
                         </td>
                         <td 
                             style="white-space: nowrap">
@@ -175,7 +178,19 @@
             class="text-center ml-auto mr-auto d-flex align-center justify-content-center mt-3">
             <ul class="pagination justify-content-center m-0">
                 <li 
-                    class="" 
+                    :class="{'disabled' : currentPage === 1}">
+                    <v-btn 
+                        :disabled="currentPage === 1"
+                        dark
+                        fab 
+                        small
+                        class="page-link d-flex" 
+                        href="#" 
+                        @click.prevent="changePage(1)">
+                        <v-icon>fast_rewind</v-icon>
+                    </v-btn>
+                </li>
+                <li 
                     :class="{'disabled' : currentPage === 1}">
                     <v-btn 
                         :disabled="currentPage === 1"
@@ -202,7 +217,6 @@
                 </li>
 
                 <li 
-                    class="" 
                     :class="{'disabled': currentPage === pagination.meta.last_page }">
                     <v-btn
                         :disabled="currentPage === pagination.meta.last_page"
@@ -213,6 +227,19 @@
                         href="#" 
                         @click.prevent="changePage(currentPage + 1)">
                         <v-icon>chevron_right</v-icon>
+                    </v-btn>
+                </li>
+                <li 
+                    :class="{'disabled': currentPage === pagination.meta.last_page }">
+                    <v-btn
+                        :disabled="currentPage === pagination.meta.last_page"
+                        dark
+                        fab
+                        small
+                        class="page-link d-flex" 
+                        href="#" 
+                        @click.prevent="changePage(pagination.meta.last_page)">
+                        <v-icon>fast_forward</v-icon>
                     </v-btn>
                 </li>
             </ul>
@@ -285,6 +312,7 @@
 </template>
 
 <script>
+import PaginationMixin from '../mixins/PaginationMixin'
 
 export default {
     props: {
@@ -302,15 +330,9 @@ export default {
         return {
             tableData: [],
             url: '',
-            pagination: {
-                meta: { to: 1, from: 1 }
-            },
-            offset: 4,
-            currentPage: 1,
-            perPage: 15,
             sortedColumn: this.columns[0].title,
             order: 'asc',
-            itemsShow: [5, 10, 15, 50, 100, 500],
+            itemsShow: [15, 50, 100],
             loading: false,
             generalSearch: '',
             queries: {},
@@ -319,8 +341,17 @@ export default {
             editingRow: {},
             viewColumns: false,
             activeColumns: {},
-            oldCurrentPage: 1,
-            selected: {}
+            selected: {},
+
+
+            options: {
+              timePicker: true,
+              startDate: moment().startOf('hour'),
+              endDate: moment().startOf('hour').add(32, 'hour'),
+              locale: {
+                format: 'M/DD hh:mm A'
+              }
+            }
         }
     },
 
@@ -342,90 +373,43 @@ export default {
         return this.fetchData();
     },
 
-    mounted(){
-        $('input[name="daterangepicker"]').daterangepicker({
-            timePicker: true,
-            startDate: moment().startOf('hour'),
-            endDate: moment().startOf('hour').add(32, 'hour'),
-            locale: {
-              format: 'DD/MM/YYYY hh:mm'
-            }
-        });
-    },
-
-    computed: {
-        pagesNumber() {
-            if (!this.pagination.meta.to) {
-                return []
-            }
-            let from = this.pagination.meta.current_page - this.offset
-            if (from < 1) {
-                from = 1
-            }
-            let to = from + (this.offset * 2)
-            if (to >= this.pagination.meta.last_page) {
-                to = this.pagination.meta.last_page
-            }
-            let pagesArray = []
-            for (let page = from; page <= to; page++) {
-                pagesArray.push(page)
-            }
-            return pagesArray
-        },
-
-        totalData() {
-            return (this.pagination.meta.to - this.pagination.meta.from) + 1
-        }
-    },
-
     methods: {
-        fetchData() {
+        fetchData(reset = false) {
+            if(reset){
+                this.currentPage = 1;
+            }
+
             this.loading = true;
 
-            let queries = JSON.stringify(this.queries);
+            let dataFetchUrl = `${this.url}?page=${this.currentPage}&column=${this.sortedColumn}&order=${this.order}&per_page=${this.perPage}&search=${this.generalSearch}`
 
-            let dataFetchUrl = `${this.url}?page=${this.currentPage}&column=${this.sortedColumn}&order=${this.order}&per_page=${this.perPage}&search=${this.generalSearch}&queries=${queries}`
+            Object.keys(this.queries).map(item=>{
+                let queryItem = this.queries[item];
+                if(queryItem==null){
+                    queryItem = '';
+                }
+
+                dataFetchUrl += '&' + item + '=' + queryItem;
+            })
+
+            console.log(dataFetchUrl)
+
             axios.get(dataFetchUrl)
                 .then(({ data }) => {
                     console.log(data)
                     this.pagination = data
                     this.tableData = data.data
-                    this.loading = false;
-
+                    this.loading = false
                     this.tableData.map(item=>{
                         this.selected[item.id] = false;
                     });
-                }).catch(error => this.tableData = [])
+                }).catch(error => {
+                    this.tableData = []
+                })
         },
 
         serialNumber(key) {
             return (this.currentPage - 1) * this.perPage + 1 + key
-        },
-
-        changePage(pageNumber) {
-            this.oldCurrentPage = pageNumber
-            this.currentPage = pageNumber
-            this.fetchData()
-        },
-
-        reset(){
-            this.currentPage = 1;
-
-            // if(this.oldCurrentPage != 1){
-            //     let empty = true;
-
-            //     this.columns.map(item => {
-            //         if(this.queries[item.title] != '' && item.type=='text'){
-            //             empty = false;
-            //         }
-            //     });
-
-            //     if(this.generalSearch != '' || !empty){
-            //         this.currentPage = 1
-            //     } else {
-            //         this.currentPage = this.oldCurrentPage
-            //     }
-            // }
         },
 
         sortByColumn(column) {
@@ -444,7 +428,7 @@ export default {
             }).then(response => {
                 this.tableData[index] = response.data;
             }).catch(error => {
-                //
+                console.log(error);
             })
         },
 
@@ -465,6 +449,7 @@ export default {
             return value.split('_').join(' ').toLowerCase()
         }
     },
-    name: 'DataTable'
+    name: 'DataTable',
+    mixins: [PaginationMixin]
 }
 </script>
