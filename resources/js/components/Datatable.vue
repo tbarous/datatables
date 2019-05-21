@@ -7,10 +7,12 @@
                 </v-select>
                 <span class="d-inline-block mr-3">entries</span>
             </div>
+
             <div class="float-right mb-3">
                 <v-text-field @input="fetchData(true)" v-model="generalSearch" style="width: 300px;" solo prepend-inner-icon="search" autocomplete="off" clearable label="Search">
                 </v-text-field>
             </div>
+            
             <div class="viewColumns">
                 <v-btn class="ml-0 mb-0 mt-5" color="secondary" dark @click="viewColumns=true">
                     Active Columns
@@ -51,7 +53,7 @@
                 </thead>
                 <tbody>
                     <tr v-if="tableData.length === 0">
-                        <td class="lead text-center p-5" :colspan="columns.length + 1">
+                        <td class="text-center p-3 text-white bg-danger" :colspan="columns.length + 3">
                             No was data found
                         </td>
                     </tr>
@@ -202,7 +204,11 @@ export default {
                 .then(({ data }) => {
                     this.pagination = data
                     this.tableData = data.data
-                    this.tableData.map(item => this.selected[item.id] = false);
+                    this.tableData.map(item => {
+                        if(!this.selected.hasOwnProperty(item.id)){
+                            this.selected[item.id] = false
+                        }
+                    });
                     this.loading = false
                 }).catch(error => {
                     this.tableData = []
@@ -263,5 +269,4 @@ export default {
         PaginationNav
     }
 }
-
 </script>

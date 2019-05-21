@@ -1,47 +1,22 @@
 <template>
     <div>
-        <DatatableComponent :fetch-url="url" :columns="columns"></DatatableComponent>
+        <datatable :fetch-url="url" :columns="columns"></datatable>
     </div>
 </template>
 
 <script>
-import DatatableComponent from '../components/DatatableComponent'
+import Datatable from '../components/Datatable'
 
 export default {
     data() {
         return {
-            url: 'api/users',
-            columns: [{
-                    title: 'username',
-                    sortable: true,
-                    searchable: true,
-                    type: 'text'
-                },
-                {
-                    title: 'email',
-                    sortable: true,
-                    searchable: true,
-                    type: 'text'
-                },
-                {
-                    title: 'created_at',
-                    sortable: true,
-                    searchable: true,
-                    type: 'date'
-                },
-                {
-                    title: 'updated_at',
-                    sortable: true,
-                    searchable: true,
-                    type: 'date'
-                }
-            ]
+            url: data.users.url,
+            columns: data.users.headers
         }
     },
 
     components: {
-        DatatableComponent,
-        Chart
+        Datatable
     }
 }
 </script>

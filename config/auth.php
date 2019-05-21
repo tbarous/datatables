@@ -19,7 +19,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'ldap', # 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Models\User::class,
         ]
     ],
     'passwords' => [

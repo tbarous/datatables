@@ -2,20 +2,26 @@
      
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
-use DataTables;
 use App\Http\Resources\UsersResource;
 
 class UserController extends Controller
 {
     protected $user;
 
+    /**
+     * @param User $user
+     */
     public function __construct(User $user)
     {
         $this->user = $user;
     }
 
+    /**
+     * @param  Request $request
+     * @return Collection
+     */
     public function filter(Request $request)
     {
         return User::filter($request)->get();
@@ -34,17 +40,6 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        $data = json_decode($request);
-
-        User::update([
-            $data
-        ]);
-
-        return $data;
-    }
-
-    public function isEmpty($string)
-    {
-        return $string == '' || $string == null;
+        //
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Adldap\Laravel\Facades\Adldap;
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Filters\UserFilter;
 use Illuminate\Database\Eloquent\Builder;
@@ -42,5 +42,22 @@ class User extends Authenticatable
     public function scopeFilter(Builder $builder, $request)
     {
         return (new UserFilter($request))->filter($builder);
+    }
+
+    public static function getData()
+    {
+        $headers = [
+            ['title' => 'username', 'sortable' => true, 'searchable' => true, 'type'=> 'text'],
+            ['title' => 'email', 'sortable' => true, 'searchable' => true, 'type'=> 'text'],
+            ['title' => 'created_at', 'sortable' => true, 'searchable' => true, 'type'=> 'date'],
+            ['title' => 'updated_at', 'sortable' => true, 'searchable' => true, 'type'=> 'date']
+        ];
+
+        $users = [
+            'headers' => $headers,
+            'url' => 'api/users'
+        ];
+
+        return $users;
     }
 }

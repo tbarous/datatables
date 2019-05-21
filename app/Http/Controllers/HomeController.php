@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
     }
 
     /**
@@ -25,7 +25,10 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $data = ['user' => auth()->user()];
+        $data = [
+            'user' => auth()->user(),
+            'users' => User::getData()
+        ];
 
         return view('layouts.app', compact('data'));
     }
