@@ -57940,7 +57940,10 @@ var render = function() {
           _c("div", { staticClass: "mt-3" }, [
             _c("i", [
               _vm._v(
-                "Total: " + _vm._s(_vm.pagination.meta.total) + " entries."
+                _vm._s(_vm.perPage) +
+                  " of " +
+                  _vm._s(_vm.pagination.meta.total) +
+                  " entries"
               )
             ])
           ]),

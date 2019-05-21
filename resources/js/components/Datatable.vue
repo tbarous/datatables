@@ -14,7 +14,7 @@
             </div>
             
             <div class="mt-3">
-                <i>Total: {{ pagination.meta.total }} entries.</i>
+                <i>{{perPage}} of {{pagination.meta.total}} entries</i>
             </div>
             
             <div class="float-left">
