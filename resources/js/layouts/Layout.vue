@@ -1,6 +1,6 @@
 <template>
     <v-app id="inspire">
-        <v-navigation-drawer v-model="drawer" fixed app light width="250">
+        <v-navigation-drawer v-model="drawer" fixed app light width="280">
             <v-toolbar flat class="transparent">
                 <v-list class="pa-0">
                     <v-list-tile avatar>
@@ -14,32 +14,36 @@
                     </v-list-tile>
                 </v-list>
             </v-toolbar>
+            
+            <v-list dense>
+                <v-divider class="mt-0 mb-0"></v-divider>
+                <v-list-group prepend-icon="fas fa-tools" :value="false" dark>
+                    <template v-slot:activator>
+                        <v-list-tile>
+                            <v-list-tile-title>Tools</v-list-tile-title>
+                        </v-list-tile>
+                    </template>
+                    <v-list-tile :to="page.slug" v-for="(page, index) in pages.tools" :key="index">
+                        <v-list-tile-action>
+                            <v-icon v-text="page.icon"></v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-list-tile-title v-text="page.title"></v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                </v-list-group>
 
-            <!-- <v-list dense>
-                <v-divider class="mt-0"></v-divider>
-                <v-list-tile :to="page.slug" v-for="(page, index) in pages" :key="index">
+                <v-divider class="mt-0 mb-0"></v-divider>
+
+                <v-list-tile to="/documentation">
                     <v-list-tile-action>
-                        <v-icon>{{page.icon}}</v-icon>
+                        <v-icon>fa-file</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
-                        <v-list-tile-title>{{page.title}}</v-list-tile-title>
+                        <v-list-tile-title>Documentation</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
-            </v-list> -->
-
-            <v-list-group prepend-icon="fas fa-tools" :value="false">
-                <template v-slot:activator>
-                    <v-list-tile>
-                        <v-list-tile-title>Tools</v-list-tile-title>
-                    </v-list-tile>
-                </template>
-                <v-list-tile :to="page.slug" v-for="(page, index) in pages" :key="index">
-                    <v-list-tile-title v-text="page.title"></v-list-tile-title>
-                    <v-list-tile-action>
-                        <v-icon v-text="page.icon"></v-icon>
-                    </v-list-tile-action>
-                </v-list-tile>
-            </v-list-group>
+            </v-list>
         </v-navigation-drawer>
 
         <v-toolbar dark fixed app>

@@ -2001,6 +2001,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -2314,6 +2315,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -57913,14 +57918,22 @@ var render = function() {
             1
           ),
           _vm._v(" "),
+          _c("div", { staticClass: "mt-3" }, [
+            _c("i", [
+              _vm._v(
+                "Total: " + _vm._s(_vm.pagination.meta.total) + " entries."
+              )
+            ])
+          ]),
+          _vm._v(" "),
           _c(
             "div",
-            { staticClass: "viewColumns" },
+            { staticClass: "float-left" },
             [
               _c(
                 "v-btn",
                 {
-                  staticClass: "ml-0 mb-0 mt-5",
+                  staticClass: " ml-0 mr-0 mt-3",
                   attrs: { color: "secondary", dark: "" },
                   on: {
                     click: function($event) {
@@ -57938,45 +57951,44 @@ var render = function() {
               _c(
                 "v-btn",
                 {
-                  staticClass: "ml-0 mb-0 mt-5",
+                  staticClass: "mr-0 mt-3",
                   attrs: { color: "secondary", dark: "" },
                   on: { click: _vm.updateMultiple }
                 },
                 [_vm._v("\n                Edit all\n            ")]
               ),
               _vm._v(" "),
-              _c("br"),
-              _c("br"),
+              _c(
+                "v-btn",
+                {
+                  staticClass: "mr-0 mt-3",
+                  attrs: { color: "secondary" },
+                  on: { click: _vm.downloadWithAxios }
+                },
+                [
+                  _vm._v("\n               Excel "),
+                  _c("v-icon", { staticClass: "ml-3" }, [
+                    _vm._v("far fa-file-excel")
+                  ])
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("span", [
-                _c("i", [
-                  _vm._v(
-                    "Total: " + _vm._s(_vm.pagination.meta.total) + " entries."
-                  )
-                ])
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            { staticClass: "ml-0 mt-3", on: { click: _vm.downloadWithAxios } },
-            [
-              _vm._v("\n           Excel "),
-              _c("v-icon", { staticClass: "ml-3" }, [
-                _vm._v("far fa-file-excel")
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            { staticClass: "ml-0 mt-3", on: { click: _vm.downloadWithAxios } },
-            [
-              _vm._v("\n           PDF "),
-              _c("v-icon", { staticClass: "ml-3" }, [_vm._v("far fa-file-pdf")])
+              _c(
+                "v-btn",
+                {
+                  staticClass: "mr-0 mt-3",
+                  attrs: { color: "secondary" },
+                  on: { click: _vm.downloadWithAxios }
+                },
+                [
+                  _vm._v("\n               PDF "),
+                  _c("v-icon", { staticClass: "ml-3" }, [
+                    _vm._v("far fa-file-pdf")
+                  ])
+                ],
+                1
+              )
             ],
             1
           ),
@@ -58689,7 +58701,7 @@ var render = function() {
       _c(
         "v-navigation-drawer",
         {
-          attrs: { fixed: "", app: "", light: "", width: "250" },
+          attrs: { fixed: "", app: "", light: "", width: "280" },
           model: {
             value: _vm.drawer,
             callback: function($$v) {
@@ -58741,51 +58753,91 @@ var render = function() {
           ),
           _vm._v(" "),
           _c(
-            "v-list-group",
-            {
-              attrs: { "prepend-icon": "fas fa-tools", value: false },
-              scopedSlots: _vm._u([
-                {
-                  key: "activator",
-                  fn: function() {
-                    return [
-                      _c(
-                        "v-list-tile",
-                        [_c("v-list-tile-title", [_vm._v("Tools")])],
-                        1
-                      )
-                    ]
-                  },
-                  proxy: true
-                }
-              ])
-            },
+            "v-list",
+            { attrs: { dense: "" } },
             [
+              _c("v-divider", { staticClass: "mt-0 mb-0" }),
               _vm._v(" "),
-              _vm._l(_vm.pages, function(page, index) {
-                return _c(
-                  "v-list-tile",
-                  { key: index, attrs: { to: page.slug } },
-                  [
-                    _c("v-list-tile-title", {
-                      domProps: { textContent: _vm._s(page.title) }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "v-list-tile-action",
+              _c(
+                "v-list-group",
+                {
+                  attrs: {
+                    "prepend-icon": "fas fa-tools",
+                    value: false,
+                    dark: ""
+                  },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "activator",
+                      fn: function() {
+                        return [
+                          _c(
+                            "v-list-tile",
+                            [_c("v-list-tile-title", [_vm._v("Tools")])],
+                            1
+                          )
+                        ]
+                      },
+                      proxy: true
+                    }
+                  ])
+                },
+                [
+                  _vm._v(" "),
+                  _vm._l(_vm.pages.tools, function(page, index) {
+                    return _c(
+                      "v-list-tile",
+                      { key: index, attrs: { to: page.slug } },
                       [
-                        _c("v-icon", {
-                          domProps: { textContent: _vm._s(page.icon) }
-                        })
+                        _c(
+                          "v-list-tile-action",
+                          [
+                            _c("v-icon", {
+                              domProps: { textContent: _vm._s(page.icon) }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-list-tile-content",
+                          [
+                            _c("v-list-tile-title", {
+                              domProps: { textContent: _vm._s(page.title) }
+                            })
+                          ],
+                          1
+                        )
                       ],
                       1
                     )
-                  ],
-                  1
-                )
-              })
+                  })
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c("v-divider", { staticClass: "mt-0 mb-0" }),
+              _vm._v(" "),
+              _c(
+                "v-list-tile",
+                { attrs: { to: "/documentation" } },
+                [
+                  _c(
+                    "v-list-tile-action",
+                    [_c("v-icon", [_vm._v("fa-file")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-tile-content",
+                    [_c("v-list-tile-title", [_vm._v("Documentation")])],
+                    1
+                  )
+                ],
+                1
+              )
             ],
-            2
+            1
           )
         ],
         1
