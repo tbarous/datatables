@@ -15,6 +15,8 @@
             
             <div class="mt-3">
                 <i>{{perPage}} of {{pagination.meta.total}} entries</i>
+                <br><br>
+                <u>Selected: {{selected.length}}</u>
             </div>
             
             <div class="float-left">
@@ -70,7 +72,7 @@
                     <tr v-for="(data, key1) in tableData" :key="data.id" class="m-datatable__row" v-else>
                         <td>{{serialNumber(key1)}}</td>
                         <td>
-                            <v-checkbox v-model="selected[data.id]"></v-checkbox>
+                            <v-checkbox @change="select(data)"></v-checkbox>
                         </td>
                         <td v-if="activeColumns[key]" v-for="(value, key) in data">
                             {{value}}
@@ -168,7 +170,7 @@ export default {
             editingRow: {},
             viewColumns: false,
             activeColumns: {},
-            selected: {},
+            selected: [],
             options: {
                 timePicker: true,
                 startDate: moment().startOf('hour'),
@@ -216,11 +218,6 @@ export default {
                 .then(({ data }) => {
                     this.pagination = data
                     this.tableData = data.data
-                    this.tableData.map(item => {
-                        if(!this.selected.hasOwnProperty(item.id)){
-                            this.selected[item.id] = false
-                        }
-                    });
                     this.loading = false
                 }).catch(error => {
                     this.tableData = []
@@ -257,12 +254,17 @@ export default {
             })
         },
 
+        select(item){
+            console.log(this.selected)
+            if(!this.selected.includes(item.id)){
+                this.selected.push(item.id)
+            } else {
+                this.selected.splice(this.selected.indexOf(item.id), 1)
+            }
+        },
+
         updateMultiple() {
-            Object.keys(this.selected).map(item => {
-                if (this.selected[item] == true) {
-                    console.log(item)
-                }
-            })
+            // 
         },
 
         forceFileDownload(response){

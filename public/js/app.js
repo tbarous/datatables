@@ -2004,6 +2004,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -2033,7 +2035,7 @@ __webpack_require__.r(__webpack_exports__);
       editingRow: {},
       viewColumns: false,
       activeColumns: {},
-      selected: {},
+      selected: [],
       options: {
         timePicker: true,
         startDate: moment().startOf('hour'),
@@ -2079,13 +2081,6 @@ __webpack_require__.r(__webpack_exports__);
         var data = _ref.data;
         _this2.pagination = data;
         _this2.tableData = data.data;
-
-        _this2.tableData.map(function (item) {
-          if (!_this2.selected.hasOwnProperty(item.id)) {
-            _this2.selected[item.id] = false;
-          }
-        });
-
         _this2.loading = false;
       })["catch"](function (error) {
         _this2.tableData = [];
@@ -2120,14 +2115,16 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
-    updateMultiple: function updateMultiple() {
-      var _this4 = this;
+    select: function select(item) {
+      console.log(this.selected);
 
-      Object.keys(this.selected).map(function (item) {
-        if (_this4.selected[item] == true) {
-          console.log(item);
-        }
-      });
+      if (!this.selected.includes(item.id)) {
+        this.selected.push(item.id);
+      } else {
+        this.selected.splice(this.selected.indexOf(item.id), 1);
+      }
+    },
+    updateMultiple: function updateMultiple() {// 
     },
     forceFileDownload: function forceFileDownload(response) {
       var url = window.URL.createObjectURL(new Blob([response.data]));
@@ -2139,14 +2136,14 @@ __webpack_require__.r(__webpack_exports__);
       link.click();
     },
     downloadWithAxios: function downloadWithAxios() {
-      var _this5 = this;
+      var _this4 = this;
 
       axios({
         method: 'get',
         url: 'http://project.local/images/screenshot.png',
         responseType: 'arraybuffer'
       }).then(function (response) {
-        _this5.forceFileDownload(response);
+        _this4.forceFileDownload(response);
       })["catch"](function () {
         return console.log('error occured');
       });
@@ -57945,7 +57942,12 @@ var render = function() {
                   _vm._s(_vm.pagination.meta.total) +
                   " entries"
               )
-            ])
+            ]),
+            _vm._v(" "),
+            _c("br"),
+            _c("br"),
+            _vm._v(" "),
+            _c("u", [_vm._v("Selected: " + _vm._s(_vm.selected.length))])
           ]),
           _vm._v(" "),
           _c(
@@ -58175,12 +58177,10 @@ var render = function() {
                             "td",
                             [
                               _c("v-checkbox", {
-                                model: {
-                                  value: _vm.selected[data.id],
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.selected, data.id, $$v)
-                                  },
-                                  expression: "selected[data.id]"
+                                on: {
+                                  change: function($event) {
+                                    return _vm.select(data)
+                                  }
                                 }
                               })
                             ],
