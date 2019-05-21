@@ -23,23 +23,10 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
+        // $users = User::query();
+        // Cache::put('users', $users);
+
         $query = User::filter($request)->orderBy($request->column, $request->order);
-
-        // $queries = json_decode($request->queries);
-
-        // $query = $this->user->orderBy($request->column, $request->order);
-
-        // if (!$this->isEmpty($request->search)) {
-        //     $query = $query->where('username', 'LIKE', '%' . $request->search . '%')
-        //                    ->orWhere('email', 'LIKE', '%' . $request->search . '%');
-        // }
-
-        // $text_attributes = ['username' => $queries->username, 'email' => $queries->email];
-        // foreach ($text_attributes as $key => $text_attribute) {
-        //     if (!$this->isEmpty($text_attribute)) {
-        //         $query = $query->where($key, 'LIKE', '%' . $text_attribute . '%');
-        //     }
-        // }
 
         $users = $query->paginate($request->per_page);
         return UsersResource::collection($users);

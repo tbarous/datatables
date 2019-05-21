@@ -1990,119 +1990,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2165,40 +2052,28 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       var reset = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
-      if (reset) {
-        this.currentPage = 1;
-      }
-
-      this.loading = true;
-
-      if (this.generalSearch == null) {
-        this.generalSearch = '';
-      }
-
+      if (reset) this.currentPage = 1;
+      if (this.generalSearch == null) this.generalSearch = '';
       var dataFetchUrl = "".concat(this.url, "?page=").concat(this.currentPage, "&column=").concat(this.sortedColumn, "&order=").concat(this.order, "&per_page=").concat(this.perPage, "&search=").concat(this.generalSearch);
       Object.keys(this.queries).map(function (item) {
         var queryItem = _this2.queries[item];
-
-        if (queryItem == null) {
-          queryItem = '';
-        }
-
+        if (queryItem == null) queryItem = '';
         dataFetchUrl += '&' + item + '=' + queryItem;
       });
-      console.log(dataFetchUrl);
+      this.loading = true;
       axios.get(dataFetchUrl).then(function (_ref) {
         var data = _ref.data;
-        console.log(data);
         _this2.pagination = data;
         _this2.tableData = data.data;
-        _this2.loading = false;
 
         _this2.tableData.map(function (item) {
-          _this2.selected[item.id] = false;
+          return _this2.selected[item.id] = false;
         });
+
+        _this2.loading = false;
       })["catch"](function (error) {
         _this2.tableData = [];
+        _this2.loading = false;
       });
     },
     serialNumber: function serialNumber(key) {
@@ -99971,15 +99846,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!***************************************************!*\
   !*** ./resources/js/components/PaginationNav.vue ***!
   \***************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PaginationNav_vue_vue_type_template_id_459cfa4e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PaginationNav.vue?vue&type=template&id=459cfa4e& */ "./resources/js/components/PaginationNav.vue?vue&type=template&id=459cfa4e&");
 /* harmony import */ var _PaginationNav_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PaginationNav.vue?vue&type=script&lang=js& */ "./resources/js/components/PaginationNav.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _PaginationNav_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _PaginationNav_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -100009,7 +99883,7 @@ component.options.__file = "resources/js/components/PaginationNav.vue"
 /*!****************************************************************************!*\
   !*** ./resources/js/components/PaginationNav.vue?vue&type=script&lang=js& ***!
   \****************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
