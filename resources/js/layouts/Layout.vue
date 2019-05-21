@@ -1,7 +1,6 @@
 <template>
     <v-app id="inspire">
         <v-navigation-drawer v-model="drawer" fixed app light width="250">
-
             <v-toolbar flat class="transparent">
                 <v-list class="pa-0">
                     <v-list-tile avatar>
@@ -16,7 +15,7 @@
                 </v-list>
             </v-toolbar>
 
-            <v-list dense>
+            <!-- <v-list dense>
                 <v-divider class="mt-0"></v-divider>
                 <v-list-tile :to="page.slug" v-for="(page, index) in pages" :key="index">
                     <v-list-tile-action>
@@ -26,7 +25,21 @@
                         <v-list-tile-title>{{page.title}}</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
-            </v-list>
+            </v-list> -->
+
+            <v-list-group prepend-icon="fas fa-tools" :value="false">
+                <template v-slot:activator>
+                    <v-list-tile>
+                        <v-list-tile-title>Tools</v-list-tile-title>
+                    </v-list-tile>
+                </template>
+                <v-list-tile :to="page.slug" v-for="(page, index) in pages" :key="index">
+                    <v-list-tile-title v-text="page.title"></v-list-tile-title>
+                    <v-list-tile-action>
+                        <v-icon v-text="page.icon"></v-icon>
+                    </v-list-tile-action>
+                </v-list-tile>
+            </v-list-group>
         </v-navigation-drawer>
 
         <v-toolbar dark fixed app>
@@ -54,12 +67,10 @@
 </template>
 
 <script>
-    import pages from '../core/pages';
-
     export default {
         data: () => ({
             drawer: null,
-            pages: pages,
+            pages: data.pages,
             user: {}
         }),
 

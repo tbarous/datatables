@@ -10666,6 +10666,10 @@ a.text-dark:focus {
   }
 }
 
+.application {
+  font-family: "Nunito" !important;
+}
+
 a:hover {
   text-decoration: none !important;
 }

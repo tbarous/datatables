@@ -2314,7 +2314,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _core_pages__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core/pages */ "./resources/js/core/pages.js");
 //
 //
 //
@@ -2370,15 +2369,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
+  data: function (_data) {
+    function data() {
+      return _data.apply(this, arguments);
+    }
+
+    data.toString = function () {
+      return _data.toString();
+    };
+
+    return data;
+  }(function () {
     return {
       drawer: null,
-      pages: _core_pages__WEBPACK_IMPORTED_MODULE_0__["default"],
+      pages: data.pages,
       user: {}
     };
-  },
+  }),
   props: {
     source: String
   },
@@ -57907,7 +57928,11 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n                Active Columns\n            ")]
+                [
+                  _vm._v("\n                Active Columns "),
+                  _c("v-icon", { staticClass: "ml-3" }, [_vm._v("fas fa-bolt")])
+                ],
+                1
               ),
               _vm._v(" "),
               _c(
@@ -58088,7 +58113,7 @@ var render = function() {
             _c(
               "tbody",
               [
-                _vm.tableData.length === 0
+                _vm.tableData.length === 0 && !_vm.loading
                   ? _c("tr", [
                       _c(
                         "td",
@@ -58716,25 +58741,43 @@ var render = function() {
           ),
           _vm._v(" "),
           _c(
-            "v-list",
-            { attrs: { dense: "" } },
+            "v-list-group",
+            {
+              attrs: { "prepend-icon": "fas fa-tools", value: false },
+              scopedSlots: _vm._u([
+                {
+                  key: "activator",
+                  fn: function() {
+                    return [
+                      _c(
+                        "v-list-tile",
+                        [_c("v-list-tile-title", [_vm._v("Tools")])],
+                        1
+                      )
+                    ]
+                  },
+                  proxy: true
+                }
+              ])
+            },
             [
-              _c("v-divider", { staticClass: "mt-0" }),
               _vm._v(" "),
               _vm._l(_vm.pages, function(page, index) {
                 return _c(
                   "v-list-tile",
                   { key: index, attrs: { to: page.slug } },
                   [
-                    _c(
-                      "v-list-tile-action",
-                      [_c("v-icon", [_vm._v(_vm._s(page.icon))])],
-                      1
-                    ),
+                    _c("v-list-tile-title", {
+                      domProps: { textContent: _vm._s(page.title) }
+                    }),
                     _vm._v(" "),
                     _c(
-                      "v-list-tile-content",
-                      [_c("v-list-tile-title", [_vm._v(_vm._s(page.title))])],
+                      "v-list-tile-action",
+                      [
+                        _c("v-icon", {
+                          domProps: { textContent: _vm._s(page.icon) }
+                        })
+                      ],
                       1
                     )
                   ],
@@ -100021,39 +100064,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TableLoader_vue_vue_type_template_id_0ae817e6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
-
-/***/ }),
-
-/***/ "./resources/js/core/pages.js":
-/*!************************************!*\
-  !*** ./resources/js/core/pages.js ***!
-  \************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ([{
-  title: 'EETT Overview',
-  slug: 'eett-overview',
-  icon: 'dashboard'
-}, {
-  title: 'EETT Delta Report',
-  slug: 'eett-delta-report',
-  icon: 'report'
-}, {
-  title: 'EETT Scripts',
-  slug: 'eett-scripts',
-  icon: 'code'
-}, {
-  title: 'Log',
-  slug: 'log',
-  icon: 'chat'
-}, {
-  title: 'Users',
-  slug: 'users',
-  icon: 'person'
-}]);
 
 /***/ }),
 

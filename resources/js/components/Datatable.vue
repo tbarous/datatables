@@ -15,7 +15,7 @@
             
             <div class="viewColumns">
                 <v-btn class="ml-0 mb-0 mt-5" color="secondary" dark @click="viewColumns=true">
-                    Active Columns
+                    Active Columns <v-icon class="ml-3">fas fa-bolt</v-icon>
                 </v-btn>
                 <v-btn class="ml-0 mb-0 mt-5" color="secondary" dark @click="updateMultiple">
                     Edit all
@@ -61,7 +61,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-if="tableData.length === 0">
+                    <tr v-if="tableData.length === 0 && !loading">
                         <td class="text-center p-3 text-white bg-danger" :colspan="columns.length + 3">
                             No was data found
                         </td>
