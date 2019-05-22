@@ -10743,7 +10743,19 @@ th {
   width: 100%;
 }
 
+.daterangepicker {
+  font-family: inherit !important;
+}
+
 .disabled .page-link {
   background-color: black !important;
+}
+
+.v-input--selection-controls__input {
+  margin: 0 !important;
+}
+
+.headline {
+  font-family: "Nunito" !important;
 }
 

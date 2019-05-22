@@ -20,7 +20,7 @@
             </div>
             
             <div class="">
-                <v-btn class="ml-0 mr-0 mt-3" color="secondary" dark @click="fetchData">
+                <v-btn class="ml-0 mr-0 mt-3" color="secondary" dark @click="reload">
                     Reload <v-icon small class="ml-3">fas fa-sync</v-icon>
                 </v-btn>
 
@@ -46,7 +46,7 @@
                 <thead>
                     <tr class="bg-dark text-white">
                         <th class="table-head border-0"></th>
-                        <th class="table-head border-0">Select</th>
+                        <th class="table-head border-0"></th>
                         <th v-if="activeColumns[column.title]" v-for="column in columns" :key="column.title" @click="sortByColumn(column)" style="cursor: pointer;" class="table-head text-center border-0">
                             {{ column.title | columnHead }}
                             <span v-if="column.title === sortedColumn">
@@ -54,7 +54,7 @@
                                 <i v-else class="fas fa-chevron-down"></i>
                             </span>
                         </th>
-                        <th class="table-head text-center border-0">ACTIONS</th>
+                        <th class="table-head text-center border-0"></th>
                     </tr>
                     <tr class="bg-dark text-white">
                         <th class="table-head border-0 pt-0 pb-0"></th>
@@ -74,9 +74,9 @@
                         </td>
                     </tr>
                     <tr v-for="(data, key1) in tableData" :key="data.id" class="m-datatable__row" v-else>
-                        <td>{{serialNumber(key1)}}</td>
+                        <td class="p-3">{{serialNumber(key1)}}</td>
                         <td>
-                            <v-checkbox @change="select(data)"></v-checkbox>
+                            <v-checkbox color="black" class="p-3" @change="select(data)"></v-checkbox>
                         </td>
                         <td v-if="activeColumns[key]" v-for="(value, key) in data">
                             {{value}}
@@ -97,9 +97,11 @@
         </div>
         <table-loader :loading="loading"></table-loader>
         
-        <pagination-nav :pagination="pagination" :tableData="tableData" :currentPage="currentPage" :pagesNumber="pagesNumber" @changePage="changePage">
-        </pagination-nav>
-
+        <v-card class="p-3">
+          <pagination-nav :pagination="pagination" :tableData="tableData" :currentPage="currentPage" :pagesNumber="pagesNumber" @changePage="changePage">
+            </pagination-nav>
+        </v-card>
+        
         <v-dialog v-model="viewColumns" width="500">
             <v-card>
                 <v-card-title class="headline grey lighten-2" primary-title>
@@ -125,10 +127,10 @@
                 </v-card-title>
                 <v-card-text>
                     <v-form method="post" @submit.prevent="update(editingIndex, editingRow)">
-                        <v-text-field :label="column.title" solo v-for="(column, key) in columns" :key="column.title" v-if="column.type == 'text'" type="text" v-model="editingRow[column.title]">
+                        <v-text-field :label="column.title" solo v-for="(column, key) in columns" :key="column.title" v-if="column.type == 'text'" type="text" v-model="editingRow[column.title]" class="mt-3">
                         </v-text-field>
-                        <br><br>
-                        <v-btn color="primary" type="submit">edit</v-btn>
+                        <br>
+                        <v-btn class="ml-0 w-100" color="primary" type="submit">edit</v-btn>
                     </v-form>
                 </v-card-text>
                 <v-divider></v-divider>

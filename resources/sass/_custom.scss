@@ -1,5 +1,5 @@
-.application{
-    font-family: 'Nunito'!important;
+.application {
+    font-family: 'Nunito' !important;
 }
 
 a:hover {
@@ -27,8 +27,8 @@ button {
     margin: 0 !important;
 }
 
-.nopacity{
-    opacity: 0!important;
+.nopacity {
+    opacity: 0 !important;
 }
 
 .v-table__overflow {
@@ -46,34 +46,34 @@ td {
     margin: 0;
 }
 
-.active{
-    a{
+.active {
+    a {
 
-        background-color: #3490dc!important;
+        background-color: #3490dc !important;
     }
 }
 
 .page-item:first-child .page-link {
     margin-left: 0;
-    border-top-left-radius: 0!important;
-    border-bottom-left-radius: 0!important;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
 }
 
-.d-picker{
+.d-picker {
     border-radius: 0px;
     height: 48px;
     border: none;
 }
 
-th{
+th {
     letter-spacing: 2px;
 }
 
-.v-input--selection-controls{
+.v-input--selection-controls {
     justify-content: center;
 }
 
-.date-range-picker{
+.date-range-picker {
     background: #fff;
     height: 48px;
     border: none;
@@ -83,10 +83,22 @@ th{
     width: 100%;
 }
 
-.disabled{
+.daterangepicker{
+    font-family: inherit!important;
+}
+
+.disabled {
 
     .page-link {
 
-    background-color: black!important;
+        background-color: black !important;
     }
+}
+
+.v-input--selection-controls__input{
+    margin: 0!important;
+}
+
+.headline{
+    font-family: 'Nunito'!important
 }

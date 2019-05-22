@@ -2010,6 +2010,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -57963,7 +57965,7 @@ var render = function() {
                 {
                   staticClass: "ml-0 mr-0 mt-3",
                   attrs: { color: "secondary", dark: "" },
-                  on: { click: _vm.fetchData }
+                  on: { click: _vm.reload }
                 },
                 [
                   _vm._v("\n                Reload "),
@@ -58049,9 +58051,7 @@ var render = function() {
                 [
                   _c("th", { staticClass: "table-head border-0" }),
                   _vm._v(" "),
-                  _c("th", { staticClass: "table-head border-0" }, [
-                    _vm._v("Select")
-                  ]),
+                  _c("th", { staticClass: "table-head border-0" }),
                   _vm._v(" "),
                   _vm._l(_vm.columns, function(column) {
                     return _vm.activeColumns[column.title]
@@ -58089,9 +58089,7 @@ var render = function() {
                       : _vm._e()
                   }),
                   _vm._v(" "),
-                  _c("th", { staticClass: "table-head text-center border-0" }, [
-                    _vm._v("ACTIONS")
-                  ])
+                  _c("th", { staticClass: "table-head text-center border-0" })
                 ],
                 2
               ),
@@ -58191,12 +58189,16 @@ var render = function() {
                         "tr",
                         { key: data.id, staticClass: "m-datatable__row" },
                         [
-                          _c("td", [_vm._v(_vm._s(_vm.serialNumber(key1)))]),
+                          _c("td", { staticClass: "p-3" }, [
+                            _vm._v(_vm._s(_vm.serialNumber(key1)))
+                          ]),
                           _vm._v(" "),
                           _c(
                             "td",
                             [
                               _c("v-checkbox", {
+                                staticClass: "p-3",
+                                attrs: { color: "black" },
                                 on: {
                                   change: function($event) {
                                     return _vm.select(data)
@@ -58286,15 +58288,22 @@ var render = function() {
       _vm._v(" "),
       _c("table-loader", { attrs: { loading: _vm.loading } }),
       _vm._v(" "),
-      _c("pagination-nav", {
-        attrs: {
-          pagination: _vm.pagination,
-          tableData: _vm.tableData,
-          currentPage: _vm.currentPage,
-          pagesNumber: _vm.pagesNumber
-        },
-        on: { changePage: _vm.changePage }
-      }),
+      _c(
+        "v-card",
+        { staticClass: "p-3" },
+        [
+          _c("pagination-nav", {
+            attrs: {
+              pagination: _vm.pagination,
+              tableData: _vm.tableData,
+              currentPage: _vm.currentPage,
+              pagesNumber: _vm.pagesNumber
+            },
+            on: { changePage: _vm.changePage }
+          })
+        ],
+        1
+      ),
       _vm._v(" "),
       _c(
         "v-dialog",
@@ -58416,6 +58425,7 @@ var render = function() {
                         return column.type == "text"
                           ? _c("v-text-field", {
                               key: column.title,
+                              staticClass: "mt-3",
                               attrs: {
                                 label: column.title,
                                 solo: "",
@@ -58433,11 +58443,13 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("br"),
-                      _c("br"),
                       _vm._v(" "),
                       _c(
                         "v-btn",
-                        { attrs: { color: "primary", type: "submit" } },
+                        {
+                          staticClass: "ml-0 w-100",
+                          attrs: { color: "primary", type: "submit" }
+                        },
                         [_vm._v("edit")]
                       )
                     ],
@@ -58506,7 +58518,7 @@ var render = function() {
         "nav",
         {
           staticClass:
-            "text-center ml-auto mr-auto d-flex align-center justify-content-center mt-3"
+            "text-center ml-auto mr-auto d-flex align-center justify-content-center"
         },
         [
           _c(
@@ -100345,7 +100357,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_DeltaReport__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../views/DeltaReport */ "./resources/js/views/DeltaReport.vue");
 /* harmony import */ var _views_Scripts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../views/Scripts */ "./resources/js/views/Scripts.vue");
 /* harmony import */ var _views_Log__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../views/Log */ "./resources/js/views/Log.vue");
-/* harmony import */ var _views_Documentation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../views/Documentation */ "./resources/js/views/Documentation.vue");
+/* harmony import */ var _views_Documentation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../views/Documentation */ "./resources/js/views/Documentation.vue");
 
 
 
@@ -100377,7 +100389,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'Log'
 }, {
   path: '/documentation',
-  component: _views_Documentation__WEBPACK_IMPORTED_MODULE_6__["default"],
+  component: _views_Documentation__WEBPACK_IMPORTED_MODULE_5__["default"],
   name: 'Documentation'
 }]);
 

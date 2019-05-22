@@ -1,7 +1,7 @@
 <template>
 	<nav 
         v-if="pagination && tableData.length > 0" 
-        class="text-center ml-auto mr-auto d-flex align-center justify-content-center mt-3">
+        class="text-center ml-auto mr-auto d-flex align-center justify-content-center">
         <ul class="pagination justify-content-center m-0">
             <li 
                 :class="{'disabled' : currentPage === 1}">

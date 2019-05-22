@@ -83,7 +83,7 @@
         },
 
         created(){
-            this.user = data.user;
+            this.user = data.user
         },
 
         methods: {
