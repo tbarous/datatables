@@ -2015,6 +2015,98 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2142,8 +2234,7 @@ __webpack_require__.r(__webpack_exports__);
         this.selectBoxes[item.id] = false;
       }
     },
-    updateMultiple: function updateMultiple() {// 
-    },
+    updateMultiple: function updateMultiple() {},
     forceFileDownload: function forceFileDownload(response) {
       var url = window.URL.createObjectURL(new Blob([response.data]));
       var link = document.createElement('a');
@@ -57888,445 +57979,432 @@ var render = function() {
     [
       _c(
         "div",
+        { staticClass: "d-inline mb-5" },
+        [
+          _c("span", { staticClass: "d-inline-block mr-3" }, [_vm._v("Show")]),
+          _vm._v(" "),
+          _c("v-select", {
+            staticClass: "d-inline-block mr-3",
+            staticStyle: { width: "100px" },
+            attrs: { items: _vm.itemsShow, label: "Show", solo: "" },
+            on: {
+              change: function($event) {
+                _vm.loading = true
+                _vm.fetchData(true)
+              }
+            },
+            model: {
+              value: _vm.perPage,
+              callback: function($$v) {
+                _vm.perPage = $$v
+              },
+              expression: "perPage"
+            }
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "d-inline-block mr-3" }, [
+            _vm._v("entries")
+          ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "float-right mb-3" },
+        [
+          _c("v-text-field", {
+            staticStyle: { width: "300px" },
+            attrs: {
+              solo: "",
+              "prepend-inner-icon": "search",
+              autocomplete: "off",
+              clearable: "",
+              label: "Search"
+            },
+            on: {
+              input: function($event) {
+                _vm.loading = true
+                _vm.fetchData(true)
+              }
+            },
+            model: {
+              value: _vm.generalSearch,
+              callback: function($$v) {
+                _vm.generalSearch = $$v
+              },
+              expression: "generalSearch"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "mt-3" }, [
+        _vm.perPage < _vm.pagination.meta.total
+          ? _c("i", [
+              _vm._v(
+                _vm._s(_vm.perPage) +
+                  " of " +
+                  _vm._s(_vm.pagination.meta.total) +
+                  " entries"
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.perPage >= _vm.pagination.meta.total
+          ? _c("i", [
+              _vm._v(
+                _vm._s(_vm.pagination.meta.total) +
+                  " of " +
+                  _vm._s(_vm.pagination.meta.total) +
+                  " entries"
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("br"),
+        _c("br"),
+        _vm._v(" "),
+        _c("u", [_vm._v("Selected: " + _vm._s(_vm.selected.length))])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "button-line" },
         [
           _c(
-            "div",
-            { staticClass: "d-inline mb-5" },
+            "v-btn",
+            {
+              staticClass: "ml-0 mr-0 mt-3",
+              attrs: { color: "secondary", dark: "" },
+              on: { click: _vm.reload }
+            },
             [
-              _c("span", { staticClass: "d-inline-block mr-3" }, [
-                _vm._v("Show")
-              ]),
-              _vm._v(" "),
-              _c("v-select", {
-                staticClass: "d-inline-block mr-3",
-                staticStyle: { width: "100px" },
-                attrs: { items: _vm.itemsShow, label: "Show", solo: "" },
-                on: {
-                  change: function($event) {
-                    _vm.loading = true
-                    _vm.fetchData(true)
-                  }
-                },
-                model: {
-                  value: _vm.perPage,
-                  callback: function($$v) {
-                    _vm.perPage = $$v
-                  },
-                  expression: "perPage"
-                }
-              }),
-              _vm._v(" "),
-              _c("span", { staticClass: "d-inline-block mr-3" }, [
-                _vm._v("entries")
+              _vm._v("\n            Reload \n            "),
+              _c("v-icon", { staticClass: "ml-3", attrs: { small: "" } }, [
+                _vm._v("fas fa-sync")
               ])
             ],
             1
           ),
           _vm._v(" "),
           _c(
-            "div",
-            { staticClass: "float-right mb-3" },
-            [
-              _c("v-text-field", {
-                staticStyle: { width: "300px" },
-                attrs: {
-                  solo: "",
-                  "prepend-inner-icon": "search",
-                  autocomplete: "off",
-                  clearable: "",
-                  label: "Search"
-                },
-                on: {
-                  input: function($event) {
-                    _vm.loading = true
-                    _vm.fetchData(true)
-                  }
-                },
-                model: {
-                  value: _vm.generalSearch,
-                  callback: function($$v) {
-                    _vm.generalSearch = $$v
-                  },
-                  expression: "generalSearch"
+            "v-btn",
+            {
+              staticClass: "ml-0 mr-0 mt-3",
+              attrs: { color: "secondary", dark: "" },
+              on: {
+                click: function($event) {
+                  _vm.viewColumns = true
                 }
-              })
+              }
+            },
+            [
+              _vm._v("\n            Active Columns \n            "),
+              _c("v-icon", { staticClass: "ml-3", attrs: { small: "" } }, [
+                _vm._v("fas fa-bolt")
+              ])
             ],
             1
           ),
-          _vm._v(" "),
-          _c("div", { staticClass: "mt-3" }, [
-            _vm.perPage < _vm.pagination.meta.total
-              ? _c("i", [
-                  _vm._v(
-                    _vm._s(_vm.perPage) +
-                      " of " +
-                      _vm._s(_vm.pagination.meta.total) +
-                      " entries"
-                  )
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.perPage >= _vm.pagination.meta.total
-              ? _c("i", [
-                  _vm._v(
-                    _vm._s(_vm.pagination.meta.total) +
-                      " of " +
-                      _vm._s(_vm.pagination.meta.total) +
-                      " entries"
-                  )
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _c("br"),
-            _c("br"),
-            _vm._v(" "),
-            _c("u", [_vm._v("Selected: " + _vm._s(_vm.selected.length))])
-          ]),
           _vm._v(" "),
           _c(
-            "div",
-            { staticClass: "button-line" },
+            "v-btn",
+            {
+              staticClass: "mr-0 ml-0 mt-3",
+              attrs: { color: "secondary", dark: "" },
+              on: { click: _vm.updateMultiple }
+            },
             [
-              _c(
-                "v-btn",
-                {
-                  staticClass: "ml-0 mr-0 mt-3",
-                  attrs: { color: "secondary", dark: "" },
-                  on: { click: _vm.reload }
-                },
-                [
-                  _vm._v("\n                Reload "),
-                  _c("v-icon", { staticClass: "ml-3", attrs: { small: "" } }, [
-                    _vm._v("fas fa-sync")
-                  ])
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                {
-                  staticClass: " ml-0 mr-0 mt-3",
-                  attrs: { color: "secondary", dark: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.viewColumns = true
-                    }
-                  }
-                },
-                [
-                  _vm._v("\n                Active Columns "),
-                  _c("v-icon", { staticClass: "ml-3", attrs: { small: "" } }, [
-                    _vm._v("fas fa-bolt")
-                  ])
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                {
-                  staticClass: "mr-0 ml-0 mt-3",
-                  attrs: { color: "secondary", dark: "" },
-                  on: { click: _vm.updateMultiple }
-                },
-                [
-                  _vm._v("\n                Edit all "),
-                  _c("v-icon", { staticClass: "ml-3", attrs: { small: "" } }, [
-                    _vm._v("fas fa-edit")
-                  ])
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                {
-                  staticClass: "mr-0 ml-0 mt-3",
-                  attrs: { color: "secondary" },
-                  on: { click: _vm.downloadWithAxios }
-                },
-                [
-                  _vm._v("\n               Excel "),
-                  _c("v-icon", { staticClass: "ml-3", attrs: { small: "" } }, [
-                    _vm._v("far fa-file-excel")
-                  ])
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                {
-                  staticClass: "mr-0 ml-0 mt-3",
-                  attrs: { color: "secondary" },
-                  on: { click: _vm.downloadWithAxios }
-                },
-                [
-                  _vm._v("\n               PDF "),
-                  _c("v-icon", { staticClass: "ml-3", attrs: { small: "" } }, [
-                    _vm._v("far fa-file-pdf")
-                  ])
-                ],
-                1
-              )
+              _vm._v("\n            Edit all \n            "),
+              _c("v-icon", { staticClass: "ml-3", attrs: { small: "" } }, [
+                _vm._v("fas fa-edit")
+              ])
             ],
             1
           ),
           _vm._v(" "),
-          _c("table-loader", { attrs: { loading: _vm.loading } }),
+          _c(
+            "v-btn",
+            {
+              staticClass: "mr-0 ml-0 mt-3",
+              attrs: { color: "secondary" },
+              on: { click: _vm.downloadWithAxios }
+            },
+            [
+              _vm._v("\n           Excel "),
+              _c("v-icon", { staticClass: "ml-3", attrs: { small: "" } }, [
+                _vm._v("far fa-file-excel")
+              ])
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("table", { staticClass: "table table-bordered mb-0" }, [
-            _c("thead", [
-              _c(
-                "tr",
-                { staticClass: "bg-dark text-white" },
-                [
-                  _c("th", { staticClass: "table-head border-0" }),
-                  _vm._v(" "),
-                  _c("th", { staticClass: "table-head border-0" }),
-                  _vm._v(" "),
-                  _vm._l(_vm.columns, function(column) {
-                    return _vm.activeColumns[column.title]
-                      ? _c(
-                          "th",
-                          {
-                            key: column.title,
-                            staticClass: "table-head text-center border-0",
-                            staticStyle: { cursor: "pointer" },
-                            on: {
-                              click: function($event) {
-                                return _vm.sortByColumn(column)
-                              }
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                        " +
-                                _vm._s(_vm._f("columnHead")(column.title)) +
-                                "\n                        "
-                            ),
-                            column.title === _vm.sortedColumn
-                              ? _c("span", [
-                                  _vm.order === "asc"
-                                    ? _c("i", {
-                                        staticClass: "fas fa-chevron-up"
-                                      })
-                                    : _c("i", {
-                                        staticClass: "fas fa-chevron-down"
-                                      })
-                                ])
-                              : _vm._e()
-                          ]
-                        )
-                      : _vm._e()
-                  }),
-                  _vm._v(" "),
-                  _c("th", { staticClass: "table-head text-center border-0" })
-                ],
-                2
-              ),
+          _c(
+            "v-btn",
+            {
+              staticClass: "mr-0 ml-0 mt-3",
+              attrs: { color: "secondary" },
+              on: { click: _vm.downloadWithAxios }
+            },
+            [
+              _vm._v("\n           PDF "),
+              _c("v-icon", { staticClass: "ml-3", attrs: { small: "" } }, [
+                _vm._v("far fa-file-pdf")
+              ])
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("table-loader", { attrs: { loading: _vm.loading } }),
+      _vm._v(" "),
+      _c("table", { staticClass: "table table-bordered mb-0" }, [
+        _c("thead", [
+          _c(
+            "tr",
+            { staticClass: "bg-dark text-white" },
+            [
+              _c("th", { staticClass: "table-head border-0" }),
               _vm._v(" "),
-              _c(
-                "tr",
-                { staticClass: "bg-dark text-white" },
-                [
-                  _c("th", { staticClass: "table-head border-0 pt-0 pb-0" }),
-                  _vm._v(" "),
-                  _c("th", { staticClass: "table-head border-0" }),
-                  _vm._v(" "),
-                  _vm._l(_vm.columns, function(column) {
-                    return _vm.activeColumns[column.title]
-                      ? _c(
-                          "th",
-                          {
-                            key: column.title,
-                            staticClass: "border-0 pt-0 pb-0"
-                          },
-                          [
-                            column.type == "text"
-                              ? _c("v-text-field", {
-                                  attrs: {
-                                    clearable: "",
-                                    solo: "",
-                                    autocomplete: "off",
-                                    name: "name",
-                                    label: "",
-                                    "prepend-inner-icon": "search"
-                                  },
-                                  on: {
-                                    input: function($event) {
-                                      _vm.loading = true
-                                      _vm.fetchData(true)
-                                    }
-                                  },
-                                  model: {
-                                    value: _vm.queries[column.title],
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.queries, column.title, $$v)
-                                    },
-                                    expression: "queries[column.title]"
-                                  }
-                                })
-                              : _vm._e(),
-                            _vm._v(" "),
-                            column.type == "date"
-                              ? _c("date-range-picker", {
-                                  staticClass: "date-range-picker elevation-2",
-                                  attrs: { options: _vm.options },
-                                  on: {
-                                    input: function($event) {
-                                      _vm.loading = true
-                                      _vm.fetchData(true)
-                                    }
-                                  },
-                                  model: {
-                                    value: _vm.queries[column.title],
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.queries, column.title, $$v)
-                                    },
-                                    expression: "queries[column.title]"
-                                  }
-                                })
-                              : _vm._e()
-                          ],
-                          1
-                        )
-                      : _vm._e()
-                  }),
-                  _vm._v(" "),
-                  _c("th", { staticClass: "border-0 pt-0 pb-0" })
-                ],
-                2
-              )
-            ]),
-            _vm._v(" "),
-            _c(
-              "tbody",
-              [
-                _vm.tableData.length === 0 && !_vm.loading
-                  ? _c("tr", [
+              _c("th", { staticClass: "table-head border-0" }),
+              _vm._v(" "),
+              _vm._l(_vm.columns, function(column) {
+                return _vm.activeColumns[column.title]
+                  ? _c(
+                      "th",
+                      {
+                        key: column.title,
+                        staticClass: "table-head text-center border-0",
+                        staticStyle: { cursor: "pointer" },
+                        on: {
+                          click: function($event) {
+                            return _vm.sortByColumn(column)
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(_vm._f("columnHead")(column.title)) +
+                            "\n                    "
+                        ),
+                        column.title === _vm.sortedColumn
+                          ? _c("span", [
+                              _vm.order === "asc"
+                                ? _c("i", { staticClass: "fas fa-chevron-up" })
+                                : _c("i", {
+                                    staticClass: "fas fa-chevron-down"
+                                  })
+                            ])
+                          : _vm._e()
+                      ]
+                    )
+                  : _vm._e()
+              }),
+              _vm._v(" "),
+              _c("th", { staticClass: "table-head text-center border-0" })
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c(
+            "tr",
+            { staticClass: "bg-dark text-white" },
+            [
+              _c("th", { staticClass: "table-head border-0 pt-0 pb-0" }),
+              _vm._v(" "),
+              _c("th", { staticClass: "table-head border-0" }),
+              _vm._v(" "),
+              _vm._l(_vm.columns, function(column) {
+                return _vm.activeColumns[column.title]
+                  ? _c(
+                      "th",
+                      { key: column.title, staticClass: "border-0 pt-0 pb-0" },
+                      [
+                        column.type == "text"
+                          ? _c("v-text-field", {
+                              attrs: {
+                                clearable: "",
+                                solo: "",
+                                autocomplete: "off",
+                                name: "name",
+                                label: "",
+                                "prepend-inner-icon": "search"
+                              },
+                              on: {
+                                input: function($event) {
+                                  _vm.loading = true
+                                  _vm.fetchData(true)
+                                }
+                              },
+                              model: {
+                                value: _vm.queries[column.title],
+                                callback: function($$v) {
+                                  _vm.$set(_vm.queries, column.title, $$v)
+                                },
+                                expression: "queries[column.title]"
+                              }
+                            })
+                          : _vm._e(),
+                        _vm._v(" "),
+                        column.type == "date"
+                          ? _c("date-range-picker", {
+                              staticClass: "date-range-picker elevation-2",
+                              attrs: { options: _vm.options },
+                              on: {
+                                input: function($event) {
+                                  _vm.loading = true
+                                  _vm.fetchData(true)
+                                }
+                              },
+                              model: {
+                                value: _vm.queries[column.title],
+                                callback: function($$v) {
+                                  _vm.$set(_vm.queries, column.title, $$v)
+                                },
+                                expression: "queries[column.title]"
+                              }
+                            })
+                          : _vm._e()
+                      ],
+                      1
+                    )
+                  : _vm._e()
+              }),
+              _vm._v(" "),
+              _c("th", { staticClass: "border-0 pt-0 pb-0" })
+            ],
+            2
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          [
+            _vm.tableData.length === 0 && !_vm.loading
+              ? _c("tr", [
+                  _c(
+                    "td",
+                    {
+                      staticClass: "text-center p-3 text-white bg-danger",
+                      attrs: { colspan: _vm.columns.length + 3 }
+                    },
+                    [
+                      _vm._v(
+                        "\n                    No data was found\n                "
+                      )
+                    ]
+                  )
+                ])
+              : _vm._l(_vm.tableData, function(data, key1) {
+                  return _c(
+                    "tr",
+                    { key: data.id, staticClass: "m-datatable__row" },
+                    [
+                      _c("td", { staticClass: "p-3" }, [
+                        _vm._v(_vm._s(_vm.serialNumber(key1)))
+                      ]),
+                      _vm._v(" "),
                       _c(
                         "td",
-                        {
-                          staticClass: "text-center p-3 text-white bg-danger",
-                          attrs: { colspan: _vm.columns.length + 3 }
-                        },
                         [
-                          _vm._v(
-                            "\n                        No data was found\n                    "
-                          )
-                        ]
-                      )
-                    ])
-                  : _vm._l(_vm.tableData, function(data, key1) {
-                      return _c(
-                        "tr",
-                        { key: data.id, staticClass: "m-datatable__row" },
+                          _c("v-checkbox", {
+                            staticClass: "p-3",
+                            attrs: { color: "black" },
+                            on: {
+                              change: function($event) {
+                                return _vm.select(data)
+                              }
+                            },
+                            model: {
+                              value: _vm.selectBoxes[data.id],
+                              callback: function($$v) {
+                                _vm.$set(_vm.selectBoxes, data.id, $$v)
+                              },
+                              expression: "selectBoxes[data.id]"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _vm._l(data, function(value, key) {
+                        return _vm.activeColumns[key]
+                          ? _c("td", [
+                              _vm._v(
+                                "\n                    " +
+                                  _vm._s(value) +
+                                  "\n                "
+                              )
+                            ])
+                          : _vm._e()
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        { staticStyle: { "white-space": "nowrap" } },
                         [
-                          _c("td", { staticClass: "p-3" }, [
-                            _vm._v(_vm._s(_vm.serialNumber(key1)))
-                          ]),
-                          _vm._v(" "),
                           _c(
-                            "td",
-                            [
-                              _c("v-checkbox", {
-                                staticClass: "p-3",
-                                attrs: { color: "black" },
-                                on: {
-                                  change: function($event) {
-                                    return _vm.select(data)
-                                  }
-                                },
-                                model: {
-                                  value: _vm.selectBoxes[data.id],
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.selectBoxes, data.id, $$v)
-                                  },
-                                  expression: "selectBoxes[data.id]"
+                            "v-btn",
+                            {
+                              attrs: {
+                                flat: "",
+                                fab: "",
+                                dark: "",
+                                small: "",
+                                color: "info"
+                              },
+                              on: {
+                                click: function($event) {
+                                  _vm.editDialog = true
+                                  _vm.editingIndex = key1
+                                  _vm.editingRow = data
                                 }
-                              })
+                              }
+                            },
+                            [
+                              _c("v-icon", { attrs: { dark: "" } }, [
+                                _vm._v(
+                                  "\n                            edit\n                        "
+                                )
+                              ])
                             ],
                             1
                           ),
                           _vm._v(" "),
-                          _vm._l(data, function(value, key) {
-                            return _vm.activeColumns[key]
-                              ? _c("td", [
-                                  _vm._v(
-                                    "\n                        " +
-                                      _vm._s(value) +
-                                      "\n                    "
-                                  )
-                                ])
-                              : _vm._e()
-                          }),
-                          _vm._v(" "),
                           _c(
-                            "td",
-                            { staticStyle: { "white-space": "nowrap" } },
+                            "v-btn",
+                            {
+                              attrs: {
+                                flat: "",
+                                fab: "",
+                                dark: "",
+                                small: "",
+                                color: "red"
+                              }
+                            },
                             [
-                              _c(
-                                "v-btn",
-                                {
-                                  attrs: {
-                                    flat: "",
-                                    fab: "",
-                                    dark: "",
-                                    small: "",
-                                    color: "info"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.editDialog = true
-                                      _vm.editingIndex = key1
-                                      _vm.editingRow = data
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("v-icon", { attrs: { dark: "" } }, [
-                                    _vm._v(
-                                      "\n                                edit\n                            "
-                                    )
-                                  ])
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-btn",
-                                {
-                                  attrs: {
-                                    flat: "",
-                                    fab: "",
-                                    dark: "",
-                                    small: "",
-                                    color: "red"
-                                  }
-                                },
-                                [
-                                  _c("v-icon", { attrs: { dark: "" } }, [
-                                    _vm._v("delete")
-                                  ])
-                                ],
-                                1
-                              )
+                              _c("v-icon", { attrs: { dark: "" } }, [
+                                _vm._v("delete")
+                              ])
                             ],
                             1
                           )
                         ],
-                        2
+                        1
                       )
-                    })
-              ],
-              2
-            )
-          ])
-        ],
-        1
-      ),
+                    ],
+                    2
+                  )
+                })
+          ],
+          2
+        )
+      ]),
       _vm._v(" "),
       _c("table-loader", { attrs: { loading: _vm.loading } }),
       _vm._v(" "),
