@@ -179,6 +179,8 @@
             </pagination-nav>
         </v-card>
 
+        <notifications group="foo" position="bottom right" />
+
         <v-dialog v-model="viewColumns" width="500">
             <v-card>
                 <v-card-title class="headline grey lighten-2" primary-title>
@@ -203,6 +205,7 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+
         <v-dialog v-model="editDialog" width="500">
             <v-card>
                 <v-card-title class="headline grey lighten-2" primary-title>
@@ -300,6 +303,14 @@ export default {
         });
 
         return this.fetchData();
+    },
+
+    mounted(){
+        this.$notify({
+            group: 'foo',
+            title: 'Important message',
+            text: 'Hello user! This is a notification!'
+        });
     },
 
     methods: {
@@ -403,6 +414,7 @@ export default {
             return value.split('_').join(' ').toLowerCase()
         }
     },
+
     name: 'DataTable',
     mixins: [PaginationMixin],
     components: {

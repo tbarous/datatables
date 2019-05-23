@@ -13,6 +13,9 @@ Vue.use(Vuetify);
 import DateRangePicker from "@gravitano/vue-date-range-picker";
 Vue.use(DateRangePicker);
 
+import Notifications from 'vue-notification'
+Vue.use(Notifications)
+
 axios.create({
   baseURL: 'http://project.local',
   timeout: 1000,
