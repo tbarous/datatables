@@ -2068,6 +2068,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
+    this.loading = true;
     this.columns.map(function (column) {
       _this.activeColumns[column.title] = true;
       _this.queries[column.title] = '';
@@ -2098,15 +2099,18 @@ __webpack_require__.r(__webpack_exports__);
         _this2.tableData = [];
         _this2.loading = false;
       });
-    }, 500),
+    }, 1000),
     serialNumber: function serialNumber(key) {
       return (this.currentPage - 1) * this.perPage + 1 + key;
     },
     changePage: function changePage(pageNumber) {
+      this.loading = true;
       this.currentPage = pageNumber;
       this.fetchData();
     },
     sortByColumn: function sortByColumn(column) {
+      this.loading = true;
+
       if (column.title === this.sortedColumn) {
         this.order = this.order === 'asc' ? 'desc' : 'asc';
       } else {
@@ -57899,7 +57903,8 @@ var render = function() {
                 attrs: { items: _vm.itemsShow, label: "Show", solo: "" },
                 on: {
                   change: function($event) {
-                    return _vm.fetchData(true)
+                    _vm.loading = true
+                    _vm.fetchData(true)
                   }
                 },
                 model: {
@@ -57933,7 +57938,8 @@ var render = function() {
                 },
                 on: {
                   input: function($event) {
-                    return _vm.fetchData(true)
+                    _vm.loading = true
+                    _vm.fetchData(true)
                   }
                 },
                 model: {
@@ -58150,7 +58156,8 @@ var render = function() {
                                   },
                                   on: {
                                     input: function($event) {
-                                      return _vm.fetchData(true)
+                                      _vm.loading = true
+                                      _vm.fetchData(true)
                                     }
                                   },
                                   model: {
@@ -58169,7 +58176,8 @@ var render = function() {
                                   attrs: { options: _vm.options },
                                   on: {
                                     input: function($event) {
-                                      return _vm.fetchData(true)
+                                      _vm.loading = true
+                                      _vm.fetchData(true)
                                     }
                                   },
                                   model: {

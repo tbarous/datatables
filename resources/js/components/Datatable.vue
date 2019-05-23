@@ -3,13 +3,13 @@
         <div>
             <div class="d-inline mb-5">
                 <span class="d-inline-block mr-3">Show</span>
-                <v-select class="d-inline-block mr-3" style="width: 100px;" :items="itemsShow" label="Show" solo v-model="perPage" @change="fetchData(true)">
+                <v-select class="d-inline-block mr-3" style="width: 100px;" :items="itemsShow" label="Show" solo v-model="perPage" @change="loading=true;fetchData(true)">
                 </v-select>
                 <span class="d-inline-block mr-3">entries</span>
             </div>
 
             <div class="float-right mb-3">
-                <v-text-field @input="fetchData(true)" v-model="generalSearch" style="width: 300px;" solo prepend-inner-icon="search" autocomplete="off" clearable label="Search">
+                <v-text-field @input="loading=true;fetchData(true)" v-model="generalSearch" style="width: 300px;" solo prepend-inner-icon="search" autocomplete="off" clearable label="Search">
                 </v-text-field>
             </div>
             
@@ -61,9 +61,9 @@
                         <th class="table-head border-0 pt-0 pb-0"></th>
                         <th class="table-head border-0"></th>
                         <th class="border-0 pt-0 pb-0" v-if="activeColumns[column.title]" v-for="column in columns" :key="column.title">
-                            <v-text-field clearable @input="fetchData(true)" v-model="queries[column.title]" v-if="column.type=='text'" solo autocomplete="off" name="name" label="" prepend-inner-icon="search">
+                            <v-text-field clearable @input="loading=true;fetchData(true)" v-model="queries[column.title]" v-if="column.type=='text'" solo autocomplete="off" name="name" label="" prepend-inner-icon="search">
                             </v-text-field>
-                            <date-range-picker v-if="column.type=='date'" v-model="queries[column.title]" class="date-range-picker elevation-2" :options="options" @input="fetchData(true)" />
+                            <date-range-picker v-if="column.type=='date'" v-model="queries[column.title]" class="date-range-picker elevation-2" :options="options" @input="loading=true;fetchData(true)" />
                         </th>
                         <th class="border-0 pt-0 pb-0"></th>
                     </tr>
@@ -202,6 +202,7 @@ export default {
     },
 
     created() {
+        this.loading = true;
         this.columns.map(column => {
             this.activeColumns[column.title] = true;
             this.queries[column.title] = '';
@@ -237,7 +238,7 @@ export default {
                         this.tableData = []
                         this.loading = false
                     })
-            }, 500)
+            }, 1000)
         ,
 
         serialNumber(key) {
@@ -245,11 +246,13 @@ export default {
         },
 
         changePage(pageNumber) {
+            this.loading = true;
             this.currentPage = pageNumber
             this.fetchData()
         },
 
         sortByColumn(column) {
+            this.loading = true;
             if (column.title === this.sortedColumn) {
                 this.order = (this.order === 'asc') ? 'desc' : 'asc'
             } else {
