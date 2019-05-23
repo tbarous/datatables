@@ -10,14 +10,14 @@ import axios from 'axios'
 require('vuetify/dist/vuetify.min');
 Vue.use(Vuetify);
 
-
 import DateRangePicker from "@gravitano/vue-date-range-picker";
 Vue.use(DateRangePicker);
 
 axios.create({
   baseURL: 'http://project.local',
   timeout: 1000,
-  headers: {'Accept': 'application/json'}
+  headers: {'Accept': 'application/json'},
+  timeout: 3000,
 });
 
 const app = new Vue({

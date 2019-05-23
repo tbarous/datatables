@@ -10741,6 +10741,7 @@ th {
   padding: 10px;
   min-width: 200px;
   width: 100%;
+  text-align: center;
 }
 
 .daterangepicker {
@@ -10757,5 +10758,16 @@ th {
 
 .headline {
   font-family: "Nunito" !important;
+}
+
+.daterangepicker td.in-range {
+  background-color: lightblue !important;
+  border-color: transparent;
+  color: #000;
+  border-radius: 0;
+}
+
+.button-line button {
+  width: 170px !important;
 }
 

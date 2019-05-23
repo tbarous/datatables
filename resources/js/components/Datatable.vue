@@ -14,12 +14,13 @@
             </div>
             
             <div class="mt-3">
-                <i>{{perPage}} of {{pagination.meta.total}} entries</i>
+                <i v-if="perPage < pagination.meta.total">{{perPage}} of {{pagination.meta.total}} entries</i>
+                <i v-if="perPage >= pagination.meta.total">{{pagination.meta.total}} of {{pagination.meta.total}} entries</i>
                 <br><br>
                 <u>Selected: {{selected.length}}</u>
             </div>
             
-            <div class="">
+            <div class="button-line">
                 <v-btn class="ml-0 mr-0 mt-3" color="secondary" dark @click="reload">
                     Reload <v-icon small class="ml-3">fas fa-sync</v-icon>
                 </v-btn>
@@ -28,15 +29,15 @@
                     Active Columns <v-icon small class="ml-3">fas fa-bolt</v-icon>
                 </v-btn>
 
-                <v-btn class="mr-0 mt-3" color="secondary" dark @click="updateMultiple">
-                    Edit all
+                <v-btn class="mr-0 ml-0 mt-3" color="secondary" dark @click="updateMultiple">
+                    Edit all <v-icon small class="ml-3">fas fa-edit</v-icon>
                 </v-btn>
 
-                <v-btn color="secondary" class="mr-0 mt-3" @click="downloadWithAxios">
+                <v-btn color="secondary" class="mr-0 ml-0 mt-3" @click="downloadWithAxios">
                    Excel <v-icon small class="ml-3">far fa-file-excel</v-icon>
                 </v-btn>
 
-                <v-btn color="secondary" class="mr-0 mt-3" @click="downloadWithAxios">
+                <v-btn color="secondary" class="mr-0 ml-0 mt-3" @click="downloadWithAxios">
                    PDF <v-icon small class="ml-3">far fa-file-pdf</v-icon>
                 </v-btn>
             </div>
@@ -70,13 +71,13 @@
                 <tbody>
                     <tr v-if="tableData.length === 0 && !loading">
                         <td class="text-center p-3 text-white bg-danger" :colspan="columns.length + 3">
-                            No was data found
+                            No data was found
                         </td>
                     </tr>
                     <tr v-for="(data, key1) in tableData" :key="data.id" class="m-datatable__row" v-else>
                         <td class="p-3">{{serialNumber(key1)}}</td>
                         <td>
-                            <v-checkbox color="black" class="p-3" @change="select(data)"></v-checkbox>
+                            <v-checkbox v-model="selectBoxes[data.id]" color="black" class="p-3" @change="select(data)"></v-checkbox>
                         </td>
                         <td v-if="activeColumns[key]" v-for="(value, key) in data">
                             {{value}}
@@ -149,6 +150,8 @@ import PaginationMixin from '../mixins/PaginationMixin'
 import TableLoader from './TableLoader'
 import PaginationNav from './PaginationNav'
 
+import _ from 'lodash'
+
 export default {
     props: {
         fetchUrl: {
@@ -177,6 +180,7 @@ export default {
             viewColumns: false,
             activeColumns: {},
             selected: [],
+            selectBoxes: {},
             options: {
                 timePicker: true,
                 startDate: moment().startOf('hour'),
@@ -207,29 +211,34 @@ export default {
     },
 
     methods: {
-        fetchData(reset = false) {
-            if (reset) this.currentPage = 1
-            if (this.generalSearch == null) this.generalSearch = ''
+        reload(){
 
-            let dataFetchUrl = `${this.url}?page=${this.currentPage}&column=${this.sortedColumn}&order=${this.order}&per_page=${this.perPage}&search=${this.generalSearch}`
-
-            Object.keys(this.queries).map(item => {
-                let queryItem = this.queries[item];
-                if (queryItem == null) queryItem = ''
-                dataFetchUrl += '&' + item + '=' + queryItem;
-            })
-
-            this.loading = true;
-            axios.get(dataFetchUrl)
-                .then(({ data }) => {
-                    this.pagination = data
-                    this.tableData = data.data
-                    this.loading = false
-                }).catch(error => {
-                    this.tableData = []
-                    this.loading = false
-                })
         },
+
+        fetchData: _.debounce(function(reset=false){
+                if (reset) this.currentPage = 1
+                if (this.generalSearch == null) this.generalSearch = ''
+
+                let dataFetchUrl = `${this.url}?page=${this.currentPage}&column=${this.sortedColumn}&order=${this.order}&per_page=${this.perPage}&search=${this.generalSearch}`
+
+                Object.keys(this.queries).map(item => {
+                    let queryItem = this.queries[item];
+                    if (queryItem == null) queryItem = ''
+                    dataFetchUrl += '&' + item + '=' + queryItem;
+                })
+
+                this.loading = true;
+                axios.get(dataFetchUrl)
+                    .then(({ data }) => {
+                        this.pagination = data
+                        this.tableData = data.data
+                        this.loading = false
+                    }).catch(error => {
+                        this.tableData = []
+                        this.loading = false
+                    })
+            }, 500)
+        ,
 
         serialNumber(key) {
             return (this.currentPage - 1) * this.perPage + 1 + key
@@ -264,8 +273,10 @@ export default {
             console.log(this.selected)
             if(!this.selected.includes(item.id)){
                 this.selected.push(item.id)
+                this.selectBoxes[item.id] = true
             } else {
                 this.selected.splice(this.selected.indexOf(item.id), 1)
+                this.selectBoxes[item.id] = false
             }
         },
 
