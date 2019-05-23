@@ -113,6 +113,19 @@ th {
 
 .button-line{
     button{
-        width: 170px!important;
+        // width: 170px!important;
+    }
+}
+
+.close-window{
+    margin: 0!important;
+    position: absolute!important;
+    top: 0!important;
+    right: 0!important;
+}
+
+.pagination{
+    .disabled{
+        display: none!important;
     }
 }

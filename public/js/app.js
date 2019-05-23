@@ -2105,11 +2105,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -2174,6 +2169,7 @@ __webpack_require__.r(__webpack_exports__);
     this.$notify({
       group: 'foo',
       title: 'Important message',
+      type: 'warn',
       text: 'Hello user! This is a notification!'
     });
   },
@@ -2228,7 +2224,8 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('api/users/update', {
         row: JSON.stringify(row)
       }).then(function (response) {
-        _this3.tableData[index] = response.data;
+        _this3.tableData[index] = row;
+        console.log(response.data);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -58019,36 +58016,7 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "float-right mb-3" },
-        [
-          _c("v-text-field", {
-            staticStyle: { width: "300px" },
-            attrs: {
-              solo: "",
-              "prepend-inner-icon": "search",
-              autocomplete: "off",
-              clearable: "",
-              label: "Search"
-            },
-            on: {
-              input: function($event) {
-                _vm.loading = true
-                _vm.fetchData(true)
-              }
-            },
-            model: {
-              value: _vm.generalSearch,
-              callback: function($$v) {
-                _vm.generalSearch = $$v
-              },
-              expression: "generalSearch"
-            }
-          })
-        ],
-        1
-      ),
+      _c("div", { staticClass: "float-right mb-3" }),
       _vm._v(" "),
       _c("div", { staticClass: "mt-3" }, [
         _vm.perPage < _vm.pagination.meta.total
@@ -58111,7 +58079,7 @@ var render = function() {
               }
             },
             [
-              _vm._v("\n            Active Columns \n            "),
+              _vm._v("\n            Columns \n            "),
               _c("v-icon", { staticClass: "ml-3", attrs: { small: "" } }, [
                 _vm._v("fas fa-bolt")
               ])
@@ -58127,7 +58095,7 @@ var render = function() {
               on: { click: _vm.updateMultiple }
             },
             [
-              _vm._v("\n            Edit all \n            "),
+              _vm._v("\n            Update \n            "),
               _c("v-icon", { staticClass: "ml-3", attrs: { small: "" } }, [
                 _vm._v("fas fa-edit")
               ])
@@ -58165,7 +58133,32 @@ var render = function() {
               ])
             ],
             1
-          )
+          ),
+          _vm._v(" "),
+          _c("v-text-field", {
+            staticClass: "d-inline-block ml-3 float-right mb-2",
+            staticStyle: { width: "300px" },
+            attrs: {
+              solo: "",
+              "prepend-inner-icon": "search",
+              autocomplete: "off",
+              clearable: "",
+              label: "Search"
+            },
+            on: {
+              input: function($event) {
+                _vm.loading = true
+                _vm.fetchData(true)
+              }
+            },
+            model: {
+              value: _vm.generalSearch,
+              callback: function($$v) {
+                _vm.generalSearch = $$v
+              },
+              expression: "generalSearch"
+            }
+          })
         ],
         1
       ),
@@ -58461,52 +58454,43 @@ var render = function() {
                   staticClass: "headline grey lighten-2",
                   attrs: { "primary-title": "" }
                 },
-                [_vm._v("\n                Active Columns\n            ")]
+                [_vm._v("\n                Columns\n            ")]
               ),
               _vm._v(" "),
               _c(
                 "v-card-text",
-                _vm._l(_vm.columns, function(column, key) {
-                  return _c("v-checkbox", {
-                    key: column.title,
-                    staticClass: "d-inline-block ml-3",
-                    attrs: {
-                      label: _vm._f("columnLow")(column.title),
-                      color: "black"
-                    },
-                    model: {
-                      value: _vm.activeColumns[column.title],
-                      callback: function($$v) {
-                        _vm.$set(_vm.activeColumns, column.title, $$v)
-                      },
-                      expression: "activeColumns[column.title]"
-                    }
-                  })
-                }),
-                1
-              ),
-              _vm._v(" "),
-              _c("v-divider"),
-              _vm._v(" "),
-              _c(
-                "v-card-actions",
                 [
-                  _c("v-spacer"),
+                  _vm._l(_vm.columns, function(column, key) {
+                    return _c("v-checkbox", {
+                      key: column.title,
+                      staticClass: "d-inline-block ml-3",
+                      attrs: {
+                        label: _vm._f("columnLow")(column.title),
+                        color: "black"
+                      },
+                      model: {
+                        value: _vm.activeColumns[column.title],
+                        callback: function($$v) {
+                          _vm.$set(_vm.activeColumns, column.title, $$v)
+                        },
+                        expression: "activeColumns[column.title]"
+                      }
+                    })
+                  }),
                   _vm._v(" "),
                   _c(
-                    "v-btn",
+                    "v-icon",
                     {
-                      attrs: { color: "primary", flat: "" },
                       on: {
                         click: function($event) {
                           _vm.viewColumns = false
                         }
                       }
                     },
-                    [_vm._v("\n                    Done\n                ")]
+                    [_vm._v("fa fa-close")]
                   )
                 ],
-                1
+                2
               )
             ],
             1
@@ -58518,7 +58502,7 @@ var render = function() {
       _c(
         "v-dialog",
         {
-          attrs: { width: "500" },
+          attrs: { persistent: "", width: "500" },
           model: {
             value: _vm.editDialog,
             callback: function($$v) {
@@ -58588,29 +58572,25 @@ var render = function() {
                       )
                     ],
                     2
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("v-divider"),
-              _vm._v(" "),
-              _c(
-                "v-card-actions",
-                [
-                  _c("v-spacer"),
+                  ),
                   _vm._v(" "),
                   _c(
                     "v-btn",
                     {
-                      attrs: { color: "primary", flat: "" },
+                      staticClass: "close-window",
+                      attrs: { flat: "", icon: "" },
                       on: {
                         click: function($event) {
                           _vm.editDialog = false
                         }
                       }
                     },
-                    [_vm._v("\n                    I accept\n                ")]
+                    [
+                      _c("v-icon", { attrs: { small: "" } }, [
+                        _vm._v("fa fa-times")
+                      ])
+                    ],
+                    1
                   )
                 ],
                 1

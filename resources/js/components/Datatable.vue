@@ -14,15 +14,7 @@
         </div>
 
         <div class="float-right mb-3">
-            <v-text-field 
-                @input="loading=true;fetchData(true)" 
-                v-model="generalSearch" 
-                style="width: 300px;" 
-                solo 
-                prepend-inner-icon="search" 
-                autocomplete="off" 
-                clearable label="Search">
-            </v-text-field>
+            
         </div>
 
         <div class="mt-3">
@@ -47,7 +39,7 @@
                 color="secondary" 
                 dark 
                 @click="viewColumns=true">
-                Active Columns 
+                Columns 
                 <v-icon small class="ml-3">fas fa-bolt</v-icon>
             </v-btn>
 
@@ -56,7 +48,7 @@
                 color="secondary" 
                 dark 
                 @click="updateMultiple">
-                Edit all 
+                Update 
                 <v-icon small class="ml-3">fas fa-edit</v-icon>
             </v-btn>
 
@@ -67,6 +59,17 @@
             <v-btn color="secondary" class="mr-0 ml-0 mt-3" @click="downloadWithAxios">
                PDF <v-icon small class="ml-3">far fa-file-pdf</v-icon>
             </v-btn>
+
+            <v-text-field 
+                @input="loading=true;fetchData(true)" 
+                v-model="generalSearch" 
+                style="width: 300px;" 
+                solo 
+                class="d-inline-block ml-3 float-right mb-2"
+                prepend-inner-icon="search" 
+                autocomplete="off" 
+                clearable label="Search">
+            </v-text-field>
         </div>
 
         <table-loader :loading="loading"></table-loader>
@@ -184,7 +187,7 @@
         <v-dialog v-model="viewColumns" width="500">
             <v-card>
                 <v-card-title class="headline grey lighten-2" primary-title>
-                    Active Columns
+                    Columns
                 </v-card-title>
                 <v-card-text>
                     <v-checkbox 
@@ -195,18 +198,13 @@
                         :label="column.title | columnLow" 
                         color="black">
                     </v-checkbox>
+
+                    <v-icon @click="viewColumns=false;">fa fa-close</v-icon>
                 </v-card-text>
-                <v-divider></v-divider>
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="primary" flat @click="viewColumns = false">
-                        Done
-                    </v-btn>
-                </v-card-actions>
             </v-card>
         </v-dialog>
 
-        <v-dialog v-model="editDialog" width="500">
+        <v-dialog v-model="editDialog" persistent width="500">
             <v-card>
                 <v-card-title class="headline grey lighten-2" primary-title>
                     Edit
@@ -227,14 +225,11 @@
                         <br>
                         <v-btn class="ml-0 w-100" color="primary" type="submit">edit</v-btn>
                     </v-form>
-                </v-card-text>
-                <v-divider></v-divider>
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="primary" flat @click="editDialog = false">
-                        I accept
+                    
+                    <v-btn @click="editDialog = false;" class="close-window" flat icon>
+                        <v-icon small>fa fa-times</v-icon>
                     </v-btn>
-                </v-card-actions>
+                </v-card-text>
             </v-card>
         </v-dialog>
     </div>
@@ -309,6 +304,7 @@ export default {
         this.$notify({
             group: 'foo',
             title: 'Important message',
+            type: 'warn',
             text: 'Hello user! This is a notification!'
         });
     },
@@ -365,7 +361,8 @@ export default {
             axios.post('api/users/update', {
                 row: JSON.stringify(row)
             }).then(response => {
-                this.tableData[index] = response.data;
+                this.tableData[index] = row;
+                console.log(response.data)
             }).catch(error => {
                 console.log(error);
             })
