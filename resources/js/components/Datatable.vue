@@ -149,7 +149,7 @@
                     <td style="white-space: nowrap">
                         <v-btn 
                             flat 
-                            @click="editDialog=true; editingIndex=key1; editingRow=data" 
+                            @click="editDialog=true; editingIndex=key1; Object.assign(editingRow, data);" 
                             fab 
                             dark 
                             small 
@@ -182,7 +182,13 @@
             </pagination-nav>
         </v-card>
 
-        <notifications group="foo" position="bottom right" />
+        <notifications animation-name="fadeIn" group="foo" position="bottom right" />
+        <loading 
+            :active.sync="isLoading" 
+            :can-cancel="true" 
+            :on-cancel="onCancel"
+            :is-full-page="fullPage">
+        </loading>
 
         <v-dialog v-model="viewColumns" width="500">
             <v-card>
@@ -240,6 +246,8 @@ import PaginationMixin from '../mixins/PaginationMixin'
 import TableLoader from './TableLoader'
 import PaginationNav from './PaginationNav'
 import _ from 'lodash'
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
     props: {
@@ -270,6 +278,8 @@ export default {
             activeColumns: {},
             selected: [],
             selectBoxes: {},
+            isLoading: false,
+            fullPage: true,
             options: {
                 timePicker: true,
                 startDate: moment().startOf('hour'),
@@ -300,15 +310,6 @@ export default {
         return this.fetchData();
     },
 
-    mounted(){
-        this.$notify({
-            group: 'foo',
-            title: 'Important message',
-            type: 'warn',
-            text: 'Hello user! This is a notification!'
-        });
-    },
-
     methods: {
         reload(){},
 
@@ -334,7 +335,7 @@ export default {
                     this.tableData = []
                     this.loading = false
                 })
-        }, 1000),
+        }, 500),
 
         serialNumber(key) {
             return (this.currentPage - 1) * this.perPage + 1 + key
@@ -358,11 +359,18 @@ export default {
         },
 
         update(index, row) {
+            this.isLoading = true;
             axios.post('api/users/update', {
                 row: JSON.stringify(row)
             }).then(response => {
                 this.tableData[index] = row;
-                console.log(response.data)
+                this.$notify({
+                    group: 'foo',
+                    title: 'Important message',
+                    type: 'success',
+                    text: 'Item has been updated'
+                });
+                this.isLoading = false;
             }).catch(error => {
                 console.log(error);
             })
@@ -416,7 +424,8 @@ export default {
     mixins: [PaginationMixin],
     components: {
         TableLoader,
-        PaginationNav
+        PaginationNav,
+        Loading
     }
 }
 </script>
