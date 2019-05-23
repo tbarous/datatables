@@ -158,7 +158,8 @@
                                 edit
                             </v-icon>
                         </v-btn>
-                        <v-btn 
+                        <v-btn
+                            @click="destroy(editingRow, data)"
                             flat 
                             fab 
                             dark 
@@ -185,8 +186,6 @@
         <notifications animation-name="fadeIn" group="foo" position="bottom right" />
         <loading 
             :active.sync="isLoading" 
-            :can-cancel="true" 
-            :on-cancel="onCancel"
             :is-full-page="fullPage">
         </loading>
 
@@ -369,6 +368,24 @@ export default {
                     title: 'Important message',
                     type: 'success',
                     text: 'Item has been updated'
+                });
+                this.isLoading = false;
+            }).catch(error => {
+                console.log(error);
+            })
+        },
+
+        destroy(index, row){
+            this.isLoading = true;
+            axios.post('api/users/destroy', {
+                id: row.id
+            }).then(response => {
+                this.tableData.splice(index, 1);
+                this.$notify({
+                    group: 'foo',
+                    title: 'Important message',
+                    type: 'success',
+                    text: 'Item has been deleted'
                 });
                 this.isLoading = false;
             }).catch(error => {

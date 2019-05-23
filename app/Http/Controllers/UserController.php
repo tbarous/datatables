@@ -29,7 +29,7 @@ class UserController extends Controller
         // $users = User::query();
         // Cache::put('users', $users);
 
-        $query = $this->user->filter($request)->orderBy($request->column, $request->order);
+        $query = User::filter($request)->orderBy($request->column, $request->order);
 
         $users = $query->paginate($request->per_page);
 
@@ -49,5 +49,14 @@ class UserController extends Controller
         unset($user['updated_at']);
 
         User::where('id', $user['id'])->update($user);
+    }
+
+    public function destroy(Request $request)
+    {
+        $user = User::find($request->id);
+
+        $user->delete();
+
+        return 5;
     }
 }

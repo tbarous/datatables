@@ -2114,7 +2114,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -2245,6 +2244,27 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
+    destroy: function destroy(index, row) {
+      var _this4 = this;
+
+      this.isLoading = true;
+      axios.post('api/users/destroy', {
+        id: row.id
+      }).then(function (response) {
+        _this4.tableData.splice(index, 1);
+
+        _this4.$notify({
+          group: 'foo',
+          title: 'Important message',
+          type: 'success',
+          text: 'Item has been deleted'
+        });
+
+        _this4.isLoading = false;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
     select: function select(item) {
       console.log(this.selected);
 
@@ -2267,14 +2287,14 @@ __webpack_require__.r(__webpack_exports__);
       link.click();
     },
     downloadWithAxios: function downloadWithAxios() {
-      var _this4 = this;
+      var _this5 = this;
 
       axios({
         method: 'get',
         url: 'http://project.local/images/screenshot.png',
         responseType: 'arraybuffer'
       }).then(function (response) {
-        _this4.forceFileDownload(response);
+        _this5.forceFileDownload(response);
       })["catch"](function () {
         return console.log('error occured');
       });
@@ -58423,6 +58443,11 @@ var render = function() {
                                 dark: "",
                                 small: "",
                                 color: "red"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.destroy(_vm.editingRow, data)
+                                }
                               }
                             },
                             [
@@ -58472,12 +58497,7 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("loading", {
-        attrs: {
-          active: _vm.isLoading,
-          "can-cancel": true,
-          "on-cancel": _vm.onCancel,
-          "is-full-page": _vm.fullPage
-        },
+        attrs: { active: _vm.isLoading, "is-full-page": _vm.fullPage },
         on: {
           "update:active": function($event) {
             _vm.isLoading = $event
