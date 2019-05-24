@@ -2277,9 +2277,12 @@ __webpack_require__.r(__webpack_exports__);
         _this2.pagination = data;
         _this2.tableData = data.data;
         _this2.loading = false;
+
+        _this2.$store.dispatch('loading/setLoading', false);
       })["catch"](function (error) {
         _this2.tableData = [];
-        _this2.loading = false;
+
+        _this2.$store.dispatch('loading/setLoading', false);
       });
     }, 500),
     serialNumber: function serialNumber(key) {
@@ -2326,11 +2329,12 @@ __webpack_require__.r(__webpack_exports__);
     destroy: function destroy(index, row) {
       var _this4 = this;
 
-      this.isLoading = true;
+      this.$store.dispatch('loading/setLoading', true);
       axios.post(this.url + '/destroy', {
         id: row.id
       }).then(function (response) {
-        _this4.tableData.splice(index, 1);
+        _this4.fetch(); // this.tableData.splice(index, 1);
+
 
         _this4.$notify({
           group: 'foo',
@@ -2338,8 +2342,6 @@ __webpack_require__.r(__webpack_exports__);
           type: 'success',
           text: 'Item has been deleted'
         });
-
-        _this4.isLoading = false;
       })["catch"](function (error) {
         console.log(error);
       });

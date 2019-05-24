@@ -421,9 +421,10 @@ export default {
                     this.pagination = data
                     this.tableData = data.data
                     this.loading = false
+                    this.$store.dispatch('loading/setLoading', false);
                 }).catch(error => {
                     this.tableData = []
-                    this.loading = false
+                    this.$store.dispatch('loading/setLoading', false);
                 })
         }, 500),
 
@@ -467,18 +468,18 @@ export default {
         },
 
         destroy(index, row){
-            this.isLoading = true;
+            this.$store.dispatch('loading/setLoading', true);
             axios.post(this.url + '/destroy', {
                 id: row.id
             }).then(response => {
-                this.tableData.splice(index, 1);
+                this.fetch()
+                // this.tableData.splice(index, 1);
                 this.$notify({
                     group: 'foo',
                     title: 'Important message',
                     type: 'success',
                     text: 'Item has been deleted'
                 });
-                this.isLoading = false;
             }).catch(error => {
                 console.log(error);
             })

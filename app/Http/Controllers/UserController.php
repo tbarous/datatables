@@ -66,7 +66,5 @@ class UserController extends Controller
         $user = User::find($request->id);
 
         $user->delete();
-
-        return 5;
     }
 }
