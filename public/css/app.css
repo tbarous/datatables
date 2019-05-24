@@ -10828,6 +10828,7 @@ div[role=listitem] a {
   display: inline-block;
   margin-left: 10px;
   float: right;
+  width: 300px;
 }
 
 th {

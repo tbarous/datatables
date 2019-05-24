@@ -2148,6 +2148,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2181,6 +2193,7 @@ __webpack_require__.r(__webpack_exports__);
       selected: [],
       selectBoxes: {},
       editMultipleDialog: false,
+      editingMultipleRow: {},
       dialog: {
         editMultiple: false
       },
@@ -2328,25 +2341,51 @@ __webpack_require__.r(__webpack_exports__);
         this.selectBoxes[item.id] = false;
       }
     },
-    updateMultiple: function updateMultiple() {},
+    updateMultiple: function updateMultiple(row) {
+      var _this5 = this;
+
+      this.$store.dispatch('loading/setLoading', true);
+      console.log(row);
+      axios.post(this.url + '/update-many', {
+        selected: JSON.stringify(this.selected),
+        row: JSON.stringify(row)
+      }).then(function (response) {
+        _this5.tableData.map(function (item, index) {
+          if (_this5.selected.indexOf(item.id) != -1) {
+            _this5.tableData[index] = row;
+          }
+        });
+
+        _this5.$notify({
+          group: 'foo',
+          title: 'Important message',
+          type: 'success',
+          text: 'Item has been updated'
+        });
+
+        _this5.$store.dispatch('loading/setLoading', false);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
     forceFileDownload: function forceFileDownload(response) {
       var url = window.URL.createObjectURL(new Blob([response.data]));
       var link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', 'file.png'); //or any other extension
+      link.setAttribute('download', 'file2.png'); //or any other extension
 
       document.body.appendChild(link);
       link.click();
     },
     downloadWithAxios: function downloadWithAxios() {
-      var _this5 = this;
+      var _this6 = this;
 
       axios({
         method: 'get',
         url: 'http://project.local/images/screenshot.png',
         responseType: 'arraybuffer'
       }).then(function (response) {
-        _this5.forceFileDownload(response);
+        _this6.forceFileDownload(response);
       })["catch"](function () {
         return console.log('error occured');
       });
@@ -59547,8 +59586,7 @@ var render = function() {
                               },
                               on: {
                                 input: function($event) {
-                                  _vm.loading = true
-                                  _vm.fetchData(true)
+                                  return _vm.fetchData(true)
                                 }
                               },
                               model: {
@@ -59567,8 +59605,7 @@ var render = function() {
                               attrs: { options: _vm.options },
                               on: {
                                 input: function($event) {
-                                  _vm.loading = true
-                                  _vm.fetchData(true)
+                                  return _vm.fetchData(true)
                                 }
                               },
                               model: {
@@ -59945,7 +59982,7 @@ var render = function() {
                       on: {
                         submit: function($event) {
                           $event.preventDefault()
-                          return _vm.update(_vm.editingIndex, _vm.editingRow)
+                          return _vm.updateMultiple(_vm.editingMultipleRow)
                         }
                       }
                     },
@@ -59961,11 +59998,15 @@ var render = function() {
                                 type: "text"
                               },
                               model: {
-                                value: _vm.editingRow[column.title],
+                                value: _vm.editingMultipleRow[column.title],
                                 callback: function($$v) {
-                                  _vm.$set(_vm.editingRow, column.title, $$v)
+                                  _vm.$set(
+                                    _vm.editingMultipleRow,
+                                    column.title,
+                                    $$v
+                                  )
                                 },
-                                expression: "editingRow[column.title]"
+                                expression: "editingMultipleRow[column.title]"
                               }
                             })
                           : _vm._e()

@@ -46,6 +46,17 @@ class UserController extends Controller
         User::where('id', $user['id'])->update($user);
     }
 
+    public function updateMany(Request $request)
+    {
+        $ids = json_decode($request->selected, true);
+        $data = json_decode($request->row, true);
+
+        foreach ($ids as $key => $id) {
+            $data['id'] = $id;
+            User::where('id', $id)->update($data);
+        }
+    }
+
     public function destroy(Request $request)
     {
         $user = User::find($request->id);

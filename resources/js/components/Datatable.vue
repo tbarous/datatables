@@ -52,7 +52,8 @@
             <v-btn 
                 color="secondary" 
                 dark
-                @click="downloadWithAxios">
+                @click="downloadWithAxios"
+            >
                 Excel 
                 <v-icon small>far fa-file-excel</v-icon>
             </v-btn>
@@ -60,7 +61,8 @@
             <v-btn 
                 color="secondary" 
                 dark
-                @click="downloadWithAxios">
+                @click="downloadWithAxios"
+            >
                 PDF 
                 <v-icon small>far fa-file-pdf</v-icon>
             </v-btn>
@@ -72,7 +74,8 @@
                 prepend-inner-icon="search" 
                 autocomplete="off" 
                 clearable 
-                label="Search">
+                label="Search"
+            >
             </v-text-field>
         </div>
 
@@ -109,7 +112,7 @@
                         <v-text-field 
                             clearable 
                             style="min-width: 100px;"
-                            @input="loading=true;fetchData(true)" 
+                            @input="fetchData(true)" 
                             v-model="queries[column.title]" 
                             v-if="column.type=='text'" 
                             solo 
@@ -123,7 +126,7 @@
                             v-model="queries[column.title]" 
                             class="date-range-picker elevation-2" 
                             :options="options" 
-                            @input="loading=true;fetchData(true)" 
+                            @input="fetchData(true)" 
                         />
                     </th>
                     <th></th>
@@ -132,7 +135,10 @@
 
             <tbody>
                 <tr v-if="dataExists">
-                    <td class="text-center p-3 text-white bg-danger" :colspan="columns.length + 3">
+                    <td 
+                        class="text-center p-3 text-white bg-danger" 
+                        :colspan="columns.length + 3"
+                    >
                         No data was found
                     </td>
                 </tr>
@@ -149,7 +155,8 @@
                             v-model="selectBoxes[data.id]" 
                             color="black" 
                             class="p-3" 
-                            @change="select(data)">
+                            @change="select(data)"
+                        >
                         </v-checkbox>
                     </td>
                     <td 
@@ -164,18 +171,21 @@
                             fab 
                             dark 
                             small 
-                            color="info">
+                            color="info"
+                        >
                             <v-icon dark>
                                 edit
                             </v-icon>
                         </v-btn>
+
                         <v-btn
                             @click="destroy(editingRow, data)"
                             flat 
                             fab 
                             dark 
                             small 
-                            color="red">
+                            color="red"
+                        >
                             <v-icon dark>delete</v-icon>
                         </v-btn>
                     </td>
@@ -190,7 +200,8 @@
                 :tableData="tableData" 
                 :currentPage="currentPage" 
                 :pagesNumber="pagesNumber" 
-                @changePage="changePage">
+                @changePage="changePage"
+            >
             </pagination-nav>
         </v-card>
 
@@ -206,9 +217,9 @@
                         :key="column.title" 
                         v-model="activeColumns[column.title]" 
                         :label="column.title | columnLow" 
-                        color="black">
+                        color="black"
+                    >
                     </v-checkbox>
-
                     <v-icon @click="viewColumns=false;">fa fa-close</v-icon>
                 </v-card-text>
             </v-card>
@@ -230,7 +241,8 @@
                             :key="column.title" 
                             v-if="column.type == 'text'" 
                             type="text" 
-                            v-model="editingRow[column.title]" class="mt-3">
+                            v-model="editingRow[column.title]" class="mt-3"
+                        >
                         </v-text-field>
                         <br>
                         <v-btn class="ml-0 w-100" color="primary" type="submit">edit</v-btn>
@@ -251,7 +263,7 @@
                 <v-card-text>
                     <v-form 
                         method="post" 
-                        @submit.prevent="update(editingIndex, editingRow)">
+                        @submit.prevent="updateMultiple(editingMultipleRow)">
                         <v-text-field 
                             :label="column.title" 
                             solo 
@@ -259,7 +271,7 @@
                             :key="column.title" 
                             v-if="column.type == 'text'" 
                             type="text" 
-                            v-model="editingRow[column.title]" class="mt-3">
+                            v-model="editingMultipleRow[column.title]" class="mt-3">
                         </v-text-field>
                         <br>
                         <v-btn class="ml-0 w-100" color="primary" type="submit">edit</v-btn>
@@ -314,7 +326,7 @@ export default {
             selected: [],
             selectBoxes: {},
             editMultipleDialog: false,
-
+            editingMultipleRow: {},
             dialog: {
                 editMultiple: false
             },
@@ -468,13 +480,36 @@ export default {
             }
         },
 
-        updateMultiple() {},
+        updateMultiple(row) {
+            this.$store.dispatch('loading/setLoading', true);
+            console.log(row)
+            axios.post(this.url + '/update-many', {
+                selected: JSON.stringify(this.selected),
+                row: JSON.stringify(row)
+            }).then(response => {
+                this.tableData.map((item, index) => {
+                    if(this.selected.indexOf(item.id) != -1){
+                        this.tableData[index] = row
+                    }
+                })
+
+                this.$notify({
+                    group: 'foo',
+                    title: 'Important message',
+                    type: 'success',
+                    text: 'Item has been updated'
+                });
+                this.$store.dispatch('loading/setLoading', false);
+            }).catch(error => {
+                console.log(error);
+            })
+        },
 
         forceFileDownload(response){
           const url = window.URL.createObjectURL(new Blob([response.data]))
           const link = document.createElement('a')
           link.href = url
-          link.setAttribute('download', 'file.png') //or any other extension
+          link.setAttribute('download', 'file2.png') //or any other extension
           document.body.appendChild(link)
           link.click()
         },
