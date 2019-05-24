@@ -70,7 +70,7 @@
             </v-container>
         </v-content>
         
-        <notifications animation-name="fadeIn" position="bottom right" />
+        <notifications animation-name="fade" position="bottom right" />
         <loading :active.sync="isLoading" :is-full-page="true"></loading>
     </v-app>
 </template>

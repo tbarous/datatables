@@ -2189,8 +2189,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       tableData: [],
       url: '',
-      sortedColumn: this.columns[0].title,
-      order: 'asc',
+      sortedColumn: this.columns[3].title,
+      order: 'desc',
       itemsShow: [15, 50, 100],
       loading: false,
       generalSearch: '',
@@ -2259,12 +2259,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     fetchData: function fetchData() {
       var reset = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+      var msg = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
       this.loading = true;
-      this.fetch(reset);
+      this.fetch(reset, msg);
     },
     fetch: lodash__WEBPACK_IMPORTED_MODULE_3___default.a.debounce(function (reset) {
       var _this2 = this;
 
+      var msg = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
       if (reset) this.currentPage = 1;
       if (this.generalSearch == null) this.generalSearch = '';
       var dataFetchUrl = "".concat(this.url, "?page=").concat(this.currentPage, "&column=").concat(this.sortedColumn, "&order=").concat(this.order, "&per_page=").concat(this.perPage, "&search=").concat(this.generalSearch);
@@ -2279,6 +2281,12 @@ __webpack_require__.r(__webpack_exports__);
         _this2.pagination = data;
         _this2.tableData = data.data;
         _this2.loading = false;
+
+        if (msg) {
+          setTimeout(function () {
+            _this2.$notify(msg);
+          }, 200);
+        }
 
         _this2.$store.dispatch('loading/setLoading', false);
       })["catch"](function (error) {
@@ -2314,10 +2322,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.post(this.url + '/update', {
         row: JSON.stringify(row)
       }).then(function (response) {
-        _this3.fetch(); // this.tableData[index] = row;
-
-
-        _this3.$notify({
+        _this3.fetchData(false, {
           title: 'Important message',
           type: 'success',
           text: 'Item has been updated'
@@ -2333,14 +2338,12 @@ __webpack_require__.r(__webpack_exports__);
       axios.post(this.url + '/destroy', {
         id: row.id
       }).then(function (response) {
-        _this4.fetch(); // this.tableData.splice(index, 1);
-
-
-        _this4.$notify({
+        _this4.fetchData(false, {
           title: 'Important message',
           type: 'success',
           text: 'Item has been deleted'
-        });
+        }); // this.tableData.splice(index, 1);
+
       })["catch"](function (error) {
         console.log(error);
       });
@@ -60586,7 +60589,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("notifications", {
-        attrs: { "animation-name": "fadeIn", position: "bottom right" }
+        attrs: { "animation-name": "fade", position: "bottom right" }
       }),
       _vm._v(" "),
       _c("loading", {

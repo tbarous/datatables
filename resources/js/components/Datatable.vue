@@ -322,8 +322,8 @@ export default {
         return {
             tableData: [],
             url: '',
-            sortedColumn: this.columns[0].title,
-            order: 'asc',
+            sortedColumn: this.columns[3].title,
+            order: 'desc',
             itemsShow: [15, 50, 100],
             loading: false,
             generalSearch: '',
@@ -400,12 +400,12 @@ export default {
             this.fetchData(true)
         },
 
-        fetchData(reset=false){
+        fetchData(reset = false, msg = null){
             this.loading = true
-            this.fetch(reset)
+            this.fetch(reset, msg)
         },
 
-        fetch: _.debounce(function(reset){
+        fetch: _.debounce(function(reset, msg = null){
             if (reset) this.currentPage = 1
             if (this.generalSearch == null) this.generalSearch = ''
 
@@ -423,6 +423,11 @@ export default {
                     this.pagination = data
                     this.tableData = data.data
                     this.loading = false
+                    if(msg){
+                        setTimeout(()=>{
+                            this.$notify(msg);
+                        }, 200)
+                    }
                     this.$store.dispatch('loading/setLoading', false);
                 }).catch(error => {
                     this.tableData = []
@@ -456,9 +461,7 @@ export default {
             axios.post(this.url + '/update', {
                 row: JSON.stringify(row)
             }).then(response => {
-                this.fetch()
-                // this.tableData[index] = row;
-                this.$notify({title: 'Important message', type: 'success', text: 'Item has been updated'});
+                this.fetchData(false, {title: 'Important message', type: 'success', text: 'Item has been updated'})
             }).catch(error => {
                 console.log(error);
             })
@@ -469,9 +472,8 @@ export default {
             axios.post(this.url + '/destroy', {
                 id: row.id
             }).then(response => {
-                this.fetch()
+                this.fetchData(false, {title: 'Important message', type: 'success', text: 'Item has been deleted'})
                 // this.tableData.splice(index, 1);
-                this.$notify({title: 'Important message', type: 'success', text: 'Item has been deleted'});
             }).catch(error => {
                 console.log(error);
             })
