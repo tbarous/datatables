@@ -67,6 +67,8 @@
                 <v-icon small>far fa-file-pdf</v-icon>
             </v-btn>
 
+            <a class="btn btn-default" id="export-btn" data-clipboard-target="#resultsTable">Export Table Data</a>
+
             <v-text-field 
                 @input="fetchData(true)" 
                 v-model="generalSearch"
@@ -80,7 +82,7 @@
         </div>
 
         <table-loader :loading="loading"></table-loader>
-        <table class="table table-bordered">
+        <table class="table table-bordered" id="resultsTable" data-tableName="Test Table 2">
             <thead>
                 <tr class="bg-dark text-white">
                     <th></th>
@@ -205,7 +207,7 @@
             </pagination-nav>
         </v-card>
 
-        <v-dialog v-model="viewColumns" width="500">
+        <v-dialog v-model="dialog.viewColumns" width="500">
             <v-card>
                 <v-card-title class="headline grey lighten-2" primary-title>
                     Columns
@@ -220,8 +222,16 @@
                         color="black"
                     >
                     </v-checkbox>
-                    <v-icon @click="viewColumns=false;">fa fa-close</v-icon>
+                    <v-icon @click="closeDialog('viewColumns')">fa fa-close</v-icon>
                 </v-card-text>
+
+                <v-btn 
+                    @click="closeDialog('viewColumns')" 
+                    class="close-window" 
+                    flat 
+                    icon>
+                    <v-icon small>fa fa-times</v-icon>
+                </v-btn>
             </v-card>
         </v-dialog>
 
@@ -255,7 +265,7 @@
             </v-card>
         </v-dialog>
 
-        <v-dialog v-model="dialog['editMultiple']" persistent width="500">
+        <v-dialog v-model="dialog.editMultiple" persistent width="500">
             <v-card>
                 <v-card-title class="headline grey lighten-2" primary-title>
                     Edit Multiple fields
@@ -328,7 +338,8 @@ export default {
             editMultipleDialog: false,
             editingMultipleRow: {},
             dialog: {
-                editMultiple: false
+                editMultiple: false,
+                viewColumns: false
             },
 
             options: {
@@ -340,6 +351,10 @@ export default {
                 },
             }
         }
+    },
+
+    mounted(){
+        var clipboard = new Clipboard('#export-btn');
     },
 
     created() {
