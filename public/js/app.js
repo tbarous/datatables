@@ -2350,11 +2350,9 @@ __webpack_require__.r(__webpack_exports__);
         selected: JSON.stringify(this.selected),
         row: JSON.stringify(row)
       }).then(function (response) {
-        _this5.tableData.map(function (item, index) {
-          if (_this5.selected.indexOf(item.id) != -1) {
-            _this5.tableData[index] = row;
-          }
-        });
+        console.log(response);
+
+        _this5.fetch();
 
         _this5.$notify({
           group: 'foo',

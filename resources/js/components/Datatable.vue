@@ -487,11 +487,9 @@ export default {
                 selected: JSON.stringify(this.selected),
                 row: JSON.stringify(row)
             }).then(response => {
-                this.tableData.map((item, index) => {
-                    if(this.selected.indexOf(item.id) != -1){
-                        this.tableData[index] = row
-                    }
-                })
+                console.log(response)
+
+                this.fetch()
 
                 this.$notify({
                     group: 'foo',
