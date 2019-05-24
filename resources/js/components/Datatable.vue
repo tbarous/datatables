@@ -302,6 +302,7 @@
 
 <script>
 import PaginationMixin from '../mixins/PaginationMixin'
+import FileMixin from '../mixins/FileMixin'
 import TableLoader from './TableLoader'
 import PaginationNav from './PaginationNav'
 import _ from 'lodash'
@@ -396,10 +397,6 @@ export default {
             });
         },
 
-        reload(){
-            this.fetchData(true)
-        },
-
         fetchData(reset = false, msg = null){
             this.loading = true
             this.fetch(reset, msg)
@@ -456,6 +453,20 @@ export default {
             this.fetchData()
         },
 
+        select(item){
+            if(!this.selected.includes(item.id)){
+                this.selected.push(item.id)
+                this.selectBoxes[item.id] = true
+            } else {
+                this.selected.splice(this.selected.indexOf(item.id), 1)
+                this.selectBoxes[item.id] = false
+            }
+        },
+
+        reload(){
+            this.fetchData(true)
+        },
+
         update(index, row) {
             this.$store.dispatch('loading/setLoading', true);
             axios.post(this.url + '/update', {
@@ -473,75 +484,21 @@ export default {
                 id: row.id
             }).then(response => {
                 this.fetchData(false, {title: 'Important message', type: 'success', text: 'Item has been deleted'})
-                // this.tableData.splice(index, 1);
             }).catch(error => {
                 console.log(error);
             })
         },
 
-        select(item){
-            console.log(this.selected)
-            if(!this.selected.includes(item.id)){
-                this.selected.push(item.id)
-                this.selectBoxes[item.id] = true
-            } else {
-                this.selected.splice(this.selected.indexOf(item.id), 1)
-                this.selectBoxes[item.id] = false
-            }
-        },
-
-        mergeById(arr) {
-          return {
-            with: function(arr2) {
-              return _.map(arr, item => {
-                return _.find(arr2, obj => obj.id === item.id) || item
-              })
-            }
-          }
-        },
-
         updateMultiple(row) {
-            this.$store.dispatch('loading/setLoading', true);
-            console.log(row)
+            this.$store.dispatch('loading/setLoading', true)
             axios.post(this.url + '/update-many', {
                 selected: JSON.stringify(this.selected),
                 row: JSON.stringify(row)
             }).then(response => {
-                console.log(response.data)
-                this.tableData = this.mergeById(this.tableData).with(response.data.data)
-                this.editingMultipleRow = {}
-
-                this.$notify({
-                    group: 'foo',
-                    title: 'Important message',
-                    type: 'success',
-                    text: 'Item has been updated'
-                });
-                this.$store.dispatch('loading/setLoading', false);
+                this.fetchData(false, {title: 'Important message', type: 'success', text: 'Items have been updated'})
             }).catch(error => {
                 console.log(error);
             })
-        },
-
-        forceFileDownload(response){
-          const url = window.URL.createObjectURL(new Blob([response.data]))
-          const link = document.createElement('a')
-          link.href = url
-          link.setAttribute('download', 'file2.png') //or any other extension
-          document.body.appendChild(link)
-          link.click()
-        },
-
-        downloadWithAxios(){
-          axios({
-            method: 'get',
-            url: 'http://project.local/images/screenshot.png',
-            responseType: 'arraybuffer'
-          })
-          .then(response => {
-            this.forceFileDownload(response)
-          })
-          .catch(() => console.log('error occured'))
         }
     },
 
@@ -564,7 +521,7 @@ export default {
     },
 
     name: 'DataTable',
-    mixins: [PaginationMixin],
+    mixins: [PaginationMixin, FileMixin],
     components: {
         TableLoader,
         PaginationNav
