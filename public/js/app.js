@@ -2341,6 +2341,17 @@ __webpack_require__.r(__webpack_exports__);
         this.selectBoxes[item.id] = false;
       }
     },
+    mergeById: function mergeById(arr) {
+      return {
+        "with": function _with(arr2) {
+          return lodash__WEBPACK_IMPORTED_MODULE_3___default.a.map(arr, function (item) {
+            return lodash__WEBPACK_IMPORTED_MODULE_3___default.a.find(arr2, function (obj) {
+              return obj.id === item.id;
+            }) || item;
+          });
+        }
+      };
+    },
     updateMultiple: function updateMultiple(row) {
       var _this5 = this;
 
@@ -2350,9 +2361,9 @@ __webpack_require__.r(__webpack_exports__);
         selected: JSON.stringify(this.selected),
         row: JSON.stringify(row)
       }).then(function (response) {
-        console.log(response);
-
-        _this5.fetch();
+        console.log(response.data);
+        _this5.tableData = _this5.mergeById(_this5.tableData)["with"](response.data.data);
+        _this5.editingMultipleRow = {};
 
         _this5.$notify({
           group: 'foo',

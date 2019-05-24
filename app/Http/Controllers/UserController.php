@@ -56,7 +56,9 @@ class UserController extends Controller
             User::where('id', $id)->update($data);
         }
 
-        return User::find($ids);
+        $users = User::find($ids);
+
+        return UsersResource::collection($users);
     }
 
     public function destroy(Request $request)

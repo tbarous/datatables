@@ -480,6 +480,16 @@ export default {
             }
         },
 
+        mergeById(arr) {
+          return {
+            with: function(arr2) {
+              return _.map(arr, item => {
+                return _.find(arr2, obj => obj.id === item.id) || item
+              })
+            }
+          }
+        },
+
         updateMultiple(row) {
             this.$store.dispatch('loading/setLoading', true);
             console.log(row)
@@ -487,9 +497,9 @@ export default {
                 selected: JSON.stringify(this.selected),
                 row: JSON.stringify(row)
             }).then(response => {
-                console.log(response)
-
-                this.fetch()
+                console.log(response.data)
+                this.tableData = this.mergeById(this.tableData).with(response.data.data)
+                this.editingMultipleRow = {}
 
                 this.$notify({
                     group: 'foo',
