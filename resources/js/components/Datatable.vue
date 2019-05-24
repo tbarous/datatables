@@ -36,11 +36,11 @@
                 @click="openDialog('viewColumns')"
             >
                 Columns 
-                <v-icon small>fas fa-bolt</v-icon>
+                <v-icon small>fas fa-columns</v-icon>
             </v-btn>
 
             <v-btn 
-                :disabled="!selected.length"
+                :disabled="selected.length<2"
                 color="secondary" 
                 dark 
                 @click="openDialog('editMultiple')"
@@ -82,7 +82,7 @@
         </div>
 
         <table-loader :loading="loading"></table-loader>
-        <table class="table table-bordered" id="resultsTable" data-tableName="Test Table 2">
+        <table class="table table-bordered mb-0" id="resultsTable" data-tableName="Test Table 2">
             <thead>
                 <tr class="bg-dark text-white">
                     <th></th>
@@ -396,7 +396,9 @@ export default {
             });
         },
 
-        reload(){},
+        reload(){
+            this.fetchData(true)
+        },
 
         fetchData(reset=false){
             this.loading = true
@@ -454,14 +456,9 @@ export default {
             axios.post(this.url + '/update', {
                 row: JSON.stringify(row)
             }).then(response => {
-                this.tableData[index] = row;
-                this.$notify({
-                    group: 'foo',
-                    title: 'Important message',
-                    type: 'success',
-                    text: 'Item has been updated'
-                });
-                this.$store.dispatch('loading/setLoading', false);
+                this.fetch()
+                // this.tableData[index] = row;
+                this.$notify({title: 'Important message', type: 'success', text: 'Item has been updated'});
             }).catch(error => {
                 console.log(error);
             })
@@ -474,12 +471,7 @@ export default {
             }).then(response => {
                 this.fetch()
                 // this.tableData.splice(index, 1);
-                this.$notify({
-                    group: 'foo',
-                    title: 'Important message',
-                    type: 'success',
-                    text: 'Item has been deleted'
-                });
+                this.$notify({title: 'Important message', type: 'success', text: 'Item has been deleted'});
             }).catch(error => {
                 console.log(error);
             })

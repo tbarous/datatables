@@ -2254,7 +2254,9 @@ __webpack_require__.r(__webpack_exports__);
         _this.queries[column.title] = '';
       });
     },
-    reload: function reload() {},
+    reload: function reload() {
+      this.fetchData(true);
+    },
     fetchData: function fetchData() {
       var reset = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
       this.loading = true;
@@ -2312,16 +2314,14 @@ __webpack_require__.r(__webpack_exports__);
       axios.post(this.url + '/update', {
         row: JSON.stringify(row)
       }).then(function (response) {
-        _this3.tableData[index] = row;
+        _this3.fetch(); // this.tableData[index] = row;
+
 
         _this3.$notify({
-          group: 'foo',
           title: 'Important message',
           type: 'success',
           text: 'Item has been updated'
         });
-
-        _this3.$store.dispatch('loading/setLoading', false);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -2337,7 +2337,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
         _this4.$notify({
-          group: 'foo',
           title: 'Important message',
           type: 'success',
           text: 'Item has been deleted'
@@ -59452,7 +59451,7 @@ var render = function() {
             },
             [
               _vm._v("\n            Columns \n            "),
-              _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-bolt")])
+              _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-columns")])
             ],
             1
           ),
@@ -59461,7 +59460,7 @@ var render = function() {
             "v-btn",
             {
               attrs: {
-                disabled: !_vm.selected.length,
+                disabled: _vm.selected.length < 2,
                 color: "secondary",
                 dark: ""
               },
@@ -59550,7 +59549,7 @@ var render = function() {
       _c(
         "table",
         {
-          staticClass: "table table-bordered",
+          staticClass: "table table-bordered mb-0",
           attrs: { id: "resultsTable", "data-tableName": "Test Table 2" }
         },
         [
@@ -60587,11 +60586,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("notifications", {
-        attrs: {
-          "animation-name": "fadeIn",
-          group: "foo",
-          position: "bottom right"
-        }
+        attrs: { "animation-name": "fadeIn", position: "bottom right" }
       }),
       _vm._v(" "),
       _c("loading", {
