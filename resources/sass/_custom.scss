@@ -6,16 +6,11 @@ a:hover {
     text-decoration: none !important;
 }
 
-h3 {
-    // font-family: 'Playfair Display';
-}
-
 .v-text-field__details {
     display: none !important;
 }
 
 td {
-    // border: 1px solid rgba(0,0,0,0.3);
     text-align: center !important;
 }
 
@@ -84,48 +79,103 @@ th {
     text-align: center;
 }
 
-.daterangepicker{
-    font-family: inherit!important;
+.daterangepicker {
+    font-family: inherit !important;
 }
 
 .disabled {
-
     .page-link {
-
         background-color: black !important;
     }
 }
 
-.v-input--selection-controls__input{
-    margin: 0!important;
+.v-input--selection-controls__input {
+    margin: 0 !important;
 }
 
-.headline{
-    font-family: 'Nunito'!important
+.headline {
+    font-family: 'Nunito' !important
 }
 
 .daterangepicker td.in-range {
-    background-color: lightblue!important;
+    background-color: lightblue !important;
     border-color: transparent;
     color: #000;
     border-radius: 0;
 }
 
-.button-line{
-    button{
-        // width: 170px!important;
+.close-window {
+    margin: 0 !important;
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+}
+
+.pagination {
+    .disabled {
+        display: none !important;
     }
 }
 
-.close-window{
-    margin: 0!important;
-    position: absolute!important;
-    top: 0!important;
-    right: 0!important;
+div[role=listitem] {
+    a {
+        height: 50px !important;
+    }
 }
 
-.pagination{
-    .disabled{
-        display: none!important;
+.v-list__group__header {
+    height: 50px !important;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity .3s;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.theme--dark.v-btn.v-btn--disabled:not(.v-btn--icon):not(.v-btn--flat):not(.v-btn--outline) {
+    background-color: lightgray !important
+}
+
+
+// TABLES
+.items-show {
+    span, .v-input {
+        display: inline-block;
+        margin-right: 10px;
     }
+
+    .v-input {
+        width: 100px!important;
+    }
+}
+
+.items-count {
+    margin-top: 20px;
+}
+
+.table-tools {
+    button {
+        margin-left: 0;
+        margin-right: 10px;
+        margin-top: 5px;
+
+        i {
+            margin-left: 5px;
+        }
+    }
+
+    .v-input {
+        display: inline-block;
+        margin-left: 10px;
+        float: right;
+    }
+}
+
+th {
+    border: none!important
 }

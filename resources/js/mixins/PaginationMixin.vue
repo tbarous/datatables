@@ -14,8 +14,6 @@ export default {
         };
     },
 
-    created: function() {},
-
     computed: {
         pagesNumber() {
             if (!this.pagination.meta.to) {

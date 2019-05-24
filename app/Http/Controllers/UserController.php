@@ -9,14 +9,12 @@ use Illuminate\Support\Carbon;
 
 class UserController extends Controller
 {
-    protected $user;
-
     /**
      * @param User $user
      */
-    public function __construct(User $user)
+    public function __construct()
     {
-        $this->user = $user;
+        $this->middleware('auth:api');
     }
 
     /**
@@ -26,9 +24,6 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        // $users = User::query();
-        // Cache::put('users', $users);
-
         $query = User::filter($request)->orderBy($request->column, $request->order);
 
         $users = $query->paginate($request->per_page);

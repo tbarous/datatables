@@ -10778,3 +10778,59 @@ th {
   display: none !important;
 }
 
+div[role=listitem] a {
+  height: 50px !important;
+}
+
+.v-list__group__header {
+  height: 50px !important;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.theme--dark.v-btn.v-btn--disabled:not(.v-btn--icon):not(.v-btn--flat):not(.v-btn--outline) {
+  background-color: lightgray !important;
+}
+
+.items-show span,
+.items-show .v-input {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.items-show .v-input {
+  width: 100px !important;
+}
+
+.items-count {
+  margin-top: 20px;
+}
+
+.table-tools button {
+  margin-left: 0;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+
+.table-tools button i {
+  margin-left: 5px;
+}
+
+.table-tools .v-input {
+  display: inline-block;
+  margin-left: 10px;
+  float: right;
+}
+
+th {
+  border: none !important;
+}
+

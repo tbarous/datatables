@@ -1,5 +1,5 @@
 <?php
 
-Route::get('users', 'UserController@index')->middleware('auth:api');
-Route::post('users/update', 'UserController@update')->middleware('auth:api');
-Route::post('users/destroy', 'UserController@destroy')->middleware('auth:api');
+Route::get('users', 'UserController@index');
+Route::post('users/update', 'UserController@update');
+Route::post('users/destroy', 'UserController@destroy');

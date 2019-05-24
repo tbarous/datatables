@@ -1,30 +1,30 @@
-require('./bootstrap');
 
+require('./bootstrap');
 window.Vue = require('vue');
-Vue.component('layout', require('./layouts/Layout.vue').default);
+
+import router from './router'
+import store from './store'
+import axios from './api'
 
 import Vuetify from 'vuetify'
-import router from './router'
-import axios from 'axios'
-
-require('vuetify/dist/vuetify.min');
 Vue.use(Vuetify);
+// import 'vuetify/dist/vuetify.min';
 
-import DateRangePicker from "@gravitano/vue-date-range-picker";
+import DateRangePicker from '@gravitano/vue-date-range-picker'
 Vue.use(DateRangePicker);
 
 import Notifications from 'vue-notification'
 Vue.use(Notifications)
 
-axios.create({
-  baseURL: 'http://project.local',
-  timeout: 1000,
-  headers: {'Accept': 'application/json'},
-  timeout: 3000,
-});
+import Loading from 'vue-loading-overlay';
+Vue.component('loading', Loading);
+import 'vue-loading-overlay/dist/vue-loading.css';
+
+Vue.component('layout', require('./layouts/Layout.vue').default);
 
 const app = new Vue({
     router,
     axios,
+    store,
     el: '#app'
 });

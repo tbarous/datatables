@@ -4,12 +4,12 @@
             <v-toolbar flat class="transparent">
                 <v-list class="pa-0">
                     <v-list-tile avatar>
-                        <v-list-tile-avatar>
+                        <!-- <v-list-tile-avatar>
                             <img alt="alt" src="https://randomuser.me/api/portraits/men/86.jpg">
-                        </v-list-tile-avatar>
+                        </v-list-tile-avatar> -->
 
                         <v-list-tile-content>
-                            <v-list-tile-title>{{user.username}}</v-list-tile-title>
+                            <v-list-tile-title>{{currentUser.username}}</v-list-tile-title>
                         </v-list-tile-content>
                     </v-list-tile>
                 </v-list>
@@ -62,11 +62,16 @@
             <v-container fluid pt-0>
                 <v-layout>
                     <v-flex>
-                        <router-view></router-view>
+                        <transition name="fade">
+                            <router-view></router-view>
+                        </transition>
                     </v-flex>
                 </v-layout>
             </v-container>
         </v-content>
+        
+        <notifications animation-name="fadeIn" group="foo" position="bottom right" />
+        <loading :active.sync="isLoading" :is-full-page="true"></loading>
     </v-app>
 </template>
 
@@ -74,8 +79,7 @@
     export default {
         data: () => ({
             drawer: null,
-            pages: data.pages,
-            user: {}
+            pages: data.pages
         }),
 
         props: {
@@ -83,18 +87,25 @@
         },
 
         created(){
-            this.user = data.user
+            this.$store.dispatch('user/setUser', data.user)
+        },
+
+        computed: {
+          currentUser() {
+            return this.$store.getters['user/getUser']
+          },
+          isLoading() {
+            return this.$store.getters['loading/getLoading']
+          }
         },
 
         methods: {
             logout() {
-                axios.post('/logout')
-                    .then(response => {
-                        window.location.href = '/';
-                    })
-                    .catch(e => {
-                        console.log(e.response.data)
-                    })
+                axios.post('/logout').then(response => {
+                    window.location.href = '/';
+                }).catch(e => {
+                    console.log(e.response.data)
+                })
             },
         }
     }
