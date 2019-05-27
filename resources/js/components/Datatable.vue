@@ -61,7 +61,8 @@
             <v-btn 
                 color="red" 
                 dark
-                @click="downloadWithAxios"
+                href="/storage/invoices.pdf"
+                download
             >
                 PDF 
                 <v-icon small>far fa-file-pdf</v-icon>

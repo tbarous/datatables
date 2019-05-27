@@ -2177,6 +2177,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -59498,8 +59499,12 @@ var render = function() {
           _c(
             "v-btn",
             {
-              attrs: { color: "red", dark: "" },
-              on: { click: _vm.downloadWithAxios }
+              attrs: {
+                color: "red",
+                dark: "",
+                href: "/storage/invoices.pdf",
+                download: ""
+              }
             },
             [
               _vm._v("\n            PDF \n            "),
