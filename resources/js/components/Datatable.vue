@@ -112,7 +112,9 @@
 
                 <tr class="bg-dark text-white">
                     <th width="5%"></th>
-                    <th width="5%"></th>
+                    <th width="5%">
+                        <v-checkbox @change="toggleAll" v-model="selectAll" value="value"></v-checkbox>
+                    </th>
                     <th 
                         class="pt-0 pb-0" 
                         v-if="activeColumns[column.title]" 
@@ -330,6 +332,7 @@ export default {
         return {
             tableData: [],
             url: '',
+            selectAll: false,
             sortedColumn: this.columns[3].title,
             order: 'desc',
             itemsShow: [15, 50, 100],
@@ -494,10 +497,25 @@ export default {
                 selected: JSON.stringify(this.selected),
                 row: JSON.stringify(row)
             }).then(response => {
-                this.fetchData(false, {title: 'Success', type: 'success', text: 'Items have been updated'})
+                this.fetchData(false, {type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Items has been updated'})
             }).catch(error => {
                 console.log(error);
             })
+        },
+
+        toggleAll(){
+            if(!this.selectAll){
+                this.selected = []
+                this.tableData.map(item=>{
+                    this.selected.push(item.id)
+                })
+                this.selectAll = true
+                console.log(this.selected)
+            } else {
+                this.selected = []
+                this.selectAll = false
+                console.log(this.selected)
+            }
         }
     },
 

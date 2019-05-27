@@ -2178,6 +2178,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -2198,6 +2200,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       tableData: [],
       url: '',
+      selectAll: false,
       sortedColumn: this.columns[3].title,
       order: 'desc',
       itemsShow: [15, 50, 100],
@@ -2365,13 +2368,28 @@ __webpack_require__.r(__webpack_exports__);
         row: JSON.stringify(row)
       }).then(function (response) {
         _this5.fetchData(false, {
-          title: 'Success',
           type: 'success',
-          text: 'Items have been updated'
+          text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Items has been updated'
         });
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    toggleAll: function toggleAll() {
+      var _this6 = this;
+
+      if (!this.selectAll) {
+        this.selected = [];
+        this.tableData.map(function (item) {
+          _this6.selected.push(item.id);
+        });
+        this.selectAll = true;
+        console.log(this.selected);
+      } else {
+        this.selected = [];
+        this.selectAll = false;
+        console.log(this.selected);
+      }
     }
   },
   filters: {
@@ -59645,7 +59663,24 @@ var render = function() {
               [
                 _c("th", { attrs: { width: "5%" } }),
                 _vm._v(" "),
-                _c("th", { attrs: { width: "5%" } }),
+                _c(
+                  "th",
+                  { attrs: { width: "5%" } },
+                  [
+                    _c("v-checkbox", {
+                      attrs: { value: "value" },
+                      on: { change: _vm.toggleAll },
+                      model: {
+                        value: _vm.selectAll,
+                        callback: function($$v) {
+                          _vm.selectAll = $$v
+                        },
+                        expression: "selectAll"
+                      }
+                    })
+                  ],
+                  1
+                ),
                 _vm._v(" "),
                 _vm._l(_vm.columns, function(column) {
                   return _vm.activeColumns[column.title]

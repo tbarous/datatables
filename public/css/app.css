@@ -10873,7 +10873,7 @@ div[role=listitem] a {
 
 .notification-content {
   padding-top: 3px;
-  font-size: 16px !important;
+  font-size: 14px !important;
   text-align: center !important;
 }
 
@@ -10886,6 +10886,18 @@ div[role=listitem] a {
 .theme--dark.v-list .v-list__tile--highlighted,
 .theme--dark.v-list .v-list__tile--link:hover {
   background: rgba(255, 255, 255, 0.08);
+}
+
+a:hover {
+  color: #99bffc;
+}
+
+a.v-list__tile--active {
+  color: #99bffc !important;
+}
+
+.v-list__group__header--active i {
+  color: #99bffc !important;
 }
 
 h3 {

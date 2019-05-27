@@ -132,7 +132,7 @@ div[role=listitem] {
 
 .notification-content {
     padding-top: 3px;
-    font-size: 16px !important;
+    font-size: 14px !important;
     text-align: center !important;
 }
 
@@ -147,17 +147,17 @@ div[role=listitem] {
     background: hsla(0, 0%, 100%, .08);
 }
 
-// a:hover {
-//     color: gold
-// }
+a:hover {
+    color: #99bffc
+}
 
-// a.v-list__tile--active {
-//     color: gold !important
-// }
+a.v-list__tile--active {
+    color: #99bffc !important
+}
 
-// .v-list__group__header--active i {
-//     color: gold !important
-// }
+.v-list__group__header--active i {
+    color: #99bffc !important
+}
 
 h3 {
     margin-top: 20px;

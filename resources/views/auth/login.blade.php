@@ -9,7 +9,7 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body style="background-image: linear-gradient(113.7deg, rgba(43, 58, 103, 1) 11.5%, rgba(122, 134, 172, 1) 124.1%);height: 100vh;">
     
 <nav class="navbar navbar-expand-sm bg-dark">
     <ul class="navbar-nav">
@@ -24,10 +24,10 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+            <div class="card mt-5 border-0 pb-4">
+                <div class="card-header bg-secondary text-white">Login</div>
 
-                <div class="card-body">
+                <div class="card-body pt-5">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
