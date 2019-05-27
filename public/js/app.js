@@ -2171,6 +2171,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -59419,7 +59425,7 @@ var render = function() {
           _c(
             "v-btn",
             {
-              attrs: { color: "secondary", dark: "" },
+              attrs: { color: "blue", dark: "" },
               on: {
                 click: function($event) {
                   return _vm.fetchData(true)
@@ -59474,7 +59480,7 @@ var render = function() {
           _c(
             "v-btn",
             {
-              attrs: { color: "secondary", dark: "" },
+              attrs: { color: "green", dark: "" },
               on: { click: _vm.downloadWithAxios }
             },
             [
@@ -59489,7 +59495,7 @@ var render = function() {
           _c(
             "v-btn",
             {
-              attrs: { color: "secondary", dark: "" },
+              attrs: { color: "red", dark: "" },
               on: { click: _vm.downloadWithAxios }
             },
             [
@@ -59502,15 +59508,20 @@ var render = function() {
           ),
           _vm._v(" "),
           _c(
-            "a",
+            "v-btn",
             {
-              staticClass: "btn btn-default",
               attrs: {
                 id: "export-btn",
                 "data-clipboard-target": "#resultsTable"
               }
             },
-            [_vm._v("Export Table Data")]
+            [
+              _vm._v("\n            Export\n            "),
+              _c("v-icon", { attrs: { small: "" } }, [
+                _vm._v("fas fa-file-export")
+              ])
+            ],
+            1
           ),
           _vm._v(" "),
           _c("v-text-field", {
@@ -59543,7 +59554,7 @@ var render = function() {
       _c(
         "table",
         {
-          staticClass: "table table-bordered mb-0",
+          staticClass: "table table-bordered bg-white mb-0",
           attrs: { id: "resultsTable", "data-tableName": "Test Table 2" }
         },
         [
@@ -59552,9 +59563,9 @@ var render = function() {
               "tr",
               { staticClass: "bg-dark text-white" },
               [
-                _c("th"),
+                _c("th", { attrs: { width: "5%" } }),
                 _vm._v(" "),
-                _c("th"),
+                _c("th", { attrs: { width: "5%" } }),
                 _vm._v(" "),
                 _vm._l(_vm.columns, function(column) {
                   return _vm.activeColumns[column.title]
@@ -59592,7 +59603,7 @@ var render = function() {
                     : _vm._e()
                 }),
                 _vm._v(" "),
-                _c("th")
+                _c("th", { attrs: { width: "10%" } })
               ],
               2
             ),
@@ -59601,9 +59612,9 @@ var render = function() {
               "tr",
               { staticClass: "bg-dark text-white" },
               [
-                _c("th"),
+                _c("th", { attrs: { width: "5%" } }),
                 _vm._v(" "),
-                _c("th"),
+                _c("th", { attrs: { width: "5%" } }),
                 _vm._v(" "),
                 _vm._l(_vm.columns, function(column) {
                   return _vm.activeColumns[column.title]
@@ -59661,7 +59672,7 @@ var render = function() {
                     : _vm._e()
                 }),
                 _vm._v(" "),
-                _c("th")
+                _c("th", { attrs: { width: "10%" } })
               ],
               2
             )
@@ -59690,12 +59701,13 @@ var render = function() {
                       "tr",
                       { key: data.id, staticClass: "m-datatable__row" },
                       [
-                        _c("td", { staticClass: "p-3" }, [
+                        _c("td", { attrs: { width: "5%" } }, [
                           _vm._v(_vm._s(_vm.serialNumber(key1)))
                         ]),
                         _vm._v(" "),
                         _c(
                           "td",
+                          { attrs: { width: "5%" } },
                           [
                             _c("v-checkbox", {
                               staticClass: "p-3",
@@ -59731,7 +59743,10 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "td",
-                          { staticStyle: { "white-space": "nowrap" } },
+                          {
+                            staticStyle: { "white-space": "nowrap" },
+                            attrs: { width: "10%" }
+                          },
                           [
                             _c(
                               "v-btn",
@@ -59843,6 +59858,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-card-text",
+                { staticClass: "d-flex" },
                 [
                   _vm._l(_vm.columns, function(column, key) {
                     return _c("v-checkbox", {
@@ -60346,7 +60362,7 @@ var render = function() {
     [
       _c("v-progress-linear", {
         staticClass: "mb-0 mt-0",
-        attrs: { indeterminate: true }
+        attrs: { indeterminate: true, color: "black" }
       })
     ],
     1
@@ -60542,11 +60558,8 @@ var render = function() {
       _vm._v(" "),
       _c(
         "v-content",
-        { staticStyle: { "padding-bottom": "50px" } },
         [
-          _c("h3", { staticClass: "mt-4 ml-3" }, [
-            _vm._v(_vm._s(_vm.$route.name))
-          ]),
+          _c("h3", [_vm._v(_vm._s(_vm.$route.name))]),
           _vm._v(" "),
           _c("hr"),
           _vm._v(" "),

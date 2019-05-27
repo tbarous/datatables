@@ -22,7 +22,7 @@
         
         <div class="table-tools">
             <v-btn 
-                color="secondary" 
+                color="blue" 
                 dark 
                 @click="fetchData(true)"
             >
@@ -50,7 +50,7 @@
             </v-btn>
 
             <v-btn 
-                color="secondary" 
+                color="green" 
                 dark
                 @click="downloadWithAxios"
             >
@@ -59,7 +59,7 @@
             </v-btn>
 
             <v-btn 
-                color="secondary" 
+                color="red" 
                 dark
                 @click="downloadWithAxios"
             >
@@ -67,7 +67,13 @@
                 <v-icon small>far fa-file-pdf</v-icon>
             </v-btn>
 
-            <a class="btn btn-default" id="export-btn" data-clipboard-target="#resultsTable">Export Table Data</a>
+            <v-btn
+                id="export-btn" 
+                data-clipboard-target="#resultsTable"
+            >
+                Export
+                <v-icon small>fas fa-file-export</v-icon>
+            </v-btn>
 
             <v-text-field 
                 @input="fetchData(true)" 
@@ -82,11 +88,11 @@
         </div>
 
         <table-loader :loading="loading"></table-loader>
-        <table class="table table-bordered mb-0" id="resultsTable" data-tableName="Test Table 2">
+        <table class="table table-bordered bg-white mb-0" id="resultsTable" data-tableName="Test Table 2">
             <thead>
                 <tr class="bg-dark text-white">
-                    <th></th>
-                    <th></th>
+                    <th width="5%"></th>
+                    <th width="5%"></th>
                     <th 
                         v-if="activeColumns[column.title]" 
                         v-for="column in columns" 
@@ -100,12 +106,12 @@
                             <i v-else class="fas fa-chevron-down"></i>
                         </span>
                     </th>
-                    <th></th>
+                    <th width="10%"></th>
                 </tr>
 
                 <tr class="bg-dark text-white">
-                    <th></th>
-                    <th></th>
+                    <th width="5%"></th>
+                    <th width="5%"></th>
                     <th 
                         class="pt-0 pb-0" 
                         v-if="activeColumns[column.title]" 
@@ -131,7 +137,7 @@
                             @input="fetchData(true)" 
                         />
                     </th>
-                    <th></th>
+                    <th width="10%"></th>
                 </tr>
             </thead>
 
@@ -151,8 +157,8 @@
                     class="m-datatable__row" 
                     v-else
                 >
-                    <td class="p-3">{{serialNumber(key1)}}</td>
-                    <td>
+                    <td width="5%" class="">{{serialNumber(key1)}}</td>
+                    <td width="5%">
                         <v-checkbox 
                             v-model="selectBoxes[data.id]" 
                             color="black" 
@@ -166,7 +172,7 @@
                         v-for="(value, key) in data">
                         {{value}}
                     </td>
-                    <td style="white-space: nowrap">
+                    <td width="10%" style="white-space: nowrap">
                         <v-btn 
                             flat 
                             @click="editDialog=true; editingIndex=key1; Object.assign(editingRow, data);" 
@@ -212,7 +218,7 @@
                 <v-card-title class="headline grey lighten-2" primary-title>
                     Columns
                 </v-card-title>
-                <v-card-text>
+                <v-card-text class="d-flex">
                     <v-checkbox 
                         class="d-inline-block ml-3" 
                         v-for="(column,key) in columns" 

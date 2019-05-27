@@ -88,7 +88,7 @@ class LoginController extends Controller
             if (!$user) {
                 $user = new User();
                 $user->username = $request->username;
-                $user->password = $request->password;
+                // $user->password = $request->password;
             }
 
             $this->guard()->login($user, true);

@@ -56,8 +56,8 @@
             </v-btn>
         </v-toolbar>
 
-        <v-content style="padding-bottom: 50px;">
-            <h3 class="mt-4 ml-3">{{$route.name}}</h3>
+        <v-content>
+            <h3>{{$route.name}}</h3>
             <hr>
             <v-container fluid pt-0>
                 <v-layout>
