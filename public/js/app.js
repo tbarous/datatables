@@ -2379,8 +2379,11 @@ __webpack_require__.r(__webpack_exports__);
       var _this6 = this;
 
       if (!this.selectAll) {
+        alert(5);
         this.selected = [];
         this.tableData.map(function (item) {
+          _this6.selectBoxes[item.id] = true;
+
           _this6.selected.push(item.id);
         });
         this.selectAll = true;
@@ -59668,7 +59671,6 @@ var render = function() {
                   { attrs: { width: "5%" } },
                   [
                     _c("v-checkbox", {
-                      attrs: { value: "value" },
                       on: { change: _vm.toggleAll },
                       model: {
                         value: _vm.selectAll,

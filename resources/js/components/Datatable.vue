@@ -113,7 +113,7 @@
                 <tr class="bg-dark text-white">
                     <th width="5%"></th>
                     <th width="5%">
-                        <v-checkbox @change="toggleAll" v-model="selectAll" value="value"></v-checkbox>
+                        <v-checkbox @change="toggleAll" v-model="selectAll"></v-checkbox>
                     </th>
                     <th 
                         class="pt-0 pb-0" 
@@ -505,8 +505,10 @@ export default {
 
         toggleAll(){
             if(!this.selectAll){
+                alert(5)
                 this.selected = []
                 this.tableData.map(item=>{
+                    this.selectBoxes[item.id] = true
                     this.selected.push(item.id)
                 })
                 this.selectAll = true
