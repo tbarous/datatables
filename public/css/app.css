@@ -9,12 +9,12 @@
   margin-left: 0;
   margin-right: 10px;
   margin-top: 5px;
-  width: 150px;
+  width: 130px;
 }
 
 .table-tools button i,
 .table-tools a i {
-  margin-left: 15px;
+  margin-left: 10px;
   font-size: 14px !important;
 }
 
