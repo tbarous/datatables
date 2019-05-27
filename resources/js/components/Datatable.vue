@@ -52,7 +52,7 @@
             <v-btn 
                 color="green" 
                 dark
-                @click="downloadWithAxios"
+                href="/storage/invoices.xlsx"
             >
                 Excel 
                 <v-icon small>far fa-file-excel</v-icon>

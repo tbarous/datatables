@@ -10756,6 +10756,14 @@ button {
   outline: none !important;
 }
 
+[v-cloak] > * {
+  display: none;
+}
+
+[v-cloak]::before {
+  content: "loading\2026";
+}
+
 .v-input__slot {
   margin: 0 !important;
 }

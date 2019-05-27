@@ -14,6 +14,9 @@ button {
     outline: none !important;
 }
 
+[v-cloak] > * { display:none }
+[v-cloak]::before { content: "loading…" }
+
 .v-input__slot {
     margin: 0 !important;
 }

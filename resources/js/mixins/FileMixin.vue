@@ -13,7 +13,7 @@ export default {
         downloadWithAxios(){
           axios({
             method: 'get',
-            url: 'http://project.local/images/screenshot.png',
+            url: 'users/excel',
             responseType: 'arraybuffer'
           })
           .then(response => {

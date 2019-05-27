@@ -2692,7 +2692,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios({
         method: 'get',
-        url: 'http://project.local/images/screenshot.png',
+        url: 'users/excel',
         responseType: 'arraybuffer'
       }).then(function (response) {
         _this.forceFileDownload(response);
@@ -59480,8 +59480,11 @@ var render = function() {
           _c(
             "v-btn",
             {
-              attrs: { color: "green", dark: "" },
-              on: { click: _vm.downloadWithAxios }
+              attrs: {
+                color: "green",
+                dark: "",
+                href: "/storage/invoices.xlsx"
+              }
             },
             [
               _vm._v("\n            Excel \n            "),

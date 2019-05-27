@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HomeController extends Controller
 {
@@ -25,6 +27,8 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+        Excel::store(new UsersExport(2018), 'public/invoices.xlsx');
+
         $pages = [
             'tools' => [
                 ['title'=>'EETT Overview', 'slug' => 'eett-overview', 'icon' => 'dashboard'],
@@ -42,5 +46,10 @@ class HomeController extends Controller
         ];
 
         return view('layouts.app', compact('data'));
+    }
+
+    public function page_not_found()
+    {
+        return view('404');
     }
 }

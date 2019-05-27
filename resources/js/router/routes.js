@@ -5,10 +5,9 @@ import Scripts from '../views/Scripts';
 import Log from '../views/Log';
 import Documentation from '../views/Documentation';
 
-export default [
-    { 
-        path: '/', 
-        redirect: '/eett-overview' 
+export default [{
+        path: '/',
+        redirect: '/eett-overview'
     },
     {
         path: '/users',
@@ -39,5 +38,5 @@ export default [
         path: '/documentation',
         component: Documentation,
         name: 'Documentation'
-    },
+    }
 ];
