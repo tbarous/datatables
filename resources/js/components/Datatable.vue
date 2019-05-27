@@ -17,7 +17,7 @@
             <i :class="{nopacity:loading}">{{getItemsCount}}</i>
             <br><br>
             <u>Selected: {{selected.length}}</u>
-            <hr>
+            <hr color="white">
         </div>
         
         <div class="table-tools">

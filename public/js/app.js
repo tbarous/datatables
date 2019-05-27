@@ -59439,7 +59439,7 @@ var render = function() {
         _vm._v(" "),
         _c("u", [_vm._v("Selected: " + _vm._s(_vm.selected.length))]),
         _vm._v(" "),
-        _c("hr")
+        _c("hr", { attrs: { color: "white" } })
       ]),
       _vm._v(" "),
       _c(
@@ -60590,14 +60590,14 @@ var render = function() {
       _c(
         "v-content",
         [
-          _c("h3", [_vm._v(_vm._s(_vm.$route.name))]),
-          _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
           _c(
             "v-container",
             { attrs: { fluid: "", "pt-0": "" } },
             [
+              _c("h3", [_vm._v(_vm._s(_vm.$route.name))]),
+              _vm._v(" "),
+              _c("v-divider", { attrs: { color: "white" } }),
+              _vm._v(" "),
               _c(
                 "v-layout",
                 [

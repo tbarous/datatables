@@ -57,9 +57,9 @@
         </v-toolbar>
 
         <v-content>
-            <h3>{{$route.name}}</h3>
-            <hr>
             <v-container fluid pt-0>
+                <h3>{{$route.name}}</h3>
+                <v-divider color="white"></v-divider>
                 <v-layout>
                     <v-flex>
                         <transition name="fade">
