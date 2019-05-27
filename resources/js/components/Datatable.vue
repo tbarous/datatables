@@ -24,7 +24,7 @@
             <v-btn 
                 color="secondary" 
                 dark 
-                @click="reload"
+                @click="fetchData(true)"
             >
                 Reload 
                 <v-icon small>fas fa-sync</v-icon>
@@ -138,7 +138,7 @@
             <tbody>
                 <tr v-if="dataExists">
                     <td 
-                        class="text-center p-3 text-white bg-danger" 
+                        class="no-data bg-info" 
                         :colspan="columns.length + 3"
                     >
                         No data was found
@@ -402,7 +402,7 @@ export default {
             this.fetch(reset, msg)
         },
 
-        fetch: _.debounce(function(reset, msg = null){
+        fetch: _.debounce(function(reset, msg){
             if (reset) this.currentPage = 1
             if (this.generalSearch == null) this.generalSearch = ''
 
@@ -419,12 +419,8 @@ export default {
                 .then(({ data }) => {
                     this.pagination = data
                     this.tableData = data.data
+                    if(msg) setTimeout(() => this.$notify(msg), 200)
                     this.loading = false
-                    if(msg){
-                        setTimeout(()=>{
-                            this.$notify(msg);
-                        }, 200)
-                    }
                     this.$store.dispatch('loading/setLoading', false);
                 }).catch(error => {
                     this.tableData = []
@@ -463,16 +459,12 @@ export default {
             }
         },
 
-        reload(){
-            this.fetchData(true)
-        },
-
         update(index, row) {
             this.$store.dispatch('loading/setLoading', true);
             axios.post(this.url + '/update', {
                 row: JSON.stringify(row)
             }).then(response => {
-                this.fetchData(false, {title: 'Important message', type: 'success', text: 'Item has been updated'})
+                this.fetchData(false, {type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'})
             }).catch(error => {
                 console.log(error);
             })
@@ -483,7 +475,7 @@ export default {
             axios.post(this.url + '/destroy', {
                 id: row.id
             }).then(response => {
-                this.fetchData(false, {title: 'Important message', type: 'success', text: 'Item has been deleted'})
+                this.fetchData(false, {type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been deleted'})
             }).catch(error => {
                 console.log(error);
             })
@@ -495,7 +487,7 @@ export default {
                 selected: JSON.stringify(this.selected),
                 row: JSON.stringify(row)
             }).then(response => {
-                this.fetchData(false, {title: 'Important message', type: 'success', text: 'Items have been updated'})
+                this.fetchData(false, {title: 'Success', type: 'success', text: 'Items have been updated'})
             }).catch(error => {
                 console.log(error);
             })

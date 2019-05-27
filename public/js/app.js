@@ -2262,10 +2262,9 @@ __webpack_require__.r(__webpack_exports__);
       this.loading = true;
       this.fetch(reset, msg);
     },
-    fetch: lodash__WEBPACK_IMPORTED_MODULE_4___default.a.debounce(function (reset) {
+    fetch: lodash__WEBPACK_IMPORTED_MODULE_4___default.a.debounce(function (reset, msg) {
       var _this2 = this;
 
-      var msg = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
       if (reset) this.currentPage = 1;
       if (this.generalSearch == null) this.generalSearch = '';
       var dataFetchUrl = "".concat(this.url, "?page=").concat(this.currentPage, "&column=").concat(this.sortedColumn, "&order=").concat(this.order, "&per_page=").concat(this.perPage, "&search=").concat(this.generalSearch);
@@ -2279,13 +2278,10 @@ __webpack_require__.r(__webpack_exports__);
         var data = _ref.data;
         _this2.pagination = data;
         _this2.tableData = data.data;
+        if (msg) setTimeout(function () {
+          return _this2.$notify(msg);
+        }, 200);
         _this2.loading = false;
-
-        if (msg) {
-          setTimeout(function () {
-            _this2.$notify(msg);
-          }, 200);
-        }
 
         _this2.$store.dispatch('loading/setLoading', false);
       })["catch"](function (error) {
@@ -2323,9 +2319,6 @@ __webpack_require__.r(__webpack_exports__);
         this.selectBoxes[item.id] = false;
       }
     },
-    reload: function reload() {
-      this.fetchData(true);
-    },
     update: function update(index, row) {
       var _this3 = this;
 
@@ -2334,9 +2327,8 @@ __webpack_require__.r(__webpack_exports__);
         row: JSON.stringify(row)
       }).then(function (response) {
         _this3.fetchData(false, {
-          title: 'Important message',
           type: 'success',
-          text: 'Item has been updated'
+          text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'
         });
       })["catch"](function (error) {
         console.log(error);
@@ -2350,9 +2342,8 @@ __webpack_require__.r(__webpack_exports__);
         id: row.id
       }).then(function (response) {
         _this4.fetchData(false, {
-          title: 'Important message',
           type: 'success',
-          text: 'Item has been deleted'
+          text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been deleted'
         });
       })["catch"](function (error) {
         console.log(error);
@@ -2367,7 +2358,7 @@ __webpack_require__.r(__webpack_exports__);
         row: JSON.stringify(row)
       }).then(function (response) {
         _this5.fetchData(false, {
-          title: 'Important message',
+          title: 'Success',
           type: 'success',
           text: 'Items have been updated'
         });
@@ -59429,7 +59420,11 @@ var render = function() {
             "v-btn",
             {
               attrs: { color: "secondary", dark: "" },
-              on: { click: _vm.reload }
+              on: {
+                click: function($event) {
+                  return _vm.fetchData(true)
+                }
+              }
             },
             [
               _vm._v("\n            Reload \n            "),
@@ -59680,7 +59675,7 @@ var render = function() {
                     _c(
                       "td",
                       {
-                        staticClass: "text-center p-3 text-white bg-danger",
+                        staticClass: "no-data bg-info",
                         attrs: { colspan: _vm.columns.length + 3 }
                       },
                       [
@@ -60386,7 +60381,7 @@ var render = function() {
       _c(
         "v-navigation-drawer",
         {
-          attrs: { fixed: "", app: "", dark: "", width: "280" },
+          attrs: { temporary: "", fixed: "", app: "", dark: "", width: "280" },
           model: {
             value: _vm.drawer,
             callback: function($$v) {

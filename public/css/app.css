@@ -10835,3 +10835,27 @@ th {
   border: none !important;
 }
 
+.notification-title {
+  font-size: 20px !important;
+  border-bottom: 2px solid #fff;
+  padding-bottom: 3px;
+}
+
+.notification-content {
+  padding-top: 3px;
+  font-size: 16px !important;
+  text-align: center !important;
+}
+
+.notifications {
+  bottom: 10px !important;
+  right: 10px !important;
+}
+
+.no-data {
+  text-align: center;
+  padding: 20px !important;
+  color: #fff;
+  font-size: 15px;
+}
+

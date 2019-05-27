@@ -28,7 +28,15 @@ class UserController extends Controller
 
         $users = $query->paginate($request->per_page);
 
-        return UsersResource::collection($users);
+        return UsersResource::collection($users)
+                            ->additional(
+                                [
+                                    'meta' => [
+                                        'created_at' => [Carbon::parse(User::min('created_at'))->format('d/m/Y H:i:s', 'Europe/Athens'), Carbon::parse(User::max('created_at'))->format('d/m/Y H:i:s', 'Europe/Athens')]
+                                        
+                                    ]
+                                ]
+                            );
     }
 
     /**
