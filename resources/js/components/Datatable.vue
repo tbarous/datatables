@@ -229,8 +229,8 @@
                         color="black"
                     >
                     </v-checkbox>
-                    <v-icon @click="closeDialog('viewColumns')">fa fa-close</v-icon>
                 </v-card-text>
+                <v-btn dark class="w-100 ml-0 mr-0" @click="closeDialog('viewColumns')">Ok</v-btn>
 
                 <v-btn 
                     @click="closeDialog('viewColumns')" 

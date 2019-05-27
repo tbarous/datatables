@@ -72,6 +72,10 @@
         
         <notifications animation-name="fade" position="bottom right" />
         <loading :active.sync="isLoading" :is-full-page="true"></loading>
+
+        <v-btn v-if="showToTop" small fab dark @click="toTop" color="black" style="position: fixed;bottom:10px;right:10px;">
+            <v-icon small>fa fa-chevron-up</v-icon>
+        </v-btn>
     </v-app>
 </template>
 
@@ -79,7 +83,8 @@
     export default {
         data: () => ({
             drawer: null,
-            pages: data.pages
+            pages: data.pages,
+            showToTop: false
         }),
 
         props: {
@@ -88,6 +93,17 @@
 
         created(){
             this.$store.dispatch('user/setUser', data.user)
+        },
+
+        mounted(){
+            $(document).on( 'scroll', () => {
+                var scroll = $(window).scrollTop();
+                if(scroll > 500) {
+                    this.showToTop = true
+                } else {
+                    this.showToTop = false
+                }
+            });
         },
 
         computed: {
@@ -100,6 +116,10 @@
         },
 
         methods: {
+            toTop() {
+                $("html, body").animate({ scrollTop: 0 }, "slow");
+            },
+
             logout() {
                 axios.post('/logout').then(response => {
                     window.location.href = '/';

@@ -2624,6 +2624,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function (_data) {
     function data() {
@@ -2638,7 +2642,8 @@ __webpack_require__.r(__webpack_exports__);
   }(function () {
     return {
       drawer: null,
-      pages: data.pages
+      pages: data.pages,
+      showToTop: false
     };
   }),
   props: {
@@ -2646,6 +2651,19 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.$store.dispatch('user/setUser', data.user);
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    $(document).on('scroll', function () {
+      var scroll = $(window).scrollTop();
+
+      if (scroll > 500) {
+        _this.showToTop = true;
+      } else {
+        _this.showToTop = false;
+      }
+    });
   },
   computed: {
     currentUser: function currentUser() {
@@ -2656,6 +2674,11 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    toTop: function toTop() {
+      $("html, body").animate({
+        scrollTop: 0
+      }, "slow");
+    },
     logout: function logout() {
       axios.post('/logout').then(function (response) {
         window.location.href = '/';
@@ -59867,38 +59890,38 @@ var render = function() {
               _c(
                 "v-card-text",
                 { staticClass: "d-flex" },
-                [
-                  _vm._l(_vm.columns, function(column, key) {
-                    return _c("v-checkbox", {
-                      key: column.title,
-                      staticClass: "d-inline-block ml-3",
-                      attrs: {
-                        label: _vm._f("columnLow")(column.title),
-                        color: "black"
-                      },
-                      model: {
-                        value: _vm.activeColumns[column.title],
-                        callback: function($$v) {
-                          _vm.$set(_vm.activeColumns, column.title, $$v)
-                        },
-                        expression: "activeColumns[column.title]"
-                      }
-                    })
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "v-icon",
-                    {
-                      on: {
-                        click: function($event) {
-                          return _vm.closeDialog("viewColumns")
-                        }
-                      }
+                _vm._l(_vm.columns, function(column, key) {
+                  return _c("v-checkbox", {
+                    key: column.title,
+                    staticClass: "d-inline-block ml-3",
+                    attrs: {
+                      label: _vm._f("columnLow")(column.title),
+                      color: "black"
                     },
-                    [_vm._v("fa fa-close")]
-                  )
-                ],
-                2
+                    model: {
+                      value: _vm.activeColumns[column.title],
+                      callback: function($$v) {
+                        _vm.$set(_vm.activeColumns, column.title, $$v)
+                      },
+                      expression: "activeColumns[column.title]"
+                    }
+                  })
+                }),
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  staticClass: "w-100 ml-0 mr-0",
+                  attrs: { dark: "" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeDialog("viewColumns")
+                    }
+                  }
+                },
+                [_vm._v("Ok")]
               ),
               _vm._v(" "),
               _c(
@@ -60611,7 +60634,24 @@ var render = function() {
             _vm.isLoading = $event
           }
         }
-      })
+      }),
+      _vm._v(" "),
+      _vm.showToTop
+        ? _c(
+            "v-btn",
+            {
+              staticStyle: { position: "fixed", bottom: "10px", right: "10px" },
+              attrs: { small: "", fab: "", dark: "", color: "black" },
+              on: { click: _vm.toTop }
+            },
+            [
+              _c("v-icon", { attrs: { small: "" } }, [
+                _vm._v("fa fa-chevron-up")
+              ])
+            ],
+            1
+          )
+        : _vm._e()
     ],
     1
   )
