@@ -1,11 +1,12 @@
-import Users from '../views/Users';
-import Overview from '../views/Overview';
-import DeltaReport from '../views/DeltaReport';
-import Scripts from '../views/Scripts';
-import Log from '../views/Log';
-import Documentation from '../views/Documentation';
+import Users from '../views/Users'
+import Overview from '../views/Overview'
+import DeltaReport from '../views/DeltaReport'
+import Scripts from '../views/Scripts'
+import Log from '../views/Log'
+import Documentation from '../views/Documentation'
 
-export default [{
+export default [
+    {
         path: '/',
         redirect: '/eett-overview'
     },
@@ -39,4 +40,4 @@ export default [{
         component: Documentation,
         name: 'Documentation'
     }
-];
+]

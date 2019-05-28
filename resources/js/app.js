@@ -1,4 +1,3 @@
-
 require('./bootstrap');
 window.Vue = require('vue');
 
@@ -18,7 +17,6 @@ Vue.use(Notifications)
 
 import Loading from 'vue-loading-overlay';
 Vue.component('loading', Loading);
-import 'vue-loading-overlay/dist/vue-loading.css';
 
 Vue.component('layout', require('./layouts/Layout.vue').default);
 

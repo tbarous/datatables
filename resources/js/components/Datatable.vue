@@ -77,6 +77,7 @@
             </v-btn>
 
             <v-text-field 
+                class="generalSearch"
                 @input="fetchData(true)" 
                 v-model="generalSearch"
                 solo 
@@ -99,9 +100,8 @@
                             v-if="activeColumns[column.title]" 
                             v-for="column in columns" 
                             :key="column.title" 
-                            @click="sortByColumn(column)" 
-                            style="cursor: pointer;" 
-                            class="text-center border-0 pt-3">
+                            @click="sortByColumn(column)"
+                            class="table-header">
                             {{ column.title | columnHead }}
                             <span v-if="column.title === sortedColumn">
                                 <i v-if="order === 'asc'" class="fas fa-chevron-up"></i>
@@ -179,7 +179,7 @@
                         <td width="10%" style="white-space: nowrap">
                             <v-btn 
                                 flat 
-                                @click="editDialog=true; editingIndex=key1; Object.assign(editingRow, data);" 
+                                @click="setEditDialog(key1, data)" 
                                 fab 
                                 dark 
                                 small 
@@ -207,15 +207,15 @@
         </div>
         <table-loader :loading="loading"></table-loader>
 
-        <v-card class="p-3">
-            <pagination-nav 
+        <v-card class="pagination">
+            <pagination 
                 :pagination="pagination"
                 :tableData="tableData" 
                 :currentPage="currentPage" 
                 :pagesNumber="pagesNumber" 
                 @changePage="changePage"
             >
-            </pagination-nav>
+            </pagination>
         </v-card>
 
         <v-dialog v-model="dialog.viewColumns" width="500">
@@ -240,15 +240,19 @@
                     @click="closeDialog('viewColumns')" 
                     class="close-window" 
                     flat 
-                    icon>
+                    icon
+                >
                     <v-icon small>fa fa-times</v-icon>
                 </v-btn>
             </v-card>
         </v-dialog>
 
-        <v-dialog v-model="editDialog" persistent width="500">
+        <v-dialog v-model="dialog.edit" persistent width="500">
             <v-card>
-                <v-card-title class="headline grey lighten-2" primary-title>
+                <v-card-title 
+                    class="headline grey lighten-2" 
+                    primary-title
+                >
                     Edit
                 </v-card-title>
                 <v-card-text>
@@ -269,17 +273,29 @@
                         <v-btn class="ml-0 w-100" color="primary" type="submit">edit</v-btn>
                     </v-form>
                     
-                    <v-btn @click="editDialog = false;" class="close-window" flat icon>
+                    <v-btn 
+                        class="close-window" 
+                        @click="closeDialog('edit')" 
+                        flat 
+                        icon
+                    >
                         <v-icon small>fa fa-times</v-icon>
                     </v-btn>
                 </v-card-text>
             </v-card>
         </v-dialog>
 
-        <v-dialog v-model="dialog.editMultiple" persistent width="500">
+        <v-dialog 
+            v-model="dialog.editMultiple" 
+            persistent 
+            width="500"
+        >
             <v-card>
-                <v-card-title class="headline grey lighten-2" primary-title>
-                    Edit Multiple fields
+                <v-card-title 
+                    class="headline grey lighten-2" 
+                    primary-title
+                >
+                    Edit fields
                 </v-card-title>
                 <v-card-text>
                     <v-form 
@@ -292,17 +308,25 @@
                             :key="column.title" 
                             v-if="column.type == 'text'" 
                             type="text" 
-                            v-model="editingMultipleRow[column.title]" class="mt-3">
+                            v-model="editingMultipleRow[column.title]" 
+                            class="mt-3">
                         </v-text-field>
                         <br>
-                        <v-btn class="ml-0 w-100" color="primary" type="submit">edit</v-btn>
+                        <v-btn 
+                            class="ml-0 w-100" 
+                            color="primary" 
+                            type="submit"
+                        >
+                            edit
+                        </v-btn>
                     </v-form>
                     
                     <v-btn 
                         @click="closeDialog('editMultiple')" 
                         class="close-window" 
                         flat 
-                        icon>
+                        icon
+                    >
                         <v-icon small>fa fa-times</v-icon>
                     </v-btn>
                 </v-card-text>
@@ -315,7 +339,7 @@
 import PaginationMixin from '../mixins/PaginationMixin'
 import FileMixin from '../mixins/FileMixin'
 import TableLoader from './TableLoader'
-import PaginationNav from './PaginationNav'
+import Pagination from './Pagination'
 import _ from 'lodash'
 
 export default {
@@ -341,7 +365,7 @@ export default {
             loading: false,
             generalSearch: '',
             queries: {},
-            editDialog: false,
+            // editDialog: false,
             editingIndex: 0,
             editingRow: {},
             viewColumns: false,
@@ -352,6 +376,7 @@ export default {
             editingMultipleRow: {},
             dialog: {
                 editMultiple: false,
+                edit: false,
                 viewColumns: false
             },
 
@@ -446,8 +471,9 @@ export default {
         },
 
         changePage(pageNumber) {
-            this.loading = true;
+            this.loading = true
             this.currentPage = pageNumber
+            this.selectAll = false
             this.fetchData()
         },
 
@@ -483,6 +509,12 @@ export default {
             })
         },
 
+        setEditDialog(key1, data){
+             this.openDialog('edit'); 
+             this.editingIndex = key1; 
+             Object.assign(this.editingRow, data);
+        },
+
         destroy(index, row){
             this.$store.dispatch('loading/setLoading', true);
             axios.post(this.url + '/destroy', {
@@ -508,17 +540,16 @@ export default {
 
         toggleAll(){
             if(!this.selectAll){
-                this.selected = []
                 this.selectAll = true
                 this.tableData.map(item=>{
                     this.selectBoxes[item.id] = true
-                    this.selected.push(item.id)
+                    if(this.selected.indexOf(item.id) == -1) this.selected.push(item.id)
                 })
             } else {
-                this.selected = []
                 this.selectAll = false
                 this.tableData.map(item=>{
                     this.selectBoxes[item.id] = false
+                    this.selected.splice(this.selected.indexOf(item.id), 1)
                 })
             }
         },
@@ -552,7 +583,7 @@ export default {
     mixins: [PaginationMixin, FileMixin],
     components: {
         TableLoader,
-        PaginationNav
+        Pagination
     }
 }
 </script>

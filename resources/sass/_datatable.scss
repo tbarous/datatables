@@ -108,3 +108,24 @@ th {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
     background-color: #555;
 }
+
+.table-header{
+     text-align: center;
+     border: none;
+     padding: 10px;
+     cursor: pointer;
+}
+
+.pagination{
+    padding: 10px;
+}
+
+@media only screen and (max-width: 1225px){
+    .table-tools{
+        text-align: center;
+    }
+
+    .generalSearch{
+        margin-top: 10px!important;
+    }
+}
