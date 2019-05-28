@@ -60453,7 +60453,7 @@ var render = function() {
     [
       _c("v-progress-linear", {
         staticClass: "mb-0 mt-0",
-        attrs: { indeterminate: true, color: "green" }
+        attrs: { indeterminate: true, color: "blue" }
       })
     ],
     1

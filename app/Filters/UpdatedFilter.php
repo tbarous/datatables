@@ -4,7 +4,7 @@ namespace App\Filters;
 
 use Carbon\Carbon;
 
-class Updated
+class UpdatedFilter
 {
     public function filter($builder, $value)
     {
