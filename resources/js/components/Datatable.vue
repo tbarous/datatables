@@ -93,28 +93,28 @@
             <table v-scroll class="table table-bordered bg-white mb-0" id="resultsTable" data-tableName="Test Table 2">
                 <thead>
                     <tr class="bg-dark text-white">
-                        <th width="5%"></th>
-                        <th width="5%"></th>
+                        <th width="5%" class="pt-3"></th>
+                        <th width="5%" class="pt-3"></th>
                         <th 
                             v-if="activeColumns[column.title]" 
                             v-for="column in columns" 
                             :key="column.title" 
                             @click="sortByColumn(column)" 
                             style="cursor: pointer;" 
-                            class="text-center border-0">
+                            class="text-center border-0 pt-3">
                             {{ column.title | columnHead }}
                             <span v-if="column.title === sortedColumn">
                                 <i v-if="order === 'asc'" class="fas fa-chevron-up"></i>
                                 <i v-else class="fas fa-chevron-down"></i>
                             </span>
                         </th>
-                        <th width="10%"></th>
+                        <th width="10%" class="pt-3"></th>
                     </tr>
 
                     <tr class="bg-dark text-white">
                         <th width="5%"></th>
                         <th width="5%">
-                            <v-checkbox class="toggleAll" color="white" @click.self="toggleAll" v-model="selectAll"></v-checkbox>
+                            <v-checkbox class="toggleAll mt-0" color="white" @click.self="toggleAll" v-model="selectAll"></v-checkbox>
                         </th>
                         <th 
                             class="pt-0 pb-0" 
@@ -479,7 +479,7 @@ export default {
             }).then(response => {
                 this.fetchData(false, {type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'})
             }).catch(error => {
-                console.log(error);
+                this.handleFailure
             })
         },
 
@@ -490,7 +490,7 @@ export default {
             }).then(response => {
                 this.fetchData(false, {type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been deleted'})
             }).catch(error => {
-                console.log(error);
+                this.handleFailure
             })
         },
 
@@ -502,7 +502,7 @@ export default {
             }).then(response => {
                 this.fetchData(false, {type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Items has been updated'})
             }).catch(error => {
-                console.log(error);
+                this.handleFailure
             })
         },
 
@@ -521,6 +521,12 @@ export default {
                     this.selectBoxes[item.id] = false
                 })
             }
+        },
+
+        handleFailure(){
+            this.loading = false
+            this.$store.dispatch('loading/setLoading', false)
+            this.fetchData(false, {type: 'danger', text: '<i class="fa fa-times" aria-hidden="true"></i> &nbsp;An error occured'})
         }
     },
 

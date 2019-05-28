@@ -2344,7 +2344,7 @@ __webpack_require__.r(__webpack_exports__);
           text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'
         });
       })["catch"](function (error) {
-        console.log(error);
+        _this3.handleFailure;
       });
     },
     destroy: function destroy(index, row) {
@@ -2359,7 +2359,7 @@ __webpack_require__.r(__webpack_exports__);
           text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been deleted'
         });
       })["catch"](function (error) {
-        console.log(error);
+        _this4.handleFailure;
       });
     },
     updateMultiple: function updateMultiple(row) {
@@ -2375,7 +2375,7 @@ __webpack_require__.r(__webpack_exports__);
           text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Items has been updated'
         });
       })["catch"](function (error) {
-        console.log(error);
+        _this5.handleFailure;
       });
     },
     toggleAll: function toggleAll() {
@@ -2396,6 +2396,14 @@ __webpack_require__.r(__webpack_exports__);
           _this6.selectBoxes[item.id] = false;
         });
       }
+    },
+    handleFailure: function handleFailure() {
+      this.loading = false;
+      this.$store.dispatch('loading/setLoading', false);
+      this.fetchData(false, {
+        type: 'danger',
+        text: '<i class="fa fa-times" aria-hidden="true"></i> &nbsp;An error occured'
+      });
     }
   },
   filters: {
@@ -59620,9 +59628,9 @@ var render = function() {
                 "tr",
                 { staticClass: "bg-dark text-white" },
                 [
-                  _c("th", { attrs: { width: "5%" } }),
+                  _c("th", { staticClass: "pt-3", attrs: { width: "5%" } }),
                   _vm._v(" "),
-                  _c("th", { attrs: { width: "5%" } }),
+                  _c("th", { staticClass: "pt-3", attrs: { width: "5%" } }),
                   _vm._v(" "),
                   _vm._l(_vm.columns, function(column) {
                     return _vm.activeColumns[column.title]
@@ -59630,7 +59638,7 @@ var render = function() {
                           "th",
                           {
                             key: column.title,
-                            staticClass: "text-center border-0",
+                            staticClass: "text-center border-0 pt-3",
                             staticStyle: { cursor: "pointer" },
                             on: {
                               click: function($event) {
@@ -59660,7 +59668,7 @@ var render = function() {
                       : _vm._e()
                   }),
                   _vm._v(" "),
-                  _c("th", { attrs: { width: "10%" } })
+                  _c("th", { staticClass: "pt-3", attrs: { width: "10%" } })
                 ],
                 2
               ),
@@ -59676,7 +59684,7 @@ var render = function() {
                     { attrs: { width: "5%" } },
                     [
                       _c("v-checkbox", {
-                        staticClass: "toggleAll",
+                        staticClass: "toggleAll mt-0",
                         attrs: { color: "white" },
                         on: {
                           click: function($event) {

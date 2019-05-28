@@ -97,20 +97,16 @@ th {
 
 .wrapper::-webkit-scrollbar,
 .doubleScroll-scroll-wrapper::-webkit-scrollbar {
-  width: 12px;
+  width: 3px !important;
+  height: 7px !important;
   background-color: #F5F5F5;
 }
 
 .wrapper::-webkit-scrollbar-thumb,
 .doubleScroll-scroll-wrapper::-webkit-scrollbar-thumb {
-  border-radius: 10px;
+  border-radius: 0;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: #555;
-}
-
-.v-input--selection-controls {
-  margin-top: 0;
-  padding-top: 4px;
 }
 
 /*!
