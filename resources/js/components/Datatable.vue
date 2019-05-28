@@ -18,7 +18,8 @@
 
             <v-flex xs6 class="text-right">
                 <div class="items-count">
-                    <i :class="{nopacity:loading}">{{getItemsCount}}</i>
+                    <i v-if="!loading">{{getItemsCount}}</i>
+                    <i v-else>Loading...</i>
                     <br><br>
                     <u>Selected: {{selected.length}}</u>
                 </div>
@@ -35,6 +36,15 @@
             >
                 Reload 
                 <v-icon small>fas fa-sync</v-icon>
+            </v-btn>
+
+            <v-btn 
+                color="blue" 
+                dark 
+                @click="clearFilters"
+            >
+                Clear 
+                <v-icon small>fas fa-clear</v-icon>
             </v-btn>
 
             <v-btn 
@@ -565,6 +575,15 @@ export default {
             this.loading = false
             this.$store.dispatch('loading/setLoading', false)
             this.fetchData(false, {type: 'danger', text: '<i class="fa fa-times" aria-hidden="true"></i> &nbsp;An error occured'})
+        },
+
+        clearFilters(){
+            this.queries = {}
+            this.generalSearch = ''
+            this.columns.map(column => {
+                this.queries[column.title] = '';
+            });
+            this.fetchData()
         }
     },
 

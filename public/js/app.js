@@ -2213,6 +2213,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2441,6 +2451,16 @@ __webpack_require__.r(__webpack_exports__);
         type: 'danger',
         text: '<i class="fa fa-times" aria-hidden="true"></i> &nbsp;An error occured'
       });
+    },
+    clearFilters: function clearFilters() {
+      var _this7 = this;
+
+      this.queries = {};
+      this.generalSearch = '';
+      this.columns.map(function (column) {
+        _this7.queries[column.title] = '';
+      });
+      this.fetchData();
     }
   },
   filters: {
@@ -52423,9 +52443,9 @@ var render = function() {
           _vm._v(" "),
           _c("v-flex", { staticClass: "text-right", attrs: { xs6: "" } }, [
             _c("div", { staticClass: "items-count" }, [
-              _c("i", { class: { nopacity: _vm.loading } }, [
-                _vm._v(_vm._s(_vm.getItemsCount))
-              ]),
+              !_vm.loading
+                ? _c("i", [_vm._v(_vm._s(_vm.getItemsCount))])
+                : _c("i", [_vm._v("Loading...")]),
               _vm._v(" "),
               _c("br"),
               _c("br"),
@@ -52456,6 +52476,19 @@ var render = function() {
             [
               _vm._v("\n            Reload \n            "),
               _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-sync")])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              attrs: { color: "blue", dark: "" },
+              on: { click: _vm.clearFilters }
+            },
+            [
+              _vm._v("\n            Clear \n            "),
+              _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-clear")])
             ],
             1
           ),
