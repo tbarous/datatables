@@ -40,12 +40,14 @@
 
 @charset "UTF-8";
 
+.table-tools .flex {
+  margin-right: 10px;
+}
+
 .table-tools button,
 .table-tools a {
   margin-left: 0;
-  margin-right: 10px;
-  margin-top: 5px;
-  width: 130px;
+  width: 100%;
 }
 
 .table-tools button i,

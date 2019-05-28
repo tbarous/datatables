@@ -2228,6 +2228,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -52470,153 +52487,220 @@ var render = function() {
       _c("v-divider", { attrs: { color: "white" } }),
       _vm._v(" "),
       _c(
-        "div",
+        "v-layout",
         { staticClass: "table-tools" },
         [
           _c(
-            "v-btn",
-            {
-              attrs: { color: "blue", dark: "" },
-              on: {
-                click: function($event) {
-                  return _vm.fetchData(true)
+            "v-flex",
+            { attrs: { xs1: "" } },
+            [
+              _c(
+                "v-btn",
+                {
+                  attrs: { color: "blue", dark: "" },
+                  on: {
+                    click: function($event) {
+                      return _vm.fetchData(true)
+                    }
+                  }
+                },
+                [
+                  _vm._v("\n                Reload \n                "),
+                  _c("v-icon", { attrs: { small: "" } }, [
+                    _vm._v("fas fa-sync")
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-flex",
+            { attrs: { xs1: "" } },
+            [
+              _c(
+                "v-btn",
+                { attrs: { color: "yellow" }, on: { click: _vm.clearFilters } },
+                [
+                  _vm._v("\n                Clear \n                "),
+                  _c("v-icon", { attrs: { small: "" } }, [
+                    _vm._v("fas fa-eraser")
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-flex",
+            { attrs: { xs1: "" } },
+            [
+              _c(
+                "v-btn",
+                {
+                  attrs: { color: "secondary", dark: "" },
+                  on: {
+                    click: function($event) {
+                      return _vm.openDialog("viewColumns")
+                    }
+                  }
+                },
+                [
+                  _vm._v("\n                Columns \n                "),
+                  _c("v-icon", { attrs: { small: "" } }, [
+                    _vm._v("fas fa-columns")
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-flex",
+            { attrs: { xs1: "" } },
+            [
+              _c(
+                "v-btn",
+                {
+                  attrs: {
+                    disabled: _vm.selected.length < 2,
+                    color: "secondary",
+                    dark: ""
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.openDialog("editMultiple")
+                    }
+                  }
+                },
+                [
+                  _vm._v("\n                Update \n                "),
+                  _c("v-icon", { attrs: { small: "" } }, [
+                    _vm._v("fas fa-edit")
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-flex",
+            { attrs: { xs1: "" } },
+            [
+              _c(
+                "v-btn",
+                {
+                  attrs: {
+                    color: "green",
+                    dark: "",
+                    href: "/storage/invoices.xlsx"
+                  }
+                },
+                [
+                  _vm._v("\n                Excel \n                "),
+                  _c("v-icon", { attrs: { small: "" } }, [
+                    _vm._v("far fa-file-excel")
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-flex",
+            { attrs: { xs1: "" } },
+            [
+              _c(
+                "v-btn",
+                {
+                  attrs: {
+                    color: "red",
+                    dark: "",
+                    href: "/storage/invoices.pdf",
+                    download: ""
+                  }
+                },
+                [
+                  _vm._v("\n                PDF \n                "),
+                  _c("v-icon", { attrs: { small: "" } }, [
+                    _vm._v("far fa-file-pdf")
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-flex",
+            { attrs: { xs1: "" } },
+            [
+              _c(
+                "v-btn",
+                {
+                  attrs: {
+                    id: "export-btn",
+                    "data-clipboard-target": "#resultsTable"
+                  }
+                },
+                [
+                  _vm._v("\n                Export\n                "),
+                  _c("v-icon", { attrs: { small: "" } }, [
+                    _vm._v("fas fa-file-export")
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-layout",
+        [
+          _c(
+            "v-flex",
+            { attrs: { xs3: "", "offset-xs9": "" } },
+            [
+              _c("v-text-field", {
+                staticClass: "generalSearch",
+                attrs: {
+                  solo: "",
+                  "prepend-inner-icon": "search",
+                  autocomplete: "off",
+                  clearable: "",
+                  label: "Search"
+                },
+                on: {
+                  input: function($event) {
+                    return _vm.fetchData(true)
+                  }
+                },
+                model: {
+                  value: _vm.generalSearch,
+                  callback: function($$v) {
+                    _vm.generalSearch = $$v
+                  },
+                  expression: "generalSearch"
                 }
-              }
-            },
-            [
-              _vm._v("\n            Reload \n            "),
-              _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-sync")])
+              })
             ],
             1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            {
-              attrs: { color: "yellow", dark: "" },
-              on: { click: _vm.clearFilters }
-            },
-            [
-              _vm._v("\n            Clear \n            "),
-              _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-eraser")])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            {
-              attrs: { color: "secondary", dark: "" },
-              on: {
-                click: function($event) {
-                  return _vm.openDialog("viewColumns")
-                }
-              }
-            },
-            [
-              _vm._v("\n            Columns \n            "),
-              _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-columns")])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            {
-              attrs: {
-                disabled: _vm.selected.length < 2,
-                color: "secondary",
-                dark: ""
-              },
-              on: {
-                click: function($event) {
-                  return _vm.openDialog("editMultiple")
-                }
-              }
-            },
-            [
-              _vm._v("\n            Update \n            "),
-              _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-edit")])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            {
-              attrs: {
-                color: "green",
-                dark: "",
-                href: "/storage/invoices.xlsx"
-              }
-            },
-            [
-              _vm._v("\n            Excel \n            "),
-              _c("v-icon", { attrs: { small: "" } }, [
-                _vm._v("far fa-file-excel")
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            {
-              attrs: {
-                color: "red",
-                dark: "",
-                href: "/storage/invoices.pdf",
-                download: ""
-              }
-            },
-            [
-              _vm._v("\n            PDF \n            "),
-              _c("v-icon", { attrs: { small: "" } }, [
-                _vm._v("far fa-file-pdf")
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            {
-              attrs: {
-                id: "export-btn",
-                "data-clipboard-target": "#resultsTable"
-              }
-            },
-            [
-              _vm._v("\n            Export\n            "),
-              _c("v-icon", { attrs: { small: "" } }, [
-                _vm._v("fas fa-file-export")
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("v-text-field", {
-            staticClass: "generalSearch",
-            attrs: {
-              solo: "",
-              "prepend-inner-icon": "search",
-              autocomplete: "off",
-              clearable: "",
-              label: "Search"
-            },
-            on: {
-              input: function($event) {
-                return _vm.fetchData(true)
-              }
-            },
-            model: {
-              value: _vm.generalSearch,
-              callback: function($$v) {
-                _vm.generalSearch = $$v
-              },
-              expression: "generalSearch"
-            }
-          })
+          )
         ],
         1
       ),

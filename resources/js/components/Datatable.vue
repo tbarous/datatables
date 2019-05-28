@@ -29,84 +29,101 @@
         </v-layout>
         
         <v-divider color="white"></v-divider>
+        
+        <v-layout class="table-tools">
+            <v-flex xs1>
+                <v-btn 
+                    color="blue" 
+                    dark 
+                    @click="fetchData(true)"
+                >
+                    Reload 
+                    <v-icon small>fas fa-sync</v-icon>
+                </v-btn>
+            </v-flex>
 
-        <div class="table-tools">
-            <v-btn 
-                color="blue" 
-                dark 
-                @click="fetchData(true)"
-            >
-                Reload 
-                <v-icon small>fas fa-sync</v-icon>
-            </v-btn>
+            <v-flex xs1>
+                <v-btn 
+                    color="yellow" 
+                    @click="clearFilters"
+                >
+                    Clear 
+                    <v-icon small>fas fa-eraser</v-icon>
+                </v-btn>
+            </v-flex>
 
-            <v-btn 
-                color="yellow" 
-                dark 
-                @click="clearFilters"
-            >
-                Clear 
-                <v-icon small>fas fa-eraser</v-icon>
-            </v-btn>
+            <v-flex xs1>
+                <v-btn 
+                    color="secondary" 
+                    dark 
+                    @click="openDialog('viewColumns')"
+                >
+                    Columns 
+                    <v-icon small>fas fa-columns</v-icon>
+                </v-btn>
+            </v-flex>
 
-            <v-btn 
-                color="secondary" 
-                dark 
-                @click="openDialog('viewColumns')"
-            >
-                Columns 
-                <v-icon small>fas fa-columns</v-icon>
-            </v-btn>
+            <v-flex xs1>
+                <v-btn 
+                    :disabled="selected.length<2"
+                    color="secondary" 
+                    dark 
+                    @click="openDialog('editMultiple')"
+                >
+                    Update 
+                    <v-icon small>fas fa-edit</v-icon>
+                </v-btn>
+            </v-flex>
 
-            <v-btn 
-                :disabled="selected.length<2"
-                color="secondary" 
-                dark 
-                @click="openDialog('editMultiple')"
-            >
-                Update 
-                <v-icon small>fas fa-edit</v-icon>
-            </v-btn>
+            <v-flex xs1>
+                <v-btn 
+                    color="green" 
+                    dark
+                    href="/storage/invoices.xlsx"
+                >
+                    Excel 
+                    <v-icon small>far fa-file-excel</v-icon>
+                </v-btn>
+            </v-flex>
 
-            <v-btn 
-                color="green" 
-                dark
-                href="/storage/invoices.xlsx"
-            >
-                Excel 
-                <v-icon small>far fa-file-excel</v-icon>
-            </v-btn>
+            <v-flex xs1>
+                <v-btn 
+                    color="red" 
+                    dark
+                    href="/storage/invoices.pdf"
+                    download
+                >
+                    PDF 
+                    <v-icon small>far fa-file-pdf</v-icon>
+                </v-btn>
+            </v-flex>
 
-            <v-btn 
-                color="red" 
-                dark
-                href="/storage/invoices.pdf"
-                download
-            >
-                PDF 
-                <v-icon small>far fa-file-pdf</v-icon>
-            </v-btn>
+            <v-flex xs1>
+                <v-btn
+                    id="export-btn" 
+                    data-clipboard-target="#resultsTable"
+                >
+                    Export
+                    <v-icon small>fas fa-file-export</v-icon>
+                </v-btn>
+            </v-flex>
+        </v-layout>
 
-            <v-btn
-                id="export-btn" 
-                data-clipboard-target="#resultsTable"
-            >
-                Export
-                <v-icon small>fas fa-file-export</v-icon>
-            </v-btn>
-
-            <v-text-field 
-                class="generalSearch"
-                @input="fetchData(true)" 
-                v-model="generalSearch"
-                solo 
-                prepend-inner-icon="search" 
-                autocomplete="off" 
-                clearable 
-                label="Search"
-            >
-            </v-text-field>
-        </div>
+        <v-layout>
+            <v-flex xs3 offset-xs9>
+                <v-text-field 
+                    class="generalSearch"
+                    @input="fetchData(true)" 
+                    v-model="generalSearch"
+                    solo 
+                    prepend-inner-icon="search" 
+                    autocomplete="off" 
+                    clearable 
+                    label="Search"
+                >
+                </v-text-field>
+            </v-flex>
+        </v-layout>
 
         <table-loader :loading="loading"></table-loader>
         <div class="wrapper double-scroll">
