@@ -2223,6 +2223,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -52445,7 +52450,11 @@ var render = function() {
             _c("div", { staticClass: "items-count" }, [
               !_vm.loading
                 ? _c("i", [_vm._v(_vm._s(_vm.getItemsCount))])
-                : _c("i", [_vm._v("Loading...")]),
+                : _c("i", [
+                    _c("img", {
+                      attrs: { src: "/images/ajax-loader.gif", alt: "" }
+                    })
+                  ]),
               _vm._v(" "),
               _c("br"),
               _c("br"),
@@ -52483,12 +52492,12 @@ var render = function() {
           _c(
             "v-btn",
             {
-              attrs: { color: "blue", dark: "" },
+              attrs: { color: "yellow", dark: "" },
               on: { click: _vm.clearFilters }
             },
             [
               _vm._v("\n            Clear \n            "),
-              _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-clear")])
+              _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-eraser")])
             ],
             1
           ),
@@ -52945,39 +52954,41 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-card-text",
-                { staticClass: "d-flex" },
-                _vm._l(_vm.columns, function(column, key) {
-                  return _c("v-checkbox", {
-                    key: column.title,
-                    staticClass: "d-inline-block ml-3",
-                    attrs: {
-                      label: _vm._f("columnLow")(column.title),
-                      color: "black"
-                    },
-                    model: {
-                      value: _vm.activeColumns[column.title],
-                      callback: function($$v) {
-                        _vm.$set(_vm.activeColumns, column.title, $$v)
+                { staticClass: "d-flex", staticStyle: { "flex-flow": "wrap" } },
+                [
+                  _vm._l(_vm.columns, function(column, key) {
+                    return _c("v-checkbox", {
+                      key: column.title,
+                      staticClass: "d-inline-block ml-3",
+                      attrs: {
+                        label: _vm._f("columnLow")(column.title),
+                        color: "black"
                       },
-                      expression: "activeColumns[column.title]"
-                    }
-                  })
-                }),
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                {
-                  staticClass: "w-100 ml-0 mr-0",
-                  attrs: { dark: "" },
-                  on: {
-                    click: function($event) {
-                      return _vm.closeDialog("viewColumns")
-                    }
-                  }
-                },
-                [_vm._v("Ok")]
+                      model: {
+                        value: _vm.activeColumns[column.title],
+                        callback: function($$v) {
+                          _vm.$set(_vm.activeColumns, column.title, $$v)
+                        },
+                        expression: "activeColumns[column.title]"
+                      }
+                    })
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      staticClass: "w-100 ml-0 mr-0",
+                      attrs: { dark: "" },
+                      on: {
+                        click: function($event) {
+                          return _vm.closeDialog("viewColumns")
+                        }
+                      }
+                    },
+                    [_vm._v("Ok")]
+                  )
+                ],
+                2
               ),
               _vm._v(" "),
               _c(

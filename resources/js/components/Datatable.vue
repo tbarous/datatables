@@ -19,7 +19,9 @@
             <v-flex xs6 class="text-right">
                 <div class="items-count">
                     <i v-if="!loading">{{getItemsCount}}</i>
-                    <i v-else>Loading...</i>
+                    <i v-else>
+                        <img src="/images/ajax-loader.gif" alt="">
+                    </i>
                     <br><br>
                     <u>Selected: {{selected.length}}</u>
                 </div>
@@ -39,12 +41,12 @@
             </v-btn>
 
             <v-btn 
-                color="blue" 
+                color="yellow" 
                 dark 
                 @click="clearFilters"
             >
                 Clear 
-                <v-icon small>fas fa-clear</v-icon>
+                <v-icon small>fas fa-eraser</v-icon>
             </v-btn>
 
             <v-btn 
@@ -237,10 +239,13 @@
 
         <v-dialog v-model="dialog.viewColumns" width="500">
             <v-card>
-                <v-card-title class="headline grey lighten-2" primary-title>
+                <v-card-title 
+                    class="headline grey lighten-2" 
+                    primary-title
+                >
                     Columns
                 </v-card-title>
-                <v-card-text class="d-flex">
+                <v-card-text class="d-flex" style="flex-flow: wrap;">
                     <v-checkbox 
                         class="d-inline-block ml-3" 
                         v-for="(column,key) in columns" 
@@ -250,9 +255,9 @@
                         color="black"
                     >
                     </v-checkbox>
+                    <v-btn dark class="w-100 ml-0 mr-0" @click="closeDialog('viewColumns')">Ok</v-btn>
                 </v-card-text>
-                <v-btn dark class="w-100 ml-0 mr-0" @click="closeDialog('viewColumns')">Ok</v-btn>
-
+                
                 <v-btn 
                     @click="closeDialog('viewColumns')" 
                     class="close-window" 
