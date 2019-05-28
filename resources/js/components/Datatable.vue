@@ -89,120 +89,122 @@
         </div>
 
         <table-loader :loading="loading"></table-loader>
-        <table v-scroll class="table table-bordered bg-white mb-0 double-scroll" id="resultsTable" data-tableName="Test Table 2">
-            <thead>
-                <tr class="bg-dark text-white">
-                    <th width="5%"></th>
-                    <th width="5%"></th>
-                    <th 
-                        v-if="activeColumns[column.title]" 
-                        v-for="column in columns" 
-                        :key="column.title" 
-                        @click="sortByColumn(column)" 
-                        style="cursor: pointer;" 
-                        class="text-center border-0">
-                        {{ column.title | columnHead }}
-                        <span v-if="column.title === sortedColumn">
-                            <i v-if="order === 'asc'" class="fas fa-chevron-up"></i>
-                            <i v-else class="fas fa-chevron-down"></i>
-                        </span>
-                    </th>
-                    <th width="10%"></th>
-                </tr>
+        <div class="wrapper double-scroll">
+            <table v-scroll class="table table-bordered bg-white mb-0" id="resultsTable" data-tableName="Test Table 2">
+                <thead>
+                    <tr class="bg-dark text-white">
+                        <th width="5%"></th>
+                        <th width="5%"></th>
+                        <th 
+                            v-if="activeColumns[column.title]" 
+                            v-for="column in columns" 
+                            :key="column.title" 
+                            @click="sortByColumn(column)" 
+                            style="cursor: pointer;" 
+                            class="text-center border-0">
+                            {{ column.title | columnHead }}
+                            <span v-if="column.title === sortedColumn">
+                                <i v-if="order === 'asc'" class="fas fa-chevron-up"></i>
+                                <i v-else class="fas fa-chevron-down"></i>
+                            </span>
+                        </th>
+                        <th width="10%"></th>
+                    </tr>
 
-                <tr class="bg-dark text-white">
-                    <th width="5%"></th>
-                    <th width="5%">
-                        <v-checkbox class="toggleAll" color="white" @click.self="toggleAll" v-model="selectAll"></v-checkbox>
-                    </th>
-                    <th 
-                        class="pt-0 pb-0" 
-                        v-if="activeColumns[column.title]" 
-                        v-for="column in columns" 
-                        :key="column.title">
-                        <v-text-field 
-                            clearable 
-                            style="min-width: 100px;"
-                            @input="fetchData(true)" 
-                            v-model="queries[column.title]" 
-                            v-if="column.type=='text'" 
-                            solo 
-                            autocomplete="off" 
-                            name="name" 
-                            label="" 
-                            prepend-inner-icon="search">
-                        </v-text-field>
-                        <date-range-picker 
-                            v-if="column.type=='date'" 
-                            v-model="queries[column.title]" 
-                            class="date-range-picker elevation-2" 
-                            :options="options" 
-                            @input="fetchData(true)" 
-                        />
-                    </th>
-                    <th width="10%"></th>
-                </tr>
-            </thead>
+                    <tr class="bg-dark text-white">
+                        <th width="5%"></th>
+                        <th width="5%">
+                            <v-checkbox class="toggleAll" color="white" @click.self="toggleAll" v-model="selectAll"></v-checkbox>
+                        </th>
+                        <th 
+                            class="pt-0 pb-0" 
+                            v-if="activeColumns[column.title]" 
+                            v-for="column in columns" 
+                            :key="column.title">
+                            <v-text-field 
+                                clearable 
+                                style="min-width: 100px;"
+                                @input="fetchData(true)" 
+                                v-model="queries[column.title]" 
+                                v-if="column.type=='text'" 
+                                solo 
+                                autocomplete="off" 
+                                name="name" 
+                                label="" 
+                                prepend-inner-icon="search">
+                            </v-text-field>
+                            <date-range-picker 
+                                v-if="column.type=='date'" 
+                                v-model="queries[column.title]" 
+                                class="date-range-picker elevation-2" 
+                                :options="options" 
+                                @input="fetchData(true)" 
+                            />
+                        </th>
+                        <th width="10%"></th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                <tr v-if="dataExists">
-                    <td 
-                        class="no-data bg-info" 
-                        :colspan="columns.length + 3"
+                <tbody>
+                    <tr v-if="dataExists">
+                        <td 
+                            class="no-data bg-info" 
+                            :colspan="columns.length + 3"
+                        >
+                            No data was found
+                        </td>
+                    </tr>
+
+                    <tr 
+                        v-for="(data, key1) in tableData" 
+                        :key="data.id" 
+                        class="m-datatable__row" 
+                        v-else
                     >
-                        No data was found
-                    </td>
-                </tr>
+                        <td width="5%" class="">{{serialNumber(key1)}}</td>
+                        <td width="5%">
+                            <v-checkbox 
+                                v-model="selectBoxes[data.id]" 
+                                color="black" 
+                                class="p-3" 
+                                @change="select(data)"
+                            >
+                            </v-checkbox>
+                        </td>
+                        <td 
+                            v-if="activeColumns[key]" 
+                            v-for="(value, key) in data">
+                            {{value}}
+                        </td>
+                        <td width="10%" style="white-space: nowrap">
+                            <v-btn 
+                                flat 
+                                @click="editDialog=true; editingIndex=key1; Object.assign(editingRow, data);" 
+                                fab 
+                                dark 
+                                small 
+                                color="info"
+                            >
+                                <v-icon dark>
+                                    edit
+                                </v-icon>
+                            </v-btn>
 
-                <tr 
-                    v-for="(data, key1) in tableData" 
-                    :key="data.id" 
-                    class="m-datatable__row" 
-                    v-else
-                >
-                    <td width="5%" class="">{{serialNumber(key1)}}</td>
-                    <td width="5%">
-                        <v-checkbox 
-                            v-model="selectBoxes[data.id]" 
-                            color="black" 
-                            class="p-3" 
-                            @change="select(data)"
-                        >
-                        </v-checkbox>
-                    </td>
-                    <td 
-                        v-if="activeColumns[key]" 
-                        v-for="(value, key) in data">
-                        {{value}}
-                    </td>
-                    <td width="10%" style="white-space: nowrap">
-                        <v-btn 
-                            flat 
-                            @click="editDialog=true; editingIndex=key1; Object.assign(editingRow, data);" 
-                            fab 
-                            dark 
-                            small 
-                            color="info"
-                        >
-                            <v-icon dark>
-                                edit
-                            </v-icon>
-                        </v-btn>
-
-                        <v-btn
-                            @click="destroy(editingRow, data)"
-                            flat 
-                            fab 
-                            dark 
-                            small 
-                            color="red"
-                        >
-                            <v-icon dark>delete</v-icon>
-                        </v-btn>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                            <v-btn
+                                @click="destroy(editingRow, data)"
+                                flat 
+                                fab 
+                                dark 
+                                small 
+                                color="red"
+                            >
+                                <v-icon dark>delete</v-icon>
+                            </v-btn>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <table-loader :loading="loading"></table-loader>
 
         <v-card class="p-3">

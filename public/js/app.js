@@ -2180,6 +2180,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -59604,292 +59606,294 @@ var render = function() {
       _vm._v(" "),
       _c("table-loader", { attrs: { loading: _vm.loading } }),
       _vm._v(" "),
-      _c(
-        "table",
-        {
-          directives: [{ name: "scroll", rawName: "v-scroll" }],
-          staticClass: "table table-bordered bg-white mb-0 double-scroll",
-          attrs: { id: "resultsTable", "data-tableName": "Test Table 2" }
-        },
-        [
-          _c("thead", [
-            _c(
-              "tr",
-              { staticClass: "bg-dark text-white" },
-              [
-                _c("th", { attrs: { width: "5%" } }),
-                _vm._v(" "),
-                _c("th", { attrs: { width: "5%" } }),
-                _vm._v(" "),
-                _vm._l(_vm.columns, function(column) {
-                  return _vm.activeColumns[column.title]
-                    ? _c(
-                        "th",
-                        {
-                          key: column.title,
-                          staticClass: "text-center border-0",
-                          staticStyle: { cursor: "pointer" },
-                          on: {
-                            click: function($event) {
-                              return _vm.sortByColumn(column)
+      _c("div", { staticClass: "wrapper double-scroll" }, [
+        _c(
+          "table",
+          {
+            directives: [{ name: "scroll", rawName: "v-scroll" }],
+            staticClass: "table table-bordered bg-white mb-0",
+            attrs: { id: "resultsTable", "data-tableName": "Test Table 2" }
+          },
+          [
+            _c("thead", [
+              _c(
+                "tr",
+                { staticClass: "bg-dark text-white" },
+                [
+                  _c("th", { attrs: { width: "5%" } }),
+                  _vm._v(" "),
+                  _c("th", { attrs: { width: "5%" } }),
+                  _vm._v(" "),
+                  _vm._l(_vm.columns, function(column) {
+                    return _vm.activeColumns[column.title]
+                      ? _c(
+                          "th",
+                          {
+                            key: column.title,
+                            staticClass: "text-center border-0",
+                            staticStyle: { cursor: "pointer" },
+                            on: {
+                              click: function($event) {
+                                return _vm.sortByColumn(column)
+                              }
                             }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(_vm._f("columnHead")(column.title)) +
+                                "\n                        "
+                            ),
+                            column.title === _vm.sortedColumn
+                              ? _c("span", [
+                                  _vm.order === "asc"
+                                    ? _c("i", {
+                                        staticClass: "fas fa-chevron-up"
+                                      })
+                                    : _c("i", {
+                                        staticClass: "fas fa-chevron-down"
+                                      })
+                                ])
+                              : _vm._e()
+                          ]
+                        )
+                      : _vm._e()
+                  }),
+                  _vm._v(" "),
+                  _c("th", { attrs: { width: "10%" } })
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c(
+                "tr",
+                { staticClass: "bg-dark text-white" },
+                [
+                  _c("th", { attrs: { width: "5%" } }),
+                  _vm._v(" "),
+                  _c(
+                    "th",
+                    { attrs: { width: "5%" } },
+                    [
+                      _c("v-checkbox", {
+                        staticClass: "toggleAll",
+                        attrs: { color: "white" },
+                        on: {
+                          click: function($event) {
+                            if ($event.target !== $event.currentTarget) {
+                              return null
+                            }
+                            return _vm.toggleAll($event)
                           }
+                        },
+                        model: {
+                          value: _vm.selectAll,
+                          callback: function($$v) {
+                            _vm.selectAll = $$v
+                          },
+                          expression: "selectAll"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm._l(_vm.columns, function(column) {
+                    return _vm.activeColumns[column.title]
+                      ? _c(
+                          "th",
+                          { key: column.title, staticClass: "pt-0 pb-0" },
+                          [
+                            column.type == "text"
+                              ? _c("v-text-field", {
+                                  staticStyle: { "min-width": "100px" },
+                                  attrs: {
+                                    clearable: "",
+                                    solo: "",
+                                    autocomplete: "off",
+                                    name: "name",
+                                    label: "",
+                                    "prepend-inner-icon": "search"
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      return _vm.fetchData(true)
+                                    }
+                                  },
+                                  model: {
+                                    value: _vm.queries[column.title],
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.queries, column.title, $$v)
+                                    },
+                                    expression: "queries[column.title]"
+                                  }
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            column.type == "date"
+                              ? _c("date-range-picker", {
+                                  staticClass: "date-range-picker elevation-2",
+                                  attrs: { options: _vm.options },
+                                  on: {
+                                    input: function($event) {
+                                      return _vm.fetchData(true)
+                                    }
+                                  },
+                                  model: {
+                                    value: _vm.queries[column.title],
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.queries, column.title, $$v)
+                                    },
+                                    expression: "queries[column.title]"
+                                  }
+                                })
+                              : _vm._e()
+                          ],
+                          1
+                        )
+                      : _vm._e()
+                  }),
+                  _vm._v(" "),
+                  _c("th", { attrs: { width: "10%" } })
+                ],
+                2
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              [
+                _vm.dataExists
+                  ? _c("tr", [
+                      _c(
+                        "td",
+                        {
+                          staticClass: "no-data bg-info",
+                          attrs: { colspan: _vm.columns.length + 3 }
                         },
                         [
                           _vm._v(
-                            "\n                    " +
-                              _vm._s(_vm._f("columnHead")(column.title)) +
-                              "\n                    "
-                          ),
-                          column.title === _vm.sortedColumn
-                            ? _c("span", [
-                                _vm.order === "asc"
-                                  ? _c("i", {
-                                      staticClass: "fas fa-chevron-up"
-                                    })
-                                  : _c("i", {
-                                      staticClass: "fas fa-chevron-down"
-                                    })
-                              ])
-                            : _vm._e()
+                            "\n                        No data was found\n                    "
+                          )
                         ]
                       )
-                    : _vm._e()
-                }),
-                _vm._v(" "),
-                _c("th", { attrs: { width: "10%" } })
-              ],
-              2
-            ),
-            _vm._v(" "),
-            _c(
-              "tr",
-              { staticClass: "bg-dark text-white" },
-              [
-                _c("th", { attrs: { width: "5%" } }),
-                _vm._v(" "),
-                _c(
-                  "th",
-                  { attrs: { width: "5%" } },
-                  [
-                    _c("v-checkbox", {
-                      staticClass: "toggleAll",
-                      attrs: { color: "white" },
-                      on: {
-                        click: function($event) {
-                          if ($event.target !== $event.currentTarget) {
-                            return null
-                          }
-                          return _vm.toggleAll($event)
-                        }
-                      },
-                      model: {
-                        value: _vm.selectAll,
-                        callback: function($$v) {
-                          _vm.selectAll = $$v
-                        },
-                        expression: "selectAll"
-                      }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _vm._l(_vm.columns, function(column) {
-                  return _vm.activeColumns[column.title]
-                    ? _c(
-                        "th",
-                        { key: column.title, staticClass: "pt-0 pb-0" },
+                    ])
+                  : _vm._l(_vm.tableData, function(data, key1) {
+                      return _c(
+                        "tr",
+                        { key: data.id, staticClass: "m-datatable__row" },
                         [
-                          column.type == "text"
-                            ? _c("v-text-field", {
-                                staticStyle: { "min-width": "100px" },
-                                attrs: {
-                                  clearable: "",
-                                  solo: "",
-                                  autocomplete: "off",
-                                  name: "name",
-                                  label: "",
-                                  "prepend-inner-icon": "search"
-                                },
-                                on: {
-                                  input: function($event) {
-                                    return _vm.fetchData(true)
-                                  }
-                                },
-                                model: {
-                                  value: _vm.queries[column.title],
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.queries, column.title, $$v)
-                                  },
-                                  expression: "queries[column.title]"
-                                }
-                              })
-                            : _vm._e(),
+                          _c("td", { attrs: { width: "5%" } }, [
+                            _vm._v(_vm._s(_vm.serialNumber(key1)))
+                          ]),
                           _vm._v(" "),
-                          column.type == "date"
-                            ? _c("date-range-picker", {
-                                staticClass: "date-range-picker elevation-2",
-                                attrs: { options: _vm.options },
+                          _c(
+                            "td",
+                            { attrs: { width: "5%" } },
+                            [
+                              _c("v-checkbox", {
+                                staticClass: "p-3",
+                                attrs: { color: "black" },
                                 on: {
-                                  input: function($event) {
-                                    return _vm.fetchData(true)
+                                  change: function($event) {
+                                    return _vm.select(data)
                                   }
                                 },
                                 model: {
-                                  value: _vm.queries[column.title],
+                                  value: _vm.selectBoxes[data.id],
                                   callback: function($$v) {
-                                    _vm.$set(_vm.queries, column.title, $$v)
+                                    _vm.$set(_vm.selectBoxes, data.id, $$v)
                                   },
-                                  expression: "queries[column.title]"
+                                  expression: "selectBoxes[data.id]"
                                 }
                               })
-                            : _vm._e()
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _vm._l(data, function(value, key) {
+                            return _vm.activeColumns[key]
+                              ? _c("td", [
+                                  _vm._v(
+                                    "\n                        " +
+                                      _vm._s(value) +
+                                      "\n                    "
+                                  )
+                                ])
+                              : _vm._e()
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticStyle: { "white-space": "nowrap" },
+                              attrs: { width: "10%" }
+                            },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    flat: "",
+                                    fab: "",
+                                    dark: "",
+                                    small: "",
+                                    color: "info"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.editDialog = true
+                                      _vm.editingIndex = key1
+                                      Object.assign(_vm.editingRow, data)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("v-icon", { attrs: { dark: "" } }, [
+                                    _vm._v(
+                                      "\n                                edit\n                            "
+                                    )
+                                  ])
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    flat: "",
+                                    fab: "",
+                                    dark: "",
+                                    small: "",
+                                    color: "red"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.destroy(_vm.editingRow, data)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("v-icon", { attrs: { dark: "" } }, [
+                                    _vm._v("delete")
+                                  ])
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
                         ],
-                        1
+                        2
                       )
-                    : _vm._e()
-                }),
-                _vm._v(" "),
-                _c("th", { attrs: { width: "10%" } })
+                    })
               ],
               2
             )
-          ]),
-          _vm._v(" "),
-          _c(
-            "tbody",
-            [
-              _vm.dataExists
-                ? _c("tr", [
-                    _c(
-                      "td",
-                      {
-                        staticClass: "no-data bg-info",
-                        attrs: { colspan: _vm.columns.length + 3 }
-                      },
-                      [
-                        _vm._v(
-                          "\n                    No data was found\n                "
-                        )
-                      ]
-                    )
-                  ])
-                : _vm._l(_vm.tableData, function(data, key1) {
-                    return _c(
-                      "tr",
-                      { key: data.id, staticClass: "m-datatable__row" },
-                      [
-                        _c("td", { attrs: { width: "5%" } }, [
-                          _vm._v(_vm._s(_vm.serialNumber(key1)))
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { attrs: { width: "5%" } },
-                          [
-                            _c("v-checkbox", {
-                              staticClass: "p-3",
-                              attrs: { color: "black" },
-                              on: {
-                                change: function($event) {
-                                  return _vm.select(data)
-                                }
-                              },
-                              model: {
-                                value: _vm.selectBoxes[data.id],
-                                callback: function($$v) {
-                                  _vm.$set(_vm.selectBoxes, data.id, $$v)
-                                },
-                                expression: "selectBoxes[data.id]"
-                              }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _vm._l(data, function(value, key) {
-                          return _vm.activeColumns[key]
-                            ? _c("td", [
-                                _vm._v(
-                                  "\n                    " +
-                                    _vm._s(value) +
-                                    "\n                "
-                                )
-                              ])
-                            : _vm._e()
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          {
-                            staticStyle: { "white-space": "nowrap" },
-                            attrs: { width: "10%" }
-                          },
-                          [
-                            _c(
-                              "v-btn",
-                              {
-                                attrs: {
-                                  flat: "",
-                                  fab: "",
-                                  dark: "",
-                                  small: "",
-                                  color: "info"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    _vm.editDialog = true
-                                    _vm.editingIndex = key1
-                                    Object.assign(_vm.editingRow, data)
-                                  }
-                                }
-                              },
-                              [
-                                _c("v-icon", { attrs: { dark: "" } }, [
-                                  _vm._v(
-                                    "\n                            edit\n                        "
-                                  )
-                                ])
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-btn",
-                              {
-                                attrs: {
-                                  flat: "",
-                                  fab: "",
-                                  dark: "",
-                                  small: "",
-                                  color: "red"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.destroy(_vm.editingRow, data)
-                                  }
-                                }
-                              },
-                              [
-                                _c("v-icon", { attrs: { dark: "" } }, [
-                                  _vm._v("delete")
-                                ])
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        )
-                      ],
-                      2
-                    )
-                  })
-            ],
-            2
-          )
-        ]
-      ),
+          ]
+        )
+      ]),
       _vm._v(" "),
       _c("table-loader", { attrs: { loading: _vm.loading } }),
       _vm._v(" "),

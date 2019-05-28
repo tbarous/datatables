@@ -41,10 +41,11 @@ td {
 }
 
 table {
-  width: 100% !important;
-  display: block;
-  overflow-x: scroll;
   border: none !important;
+}
+
+.wrapper {
+  overflow-x: scroll;
 }
 
 td {
@@ -87,26 +88,29 @@ th {
   margin-top: 15px;
 }
 
-/*
- *  STYLE 14
- */
-
-#resultsTable::-webkit-scrollbar-track,
+.wrapper::-webkit-scrollbar-track,
 .doubleScroll-scroll-wrapper::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.6);
-  background-color: #CCCCCC;
-}
-
-#resultsTable::-webkit-scrollbar,
-.doubleScroll-scroll-wrapper::-webkit-scrollbar {
-  width: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
   background-color: #F5F5F5;
 }
 
-#resultsTable::-webkit-scrollbar-thumb,
+.wrapper::-webkit-scrollbar,
+.doubleScroll-scroll-wrapper::-webkit-scrollbar {
+  width: 12px;
+  background-color: #F5F5F5;
+}
+
+.wrapper::-webkit-scrollbar-thumb,
 .doubleScroll-scroll-wrapper::-webkit-scrollbar-thumb {
-  background-color: #FFF;
-  background-image: -webkit-linear-gradient(90deg, black 0%, black 25%, transparent 100%, black 75%, transparent);
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #555;
+}
+
+.v-input--selection-controls {
+  margin-top: 0;
+  padding-top: 4px;
 }
 
 /*!
