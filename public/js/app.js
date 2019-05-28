@@ -2275,7 +2275,8 @@ __webpack_require__.r(__webpack_exports__);
         endDate: moment().startOf('hour').add(32, 'hour'),
         locale: {
           format: 'DD/MM/YY hh:mm'
-        }
+        },
+        autoUpdateInput: false
       }
     };
   },

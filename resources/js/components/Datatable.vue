@@ -409,6 +409,7 @@ export default {
                 locale: {
                     format: 'DD/MM/YY hh:mm'
                 },
+                autoUpdateInput: false
             }
         }
     },
