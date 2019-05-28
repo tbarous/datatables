@@ -2206,6 +2206,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -52383,44 +52390,54 @@ var render = function() {
     "div",
     [
       _c(
-        "div",
-        { staticClass: "items-show" },
+        "v-layout",
         [
-          _c("span", [_vm._v("Show")]),
+          _c("v-flex", { attrs: { xs6: "" } }, [
+            _c(
+              "div",
+              { staticClass: "items-show" },
+              [
+                _c("span", [_vm._v("Show")]),
+                _vm._v(" "),
+                _c("v-select", {
+                  attrs: { items: _vm.itemsShow, label: "Show", solo: "" },
+                  on: {
+                    change: function($event) {
+                      return _vm.fetchData(true)
+                    }
+                  },
+                  model: {
+                    value: _vm.perPage,
+                    callback: function($$v) {
+                      _vm.perPage = $$v
+                    },
+                    expression: "perPage"
+                  }
+                }),
+                _vm._v(" "),
+                _c("span", [_vm._v("entries")])
+              ],
+              1
+            )
+          ]),
           _vm._v(" "),
-          _c("v-select", {
-            attrs: { items: _vm.itemsShow, label: "Show", solo: "" },
-            on: {
-              change: function($event) {
-                return _vm.fetchData(true)
-              }
-            },
-            model: {
-              value: _vm.perPage,
-              callback: function($$v) {
-                _vm.perPage = $$v
-              },
-              expression: "perPage"
-            }
-          }),
-          _vm._v(" "),
-          _c("span", [_vm._v("entries")])
+          _c("v-flex", { staticClass: "text-right", attrs: { xs6: "" } }, [
+            _c("div", { staticClass: "items-count" }, [
+              _c("i", { class: { nopacity: _vm.loading } }, [
+                _vm._v(_vm._s(_vm.getItemsCount))
+              ]),
+              _vm._v(" "),
+              _c("br"),
+              _c("br"),
+              _vm._v(" "),
+              _c("u", [_vm._v("Selected: " + _vm._s(_vm.selected.length))])
+            ])
+          ])
         ],
         1
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "items-count" }, [
-        _c("i", { class: { nopacity: _vm.loading } }, [
-          _vm._v(_vm._s(_vm.getItemsCount))
-        ]),
-        _vm._v(" "),
-        _c("br"),
-        _c("br"),
-        _vm._v(" "),
-        _c("u", [_vm._v("Selected: " + _vm._s(_vm.selected.length))]),
-        _vm._v(" "),
-        _c("hr", { attrs: { color: "white" } })
-      ]),
+      _c("v-divider", { attrs: { color: "white" } }),
       _vm._v(" "),
       _c(
         "div",

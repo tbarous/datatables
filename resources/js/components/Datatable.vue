@@ -1,25 +1,32 @@
 <template>
     <div>
-        <div class="items-show">
-            <span>Show</span>
-            <v-select 
-                :items="itemsShow" 
-                label="Show" 
-                solo 
-                v-model="perPage" 
-                @change="fetchData(true)"
-            >
-            </v-select>
-            <span>entries</span>
-        </div>
+        <v-layout>
+            <v-flex xs6>
+                <div class="items-show">
+                    <span>Show</span>
+                    <v-select 
+                        :items="itemsShow" 
+                        label="Show" 
+                        solo 
+                        v-model="perPage" 
+                        @change="fetchData(true)"
+                    >
+                    </v-select>
+                    <span>entries</span>
+                </div>
+            </v-flex>
 
-        <div class="items-count">
-            <i :class="{nopacity:loading}">{{getItemsCount}}</i>
-            <br><br>
-            <u>Selected: {{selected.length}}</u>
-            <hr color="white">
-        </div>
+            <v-flex xs6 class="text-right">
+                <div class="items-count">
+                    <i :class="{nopacity:loading}">{{getItemsCount}}</i>
+                    <br><br>
+                    <u>Selected: {{selected.length}}</u>
+                </div>
+            </v-flex>
+        </v-layout>
         
+        <v-divider color="white"></v-divider>
+
         <div class="table-tools">
             <v-btn 
                 color="blue" 
