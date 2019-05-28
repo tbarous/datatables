@@ -89,7 +89,7 @@
         </div>
 
         <table-loader :loading="loading"></table-loader>
-        <table class="table table-bordered bg-white mb-0" id="resultsTable" data-tableName="Test Table 2">
+        <table v-scroll class="table table-bordered bg-white mb-0 double-scroll" id="resultsTable" data-tableName="Test Table 2">
             <thead>
                 <tr class="bg-dark text-white">
                     <th width="5%"></th>
@@ -113,7 +113,7 @@
                 <tr class="bg-dark text-white">
                     <th width="5%"></th>
                     <th width="5%">
-                        <v-checkbox @change="toggleAll" v-model="selectAll"></v-checkbox>
+                        <v-checkbox class="toggleAll" color="white" @click.self="toggleAll" v-model="selectAll"></v-checkbox>
                     </th>
                     <th 
                         class="pt-0 pb-0" 
@@ -366,6 +366,7 @@ export default {
 
     mounted(){
         var clipboard = new Clipboard('#export-btn');
+        $('.double-scroll').doubleScroll();
     },
 
     created() {
@@ -505,18 +506,18 @@ export default {
 
         toggleAll(){
             if(!this.selectAll){
-                alert(5)
                 this.selected = []
+                this.selectAll = true
                 this.tableData.map(item=>{
                     this.selectBoxes[item.id] = true
                     this.selected.push(item.id)
                 })
-                this.selectAll = true
-                console.log(this.selected)
             } else {
                 this.selected = []
                 this.selectAll = false
-                console.log(this.selected)
+                this.tableData.map(item=>{
+                    this.selectBoxes[item.id] = false
+                })
             }
         }
     },

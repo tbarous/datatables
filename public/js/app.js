@@ -2232,6 +2232,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     var clipboard = new Clipboard('#export-btn');
+    $('.double-scroll').doubleScroll();
   },
   created: function created() {
     this.loading = true;
@@ -2379,19 +2380,19 @@ __webpack_require__.r(__webpack_exports__);
       var _this6 = this;
 
       if (!this.selectAll) {
-        alert(5);
         this.selected = [];
+        this.selectAll = true;
         this.tableData.map(function (item) {
           _this6.selectBoxes[item.id] = true;
 
           _this6.selected.push(item.id);
         });
-        this.selectAll = true;
-        console.log(this.selected);
       } else {
         this.selected = [];
         this.selectAll = false;
-        console.log(this.selected);
+        this.tableData.map(function (item) {
+          _this6.selectBoxes[item.id] = false;
+        });
       }
     }
   },
@@ -59606,7 +59607,8 @@ var render = function() {
       _c(
         "table",
         {
-          staticClass: "table table-bordered bg-white mb-0",
+          directives: [{ name: "scroll", rawName: "v-scroll" }],
+          staticClass: "table table-bordered bg-white mb-0 double-scroll",
           attrs: { id: "resultsTable", "data-tableName": "Test Table 2" }
         },
         [
@@ -59671,7 +59673,16 @@ var render = function() {
                   { attrs: { width: "5%" } },
                   [
                     _c("v-checkbox", {
-                      on: { change: _vm.toggleAll },
+                      staticClass: "toggleAll",
+                      attrs: { color: "white" },
+                      on: {
+                        click: function($event) {
+                          if ($event.target !== $event.currentTarget) {
+                            return null
+                          }
+                          return _vm.toggleAll($event)
+                        }
+                      },
                       model: {
                         value: _vm.selectAll,
                         callback: function($$v) {
@@ -60430,7 +60441,7 @@ var render = function() {
     [
       _c("v-progress-linear", {
         staticClass: "mb-0 mt-0",
-        attrs: { indeterminate: true, color: "black" }
+        attrs: { indeterminate: true, color: "green" }
       })
     ],
     1

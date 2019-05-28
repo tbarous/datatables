@@ -51,6 +51,18 @@ class User extends Authenticatable
             ['title' => 'username', 'sortable' => true, 'searchable' => true, 'type'=> 'text'],
             ['title' => 'email', 'sortable' => true, 'searchable' => true, 'type'=> 'text'],
             ['title' => 'created_at', 'sortable' => true, 'searchable' => true, 'type'=> 'date'],
+            ['title' => 'updated_at', 'sortable' => true, 'searchable' => true, 'type'=> 'date'],
+            ['title' => 'username', 'sortable' => true, 'searchable' => true, 'type'=> 'text'],
+            ['title' => 'email', 'sortable' => true, 'searchable' => true, 'type'=> 'text'],
+            ['title' => 'created_at', 'sortable' => true, 'searchable' => true, 'type'=> 'date'],
+            ['title' => 'updated_at', 'sortable' => true, 'searchable' => true, 'type'=> 'date'],
+            ['title' => 'username', 'sortable' => true, 'searchable' => true, 'type'=> 'text'],
+            ['title' => 'email', 'sortable' => true, 'searchable' => true, 'type'=> 'text'],
+            ['title' => 'created_at', 'sortable' => true, 'searchable' => true, 'type'=> 'date'],
+            ['title' => 'updated_at', 'sortable' => true, 'searchable' => true, 'type'=> 'date'],
+            ['title' => 'username', 'sortable' => true, 'searchable' => true, 'type'=> 'text'],
+            ['title' => 'email', 'sortable' => true, 'searchable' => true, 'type'=> 'text'],
+            ['title' => 'created_at', 'sortable' => true, 'searchable' => true, 'type'=> 'date'],
             ['title' => 'updated_at', 'sortable' => true, 'searchable' => true, 'type'=> 'date']
         ];
 
