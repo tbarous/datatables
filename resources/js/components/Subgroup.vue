@@ -7,6 +7,8 @@
 	        </v-list-tile>
 	      </template>
 
+	      <v-divider class="mt-0 mb-0"></v-divider>
+
 	      <Subgroup :pages="page.children"></Subgroup>
 	    </v-list-group>
 

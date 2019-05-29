@@ -20,6 +20,13 @@ Vue.component('loading', Loading);
 
 Vue.component('layout', require('./layouts/Layout.vue').default);
 
+store.dispatch('user/setUser', data.user)
+store.dispatch('pages/setPages', data.pages)
+
+$(document).on('scroll', () => {
+    $(window).scrollTop() > 500 ? store.dispatch('ui/setTop', true) : store.dispatch('ui/setTop', false)
+})
+
 const app = new Vue({
     router,
     axios,

@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer fixed app v-model="drawer" dark width="280" stateless value="true">
+  <v-navigation-drawer fixed app :value="drawer" dark width="230" stateless>
   
     <Toolbar></Toolbar>
     <v-divider class="mt-0 mb-0"></v-divider>
@@ -33,7 +33,14 @@
   import Subgroup from './Subgroup'
 
   export default {
-    props: ['pages', 'drawer'],
+    computed: {
+      pages (){
+        return this.$store.getters['pages/getPages']
+      },
+      drawer(){
+        return this.$store.getters['ui/getDrawer']
+      }
+    },
 
     components: {
       Subgroup,
