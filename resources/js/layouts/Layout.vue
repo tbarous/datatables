@@ -1,55 +1,6 @@
 <template>
     <v-app id="inspire">
-        <v-navigation-drawer temporary v-model="drawer" fixed app dark width="280">
-            <v-toolbar flat class="transparent">
-                <v-list class="pa-0">
-                    <v-list-tile avatar>
-                        <!-- <v-list-tile-avatar>
-                            <img alt="alt" src="https://randomuser.me/api/portraits/men/86.jpg">
-                        </v-list-tile-avatar> -->
-
-                        <v-list-tile-content>
-                            <v-list-tile-title>{{currentUser.username}}</v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                </v-list>
-            </v-toolbar>
-            
-            <v-list dense>
-                <v-divider class="mt-0 mb-0"></v-divider>
-
-                <div v-for="page in pages" v-if="page.length>=2" :key="page.title">
-                    <v-list-group prepend-icon="fas fa-tools" :value="false" dark >
-                        <template v-slot:activator>
-                            <v-list-tile>
-                                <v-list-tile-title>{{page[0].title}}</v-list-tile-title>
-                            </v-list-tile>
-                        </template>
-                        <v-list-tile :to="p.slug" v-for="(p, index) in page.slice(1)" :key="index">
-                            <v-list-tile-action>
-                                <v-icon v-text="p.icon"></v-icon>
-                            </v-list-tile-action>
-                            <v-list-tile-content>
-                                <v-list-tile-title v-text="p.title"></v-list-tile-title>
-                            </v-list-tile-content>
-                        </v-list-tile>
-                    </v-list-group>
-                    <v-divider class="mt-0 mb-0"></v-divider>
-                </div>
-                
-                <div v-for="page in pages" v-if="page.length==1" :key="page.title">
-                    <v-list-tile :to="page[0].slug" > 
-                        <v-list-tile-action>
-                            <v-icon>{{page[0].icon}}</v-icon>
-                        </v-list-tile-action>
-                        <v-list-tile-content>
-                            <v-list-tile-title>{{page[0].title}}</v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                    <v-divider class="mt-0 mb-0"></v-divider>
-                </div>
-            </v-list>
-        </v-navigation-drawer>
+        <drawer :drawer="drawer" :pages="pages"></drawer>
 
         <v-toolbar dark fixed app>
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
@@ -75,15 +26,9 @@
             </v-container>
         </v-content>
         
-        <notifications 
-            animation-name="fade" 
-            position="bottom right" 
-        />
+        <notifications animation-name="fade" position="bottom right" />
 
-        <loading 
-            :active.sync="isLoading" 
-            :is-full-page="true">
-        </loading>
+        <loading :active.sync="isLoading" :is-full-page="true"></loading>
 
         <v-btn 
             v-if="showToTop" 
@@ -100,9 +45,17 @@
 </template>
 
 <script>
+    import Page from './../components/Page'
+    import Drawer from './../components/Drawer'
+
     export default {
+        components: {
+            Page,
+            Drawer
+        },
+
         data: () => ({
-            drawer: null,
+            drawer: true,
             pages: data.pages,
             showToTop: false
         }),

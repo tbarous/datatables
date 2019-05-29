@@ -32,18 +32,26 @@ class HomeController extends Controller
 
         $pages = [
             'tools' => [
-                ['title' => 'Tools'],
-                ['title'=>'EETT Overview', 'slug' => 'eett-overview', 'icon' => 'dashboard'],
-                ['title'=>'EETT Delta Report', 'slug' => 'eett-delta-report', 'icon' => 'report'],
-                ['title'=>'EETT Scripts', 'slug' => 'eett-scripts', 'icon' => 'code'],
-                ['title'=>'Log', 'slug' => 'log', 'icon' => 'chat'],
-                ['title'=>'Users', 'slug' => 'users', 'icon' => 'person']
+                'title' => 'Tools',
+                'children' => [
+                    ['title'=>'EETT Overview', 'slug' => 'eett-overview', 'icon' => 'dashboard'],
+                    ['title'=>'EETT Delta Report', 'slug' => 'eett-delta-report', 'icon' => 'report'],
+                    ['title'=>'EETT Scripts', 'slug' => 'eett-scripts', 'icon' => 'code'],
+                    ['title'=>'Log', 'slug' => 'log', 'icon' => 'chat'],
+                    ['title'=>'Users', 'slug' => 'users', 'icon' => 'person'],
+                    [
+                        'title'=>'Userss',
+                        'children' => [
+                            ['title'=>'Usersss', 'slug' => 'users', 'icon' => 'person']
+                        ]
+                    ]
+                ]
             ],
             'documentation' => [
-                ['title'=>'Documentation', 'slug' => 'documentation', 'icon' => 'fa fa-file']
+                'title'=>'Documentation', 'slug' => 'documentation', 'icon' => 'fa fa-file'
             ],
             'info' => [
-                ['title'=>'Information', 'slug' => 'info', 'icon' => 'fa fa-info']
+                'title'=>'Information', 'slug' => 'info', 'icon' => 'fa fa-info'
             ]
         ];
 

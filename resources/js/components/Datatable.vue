@@ -1,5 +1,6 @@
 <template>
     <div>
+        
         <v-layout>
             <v-flex xs6 class="d-flex align-center">
                 <div class="items-show">
