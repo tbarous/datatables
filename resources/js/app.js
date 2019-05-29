@@ -1,8 +1,13 @@
 require('./bootstrap');
 window.Vue = require('vue');
 
-import router from './router'
 import store from './store'
+store.dispatch('user/setUser', data.user)
+store.dispatch('pages/setPages', data.pages)
+
+import router from './router'
+
+
 import axios from './api'
 
 import Vuetify from 'vuetify'
@@ -20,8 +25,6 @@ Vue.component('loading', Loading);
 
 Vue.component('layout', require('./layouts/Layout.vue').default);
 
-store.dispatch('user/setUser', data.user)
-store.dispatch('pages/setPages', data.pages)
 
 $(document).on('scroll', () => {
     $(window).scrollTop() > 500 ? store.dispatch('ui/setTop', true) : store.dispatch('ui/setTop', false)

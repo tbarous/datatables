@@ -97416,8 +97416,8 @@ var baseURL = "".concat(baseDomain, "/api");
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./router */ "./resources/js/router/index.js");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./router */ "./resources/js/router/index.js");
 /* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./api */ "./resources/js/api/index.js");
 /* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuetify */ "./node_modules/vuetify/dist/vuetify.js");
 /* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vuetify__WEBPACK_IMPORTED_MODULE_3__);
@@ -97431,6 +97431,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
+_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('user/setUser', data.user);
+_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('pages/setPages', data.pages);
 
 
 
@@ -97443,15 +97445,13 @@ Vue.use(vue_notification__WEBPACK_IMPORTED_MODULE_5___default.a);
 
 Vue.component('loading', vue_loading_overlay__WEBPACK_IMPORTED_MODULE_6___default.a);
 Vue.component('layout', __webpack_require__(/*! ./layouts/Layout.vue */ "./resources/js/layouts/Layout.vue")["default"]);
-_store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('user/setUser', data.user);
-_store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('pages/setPages', data.pages);
 $(document).on('scroll', function () {
-  $(window).scrollTop() > 500 ? _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('ui/setTop', true) : _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('ui/setTop', false);
+  $(window).scrollTop() > 500 ? _store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('ui/setTop', true) : _store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('ui/setTop', false);
 });
 var app = new Vue({
-  router: _router__WEBPACK_IMPORTED_MODULE_0__["default"],
+  router: _router__WEBPACK_IMPORTED_MODULE_1__["default"],
   axios: _api__WEBPACK_IMPORTED_MODULE_2__["default"],
-  store: _store__WEBPACK_IMPORTED_MODULE_1__["default"],
+  store: _store__WEBPACK_IMPORTED_MODULE_0__["default"],
   el: '#app'
 });
 
@@ -98252,6 +98252,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_Log__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../views/Log */ "./resources/js/views/Log.vue");
 /* harmony import */ var _views_Documentation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../views/Documentation */ "./resources/js/views/Documentation.vue");
 /* harmony import */ var _views_Info__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../views/Info */ "./resources/js/views/Info.vue");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../store */ "./resources/js/store/index.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_8__);
 
 
 
@@ -98259,38 +98262,73 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/* harmony default export */ __webpack_exports__["default"] = ([{
-  path: '/',
-  redirect: '/eett-overview'
-}, {
-  path: '/users',
-  component: _views_Users__WEBPACK_IMPORTED_MODULE_0__["default"],
-  name: 'Users'
-}, {
-  path: '/eett-overview',
-  component: _views_Overview__WEBPACK_IMPORTED_MODULE_1__["default"],
-  name: 'EETT Overview'
-}, {
-  path: '/eett-delta-report',
-  component: _views_DeltaReport__WEBPACK_IMPORTED_MODULE_2__["default"],
-  name: 'EETT Delta Report'
-}, {
-  path: '/eett-scripts',
-  component: _views_Scripts__WEBPACK_IMPORTED_MODULE_3__["default"],
-  name: 'EETT Scripts'
-}, {
-  path: '/log',
-  component: _views_Log__WEBPACK_IMPORTED_MODULE_4__["default"],
-  name: 'Log'
-}, {
-  path: '/documentation',
-  component: _views_Documentation__WEBPACK_IMPORTED_MODULE_5__["default"],
-  name: 'Documentation'
-}, {
-  path: '/info',
-  component: _views_Info__WEBPACK_IMPORTED_MODULE_6__["default"],
-  name: 'Information'
-}]);
+
+
+window.a = [];
+
+function getPages(pages) {
+  Object.values(pages).map(function (item) {
+    if (item.slug) {
+      console.log('./../views/' + lodash__WEBPACK_IMPORTED_MODULE_8___default.a.startCase(item.slug));
+      window.a.push({
+        path: '/' + item.slug,
+        component: function component() {
+          return __webpack_require__("./resources/js/views lazy recursive ^\\.\\/.*$")("./" + lodash__WEBPACK_IMPORTED_MODULE_8___default.a.startCase(item.slug));
+        },
+        name: lodash__WEBPACK_IMPORTED_MODULE_8___default.a.startCase(item.slug)
+      });
+    }
+
+    if (item.children) {
+      getPages(item.children);
+    } else {
+      return false;
+    }
+  });
+}
+
+getPages(data.pages);
+console.log(window.a);
+/* harmony default export */ __webpack_exports__["default"] = (window.a); // export default [
+//     {
+//         path: '/',
+//         redirect: '/eett-overview'
+//     },
+//     {
+//         path: '/users',
+//         component: () => import('./../views/Users')
+//     },
+//     {
+//         path: '/eett-overview',
+//         component: Overview,
+//         name: 'EETT Overview'
+//     },
+//     {
+//         path: '/eett-delta-report',
+//         component: DeltaReport,
+//         name: 'EETT Delta Report'
+//     },
+//     {
+//         path: '/eett-scripts',
+//         component: Scripts,
+//         name: 'EETT Scripts'
+//     },
+//     {
+//         path: '/log',
+//         component: Log,
+//         name: 'Log'
+//     },
+//     {
+//         path: '/documentation',
+//         component: Documentation,
+//         name: 'Documentation'
+//     },
+//     {
+//         path: '/info',
+//         component: Info,
+//         name: 'Information'
+//     }
+// ]
 
 /***/ }),
 
@@ -98540,6 +98578,50 @@ var actions = {
   actions: actions,
   mutations: mutations
 });
+
+/***/ }),
+
+/***/ "./resources/js/views lazy recursive ^\\.\\/.*$":
+/*!***********************************************************!*\
+  !*** ./resources/js/views lazy ^\.\/.*$ namespace object ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./DeltaReport": "./resources/js/views/DeltaReport.vue",
+	"./DeltaReport.vue": "./resources/js/views/DeltaReport.vue",
+	"./Documentation": "./resources/js/views/Documentation.vue",
+	"./Documentation.vue": "./resources/js/views/Documentation.vue",
+	"./Info": "./resources/js/views/Info.vue",
+	"./Info.vue": "./resources/js/views/Info.vue",
+	"./Log": "./resources/js/views/Log.vue",
+	"./Log.vue": "./resources/js/views/Log.vue",
+	"./Overview": "./resources/js/views/Overview.vue",
+	"./Overview.vue": "./resources/js/views/Overview.vue",
+	"./Scripts": "./resources/js/views/Scripts.vue",
+	"./Scripts.vue": "./resources/js/views/Scripts.vue",
+	"./Users": "./resources/js/views/Users.vue",
+	"./Users.vue": "./resources/js/views/Users.vue"
+};
+
+function webpackAsyncContext(req) {
+	return Promise.resolve().then(function() {
+		if(!__webpack_require__.o(map, req)) {
+			var e = new Error("Cannot find module '" + req + "'");
+			e.code = 'MODULE_NOT_FOUND';
+			throw e;
+		}
+
+		var id = map[req];
+		return __webpack_require__(id);
+	});
+}
+webpackAsyncContext.keys = function webpackAsyncContextKeys() {
+	return Object.keys(map);
+};
+webpackAsyncContext.id = "./resources/js/views lazy recursive ^\\.\\/.*$";
+module.exports = webpackAsyncContext;
 
 /***/ }),
 
