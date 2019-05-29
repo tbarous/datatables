@@ -2468,8 +2468,7 @@ __webpack_require__.r(__webpack_exports__);
         this.selectAll = false;
         this.tableData.map(function (item) {
           _this7.selectBoxes[item.id] = false;
-
-          _this7.selected.splice(_this7.selected.indexOf(item.id), 1);
+          if (_this7.selected.indexOf(item.id) != -1) _this7.selected.splice(_this7.selected.indexOf(item.id), 1);
         });
       }
     },
@@ -52732,7 +52731,7 @@ var render = function() {
           "table",
           {
             directives: [{ name: "scroll", rawName: "v-scroll" }],
-            staticClass: "table table-bordered bg-white mb-0",
+            staticClass: "elevation-3 table table-bordered bg-white mb-0",
             attrs: { id: "resultsTable", "data-tableName": "Test Table 2" }
           },
           [

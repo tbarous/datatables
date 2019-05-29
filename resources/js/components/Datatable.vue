@@ -99,7 +99,7 @@
 
         <table-loader :loading="loading"></table-loader>
         <div class="wrapper double-scroll">
-            <table v-scroll class="table table-bordered bg-white mb-0" id="resultsTable" data-tableName="Test Table 2">
+            <table v-scroll class="elevation-3 table table-bordered bg-white mb-0" id="resultsTable" data-tableName="Test Table 2">
                 <thead>
                     <tr class="bg-dark text-white">
                         <th width="5%" class="pt-3"></th>
@@ -595,7 +595,8 @@ export default {
                 this.selectAll = false
                 this.tableData.map(item=>{
                     this.selectBoxes[item.id] = false
-                    this.selected.splice(this.selected.indexOf(item.id), 1)
+                    if(this.selected.indexOf(item.id) != -1)
+                        this.selected.splice(this.selected.indexOf(item.id), 1)
                 })
             }
         },
