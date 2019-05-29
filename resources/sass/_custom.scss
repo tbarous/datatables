@@ -162,3 +162,10 @@ h3 {
 #inspire {
     background-image: linear-gradient(113.7deg, rgba(43, 58, 103, 1) 11.5%, rgba(122, 134, 172, 1) 124.1%);
 }
+
+.daterangepicker td.active, .daterangepicker td.active:hover {
+    background-color: #357ebd!important;
+    border-color: transparent;
+    color: #fff;
+    border-radius: 0!important;
+}

@@ -2227,29 +2227,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2277,7 +2254,6 @@ __webpack_require__.r(__webpack_exports__);
       loading: false,
       generalSearch: '',
       queries: {},
-      // editDialog: false,
       editingIndex: 0,
       editingRow: {},
       viewColumns: false,
@@ -2295,16 +2271,42 @@ __webpack_require__.r(__webpack_exports__);
         timePicker: true,
         startDate: moment().startOf('hour'),
         endDate: moment().startOf('hour').add(32, 'hour'),
-        locale: {
-          format: 'DD/MM/YY hh:mm'
+        locale: {// format: 'DD/MM/YY hh:mm'
         },
         autoUpdateInput: false
       }
     };
   },
   mounted: function mounted() {
+    var _this = this;
+
     var clipboard = new Clipboard('#export-btn');
     $('.double-scroll').doubleScroll();
+    $('input[name="datefilter"]').daterangepicker({
+      autoUpdateInput: false,
+      locale: {
+        cancelLabel: 'Clear'
+      },
+      timePicker: true
+    });
+    var dateInputs = this.columns.filter(function (item) {
+      return item.type == 'date';
+    });
+    dateInputs.map(function (item) {
+      $('#' + item.title).on('apply.daterangepicker', function (ev, picker) {
+        var value = picker.startDate.format('DD/MM/YYYY hh:mm') + ' - ' + picker.endDate.format('DD/MM/YYYY hh:mm');
+        _this.queries[item.title] = value;
+        $('#' + item.title).val(value);
+
+        _this.fetchData(true);
+      });
+      $('#' + item.title).on('cancel.daterangepicker', function (ev, picker) {
+        _this.queries[item.title] = '';
+        $('#' + item.title).val('');
+
+        _this.fetchData(true);
+      });
+    });
   },
   created: function created() {
     this.loading = true;
@@ -2332,11 +2334,11 @@ __webpack_require__.r(__webpack_exports__);
       this.dialog[name] = false;
     },
     setActiveColumnsAndQueries: function setActiveColumnsAndQueries() {
-      var _this = this;
+      var _this2 = this;
 
       this.columns.map(function (column) {
-        _this.activeColumns[column.title] = true;
-        _this.queries[column.title] = '';
+        _this2.activeColumns[column.title] = true;
+        _this2.queries[column.title] = '';
       });
     },
     fetchData: function fetchData() {
@@ -2346,32 +2348,31 @@ __webpack_require__.r(__webpack_exports__);
       this.fetch(reset, msg);
     },
     fetch: lodash__WEBPACK_IMPORTED_MODULE_4___default.a.debounce(function (reset, msg) {
-      var _this2 = this;
+      var _this3 = this;
 
       if (reset) this.currentPage = 1;
       if (this.generalSearch == null) this.generalSearch = '';
       var dataFetchUrl = "".concat(this.url, "?page=").concat(this.currentPage, "&column=").concat(this.sortedColumn, "&order=").concat(this.order, "&per_page=").concat(this.perPage, "&search=").concat(this.generalSearch);
       Object.keys(this.queries).map(function (item) {
-        var queryItem = _this2.queries[item];
+        var queryItem = _this3.queries[item];
         if (queryItem == null) queryItem = '';
         dataFetchUrl += '&' + item + '=' + queryItem;
       });
       this.loading = true;
       axios.get(dataFetchUrl).then(function (_ref) {
         var data = _ref.data;
-        console.log(data);
-        _this2.pagination = data;
-        _this2.tableData = data.data;
+        _this3.pagination = data;
+        _this3.tableData = data.data;
         if (msg) setTimeout(function () {
-          return _this2.$notify(msg);
+          return _this3.$notify(msg);
         }, 200);
-        _this2.loading = false;
+        _this3.loading = false;
 
-        _this2.$store.dispatch('loading/setLoading', false);
+        _this3.$store.dispatch('loading/setLoading', false);
       })["catch"](function (error) {
-        _this2.tableData = [];
+        _this3.tableData = [];
 
-        _this2.$store.dispatch('loading/setLoading', false);
+        _this3.$store.dispatch('loading/setLoading', false);
       });
     }, 500),
     serialNumber: function serialNumber(key) {
@@ -2405,18 +2406,18 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     update: function update(index, row) {
-      var _this3 = this;
+      var _this4 = this;
 
       this.$store.dispatch('loading/setLoading', true);
       axios.post(this.url + '/update', {
         row: JSON.stringify(row)
       }).then(function (response) {
-        _this3.fetchData(false, {
+        _this4.fetchData(false, {
           type: 'success',
           text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'
         });
       })["catch"](function (error) {
-        _this3.handleFailure;
+        _this4.handleFailure;
       });
     },
     setEditDialog: function setEditDialog(key1, data) {
@@ -2425,51 +2426,51 @@ __webpack_require__.r(__webpack_exports__);
       Object.assign(this.editingRow, data);
     },
     destroy: function destroy(index, row) {
-      var _this4 = this;
+      var _this5 = this;
 
       this.$store.dispatch('loading/setLoading', true);
       axios.post(this.url + '/destroy', {
         id: row.id
       }).then(function (response) {
-        _this4.fetchData(false, {
+        _this5.fetchData(false, {
           type: 'success',
           text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been deleted'
         });
       })["catch"](function (error) {
-        _this4.handleFailure;
+        _this5.handleFailure;
       });
     },
     updateMultiple: function updateMultiple(row) {
-      var _this5 = this;
+      var _this6 = this;
 
       this.$store.dispatch('loading/setLoading', true);
       axios.post(this.url + '/update-many', {
         selected: JSON.stringify(this.selected),
         row: JSON.stringify(row)
       }).then(function (response) {
-        _this5.fetchData(false, {
+        _this6.fetchData(false, {
           type: 'success',
           text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Items has been updated'
         });
       })["catch"](function (error) {
-        _this5.handleFailure;
+        _this6.handleFailure;
       });
     },
     toggleAll: function toggleAll() {
-      var _this6 = this;
+      var _this7 = this;
 
       if (!this.selectAll) {
         this.selectAll = true;
         this.tableData.map(function (item) {
-          _this6.selectBoxes[item.id] = true;
-          if (_this6.selected.indexOf(item.id) == -1) _this6.selected.push(item.id);
+          _this7.selectBoxes[item.id] = true;
+          if (_this7.selected.indexOf(item.id) == -1) _this7.selected.push(item.id);
         });
       } else {
         this.selectAll = false;
         this.tableData.map(function (item) {
-          _this6.selectBoxes[item.id] = false;
+          _this7.selectBoxes[item.id] = false;
 
-          _this6.selected.splice(_this6.selected.indexOf(item.id), 1);
+          _this7.selected.splice(_this7.selected.indexOf(item.id), 1);
         });
       }
     },
@@ -2482,12 +2483,12 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     clearFilters: function clearFilters() {
-      var _this7 = this;
+      var _this8 = this;
 
       this.queries = {};
       this.generalSearch = '';
       this.columns.map(function (column) {
-        _this7.queries[column.title] = '';
+        _this8.queries[column.title] = '';
       });
       this.fetchData();
     }
@@ -3046,6 +3047,41 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Datatable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Datatable */ "./resources/js/components/Datatable.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -52649,81 +52685,6 @@ var render = function() {
               )
             ],
             1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-flex",
-            { attrs: { xs1: "" } },
-            [
-              _c(
-                "v-btn",
-                {
-                  attrs: {
-                    color: "green",
-                    dark: "",
-                    href: "/storage/invoices.xlsx"
-                  }
-                },
-                [
-                  _vm._v("\n                Excel \n                "),
-                  _c("v-icon", { attrs: { small: "" } }, [
-                    _vm._v("far fa-file-excel")
-                  ])
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-flex",
-            { attrs: { xs1: "" } },
-            [
-              _c(
-                "v-btn",
-                {
-                  attrs: {
-                    color: "red",
-                    dark: "",
-                    href: "/storage/invoices.pdf",
-                    download: ""
-                  }
-                },
-                [
-                  _vm._v("\n                PDF \n                "),
-                  _c("v-icon", { attrs: { small: "" } }, [
-                    _vm._v("far fa-file-pdf")
-                  ])
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-flex",
-            { attrs: { xs1: "" } },
-            [
-              _c(
-                "v-btn",
-                {
-                  attrs: {
-                    id: "export-btn",
-                    "data-clipboard-target": "#resultsTable"
-                  }
-                },
-                [
-                  _vm._v("\n                Export\n                "),
-                  _c("v-icon", { attrs: { small: "" } }, [
-                    _vm._v("fas fa-file-export")
-                  ])
-                ],
-                1
-              )
-            ],
-            1
           )
         ],
         1
@@ -52891,20 +52852,36 @@ var render = function() {
                               : _vm._e(),
                             _vm._v(" "),
                             column.type == "date"
-                              ? _c("date-range-picker", {
+                              ? _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.queries[column.title],
+                                      expression: "queries[column.title]"
+                                    }
+                                  ],
                                   staticClass: "date-range-picker elevation-2",
-                                  attrs: { options: _vm.options },
+                                  attrs: {
+                                    type: "text",
+                                    name: "datefilter",
+                                    autocomplete: "off",
+                                    id: column.title
+                                  },
+                                  domProps: {
+                                    value: _vm.queries[column.title]
+                                  },
                                   on: {
                                     input: function($event) {
-                                      return _vm.fetchData(true)
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.queries,
+                                        column.title,
+                                        $event.target.value
+                                      )
                                     }
-                                  },
-                                  model: {
-                                    value: _vm.queries[column.title],
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.queries, column.title, $$v)
-                                    },
-                                    expression: "queries[column.title]"
                                   }
                                 })
                               : _vm._e()
@@ -53055,22 +53032,24 @@ var render = function() {
       _vm._v(" "),
       _c("table-loader", { attrs: { loading: _vm.loading } }),
       _vm._v(" "),
-      _c(
-        "v-card",
-        { staticClass: "pagination" },
-        [
-          _c("pagination", {
-            attrs: {
-              pagination: _vm.pagination,
-              tableData: _vm.tableData,
-              currentPage: _vm.currentPage,
-              pagesNumber: _vm.pagesNumber
-            },
-            on: { changePage: _vm.changePage }
-          })
-        ],
-        1
-      ),
+      _vm.tableData.length
+        ? _c(
+            "v-card",
+            { staticClass: "pagination" },
+            [
+              _c("pagination", {
+                attrs: {
+                  pagination: _vm.pagination,
+                  tableData: _vm.tableData,
+                  currentPage: _vm.currentPage,
+                  pagesNumber: _vm.pagesNumber
+                },
+                on: { changePage: _vm.changePage }
+              })
+            ],
+            1
+          )
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "v-dialog",
@@ -54092,6 +54071,90 @@ var render = function() {
   return _c(
     "div",
     [
+      _c(
+        "v-layout",
+        { staticClass: "table-tools" },
+        [
+          _c(
+            "v-flex",
+            { attrs: { xs1: "" } },
+            [
+              _c(
+                "v-btn",
+                {
+                  attrs: {
+                    color: "green",
+                    dark: "",
+                    href: "/storage/invoices.xlsx"
+                  }
+                },
+                [
+                  _vm._v("\n                Excel \n                "),
+                  _c("v-icon", { attrs: { small: "" } }, [
+                    _vm._v("far fa-file-excel")
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-flex",
+            { attrs: { xs1: "" } },
+            [
+              _c(
+                "v-btn",
+                {
+                  attrs: {
+                    color: "red",
+                    dark: "",
+                    href: "/storage/invoices.pdf",
+                    download: ""
+                  }
+                },
+                [
+                  _vm._v("\n                PDF \n                "),
+                  _c("v-icon", { attrs: { small: "" } }, [
+                    _vm._v("far fa-file-pdf")
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-flex",
+            { attrs: { xs1: "" } },
+            [
+              _c(
+                "v-btn",
+                {
+                  attrs: {
+                    id: "export-btn",
+                    "data-clipboard-target": "#resultsTable"
+                  }
+                },
+                [
+                  _vm._v("\n                Export\n                "),
+                  _c("v-icon", { attrs: { small: "" } }, [
+                    _vm._v("fas fa-file-export")
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("v-divider", { attrs: { color: "white" } }),
+      _vm._v(" "),
       _c("datatable", { attrs: { "fetch-url": _vm.url, columns: _vm.columns } })
     ],
     1

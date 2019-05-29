@@ -79,39 +79,6 @@
                     <v-icon small>fas fa-edit</v-icon>
                 </v-btn>
             </v-flex>
-
-            <v-flex xs1>
-                <v-btn 
-                    color="green" 
-                    dark
-                    href="/storage/invoices.xlsx"
-                >
-                    Excel 
-                    <v-icon small>far fa-file-excel</v-icon>
-                </v-btn>
-            </v-flex>
-
-            <v-flex xs1>
-                <v-btn 
-                    color="red" 
-                    dark
-                    href="/storage/invoices.pdf"
-                    download
-                >
-                    PDF 
-                    <v-icon small>far fa-file-pdf</v-icon>
-                </v-btn>
-            </v-flex>
-
-            <v-flex xs1>
-                <v-btn
-                    id="export-btn" 
-                    data-clipboard-target="#resultsTable"
-                >
-                    Export
-                    <v-icon small>fas fa-file-export</v-icon>
-                </v-btn>
-            </v-flex>
         </v-layout>
 
         <v-layout>
@@ -174,13 +141,23 @@
                                 label="" 
                                 prepend-inner-icon="search">
                             </v-text-field>
-                            <date-range-picker 
+                           <!--  <date-range-picker 
+                                :id="column.title"
                                 v-if="column.type=='date'" 
                                 v-model="queries[column.title]" 
                                 class="date-range-picker elevation-2" 
                                 :options="options" 
                                 @input="fetchData(true)" 
-                            />
+                            /> -->
+
+                            <input type="text" 
+                                name="datefilter"
+                                autocomplete="off" 
+                                :id="column.title"
+                                v-if="column.type=='date'" 
+                                v-model="queries[column.title]" 
+                                class="date-range-picker elevation-2"
+                            >
                         </th>
                         <th width="10%"></th>
                     </tr>
@@ -248,7 +225,7 @@
         </div>
         <table-loader :loading="loading"></table-loader>
 
-        <v-card class="pagination">
+        <v-card class="pagination" v-if="tableData.length">
             <pagination 
                 :pagination="pagination"
                 :tableData="tableData" 
@@ -409,7 +386,6 @@ export default {
             loading: false,
             generalSearch: '',
             queries: {},
-            // editDialog: false,
             editingIndex: 0,
             editingRow: {},
             viewColumns: false,
@@ -423,13 +399,12 @@ export default {
                 edit: false,
                 viewColumns: false
             },
-
             options: {
                 timePicker: true,
                 startDate: moment().startOf('hour'),
                 endDate: moment().startOf('hour').add(32, 'hour'),
                 locale: {
-                    format: 'DD/MM/YY hh:mm'
+                    // format: 'DD/MM/YY hh:mm'
                 },
                 autoUpdateInput: false
             }
@@ -439,6 +414,33 @@ export default {
     mounted(){
         var clipboard = new Clipboard('#export-btn');
         $('.double-scroll').doubleScroll();
+        $('input[name="datefilter"]').daterangepicker({
+            autoUpdateInput: false,
+            locale: {
+                cancelLabel: 'Clear'
+            },
+            timePicker: true
+        });
+
+        let dateInputs = this.columns.filter(item=>{
+            return item.type == 'date'    
+        })
+
+        dateInputs.map(item=>{
+            $('#' + item.title).on('apply.daterangepicker', (ev, picker) => {
+                let value = picker.startDate.format('DD/MM/YYYY hh:mm') + ' - ' + picker.endDate.format('DD/MM/YYYY hh:mm')
+                this.queries[item.title] = value
+                $('#' + item.title).val(value)
+                this.fetchData(true)
+            });
+
+            $('#' + item.title).on('cancel.daterangepicker', (ev, picker) => {
+                this.queries[item.title] = ''
+                $('#' + item.title).val('')
+                this.fetchData(true)
+            });
+        })
+        
     },
 
     created() {
@@ -500,7 +502,6 @@ export default {
             this.loading = true;
             axios.get(dataFetchUrl)
                 .then(({ data }) => {
-                    console.log(data)
                     this.pagination = data
                     this.tableData = data.data
                     if(msg) setTimeout(() => this.$notify(msg), 200)
