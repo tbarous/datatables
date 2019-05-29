@@ -179,12 +179,11 @@
                         class="m-datatable__row" 
                         v-else
                     >
-                        <td width="5%" class="">{{serialNumber(key1)}}</td>
+                        <td width="5%">{{serialNumber(key1)}}</td>
                         <td width="5%">
                             <v-checkbox 
                                 v-model="selectBoxes[data.id]" 
                                 color="black" 
-                                class="p-3" 
                                 @change="select(data)"
                             >
                             </v-checkbox>
@@ -225,16 +224,16 @@
         </div>
         <table-loader :loading="loading"></table-loader>
 
-        <v-card class="pagination" v-if="tableData.length">
-            <pagination 
-                :pagination="pagination"
-                :tableData="tableData" 
-                :currentPage="currentPage" 
-                :pagesNumber="pagesNumber" 
-                @changePage="changePage"
-            >
-            </pagination>
-        </v-card>
+        <pagination 
+            class="pagination"
+            v-if="tableData.length"
+            :pagination="pagination"
+            :tableData="tableData" 
+            :currentPage="currentPage" 
+            :pagesNumber="pagesNumber" 
+            @changePage="changePage"
+        >
+        </pagination>
 
         <v-dialog v-model="dialog.viewColumns" width="500">
             <v-card>

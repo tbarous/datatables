@@ -2226,7 +2226,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -52929,7 +52928,6 @@ var render = function() {
                             { attrs: { width: "5%" } },
                             [
                               _c("v-checkbox", {
-                                staticClass: "p-3",
                                 attrs: { color: "black" },
                                 on: {
                                   change: function($event) {
@@ -53033,22 +53031,16 @@ var render = function() {
       _c("table-loader", { attrs: { loading: _vm.loading } }),
       _vm._v(" "),
       _vm.tableData.length
-        ? _c(
-            "v-card",
-            { staticClass: "pagination" },
-            [
-              _c("pagination", {
-                attrs: {
-                  pagination: _vm.pagination,
-                  tableData: _vm.tableData,
-                  currentPage: _vm.currentPage,
-                  pagesNumber: _vm.pagesNumber
-                },
-                on: { changePage: _vm.changePage }
-              })
-            ],
-            1
-          )
+        ? _c("pagination", {
+            staticClass: "pagination",
+            attrs: {
+              pagination: _vm.pagination,
+              tableData: _vm.tableData,
+              currentPage: _vm.currentPage,
+              pagesNumber: _vm.pagesNumber
+            },
+            on: { changePage: _vm.changePage }
+          })
         : _vm._e(),
       _vm._v(" "),
       _c(

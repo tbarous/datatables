@@ -11000,3 +11000,7 @@ h3 {
   border-radius: 0 !important;
 }
 
+.pagination a {
+  border: none;
+}
+
