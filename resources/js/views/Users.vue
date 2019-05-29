@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import Datatable from '../components/Datatable'
+import Datatable from '../components/Table/Datatable'
 
 export default {
     data() {

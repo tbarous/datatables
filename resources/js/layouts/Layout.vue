@@ -5,22 +5,22 @@
         <Content></Content>
         <notifications animation-name="fade" position="bottom right" />
         <loading :active.sync="loading" :is-full-page="true"></loading>
-        <v-btn class="to-top" v-if="top" small fab dark @click="$store.dispatch('ui/toTop')" color="grey">
-            <v-icon small>fa fa-chevron-up</v-icon>
-        </v-btn>
+        <to-top></to-top>
     </v-app>
 </template>
 
 <script>
-    import Drawer from './../components/Drawer'
-    import Navbar from './../components/Navbar'
+    import Drawer from './../components/Navigation/Drawer'
+    import Navbar from './../components/Navigation/Navbar'
     import Content from './../components/Content'
+    import ToTop from './../components/UI/ToTop'
 
     export default {
         components: {
             Drawer,
             Navbar,
-            Content
+            Content,
+            ToTop
         },
 
         computed: {

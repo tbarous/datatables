@@ -1,6 +1,6 @@
 <template>
     <div>
-        
+
         <v-layout>
             <v-flex xs6 class="d-flex align-center">
                 <div class="items-show">
@@ -357,8 +357,8 @@
 </template>
 
 <script>
-import PaginationMixin from '../mixins/PaginationMixin'
-import FileMixin from '../mixins/FileMixin'
+import PaginationMixin from './../../mixins/Table/PaginationMixin'
+// import FileMixin from '../mixins/FileMixin'
 import TableLoader from './TableLoader'
 import Pagination from './Pagination'
 import _ from 'lodash'
