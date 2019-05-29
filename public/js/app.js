@@ -2556,6 +2556,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -53547,16 +53550,25 @@ var render = function() {
           _vm._l(_vm.pages, function(page) {
             return !page.children
               ? _c(
-                  "v-list-tile",
-                  { key: page.title, attrs: { to: page.slug } },
+                  "div",
+                  { key: page.title },
                   [
                     _c(
-                      "v-list-tile-action",
-                      [_c("v-icon", [_vm._v(_vm._s(page.icon))])],
+                      "v-list-tile",
+                      { attrs: { to: page.slug } },
+                      [
+                        _c(
+                          "v-list-tile-action",
+                          [_c("v-icon", [_vm._v(_vm._s(page.icon))])],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("v-list-tile-title", [_vm._v(_vm._s(page.title))])
+                      ],
                       1
                     ),
                     _vm._v(" "),
-                    _c("v-list-tile-title", [_vm._v(_vm._s(page.title))])
+                    _c("v-divider", { staticClass: "mt-0 mb-0" })
                   ],
                   1
                 )
@@ -53569,7 +53581,7 @@ var render = function() {
                   "v-list-group",
                   {
                     key: page.title,
-                    attrs: { "prepend-icon": "account_circle", value: false },
+                    attrs: { "prepend-icon": page.icon, value: false },
                     scopedSlots: _vm._u(
                       [
                         {

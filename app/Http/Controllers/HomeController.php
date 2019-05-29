@@ -32,19 +32,13 @@ class HomeController extends Controller
 
         $pages = [
             'tools' => [
-                'title' => 'Tools',
+                'title' => 'Tools', 'icon'=>'fa fa-wrench',
                 'children' => [
                     ['title'=>'EETT Overview', 'slug' => 'eett-overview', 'icon' => 'dashboard'],
                     ['title'=>'EETT Delta Report', 'slug' => 'eett-delta-report', 'icon' => 'report'],
                     ['title'=>'EETT Scripts', 'slug' => 'eett-scripts', 'icon' => 'code'],
                     ['title'=>'Log', 'slug' => 'log', 'icon' => 'chat'],
-                    ['title'=>'Users', 'slug' => 'users', 'icon' => 'person'],
-                    [
-                        'title'=>'Userss',
-                        'children' => [
-                            ['title'=>'Usersss', 'slug' => 'users', 'icon' => 'person']
-                        ]
-                    ]
+                    ['title'=>'Users', 'slug' => 'users', 'icon' => 'person']
                 ]
             ],
             'documentation' => [

@@ -5,14 +5,17 @@
     <v-divider class="mt-0 mb-0"></v-divider>
 
     <v-list>
-      <v-list-tile :to="page.slug" v-for="page in pages" :key="page.title" v-if="!page.children">
-        <v-list-tile-action>
-          <v-icon>{{page.icon}}</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-title>{{page.title}}</v-list-tile-title>
-      </v-list-tile>
-
-      <v-list-group prepend-icon="account_circle" :value="false" v-for="page in pages" :key="page.title" v-if="page.children">
+      <div v-for="page in pages" :key="page.title" v-if="!page.children">
+        <v-list-tile :to="page.slug" >
+          <v-list-tile-action>
+            <v-icon>{{page.icon}}</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-title>{{page.title}}</v-list-tile-title>
+        </v-list-tile>
+        <v-divider class="mt-0 mb-0"></v-divider>
+      </div>
+      
+      <v-list-group :prepend-icon="page.icon" :value="false" v-for="page in pages" :key="page.title" v-if="page.children">
         <template v-slot:activator>
           <v-list-tile>
             <v-list-tile-title>{{page.title}}</v-list-tile-title>
