@@ -17,32 +17,37 @@
             
             <v-list dense>
                 <v-divider class="mt-0 mb-0"></v-divider>
-                <v-list-group prepend-icon="fas fa-tools" :value="false" dark>
-                    <template v-slot:activator>
-                        <v-list-tile>
-                            <v-list-tile-title>Tools</v-list-tile-title>
+
+                <div v-for="page in pages" v-if="page.length>=2" :key="page.title">
+                    <v-list-group prepend-icon="fas fa-tools" :value="false" dark >
+                        <template v-slot:activator>
+                            <v-list-tile>
+                                <v-list-tile-title>{{page[0].title}}</v-list-tile-title>
+                            </v-list-tile>
+                        </template>
+                        <v-list-tile :to="p.slug" v-for="(p, index) in page.slice(1)" :key="index">
+                            <v-list-tile-action>
+                                <v-icon v-text="p.icon"></v-icon>
+                            </v-list-tile-action>
+                            <v-list-tile-content>
+                                <v-list-tile-title v-text="p.title"></v-list-tile-title>
+                            </v-list-tile-content>
                         </v-list-tile>
-                    </template>
-                    <v-list-tile :to="page.slug" v-for="(page, index) in pages.tools" :key="index">
+                    </v-list-group>
+                    <v-divider class="mt-0 mb-0"></v-divider>
+                </div>
+                
+                <div v-for="page in pages" v-if="page.length==1" :key="page.title">
+                    <v-list-tile :to="page[0].slug" > 
                         <v-list-tile-action>
-                            <v-icon v-text="page.icon"></v-icon>
+                            <v-icon>{{page[0].icon}}</v-icon>
                         </v-list-tile-action>
                         <v-list-tile-content>
-                            <v-list-tile-title v-text="page.title"></v-list-tile-title>
+                            <v-list-tile-title>{{page[0].title}}</v-list-tile-title>
                         </v-list-tile-content>
                     </v-list-tile>
-                </v-list-group>
-
-                <v-divider class="mt-0 mb-0"></v-divider>
-
-                <v-list-tile to="/documentation"> 
-                    <v-list-tile-action>
-                        <v-icon>fa-file</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>Documentation</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
+                    <v-divider class="mt-0 mb-0"></v-divider>
+                </div>
             </v-list>
         </v-navigation-drawer>
 
@@ -70,10 +75,25 @@
             </v-container>
         </v-content>
         
-        <notifications animation-name="fade" position="bottom right" />
-        <loading :active.sync="isLoading" :is-full-page="true"></loading>
+        <notifications 
+            animation-name="fade" 
+            position="bottom right" 
+        />
 
-        <v-btn v-if="showToTop" small fab dark @click="toTop" color="black" style="position: fixed;bottom:10px;right:10px;">
+        <loading 
+            :active.sync="isLoading" 
+            :is-full-page="true">
+        </loading>
+
+        <v-btn 
+            v-if="showToTop" 
+            small 
+            fab 
+            dark 
+            @click="toTop" 
+            color="grey" 
+            style="position: fixed;bottom:10px;right:10px;"
+        >
             <v-icon small>fa fa-chevron-up</v-icon>
         </v-btn>
     </v-app>

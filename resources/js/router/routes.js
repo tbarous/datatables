@@ -4,6 +4,7 @@ import DeltaReport from '../views/DeltaReport'
 import Scripts from '../views/Scripts'
 import Log from '../views/Log'
 import Documentation from '../views/Documentation'
+import Info from '../views/Info'
 
 export default [
     {
@@ -39,5 +40,10 @@ export default [
         path: '/documentation',
         component: Documentation,
         name: 'Documentation'
+    },
+    {
+        path: '/info',
+        component: Info,
+        name: 'Information'
     }
 ]

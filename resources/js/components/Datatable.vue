@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-layout>
-            <v-flex xs6>
+            <v-flex xs6 class="d-flex align-center">
                 <div class="items-show">
                     <span>Show</span>
                     <v-select 
@@ -18,11 +18,16 @@
 
             <v-flex xs6 class="text-right">
                 <div class="items-count">
-                    <i v-if="!loading">{{getItemsCount}}</i>
-                    <i v-else>
+                    <div v-if="!loading">
+                        <p class="text-white">
+                            Last Update @ {{pagination.meta.last_update}}
+                        </p>
+                        <i>{{getItemsCount}}</i>
+                    </div>
+                    <div v-else style="height: 50px;">
                         <img src="/images/ajax-loader.gif" alt="">
-                    </i>
-                    <br><br>
+                    </div>
+                    <br>
                     <u>Selected: {{selected.length}}</u>
                 </div>
             </v-flex>
@@ -495,6 +500,7 @@ export default {
             this.loading = true;
             axios.get(dataFetchUrl)
                 .then(({ data }) => {
+                    console.log(data)
                     this.pagination = data
                     this.tableData = data.data
                     if(msg) setTimeout(() => this.$notify(msg), 200)

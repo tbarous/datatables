@@ -32,8 +32,8 @@ class UserController extends Controller
                             ->additional(
                                 [
                                     'meta' => [
+                                        'last_update' => Carbon::parse(User::max('updated_at'))->format('d/m/Y - H:i:s a', 'Europe/Athens'),
                                         'created_at' => [Carbon::parse(User::min('created_at'))->format('d/m/Y H:i:s', 'Europe/Athens'), Carbon::parse(User::max('created_at'))->format('d/m/Y H:i:s', 'Europe/Athens')]
-                                        
                                     ]
                                 ]
                             );
