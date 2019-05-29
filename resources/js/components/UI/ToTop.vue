@@ -14,6 +14,10 @@
 
 <script>
 	export default {
-		
+		computed: {
+            top() {
+                return this.$store.getters['ui/getTop']
+            }
+        }
 	}
 </script>

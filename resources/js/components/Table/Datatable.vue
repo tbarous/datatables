@@ -637,7 +637,7 @@ export default {
     },
 
     name: 'DataTable',
-    mixins: [PaginationMixin, FileMixin],
+    mixins: [PaginationMixin],
     components: {
         TableLoader,
         Pagination

@@ -27,9 +27,6 @@
             loading() {
                 return this.$store.getters['loading/getLoading']
             },
-            top() {
-                return this.$store.getters['ui/getTop']
-            }
         }
     }
 </script>

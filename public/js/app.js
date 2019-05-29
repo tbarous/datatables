@@ -2709,7 +2709,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   name: 'DataTable',
-  mixins: [_mixins_Table_PaginationMixin__WEBPACK_IMPORTED_MODULE_0__["default"], FileMixin],
+  mixins: [_mixins_Table_PaginationMixin__WEBPACK_IMPORTED_MODULE_0__["default"]],
   components: {
     TableLoader: _TableLoader__WEBPACK_IMPORTED_MODULE_1__["default"],
     Pagination: _Pagination__WEBPACK_IMPORTED_MODULE_2__["default"]
@@ -2879,7 +2879,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  computed: {
+    top: function top() {
+      return this.$store.getters['ui/getTop'];
+    }
+  }
+});
 
 /***/ }),
 
@@ -2921,9 +2927,6 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     loading: function loading() {
       return this.$store.getters['loading/getLoading'];
-    },
-    top: function top() {
-      return this.$store.getters['ui/getTop'];
     }
   }
 });
@@ -98456,7 +98459,7 @@ var actions = {
 __webpack_require__.r(__webpack_exports__);
 var state = {
   top: false,
-  drawer: false
+  drawer: true
 };
 var getters = {
   getTop: function getTop(state) {

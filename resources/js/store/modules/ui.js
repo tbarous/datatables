@@ -1,6 +1,6 @@
 const state = {
     top: false,
-    drawer: false
+    drawer: true
 }
 
 const getters = {
