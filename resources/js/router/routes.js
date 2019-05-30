@@ -1,9 +1,7 @@
-import _ from 'lodash'
-
 function traverse(array){
     array.map(item=>{
-    	console.log('./../views/' + item.component + '.vue')
-        item.component = () => import('../views/' + item.component + '.vue')
+    	// import a from '../views/' + item.component
+    	item.component = require('../views/' + item.component)
 
         if(item.children.length){
             traverse(item.children)
@@ -15,4 +13,4 @@ traverse(Object.values(window.data.pages));
 
 console.log(window.data.pages)
 
-export default Object.values(window.data.pages)
+export default window.data.pages

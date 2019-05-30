@@ -20,6 +20,7 @@ class CreatePagesTable extends Migration
             $table->string('path');
             $table->string('slug');
             $table->string('component');
+            $table->string('redirect')->nullable();
             $table->timestamps();
             $table->nestedSet();
         });
