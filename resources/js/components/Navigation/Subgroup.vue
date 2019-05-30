@@ -1,9 +1,9 @@
 <template>
 	<div>
-		<v-list-group no-action sub-group :value="false" v-for="page in pages" :key="page.title" v-if="page.children">
+		<v-list-group no-action sub-group :value="false" v-for="page in pages" :key="page.name" v-if="page.children.length">
 	      <template v-slot:activator>
 	        <v-list-tile>
-	          <v-list-tile-title>{{page.title}}</v-list-tile-title>
+	          <v-list-tile-title>{{page.name}}</v-list-tile-title>
 	        </v-list-tile>
 	      </template>
 
@@ -15,10 +15,10 @@
 	    <v-list-tile
 	        v-for="(page, i) in pages"
 	        :key="i"
-	        :to="page.slug"
-	         v-if="!page.children"
+	        :to="page.path"
+	         v-if="!page.children.length"
 	      >
-	        <v-list-tile-title v-text="page.title"></v-list-tile-title>
+	        <v-list-tile-title v-text="page.name"></v-list-tile-title>
 	        <v-list-tile-action>
 	          <v-icon v-text="page.icon"></v-icon>
 	        </v-list-tile-action>
