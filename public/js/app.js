@@ -2402,18 +2402,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
- // import FileMixin from '../mixins/FileMixin'
 
 
 
@@ -2432,7 +2420,6 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       tableData: [],
-      // url: '',
       selectAll: false,
       sortedColumn: this.columns[3].title,
       order: 'desc',
@@ -2507,9 +2494,8 @@ __webpack_require__.r(__webpack_exports__);
 
       return "".concat(this.pagination.meta.total, " of ").concat(this.pagination.meta.total, " entries");
     },
-    dataExists: function dataExists() {
-      if (this.tableData.length === 0 && !this.loading) return true;
-      return false;
+    noData: function noData() {
+      return this.tableData.length === 0 && !this.loading ? true : false;
     }
   },
   methods: {
@@ -53364,7 +53350,7 @@ var render = function() {
             _c(
               "tbody",
               [
-                _vm.dataExists
+                _vm.noData
                   ? _c("tr", [
                       _c(
                         "td",
@@ -98302,7 +98288,8 @@ var debug = "development" !== 'production';
     ui: _modules_ui__WEBPACK_IMPORTED_MODULE_6__["default"],
     data: _modules_data__WEBPACK_IMPORTED_MODULE_7__["default"]
   },
-  strict: debug
+  // strict: debug
+  strict: false
 }));
 
 /***/ }),

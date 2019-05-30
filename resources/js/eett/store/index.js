@@ -20,5 +20,6 @@ export default new Vuex.Store({
     ui,
     data
   },
-  strict: debug
+  // strict: debug
+  strict: false
 })

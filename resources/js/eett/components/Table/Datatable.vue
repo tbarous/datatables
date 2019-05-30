@@ -130,14 +130,6 @@
                                 label="" 
                                 prepend-inner-icon="search">
                             </v-text-field>
-                           <!--  <date-range-picker 
-                                :id="column.title"
-                                v-if="column.type=='date'" 
-                                v-model="queries[column.title]" 
-                                class="date-range-picker elevation-2" 
-                                :options="options" 
-                                @input="fetchData(true)" 
-                            /> -->
 
                             <input type="text" 
                                 name="datefilter"
@@ -153,11 +145,8 @@
                 </thead>
 
                 <tbody>
-                    <tr v-if="dataExists">
-                        <td 
-                            class="no-data bg-info" 
-                            :colspan="columns.length + 3"
-                        >
+                    <tr v-if="noData">
+                        <td class="no-data bg-info" :colspan="columns.length + 3">
                             No data was found
                         </td>
                     </tr>
@@ -346,7 +335,6 @@
 
 <script>
 import PaginationMixin from './../../mixins/Table/PaginationMixin'
-// import FileMixin from '../mixins/FileMixin'
 import TableLoader from './TableLoader'
 import Pagination from './Pagination'
 import _ from 'lodash'
@@ -366,7 +354,6 @@ export default {
     data() {
         return {
             tableData: [],
-            // url: '',
             selectAll: false,
             sortedColumn: this.columns[3].title,
             order: 'desc',
@@ -446,11 +433,8 @@ export default {
             return `${this.pagination.meta.total} of ${this.pagination.meta.total} entries`
         },
 
-        dataExists(){
-            if(this.tableData.length === 0 && !this.loading)
-                return true
-
-            return false
+        noData(){
+            return this.tableData.length === 0 && !this.loading ? true : false
         }
     },
 
