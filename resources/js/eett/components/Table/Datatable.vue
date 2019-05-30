@@ -36,28 +36,28 @@
         <v-divider color="white"></v-divider>
         
         <v-layout class="table-tools">
-            <v-flex xs1>
+            <v-flex xs2>
                 <v-btn color="blue" dark @click="fetchData(true)">
                     Reload 
                     <v-icon small>fas fa-sync</v-icon>
                 </v-btn>
             </v-flex>
 
-            <v-flex xs1>
+            <v-flex xs2>
                 <v-btn color="yellow" @click="clearFilters">
                     Clear 
                     <v-icon small>fas fa-eraser</v-icon>
                 </v-btn>
             </v-flex>
 
-            <v-flex xs1>
+            <v-flex xs2>
                 <v-btn color="secondary" dark @click="openDialog('viewColumns')">
                     Columns 
                     <v-icon small>fas fa-columns</v-icon>
                 </v-btn>
             </v-flex>
 
-            <v-flex xs1>
+            <v-flex xs2>
                 <v-btn 
                     :disabled="selected.length<2"
                     color="secondary" 
@@ -146,7 +146,7 @@
 
                 <tbody>
                     <tr v-if="noData">
-                        <td class="no-data bg-info" :colspan="columns.length + 3">
+                        <td class="no-data bg-info text-dark" dark :colspan="columns.length + 3">
                             No data was found
                         </td>
                     </tr>

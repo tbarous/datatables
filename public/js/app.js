@@ -53082,7 +53082,7 @@ var render = function() {
         [
           _c(
             "v-flex",
-            { attrs: { xs1: "" } },
+            { attrs: { xs2: "" } },
             [
               _c(
                 "v-btn",
@@ -53108,7 +53108,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-flex",
-            { attrs: { xs1: "" } },
+            { attrs: { xs2: "" } },
             [
               _c(
                 "v-btn",
@@ -53127,7 +53127,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-flex",
-            { attrs: { xs1: "" } },
+            { attrs: { xs2: "" } },
             [
               _c(
                 "v-btn",
@@ -53153,7 +53153,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-flex",
-            { attrs: { xs1: "" } },
+            { attrs: { xs2: "" } },
             [
               _c(
                 "v-btn",
@@ -53399,8 +53399,8 @@ var render = function() {
                       _c(
                         "td",
                         {
-                          staticClass: "no-data bg-info",
-                          attrs: { colspan: _vm.columns.length + 3 }
+                          staticClass: "no-data bg-info text-dark",
+                          attrs: { dark: "", colspan: _vm.columns.length + 3 }
                         },
                         [
                           _vm._v(
@@ -54260,7 +54260,7 @@ var render = function() {
         [
           _c(
             "v-flex",
-            { attrs: { xs1: "" } },
+            { attrs: { xs2: "" } },
             [
               _c(
                 "v-btn",
@@ -54285,7 +54285,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-flex",
-            { attrs: { xs1: "" } },
+            { attrs: { xs2: "" } },
             [
               _c(
                 "v-btn",
@@ -54311,7 +54311,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-flex",
-            { attrs: { xs1: "" } },
+            { attrs: { xs2: "" } },
             [
               _c(
                 "v-btn",
