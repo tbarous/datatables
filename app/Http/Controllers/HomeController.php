@@ -6,6 +6,8 @@ use App\Exports\UsersExport;
 use App\Models\User;
 use App\Page;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 
 class HomeController extends Controller
@@ -18,6 +20,15 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $b = [];
+        $array = Page::get()->toArray();
+        $first = Arr::first($array, function ($value, $key) {
+            $b[] = $value['name'];
+            $a = Str::contains("http://project.local/users", $value['name']);
+            return $a;
+        });
+
+        dd($b);
     }
 
     /**
