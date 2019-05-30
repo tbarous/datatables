@@ -4,7 +4,7 @@
     <Toolbar></Toolbar>
     <v-divider class="mt-0 mb-0"></v-divider>
 
-    <v-list>
+    <v-list class="p-0">
       <div v-for="page in pages" :key="page.title" v-if="page.children.length">
         <v-list-group :prepend-icon="page.icon" :value="false" >
         <template v-slot:activator>

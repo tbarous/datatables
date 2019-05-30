@@ -2007,9 +2007,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Subgroup',
@@ -52669,6 +52666,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "v-list",
+        { staticClass: "p-0" },
         [
           _vm._l(_vm.pages, function(page) {
             return page.children.length
@@ -52876,28 +52874,37 @@ var render = function() {
       }),
       _vm._v(" "),
       _vm._l(_vm.pages, function(page, i) {
-        return !page.children.length
-          ? _c(
-              "v-list-tile",
-              { key: i, attrs: { to: page.slug } },
-              [
-                _c("v-list-tile-title", {
-                  domProps: { textContent: _vm._s(page.name) }
-                }),
-                _vm._v(" "),
-                _c(
-                  "v-list-tile-action",
+        return _c(
+          "div",
+          { key: i },
+          [
+            !page.children.length
+              ? _c(
+                  "v-list-tile",
+                  { attrs: { to: page.slug } },
                   [
-                    _c("v-icon", {
-                      domProps: { textContent: _vm._s(page.icon) }
-                    })
+                    _c("v-list-tile-title", {
+                      domProps: { textContent: _vm._s(page.name) }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "v-list-tile-action",
+                      [
+                        _c("v-icon", {
+                          domProps: { textContent: _vm._s(page.icon) }
+                        })
+                      ],
+                      1
+                    )
                   ],
                   1
                 )
-              ],
-              1
-            )
-          : _vm._e()
+              : _vm._e(),
+            _vm._v(" "),
+            _c("v-divider", { staticClass: "mt-0 mb-0" })
+          ],
+          1
+        )
       })
     ],
     2
