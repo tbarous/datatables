@@ -6,7 +6,9 @@
             <v-layout>
                 <v-flex>
                     <transition name="fade">
+                        <!-- <keep-alive> -->
                         <router-view></router-view>
+                        <!-- </keep-alive> -->
                     </transition>
                 </v-flex>
             </v-layout>

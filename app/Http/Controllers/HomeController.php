@@ -42,8 +42,8 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        Excel::store(new UsersExport(2018), 'public/invoices.xlsx');
-        Excel::store(new UsersExport(2018), 'public/invoices.pdf');
+        // Excel::store(new UsersExport(2018), 'public/invoices.xlsx');
+        // Excel::store(new UsersExport(2018), 'public/invoices.pdf');
 
         $data = [
             'auth' => auth()->user(),

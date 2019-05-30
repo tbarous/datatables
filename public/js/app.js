@@ -1879,6 +1879,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -97561,10 +97563,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_notification__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_notification__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-loading-overlay */ "./node_modules/vue-loading-overlay/dist/vue-loading.min.js");
 /* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_6__);
-window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-var token = document.head.querySelector('meta[name="csrf-token"]');
-window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+__webpack_require__(/*! ./bootstrap */ "./resources/js/eett/bootstrap.js");
+
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
 
@@ -97589,6 +97589,20 @@ var app = new Vue({
   store: _store__WEBPACK_IMPORTED_MODULE_0__["default"],
   el: '#app'
 });
+
+/***/ }),
+
+/***/ "./resources/js/eett/bootstrap.js":
+/*!****************************************!*\
+  !*** ./resources/js/eett/bootstrap.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+var token = document.head.querySelector('meta[name="csrf-token"]');
+window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 
 /***/ }),
 

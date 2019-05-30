@@ -5,6 +5,6 @@ function traverse(array){
     })
 }
 
-traverse(Object.values(window.data.pages));
+traverse(Object.values(window.data.pages))
 
 export default window.data.pages
