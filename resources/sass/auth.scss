@@ -1,5 +1,5 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito|Playfair+Display');
+@import url('https://fonts.googleapis.com/css?family=Nunito');
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
@@ -7,5 +7,7 @@
 // Vuetify
 @import '~vuetify/dist/vuetify.min.css';
 
-// Custom styling
-@import 'custom';
+body {
+    background-image: linear-gradient(113.7deg, rgba(43, 58, 103, 1) 11.5%, rgba(122, 134, 172, 1) 124.1%);
+    height: 100vh;
+}

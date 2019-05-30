@@ -8,8 +8,7 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="{{ asset('css/auth.css') }}" rel="stylesheet">
 </head>
-<body style="background-image: linear-gradient(113.7deg, rgba(43, 58, 103, 1) 11.5%, rgba(122, 134, 172, 1) 124.1%);height: 100vh;">
-    
+<body>
     @yield('content')
 </body>
 </html>
