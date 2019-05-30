@@ -14,8 +14,8 @@ Route::prefix('eett')->group(function () {
     Route::get('log', 'HomeController@index');
 });
 
-Route::get('users', 'HomeController@index');
-Route::get('documentation', 'HomeController@index');
-Route::get('info', 'HomeController@index');
+Route::get('/users', 'HomeController@index');
+Route::get('/documentation', 'HomeController@index');
+Route::get('/info', 'HomeController@index');
 
 Route::get('/{any}', 'HomeController@page_not_found')->where('any', '.*');

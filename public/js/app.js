@@ -2426,7 +2426,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
  // import FileMixin from '../mixins/FileMixin'
 
 
@@ -52668,34 +52667,6 @@ var render = function() {
         "v-list",
         [
           _vm._l(_vm.pages, function(page) {
-            return !page.children.length
-              ? _c(
-                  "div",
-                  { key: page.name },
-                  [
-                    _c(
-                      "v-list-tile",
-                      { attrs: { to: page.slug } },
-                      [
-                        _c(
-                          "v-list-tile-action",
-                          [_c("v-icon", [_vm._v(_vm._s(page.icon))])],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c("v-list-tile-title", [_vm._v(_vm._s(page.name))])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("v-divider", { staticClass: "mt-0 mb-0" })
-                  ],
-                  1
-                )
-              : _vm._e()
-          }),
-          _vm._v(" "),
-          _vm._l(_vm.pages, function(page) {
             return page.children.length
               ? _c(
                   "v-list-group",
@@ -52729,6 +52700,34 @@ var render = function() {
                   [
                     _vm._v(" "),
                     _c("Subgroup", { attrs: { pages: page.children } })
+                  ],
+                  1
+                )
+              : _vm._e()
+          }),
+          _vm._v(" "),
+          _vm._l(_vm.pages, function(page) {
+            return !page.children.length
+              ? _c(
+                  "div",
+                  { key: page.name },
+                  [
+                    _c(
+                      "v-list-tile",
+                      { attrs: { to: page.slug } },
+                      [
+                        _c(
+                          "v-list-tile-action",
+                          [_c("v-icon", [_vm._v(_vm._s(page.icon))])],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("v-list-tile-title", [_vm._v(_vm._s(page.name))])
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("v-divider", { staticClass: "mt-0 mb-0" })
                   ],
                   1
                 )
@@ -98273,7 +98272,7 @@ __webpack_require__.r(__webpack_exports__);
 function traverse(array) {
   array.map(function (item) {
     // import a from '../views/' + item.component
-    item.component = __webpack_require__("./resources/js/views sync recursive ^\\.\\/.*$")("./" + item.component);
+    item.component = __webpack_require__("./resources/js/views sync recursive ^\\.\\/.*$")("./" + item.component)["default"];
 
     if (item.children.length) {
       traverse(item.children);
