@@ -20,15 +20,11 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $b = [];
-        $array = Page::get()->toArray();
-        $first = Arr::first($array, function ($value, $key) {
-            $b[] = $value['name'];
-            $a = Str::contains("http://project.local/users", $value['name']);
-            return $a;
-        });
 
-        dd($b);
+        $result = Page::where('slug', '/' . request()->path())->get();
+        if ($result->isEmpty()) {
+            abort(404);
+        }
     }
 
     /**
@@ -49,10 +45,5 @@ class HomeController extends Controller
         ];
 
         return view('layouts.app', compact('data'));
-    }
-
-    public function page_not_found()
-    {
-        return view('404');
     }
 }
