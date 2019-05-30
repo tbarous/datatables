@@ -18,6 +18,7 @@ class CreatePagesTable extends Migration
             $table->string('name');
             $table->string('icon')->nullable();
             $table->string('path');
+            $table->string('slug');
             $table->string('component');
             $table->timestamps();
             $table->nestedSet();

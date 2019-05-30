@@ -1,23 +1,18 @@
-// import _ from 'lodash'
-console.log(window.pages)
-// function recursiveIteration(object) {
-//     for (var property in object) {
-//         if (object.hasOwnProperty(property)) {
-//             let path = './../views/' + object.title + '/'
-//             console.log(object)
-//             if (typeof object[property] == "object"){
-//                 object[property]['component'] = path + object[property].component
-//                 recursiveIteration(object[property]);
-//             } else {
-//                 //found a property which is not an object, check for your conditions here
-//             }
-//         }
-//     }
-//     return object
-// }
+import _ from 'lodash'
 
-// let obj = recursiveIteration(window.data.pages)
+function traverse(array){
+    array.map(item=>{
+    	console.log('./../views/' + item.component + '.vue')
+        item.component = () => import('../views/' + item.component + '.vue')
 
-// console.log(obj)
+        if(item.children.length){
+            traverse(item.children)
+        }
+    })
+}
 
-export default window.pages
+traverse(Object.values(window.data.pages));
+
+console.log(window.data.pages)
+
+export default Object.values(window.data.pages)

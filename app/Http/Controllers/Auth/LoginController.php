@@ -54,7 +54,7 @@ class LoginController extends Controller
      */
     protected function authenticated()
     {
-        return redirect('/eett-overview');
+        return redirect('/eett/overview');
     }
 
     /**

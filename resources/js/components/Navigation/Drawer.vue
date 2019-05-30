@@ -6,7 +6,7 @@
 
     <v-list>
       <div v-for="page in pages" :key="page.name" v-if="!page.children.length">
-        <v-list-tile :to="page.path" >
+        <v-list-tile :to="page.slug" >
           <v-list-tile-action>
             <v-icon>{{page.icon}}</v-icon>
           </v-list-tile-action>

@@ -15,7 +15,7 @@
 	    <v-list-tile
 	        v-for="(page, i) in pages"
 	        :key="i"
-	        :to="page.path"
+	        :to="page.slug"
 	         v-if="!page.children.length"
 	      >
 	        <v-list-tile-title v-text="page.name"></v-list-tile-title>
