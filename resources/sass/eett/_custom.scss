@@ -192,3 +192,24 @@ a .v-list__tile__action{
 // .v-list__group__items{
 //     background-color: #669cf4;
 // }
+
+aside::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+aside::-webkit-scrollbar
+{
+    width: 13px!important;
+    height: 7px!important;
+    background-color: #F5F5F5;
+}
+
+aside::-webkit-scrollbar-thumb
+{
+    border-radius: 0;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #000;
+}

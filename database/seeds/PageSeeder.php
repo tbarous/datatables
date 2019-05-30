@@ -31,6 +31,9 @@ class PageSeeder extends Seeder
                         [
                             'slug' => '/mass-update/sites/down', 'name'=>'Sites Down', 'path' => 'down', 'icon' => 'fa fa-chevron-down', 'component' => 'mass-update/sites/Down'
                         ],
+                        [
+                            'slug' => '/mass-update/sites/halted', 'name'=>'Sites Halted', 'path' => 'halted', 'icon' => 'fa fa-chevron-down', 'component' => 'mass-update/sites/Halted'
+                        ],
                     ]
                 ],
                 [
@@ -38,6 +41,9 @@ class PageSeeder extends Seeder
                     'children' => [
                         [
                             'slug' => '/mass-update/cells/down', 'name'=>'Cells Down', 'path' => 'down', 'icon' => 'fa fa-chevron-down', 'component' => 'mass-update/cells/Down'
+                        ],
+                        [
+                            'slug' => '/mass-update/cells/halted', 'name'=>'Cells Halted', 'path' => 'halted', 'icon' => 'fa fa-chevron-down', 'component' => 'mass-update/cells/Halted'
                         ],
                     ]
                 ],

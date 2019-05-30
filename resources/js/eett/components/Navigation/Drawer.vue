@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer fixed app :value="drawer" dark width="230" stateless>
+  <v-navigation-drawer fixed app :value="drawer" dark width="270" stateless>
   
     <Toolbar></Toolbar>
     <v-divider class="mt-0 mb-0"></v-divider>

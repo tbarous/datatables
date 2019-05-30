@@ -52663,7 +52663,7 @@ var render = function() {
         app: "",
         value: _vm.drawer,
         dark: "",
-        width: "230",
+        width: "270",
         stateless: ""
       }
     },
@@ -98704,8 +98704,12 @@ var map = {
 	"./mass-update/Index.vue": "./resources/js/eett/views/mass-update/Index.vue",
 	"./mass-update/cells/Down": "./resources/js/eett/views/mass-update/cells/Down.vue",
 	"./mass-update/cells/Down.vue": "./resources/js/eett/views/mass-update/cells/Down.vue",
+	"./mass-update/cells/Halted": "./resources/js/eett/views/mass-update/cells/Halted.vue",
+	"./mass-update/cells/Halted.vue": "./resources/js/eett/views/mass-update/cells/Halted.vue",
 	"./mass-update/sites/Down": "./resources/js/eett/views/mass-update/sites/Down.vue",
-	"./mass-update/sites/Down.vue": "./resources/js/eett/views/mass-update/sites/Down.vue"
+	"./mass-update/sites/Down.vue": "./resources/js/eett/views/mass-update/sites/Down.vue",
+	"./mass-update/sites/Halted": "./resources/js/eett/views/mass-update/sites/Halted.vue",
+	"./mass-update/sites/Halted.vue": "./resources/js/eett/views/mass-update/sites/Halted.vue"
 };
 
 
@@ -99421,6 +99425,38 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/eett/views/mass-update/cells/Halted.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/eett/views/mass-update/cells/Halted.vue ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
+  script,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+component.options.__file = "resources/js/eett/views/mass-update/cells/Halted.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/eett/views/mass-update/sites/Down.vue":
 /*!************************************************************!*\
   !*** ./resources/js/eett/views/mass-update/sites/Down.vue ***!
@@ -99487,6 +99523,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Down_vue_vue_type_template_id_41724314___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/eett/views/mass-update/sites/Halted.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/eett/views/mass-update/sites/Halted.vue ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
+  script,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+component.options.__file = "resources/js/eett/views/mass-update/sites/Halted.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
