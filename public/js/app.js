@@ -1924,6 +1924,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -52669,37 +52673,45 @@ var render = function() {
           _vm._l(_vm.pages, function(page) {
             return page.children.length
               ? _c(
-                  "v-list-group",
-                  {
-                    key: page.title,
-                    attrs: { "prepend-icon": page.icon, value: false },
-                    scopedSlots: _vm._u(
-                      [
-                        {
-                          key: "activator",
-                          fn: function() {
-                            return [
-                              _c(
-                                "v-list-tile",
-                                [
-                                  _c("v-list-tile-title", [
-                                    _vm._v(_vm._s(page.name))
-                                  ])
-                                ],
-                                1
-                              )
-                            ]
-                          },
-                          proxy: true
-                        }
-                      ],
-                      null,
-                      true
-                    )
-                  },
+                  "div",
+                  { key: page.title },
                   [
+                    _c(
+                      "v-list-group",
+                      {
+                        attrs: { "prepend-icon": page.icon, value: false },
+                        scopedSlots: _vm._u(
+                          [
+                            {
+                              key: "activator",
+                              fn: function() {
+                                return [
+                                  _c(
+                                    "v-list-tile",
+                                    [
+                                      _c("v-list-tile-title", [
+                                        _vm._v(_vm._s(page.name))
+                                      ])
+                                    ],
+                                    1
+                                  )
+                                ]
+                              },
+                              proxy: true
+                            }
+                          ],
+                          null,
+                          true
+                        )
+                      },
+                      [
+                        _vm._v(" "),
+                        _c("Subgroup", { attrs: { pages: page.children } })
+                      ],
+                      1
+                    ),
                     _vm._v(" "),
-                    _c("Subgroup", { attrs: { pages: page.children } })
+                    _c("v-divider", { staticClass: "mt-0 mb-0" })
                   ],
                   1
                 )

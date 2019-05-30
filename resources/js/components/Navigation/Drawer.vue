@@ -5,7 +5,8 @@
     <v-divider class="mt-0 mb-0"></v-divider>
 
     <v-list>
-      <v-list-group :prepend-icon="page.icon" :value="false" v-for="page in pages" :key="page.title" v-if="page.children.length">
+      <div v-for="page in pages" :key="page.title" v-if="page.children.length">
+        <v-list-group :prepend-icon="page.icon" :value="false" >
         <template v-slot:activator>
           <v-list-tile>
             <v-list-tile-title>{{page.name}}</v-list-tile-title>
@@ -14,6 +15,9 @@
 
         <Subgroup :pages="page.children"></Subgroup>
       </v-list-group>
+        <v-divider class="mt-0 mb-0"></v-divider>
+      </div>
+      
 
       <div v-for="page in pages" :key="page.name" v-if="!page.children.length">
         <v-list-tile :to="page.slug" >
