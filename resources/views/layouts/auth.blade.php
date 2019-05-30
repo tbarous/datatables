@@ -7,6 +7,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="{{ asset('css/auth.css') }}" rel="stylesheet">
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/css/mdb.min.css" rel="stylesheet"> -->
 </head>
 <body>
     @yield('content')

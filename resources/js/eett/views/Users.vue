@@ -35,7 +35,7 @@
             </v-flex>
         </v-layout>
         <v-divider color="white"></v-divider>
-        <datatable :fetch-url="url" :columns="columns"></datatable>
+        <datatable :url="url" :columns="columns"></datatable>
     </div>
 </template>
 
@@ -43,10 +43,12 @@
 import Datatable from '../components/Table/Datatable'
 
 export default {
-    data() {
-        return {
-            url: data.users.url,
-            columns: data.users.headers
+    computed: {
+        url(){
+            return this.$store.getters['user/getURL']
+        },
+        columns(){
+            return this.$store.getters['user/getColumns']
         }
     },
 

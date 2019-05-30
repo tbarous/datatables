@@ -7,7 +7,7 @@
                     </v-list-tile-avatar>
 
                     <v-list-tile-content>
-                        <v-list-tile-title>{{user.username}}</v-list-tile-title>
+                        <v-list-tile-title>{{auth.username}}</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
             </v-list>
@@ -17,8 +17,8 @@
 <script>
 	export default {
 		computed: {
-            user(){
-                return this.$store.getters['user/getUser']
+            auth(){
+                return this.$store.getters['auth/getAuth']
             }
 		}
 	}

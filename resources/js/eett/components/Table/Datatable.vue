@@ -37,32 +37,21 @@
         
         <v-layout class="table-tools">
             <v-flex xs1>
-                <v-btn 
-                    color="blue" 
-                    dark 
-                    @click="fetchData(true)"
-                >
+                <v-btn color="blue" dark @click="fetchData(true)">
                     Reload 
                     <v-icon small>fas fa-sync</v-icon>
                 </v-btn>
             </v-flex>
 
             <v-flex xs1>
-                <v-btn 
-                    color="yellow" 
-                    @click="clearFilters"
-                >
+                <v-btn color="yellow" @click="clearFilters">
                     Clear 
                     <v-icon small>fas fa-eraser</v-icon>
                 </v-btn>
             </v-flex>
 
             <v-flex xs1>
-                <v-btn 
-                    color="secondary" 
-                    dark 
-                    @click="openDialog('viewColumns')"
-                >
+                <v-btn color="secondary" dark @click="openDialog('viewColumns')">
                     Columns 
                     <v-icon small>fas fa-columns</v-icon>
                 </v-btn>
@@ -364,7 +353,7 @@ import _ from 'lodash'
 
 export default {
     props: {
-        fetchUrl: {
+        url: {
             type: String,
             required: true
         },
@@ -377,7 +366,7 @@ export default {
     data() {
         return {
             tableData: [],
-            url: '',
+            // url: '',
             selectAll: false,
             sortedColumn: this.columns[3].title,
             order: 'desc',
@@ -508,7 +497,7 @@ export default {
                     this.$store.dispatch('loading/setLoading', false);
                 }).catch(error => {
                     this.tableData = []
-                    this.$store.dispatch('loading/setLoading', false);
+                    this.handleFailure()
                 })
         }, 500),
 
@@ -626,14 +615,14 @@ export default {
         }
     },
 
-    watch: {
-        fetchUrl: {
-            handler: function(fetchUrl) {
-                this.url = fetchUrl
-            },
-            immediate: true
-        }
-    },
+    // watch: {
+    //     fetchUrl: {
+    //         handler: function(fetchUrl) {
+    //             this.url = fetchUrl
+    //         },
+    //         immediate: true
+    //     }
+    // },
 
     name: 'DataTable',
     mixins: [PaginationMixin],

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -28,6 +29,8 @@ class HomeController extends Controller
             if ($result->isEmpty()) {
                 abort(404);
             }
+        } else {
+            Redirect::to('/eett/overview')->send();
         }
     }
 
@@ -43,7 +46,7 @@ class HomeController extends Controller
         Excel::store(new UsersExport(2018), 'public/invoices.pdf');
 
         $data = [
-            'user' => auth()->user(),
+            'auth' => auth()->user(),
             'users' => User::getData(),
             'pages' => Page::getData()
         ];

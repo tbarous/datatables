@@ -9,14 +9,14 @@ const getters = {
 }
 
 const mutations = {
-    setPages(state, pages) {
+    setData(state, pages) {
         state.pages = pages
     }
 }
 
 const actions = {
-    setPages(context, pages) {
-        context.commit('setPages', pages)
+    setData(context, pages) {
+        context.commit('setData', pages)
     }
 }
 

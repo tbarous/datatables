@@ -6,8 +6,9 @@ const mutations = {}
 
 const actions = {
     setData({ commit, dispatch }) {
-        store.dispatch('user/setUser', data.user)
-        store.dispatch('pages/setPages', data.pages)
+        store.dispatch('auth/setData', data.auth)
+        store.dispatch('user/setData', data.users)
+        store.dispatch('pages/setData', data.pages)
     }
 }
 

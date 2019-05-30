@@ -1,16 +1,19 @@
 const state = {
-    user: {}
+    auth: {}
 }
 
 const getters = {
-    getUser: state => {
-        return state.user
+    getAuth: state => {
+        return state.auth
     }
 }
 
 const mutations = {
     setUser(state, user) {
         state.user = user
+    },
+    setData(state, auth){
+        state.auth = auth
     }
 }
 
@@ -22,6 +25,10 @@ const actions = {
             console.log(e.response.data)
         })
     },
+
+    setData(context, auth){
+        context.commit('setData', auth)
+    }
 }
 
 export default {
