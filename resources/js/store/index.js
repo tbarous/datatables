@@ -5,6 +5,7 @@ import user from './modules/user'
 import pages from './modules/pages'
 import auth from './modules/auth'
 import ui from './modules/ui'
+import data from './modules/data'
 
 Vue.use(Vuex)
 
@@ -16,7 +17,8 @@ export default new Vuex.Store({
     user,
     pages,
     auth,
-    ui
+    ui,
+    data
   },
   strict: debug
 })

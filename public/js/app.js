@@ -2044,13 +2044,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      user: {}
-    };
-  },
-  created: function created() {
-    this.user = this.$store.getters['user/getUser'];
+  computed: {
+    user: function user() {
+      return this.$store.getters['user/getUser'];
+    }
   }
 });
 
@@ -97474,8 +97471,6 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
-_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('user/setUser', data.user);
-_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('pages/setPages', data.pages);
 
 
 
@@ -97491,6 +97486,7 @@ Vue.component('layout', __webpack_require__(/*! ./layouts/Layout.vue */ "./resou
 $(document).on('scroll', function () {
   $(window).scrollTop() > 500 ? _store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('ui/setTop', true) : _store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('ui/setTop', false);
 });
+_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('data/setData', data);
 var app = new Vue({
   router: _router__WEBPACK_IMPORTED_MODULE_1__["default"],
   axios: _api__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -98290,17 +98286,12 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 __webpack_require__.r(__webpack_exports__);
 function traverse(array) {
   array.map(function (item) {
-    // import a from '../views/' + item.component
     item.component = __webpack_require__("./resources/js/views sync recursive ^\\.\\/.*$")("./" + item.component)["default"];
-
-    if (item.children.length) {
-      traverse(item.children);
-    }
+    if (item.children.length) traverse(item.children);
   });
 }
 
 traverse(Object.values(window.data.pages));
-console.log(window.data.pages);
 /* harmony default export */ __webpack_exports__["default"] = (window.data.pages);
 
 /***/ }),
@@ -98322,6 +98313,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_pages__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/pages */ "./resources/js/store/modules/pages.js");
 /* harmony import */ var _modules_auth__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/auth */ "./resources/js/store/modules/auth.js");
 /* harmony import */ var _modules_ui__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/ui */ "./resources/js/store/modules/ui.js");
+/* harmony import */ var _modules_data__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/data */ "./resources/js/store/modules/data.js");
+
 
 
 
@@ -98337,7 +98330,8 @@ var debug = "development" !== 'production';
     user: _modules_user__WEBPACK_IMPORTED_MODULE_3__["default"],
     pages: _modules_pages__WEBPACK_IMPORTED_MODULE_4__["default"],
     auth: _modules_auth__WEBPACK_IMPORTED_MODULE_5__["default"],
-    ui: _modules_ui__WEBPACK_IMPORTED_MODULE_6__["default"]
+    ui: _modules_ui__WEBPACK_IMPORTED_MODULE_6__["default"],
+    data: _modules_data__WEBPACK_IMPORTED_MODULE_7__["default"]
   },
   strict: debug
 }));
@@ -98373,6 +98367,38 @@ var actions = {
     })["catch"](function (e) {
       console.log(e.response.data);
     });
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: state,
+  getters: getters,
+  actions: actions,
+  mutations: mutations
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/data.js":
+/*!********************************************!*\
+  !*** ./resources/js/store/modules/data.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../store */ "./resources/js/store/index.js");
+
+var state = {};
+var getters = {};
+var mutations = {};
+var actions = {
+  setData: function setData(_ref) {
+    var commit = _ref.commit,
+        dispatch = _ref.dispatch;
+    _store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('user/setUser', data.user);
+    _store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('pages/setPages', data.pages);
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
