@@ -179,3 +179,16 @@ h3 {
      bottom:10px;
      right:10px;
 }
+
+a .v-list__tile__action{
+    justify-content: center;
+}
+
+.v-list__group__header__prepend-icon{
+    padding: 0!important;
+    justify-content: flex-end!important;
+}
+
+.v-list__group__items{
+    background-color: blue;
+}

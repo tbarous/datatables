@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<p>This application was built to handle EETT</p>
+		<p class="text-white">This application was built to handle EETT</p>
 	</div>
 </template>
 

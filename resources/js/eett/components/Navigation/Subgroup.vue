@@ -13,10 +13,11 @@
 		
 		<div v-for="(page, i) in pages" :key="i">
 			<v-list-tile :to="page.slug" v-if="!page.children.length">
-		        <v-list-tile-title v-text="page.name"></v-list-tile-title>
+		        
 		        <v-list-tile-action>
 		          <v-icon v-text="page.icon"></v-icon>
 		        </v-list-tile-action>
+		        <v-list-tile-title v-text="page.name"></v-list-tile-title>
 	     	</v-list-tile>
 			<v-divider class="mt-0 mb-0"></v-divider>
 		</div>

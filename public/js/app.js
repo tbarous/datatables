@@ -2007,6 +2007,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Subgroup',
@@ -52839,10 +52840,6 @@ var render = function() {
                   "v-list-tile",
                   { attrs: { to: page.slug } },
                   [
-                    _c("v-list-tile-title", {
-                      domProps: { textContent: _vm._s(page.name) }
-                    }),
-                    _vm._v(" "),
                     _c(
                       "v-list-tile-action",
                       [
@@ -52851,7 +52848,11 @@ var render = function() {
                         })
                       ],
                       1
-                    )
+                    ),
+                    _vm._v(" "),
+                    _c("v-list-tile-title", {
+                      domProps: { textContent: _vm._s(page.name) }
+                    })
                   ],
                   1
                 )
@@ -54148,7 +54149,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", [
-      _c("p", [_vm._v("This application was built to handle EETT")])
+      _c("p", { staticClass: "text-white" }, [
+        _vm._v("This application was built to handle EETT")
+      ])
     ])
   }
 ]
