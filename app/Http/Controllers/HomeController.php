@@ -21,9 +21,13 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
 
-        $result = Page::where('slug', '/' . request()->path())->get();
-        if ($result->isEmpty()) {
-            abort(404);
+        $path = request()->path();
+        
+        if ($path != '/') {
+            $result = Page::where('slug', '/' . $path)->get();
+            if ($result->isEmpty()) {
+                abort(404);
+            }
         }
     }
 
@@ -41,7 +45,7 @@ class HomeController extends Controller
         $data = [
             'user' => auth()->user(),
             'users' => User::getData(),
-            'pages' => Page::get()->toTree()
+            'pages' => Page::getData()
         ];
 
         return view('layouts.app', compact('data'));

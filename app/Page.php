@@ -15,4 +15,9 @@ class Page extends Model
     {
         return $this->hasMany('App\Category', 'parent_id', 'id') ;
     }
+
+    public static function getData()
+    {
+        return Page::get()->toTree();
+    }
 }
