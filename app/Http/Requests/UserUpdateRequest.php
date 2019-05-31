@@ -33,6 +33,7 @@ class UserUpdateRequest extends FormRequest
     public function rules()
     {
         return [
+            'id'=>'',
             'username' => 'required',
             'email' => 'required'
         ];

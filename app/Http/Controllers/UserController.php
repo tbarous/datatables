@@ -48,8 +48,7 @@ class UserController extends Controller
     public function update(UserUpdateRequest $request)
     {
         $validated = (object) $request->validated();
-        // return $request->id;
-        $user = User::find($request->id);
+        $user = User::find($validated->id);
         $user->username = $validated->username;
         $user->email = $validated->email;
         $user->save();

@@ -2549,10 +2549,8 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(dataFetchUrl).then(function (_ref) {
         var data = _ref.data;
         _this3.pagination = data;
-        _this3.tableData = data.data;
-        if (msg) setTimeout(function () {
-          return _this3.$notify(msg);
-        }, 200);
+        _this3.tableData = data.data; // if(msg) setTimeout(() => this.$notify(msg), 200)
+
         _this3.loading = false;
 
         _this3.$store.dispatch('loading/setLoading', false);
@@ -2596,11 +2594,18 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       this.$store.dispatch('loading/setLoading', true);
-      axios.post(this.url + '/' + this.editingRow.id + '/update', {
+      axios.post(this.url + '/update', {
         row: JSON.stringify(this.editingRow)
       }).then(function (response) {
         console.log(response);
         _this4.errors.update = '';
+
+        _this4.$store.dispatch('loading/setLoading', false);
+
+        _this4.$notify({
+          type: 'success',
+          text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'
+        });
 
         _this4.fetchData(false, {
           type: 'success',

@@ -489,7 +489,7 @@ export default {
                 .then(({ data }) => {
                     this.pagination = data
                     this.tableData = data.data
-                    if(msg) setTimeout(() => this.$notify(msg), 200)
+                    // if(msg) setTimeout(() => this.$notify(msg), 200)
                     this.loading = false
                     this.$store.dispatch('loading/setLoading', false);
                 }).catch(error => {
@@ -532,11 +532,13 @@ export default {
 
         update() {
             this.$store.dispatch('loading/setLoading', true);
-            axios.post(this.url + '/' + this.editingRow.id + '/update', {
+            axios.post(this.url + '/update', {
                 row: JSON.stringify(this.editingRow)
             }).then(response => {
                 console.log(response)
                 this.errors.update = ''
+                this.$store.dispatch('loading/setLoading', false);
+                this.$notify({type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'})
                 this.fetchData(false, {type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'})
             }).catch(error => {
                 this.handleFailure(error, 'update')
