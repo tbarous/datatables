@@ -3,7 +3,7 @@
         <ul class="pagination justify-content-center m-0">
             <li v-for="i in 2">
                 <v-btn :disabled="firstDisabled(i)" dark fab small class="page-link d-flex" href="#" @click.prevent="switchPage(i)">
-                    <v-icon>fast_rewind</v-icon>
+                    <v-icon>{{icon(i)}}</v-icon>
                 </v-btn>
             </li>
 
@@ -51,12 +51,18 @@
                     return true
                 }
             },
+
+            icon(index){
+                if(index==1) return 'fast_rewind'
+                if(index==2) return 'chevron_left'
+            },
+
             switchPage(index) {
-                if(this.currentPage === 1 && index == 1){
+                if(index == 1){
                      this.$store.dispatch('datatable/changePage', 1)
                 }
 
-                if(this.currentPage === 1 && index == 1){
+                if(index==2){
                      this.$store.dispatch('datatable/changePage', this.currentPage-1)
                 }
             },

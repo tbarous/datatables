@@ -2251,12 +2251,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return true;
       }
     },
+    icon: function icon(index) {
+      if (index == 1) return 'fast_rewind';
+      if (index == 2) return 'chevron_left';
+    },
     switchPage: function switchPage(index) {
-      if (this.currentPage === 1 && index == 1) {
+      if (index == 1) {
         this.$store.dispatch('datatable/changePage', 1);
       }
 
-      if (this.currentPage === 1 && index == 1) {
+      if (index == 2) {
         this.$store.dispatch('datatable/changePage', this.currentPage - 1);
       }
     },
@@ -53034,7 +53038,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_c("v-icon", [_vm._v("fast_rewind")])],
+                      [_c("v-icon", [_vm._v(_vm._s(_vm.icon(i)))])],
                       1
                     )
                   ],
