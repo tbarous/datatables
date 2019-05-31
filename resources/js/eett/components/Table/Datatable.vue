@@ -203,7 +203,7 @@
         </div>
         <table-loader :loading="loading"></table-loader>
 
-        <pagination 
+<!--         <pagination 
             class="pagination"
             v-if="tableData.length"
             :pagination="pagination"
@@ -212,7 +212,80 @@
             :pagesNumber="pagesNumber" 
             @changePage="changePage"
         >
-        </pagination>
+        </pagination> -->
+
+        <nav 
+        v-if="pagination && tableData.length > 0" 
+        class="text-center ml-auto mr-auto d-flex align-center justify-content-center">
+        <ul class="pagination justify-content-center m-0">
+            <li 
+                :class="{'disabled' : currentPage === 1}">
+                <v-btn 
+                    :disabled="currentPage === 1"
+                    dark
+                    fab 
+                    small
+                    class="page-link d-flex" 
+                    href="#" 
+                    @click.prevent="changePage(1)">
+                    <v-icon>fast_rewind</v-icon>
+                </v-btn>
+            </li>
+            <li 
+                :class="{'disabled' : currentPage === 1}">
+                <v-btn 
+                    :disabled="currentPage === 1"
+                    dark
+                    fab 
+                    small
+                    class="page-link d-flex" 
+                    href="#" 
+                    @click.prevent="changePage(currentPage - 1)">
+                    <v-icon>chevron_left</v-icon>
+                </v-btn>
+            </li>
+
+            <li 
+                v-for="page in pagesNumber" 
+                class="page-item" 
+                :class="{'active': page == currentPage}">
+                <!-- :class="{'active': page == pagination.meta.current_page}" -->
+                <v-btn fab small
+                    href="javascript:void(0)" 
+                    @click.prevent="changePage(page)" 
+                    class="page-link d-flex">
+                    {{ page }}
+                </v-btn>
+            </li>
+
+            <li 
+                :class="{'disabled': currentPage === pagination.meta.last_page }">
+                <v-btn
+                    :disabled="currentPage === pagination.meta.last_page"
+                    dark
+                    fab
+                    small
+                    class="page-link d-flex" 
+                    href="#" 
+                    @click.prevent="changePage(currentPage + 1)">
+                    <v-icon>chevron_right</v-icon>
+                </v-btn>
+            </li>
+            <li 
+                :class="{'disabled': currentPage === pagination.meta.last_page }">
+                <v-btn
+                    :disabled="currentPage === pagination.meta.last_page"
+                    dark
+                    fab
+                    small
+                    class="page-link d-flex" 
+                    href="#" 
+                    @click.prevent="changePage(pagination.meta.last_page)">
+                    <v-icon>fast_forward</v-icon>
+                </v-btn>
+            </li>
+        </ul>
+    </nav>
 
         <v-dialog v-model="dialog.viewColumns" width="500">
             <v-card>
@@ -343,9 +416,7 @@
 </template>
 
 <script>
-import PaginationMixin from './../../mixins/Table/PaginationMixin'
 import TableLoader from './TableLoader'
-import Pagination from './Pagination'
 import _ from 'lodash'
 
 export default {
@@ -392,6 +463,16 @@ export default {
                 },
                 autoUpdateInput: false
             },
+
+            pagination: {
+                meta: {
+                    to: 1,
+                    from: 1
+                }
+            },
+            offset: 4,
+            currentPage: 1,
+            perPage: 15,
 
             errors: {
                 update: ''
@@ -448,6 +529,28 @@ export default {
 
         noData(){
             return this.tableData.length === 0 && !this.loading ? true : false
+        },
+        pagesNumber() {
+            if (!this.pagination.meta.to) {
+                return []
+            }
+            let from = this.pagination.meta.current_page - this.offset
+            if (from < 1) {
+                from = 1
+            }
+            let to = from + (this.offset * 2)
+            if (to >= this.pagination.meta.last_page) {
+                to = this.pagination.meta.last_page
+            }
+            let pagesArray = []
+            for (let page = from; page <= to; page++) {
+                pagesArray.push(page)
+            }
+            return pagesArray
+        },
+
+        totalData() {
+            return (this.pagination.meta.to - this.pagination.meta.from) + 1
         }
     },
 
@@ -632,10 +735,8 @@ export default {
     // },
 
     name: 'DataTable',
-    mixins: [PaginationMixin],
     components: {
         TableLoader,
-        Pagination
     }
 }
 </script>
