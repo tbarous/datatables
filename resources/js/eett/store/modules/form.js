@@ -6,7 +6,7 @@ const getters = {
     getData: state => {
         return state.users
     },
-    getResourceURL: state => {
+    getURL: state => {
         return state.users.url
     },
     getColumns: state => {
@@ -21,7 +21,7 @@ const mutations = {
 }
 
 const actions = {
-    setData(context, users){
+    setUpdating(context, users){
         context.commit('setData', users)
     }
 }

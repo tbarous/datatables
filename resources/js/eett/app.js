@@ -25,6 +25,8 @@ $(document).on('scroll', () => {
     $(window).scrollTop() > 500 ? store.dispatch('ui/setTop', true) : store.dispatch('ui/setTop', false)
 })
 
+import "./Filters"
+
 store.dispatch('data/setData', data)
 
 const app = new Vue({

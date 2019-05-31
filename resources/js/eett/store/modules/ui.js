@@ -9,6 +9,12 @@ const getters = {
     },
     getDrawer: state => {
         return state.drawer
+    },
+    getUpdateDialog: state => {
+        return state.updateDialog
+    },
+    getUpdateMultipleDialog: state => {
+        return state.updateMultipleDialog
     }
 }
 
@@ -22,6 +28,22 @@ const mutations = {
     toggleDrawer(state) {
         state.drawer = !state.drawer
     },
+    openUpdateDialog(state){
+        state.updateDialog = true
+    },
+    openUpdateMultipleDialog(state){
+        state.updateMultipleDialog = true
+    },
+    closeUpdateDialog(state){
+        state.updateDialog = false
+    },
+    closeUpdateMultipleDialog(state){
+        state.updateMultipleDialog = false
+    },
+    closeAllDialogs(){
+        state.updateDialog = false
+        state.updateMultipleDialog = false
+    }
 }
 
 const actions = {
@@ -37,6 +59,9 @@ const actions = {
     toTop() {
         $("html, body").animate({ scrollTop: 0 }, "slow");
     },
+    closeAllDialogs(context){
+         context.commit('closeAllDialogs')
+    }
 }
 
 export default {

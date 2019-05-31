@@ -6,6 +6,9 @@ import pages from './modules/pages'
 import auth from './modules/auth'
 import ui from './modules/ui'
 import data from './modules/data'
+import datatable from './modules/datatable'
+import api from './modules/api'
+import daterangepicker from './modules/daterangepicker'
 
 Vue.use(Vuex)
 
@@ -18,7 +21,10 @@ export default new Vuex.Store({
     pages,
     auth,
     ui,
-    data
+    data,
+    datatable,
+    api,
+    daterangepicker
   },
   // strict: debug
   strict: false
