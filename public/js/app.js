@@ -2117,47 +2117,6 @@ __webpack_require__.r(__webpack_exports__);
     this.$store.dispatch('datatable/setActiveColumnsAndQueries');
     return this.$store.dispatch('datatable/fetchData');
   },
-  computed: {
-    url: function url() {
-      return this.$store.getters['api/getResourceURL'];
-    },
-    columns: function columns() {
-      return this.$store.getters['datatable/getResourceURL'];
-    },
-    loading: function loading() {
-      return this.$store.getters['datatable/getLoading'];
-    },
-    pagination: function pagination() {
-      return this.$store.getters['datatable/getPagination'];
-    },
-    offset: function offset() {
-      return this.$store.getters['datatable/offset'];
-    },
-    currentPage: function currentPage() {
-      return this.$store.getters['datatable/currentPage'];
-    },
-    perPage: function perPage() {
-      return this.$store.getters['datatable/perPage'];
-    },
-    getItemsCount: function getItemsCount() {
-      return this.$store.getters['datatable/getItemsCount'];
-    },
-    noData: function noData() {
-      return this.$store.getters['datatable/noData'];
-    },
-    pagesNumber: function pagesNumber() {
-      return this.$store.getters['datatable/pagesNumber'];
-    },
-    totalData: function totalData() {
-      return this.$store.getters['datatable/totalData'];
-    },
-    options: function options() {
-      return this.$store.getters['daterangepicker/getOptions'];
-    },
-    sortedColumn: function sortedColumn() {
-      return this.$store.getters['datatable/sortedColumn'];
-    }
-  },
   components: {
     TableLoader: _TableLoader__WEBPACK_IMPORTED_MODULE_0__["default"],
     Navigation: _Navigation__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -2246,14 +2205,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -2267,6 +2218,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+var _this = undefined;
+
 //
 //
 //
@@ -2275,7 +2228,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  computed: {
+    noData: function noData() {
+      return _this.$store.getters['datatable/noData'];
+    }
+  }
+});
 
 /***/ }),
 
@@ -2288,6 +2247,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+var _this = undefined;
+
 //
 //
 //
@@ -2298,14 +2259,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  computed: {
+    perPage: function perPage() {
+      return _this.$store.getters['datatable/getPerPage'];
+    },
+    itemsShow: function itemsShow() {
+      return _this.$store.getters['datatable/getItemsShow'];
+    }
+  },
+  methods: {
+    fetchData: function fetchData() {
+      return _this.$store.dispatch('datatable/fetchData', true);
+    }
+  }
+});
 
 /***/ }),
 
@@ -2328,18 +2296,15 @@ var _this = undefined;
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
     generalSearch: function generalSearch() {
       return _this.$store.getters['datatable/generalSearch'];
+    }
+  },
+  methods: {
+    fetchData: function fetchData() {
+      return _this.$store.dispatch('datatable/fetchData', true);
     }
   }
 });
@@ -2382,10 +2347,8 @@ var _this = undefined;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
+var _this = undefined;
+
 //
 //
 //
@@ -2417,21 +2380,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
     selected: function selected() {
-      return this.$store.getters['datatable/selected'];
+      return _this.$store.getters['datatable/selected'];
     }
   },
   methods: {
     openUpdate: function openUpdate() {
-      this.$store.dispatch('ui/openUpdateDialog');
+      return _this.$store.dispatch('ui/openUpdateDialog');
     },
     openView: function openView() {
-      this.$store.dispatch('ui/openViewDialog');
+      return _this.$store.dispatch('ui/openViewDialog');
     },
     clearFilters: function clearFilters() {
-      this.$store.dispatch('datatable/clearFilters');
+      return _this.$store.dispatch('datatable/clearFilters');
     },
-    fetch: function fetch() {
-      this.$store.dispatch('datatable/fetch');
+    fetchData: function fetchData() {
+      return _this.$store.dispatch('datatable/fetchData');
     }
   }
 });
@@ -53051,18 +53014,9 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _vm.noData
     ? _c("tr", [
-        _c(
-          "td",
-          {
-            staticClass: "no-data bg-info text-dark",
-            attrs: { dark: "", colspan: _vm.columns.length + 3 }
-          },
-          [
-            _vm._v(
-              "\n                            No data was found\n                        "
-            )
-          ]
-        )
+        _c("td", { attrs: { colspan: _vm.columns.length + 3 } }, [
+          _vm._v("\n            No data was found\n        ")
+        ])
       ])
     : _vm._e()
 }
@@ -53088,38 +53042,27 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "v-flex",
-    { staticClass: "d-flex align-center", attrs: { xs6: "" } },
-    [
-      _c(
-        "div",
-        { staticClass: "items-show" },
-        [
-          _c("span", [_vm._v("Show")]),
-          _vm._v(" "),
-          _c("v-select", {
-            attrs: { items: _vm.itemsShow, label: "Show", solo: "" },
-            on: {
-              change: function($event) {
-                return _vm.fetchData(true)
-              }
-            },
-            model: {
-              value: _vm.perPage,
-              callback: function($$v) {
-                _vm.perPage = $$v
-              },
-              expression: "perPage"
-            }
-          }),
-          _vm._v(" "),
-          _c("span", [_vm._v("entries")])
-        ],
-        1
-      )
-    ]
-  )
+  return _c("v-flex", { attrs: { xs6: "" } }, [
+    _c(
+      "div",
+      [
+        _c("span", [_vm._v("Show")]),
+        _vm._v(" "),
+        _c("v-select", {
+          attrs: {
+            items: _vm.itemsShow,
+            label: "Show",
+            solo: "",
+            value: _vm.perPage
+          },
+          on: { change: _vm.fetchData }
+        }),
+        _vm._v(" "),
+        _c("span", [_vm._v("entries")])
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -53160,11 +53103,7 @@ var render = function() {
               clearable: "",
               label: "Search"
             },
-            on: {
-              input: function($event) {
-                return _vm.fetchData(true)
-              }
-            }
+            on: { input: _vm.fetchData }
           })
         ],
         1
@@ -53233,9 +53172,9 @@ var render = function() {
         [
           _c(
             "v-btn",
-            { attrs: { color: "blue", dark: "" }, on: { click: _vm.fetch } },
+            { on: { click: _vm.fetchData } },
             [
-              _vm._v("\n            Reload \n            "),
+              _vm._v("\n            Reload "),
               _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-sync")])
             ],
             1
@@ -53250,9 +53189,9 @@ var render = function() {
         [
           _c(
             "v-btn",
-            { attrs: { color: "yellow" }, on: { click: _vm.clearFilters } },
+            { on: { click: _vm.clearFilters } },
             [
-              _vm._v("\n            Clear \n            "),
+              _vm._v("\n            Clear "),
               _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-eraser")])
             ],
             1
@@ -53267,12 +53206,9 @@ var render = function() {
         [
           _c(
             "v-btn",
-            {
-              attrs: { color: "secondary", dark: "" },
-              on: { click: _vm.openView }
-            },
+            { on: { click: _vm.openView } },
             [
-              _vm._v("\n            Columns \n            "),
+              _vm._v("\n            Columns "),
               _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-columns")])
             ],
             1
@@ -53288,11 +53224,11 @@ var render = function() {
           _c(
             "v-btn",
             {
-              attrs: { disabled: _vm.selected.length < 2, dark: "" },
+              attrs: { disabled: _vm.selected.length < 2 },
               on: { click: _vm.openUpdate }
             },
             [
-              _vm._v("\n            Update \n            "),
+              _vm._v("\n            Update "),
               _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-edit")])
             ],
             1
@@ -99248,9 +99184,7 @@ var actions = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
-var _getters;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var _this = undefined;
 
 
 var state = {
@@ -99276,7 +99210,7 @@ var state = {
   selected: [],
   selectBoxes: {}
 };
-var getters = (_getters = {
+var getters = {
   getLoading: function getLoading(state) {
     return state.loading;
   },
@@ -99291,53 +99225,69 @@ var getters = (_getters = {
   },
   getColumns: function getColumns(state) {
     return state.columns;
+  },
+  getPerPage: function getPerPage(state) {
+    return state.perPage;
+  },
+  getItemsShow: function getItemsShow(state) {
+    return state.itemsShow;
+  },
+  getActiveColumns: function getActiveColumns(state) {
+    return state.activeColumns;
+  },
+  noData: function noData(state) {
+    return state.tableData.length === 0 && !state.loading ? true : false;
+  },
+  totalData: function totalData() {
+    return _this.pagination.meta.to - _this.pagination.meta.from + 1;
+  },
+  serialNumber: function serialNumber(state) {
+    return function (key) {
+      return (_this.currentPage - 1) * _this.perPage + 1 + key;
+    };
+  },
+  getItemsCount: function getItemsCount() {
+    if (this.perPage < this.pagination.meta.total) {
+      return "".concat(this.perPage, " of ").concat(this.pagination.meta.total, " entries");
+    }
+
+    return "".concat(this.pagination.meta.total, " of ").concat(this.pagination.meta.total, " entries");
+  },
+  pagesNumber: function pagesNumber() {
+    if (!this.pagination.meta.to) {
+      return [];
+    }
+
+    var from = this.pagination.meta.current_page - this.offset;
+
+    if (from < 1) {
+      from = 1;
+    }
+
+    var to = from + this.offset * 2;
+
+    if (to >= this.pagination.meta.last_page) {
+      to = this.pagination.meta.last_page;
+    }
+
+    var pagesArray = [];
+
+    for (var page = from; page <= to; page++) {
+      pagesArray.push(page);
+    }
+
+    return pagesArray;
   }
-}, _defineProperty(_getters, "getColumns", function getColumns(state) {
-  return state.columns;
-}), _defineProperty(_getters, "getItemsCount", function getItemsCount() {
-  if (this.perPage < this.pagination.meta.total) {
-    return "".concat(this.perPage, " of ").concat(this.pagination.meta.total, " entries");
-  }
-
-  return "".concat(this.pagination.meta.total, " of ").concat(this.pagination.meta.total, " entries");
-}), _defineProperty(_getters, "noData", function noData() {
-  return this.tableData.length === 0 && !this.loading ? true : false;
-}), _defineProperty(_getters, "pagesNumber", function pagesNumber() {
-  if (!this.pagination.meta.to) {
-    return [];
-  }
-
-  var from = this.pagination.meta.current_page - this.offset;
-
-  if (from < 1) {
-    from = 1;
-  }
-
-  var to = from + this.offset * 2;
-
-  if (to >= this.pagination.meta.last_page) {
-    to = this.pagination.meta.last_page;
-  }
-
-  var pagesArray = [];
-
-  for (var page = from; page <= to; page++) {
-    pagesArray.push(page);
-  }
-
-  return pagesArray;
-}), _defineProperty(_getters, "totalData", function totalData() {
-  return this.pagination.meta.to - this.pagination.meta.from + 1;
-}), _getters);
+};
 var mutations = {
   setColumns: function setColumns(state, columns) {
-    state.columns = columns;
+    return state.columns = columns;
   },
   startLoading: function startLoading(state) {
-    state.loading = true;
+    return state.loading = true;
   },
   stopLoading: function stopLoading(state) {
-    state.loading = false;
+    return state.loading = false;
   },
   toggleAll: function toggleAll(state) {
     if (!state.selectAll) {
@@ -99360,9 +99310,6 @@ var mutations = {
       state.queries[column.title] = '';
     });
   },
-  serialNumber: function serialNumber(key) {
-    return (this.currentPage - 1) * this.perPage + 1 + key;
-  },
   changePage: function changePage(pageNumber) {
     this.loading = true;
     this.currentPage = pageNumber;
@@ -99370,60 +99317,53 @@ var mutations = {
     this.fetchData();
   },
   sortByColumn: function sortByColumn(column) {
-    this.loading = true;
+    state.loading = true;
 
-    if (column.title === this.sortedColumn) {
-      this.order = this.order === 'asc' ? 'desc' : 'asc';
+    if (column.title === state.sortedColumn) {
+      state.order = state.order === 'asc' ? 'desc' : 'asc';
     } else {
-      this.sortedColumn = column.title;
-      this.order = 'asc';
+      state.sortedColumn = column.title;
+      state.order = 'asc';
     }
-
-    this.fetchData();
   },
   select: function select(item) {
-    if (!this.selected.includes(item.id)) {
-      this.selected.push(item.id);
-      this.selectBoxes[item.id] = true;
+    if (!store.selected.includes(item.id)) {
+      store.selected.push(item.id);
+      store.selectBoxes[item.id] = true;
     } else {
-      this.selected.splice(this.selected.indexOf(item.id), 1);
-      this.selectBoxes[item.id] = false;
+      store.selected.splice(store.selected.indexOf(item.id), 1);
+      store.selectBoxes[item.id] = false;
     }
   },
   clearFilters: function clearFilters() {
-    var _this = this;
+    var _this2 = this;
 
     this.queries = {};
     this.generalSearch = '';
     this.columns.map(function (column) {
-      _this.queries[column.title] = '';
+      _this2.queries[column.title] = '';
     });
     this.fetchData();
   },
-  fetchData: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (reset, msg) {
-    var _this2 = this;
-
-    if (reset) this.currentPage = 1;
-    if (this.generalSearch == null) this.generalSearch = '';
-    var dataFetchUrl = "".concat(this.url, "?page=").concat(this.currentPage, "&column=").concat(this.sortedColumn, "&order=").concat(this.order, "&per_page=").concat(this.perPage, "&search=").concat(this.generalSearch);
-    Object.keys(this.queries).map(function (item) {
-      var queryItem = _this2.queries[item];
+  fetchData: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (state, reset) {
+    if (reset) state.currentPage = 1;
+    if (state.generalSearch == null) state.generalSearch = '';
+    var dataFetchUrl = "".concat(state.url, "?page=").concat(state.currentPage, "&column=").concat(state.sortedColumn, "&order=").concat(state.order, "&per_page=").concat(state.perPage, "&search=").concat(state.generalSearch);
+    Object.keys(state.queries).map(function (item) {
+      var queryItem = state.queries[item];
       if (queryItem == null) queryItem = '';
       dataFetchUrl += '&' + item + '=' + queryItem;
     });
-    this.loading = true;
+    state.loading = true;
     axios.get(dataFetchUrl).then(function (_ref) {
       var data = _ref.data;
-      _this2.pagination = data;
-      _this2.tableData = data.data; // if(msg) setTimeout(() => this.$notify(msg), 200)
-
-      _this2.loading = false;
-
-      _this2.$store.dispatch('loading/setLoading', false);
+      state.pagination = data;
+      state.tableData = data.data;
+      state.loading = false;
+      state.$store.dispatch('loading/setLoading', false);
     })["catch"](function (error) {
-      _this2.tableData = [];
-
-      _this2.handleFailure(error);
+      state.tableData = [];
+      state.handleFailure(error);
     });
   }, 500)
 };
@@ -99450,6 +99390,13 @@ var actions = {
   },
   fetchData: function fetchData(context) {
     context.commit('startLoading');
+    context.commit('fetchData');
+  },
+  select: function select(context, item) {
+    context.commit('select', item);
+  },
+  sortByColumn: function sortByColumn(context, column) {
+    context.commit('sortedColumn', column);
     context.commit('fetchData');
   }
 };

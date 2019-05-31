@@ -1,47 +1,16 @@
 <template>
-	<tr 
-        v-for="(data, key1) in tableData" 
-        :key="data.id" 
-        class="m-datatable__row" 
-        v-else
-    >
-        <td width="5%">{{serialNumber(key1)}}</td>
-        <td width="5%">
-            <v-checkbox 
-                v-model="selectBoxes[data.id]" 
-                color="black" 
-                @change="select(data)"
-            >
-            </v-checkbox>
+	<tr v-for="(data, datakey) in tableData" :key="data.id" v-else>
+        <td>{{serial(datakey)}}</td>
+        <td>
+            <v-checkbox v-model="selectBoxes[data.id]" @change="select(item)"></v-checkbox>
         </td>
-        <td 
-            v-if="activeColumns[key]" 
-            v-for="(value, key) in data"
-        >
-            {{value}}
-        </td>
+        <td v-if="activeColumns[key]" v-for="(value, key) in data">{{value}}</td>
         <td width="10%" style="white-space: nowrap">
-            <v-btn 
-                flat 
-                @click="setEditDialog(key1, data)" 
-                fab 
-                dark 
-                small 
-                color="info"
-            >
-                <v-icon dark>
-                    edit
-                </v-icon>
+            <v-btn flat fab dark small color="info" @click="setEditDialog(key1, data)">
+                <v-icon dark>edit</v-icon>
             </v-btn>
 
-            <v-btn
-                @click="destroy(editingRow, data)"
-                flat 
-                fab 
-                dark 
-                small 
-                color="red"
-            >
+            <v-btn flat fab dark small color="red"@click="destroy(editingRow, data)">
                 <v-icon dark>delete</v-icon>
             </v-btn>
         </td>
@@ -50,6 +19,13 @@
 
 <script>
 	export default{
-		
+		computed: {
+            tableData: () => this.$store.state.getters['datatable/tableData'],
+            serial: (datakey) => this.$store.state.getters['datatable/serialNumber'](datakey)
+        },
+
+        methods: {
+            select: (item) => this.$store.dispatch('datatable/select', item)
+        }
 	}
 </script>

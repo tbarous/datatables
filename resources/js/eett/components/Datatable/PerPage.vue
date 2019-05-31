@@ -1,22 +1,22 @@
 <template>
-	<v-flex xs6 class="d-flex align-center">
-                <div class="items-show">
-                    <span>Show</span>
-                    <v-select 
-                        :items="itemsShow" 
-                        label="Show" 
-                        solo 
-                        v-model="perPage" 
-                        @change="fetchData(true)"
-                    >
-                    </v-select>
-                    <span>entries</span>
-                </div>
-            </v-flex>
+	<v-flex xs6>
+        <div>
+            <span>Show</span>
+            <v-select :items="itemsShow" label="Show" solo :value="perPage" @change="fetchData"></v-select>
+            <span>entries</span>
+        </div>
+    </v-flex>
 </template>
 
 <script>
 	export default{
-		
+		computed: {
+            perPage: () => this.$store.getters['datatable/getPerPage'],
+            itemsShow: () => this.$store.getters['datatable/getItemsShow']
+        },
+
+        methods:{
+            fetchData: () => this.$store.dispatch('datatable/fetchData', true)
+        }
 	}
 </script>

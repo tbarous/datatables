@@ -47,48 +47,6 @@ export default {
         return this.$store.dispatch('datatable/fetchData')
     },
 
-    computed: {
-        url(){
-            return this.$store.getters['api/getResourceURL']
-        },
-        columns(){
-            return this.$store.getters['datatable/getResourceURL']
-        },
-        loading(){
-            return this.$store.getters['datatable/getLoading']
-        },
-        pagination(){
-            return this.$store.getters['datatable/getPagination']
-        },
-        offset(){
-            return this.$store.getters['datatable/offset']
-        },
-        currentPage(){
-            return this.$store.getters['datatable/currentPage']
-        },
-        perPage(){
-            return this.$store.getters['datatable/perPage']
-        },
-        getItemsCount() {
-            return this.$store.getters['datatable/getItemsCount']
-        },
-        noData(){
-            return this.$store.getters['datatable/noData']
-        },
-        pagesNumber() {
-            return this.$store.getters['datatable/pagesNumber']
-        },
-        totalData() {
-            return this.$store.getters['datatable/totalData']
-        },
-        options(){
-            return this.$store.getters['daterangepicker/getOptions']
-        },
-        sortedColumn(){
-            return this.$store.getters['datatable/sortedColumn']
-        }
-    },
-
     components: {
         TableLoader,
         Navigation,

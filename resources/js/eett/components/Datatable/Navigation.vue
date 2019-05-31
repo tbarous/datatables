@@ -1,21 +1,13 @@
 <template>
 	<nav v-if="pagination && tableData.length > 0" class="text-center ml-auto mr-auto d-flex align-center justify-content-center">
         <ul class="pagination justify-content-center m-0">
-            <li 
-                :class="{'disabled' : currentPage === 1}">
-                <v-btn 
-                    :disabled="currentPage === 1"
-                    dark
-                    fab 
-                    small
-                    class="page-link d-flex" 
-                    href="#" 
-                    @click.prevent="changePage(1)">
+            <li :class="{'disabled' : currentPage === 1}">
+                <v-btn :disabled="currentPage === 1" dark fab small class="page-link d-flex" 
+                    href="#" @click.prevent="changePage(1)">
                     <v-icon>fast_rewind</v-icon>
                 </v-btn>
             </li>
-            <li 
-                :class="{'disabled' : currentPage === 1}">
+            <li :class="{'disabled' : currentPage === 1}">
                 <v-btn 
                     :disabled="currentPage === 1"
                     dark

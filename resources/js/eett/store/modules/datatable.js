@@ -20,32 +20,22 @@ const state = {
 }
 
 const getters = {
-    getLoading: state => {
-        return state.loading
-    },
-    getSelectAll: state => {
-        return state.selectAll
-    },
-    getPagination: state => {
-        return state.pagination
-    },
-    getSelected: state => {
-        return state.selected
-    },
-    getColumns: state => {
-        return state.columns
-    },
-    getColumns: state => {
-        return state.columns
-    },
+    getLoading: state =>  state.loading,
+    getSelectAll: state => state.selectAll,
+    getPagination: state => state.pagination,
+    getSelected: state => state.selected,
+    getColumns: state => state.columns,
+    getPerPage: state => state.perPage,
+    getItemsShow: state => state.itemsShow,
+    getActiveColumns: state => state.activeColumns,
+    noData: state => state.tableData.length === 0 && !state.loading ? true : false,
+    totalData: () => this.pagination.meta.to - this.pagination.meta.from + 1,
+    serialNumber: (state) => (key) => (this.currentPage - 1) * this.perPage + 1 + key,
     getItemsCount() {
         if(this.perPage < this.pagination.meta.total) {
             return `${this.perPage} of ${this.pagination.meta.total} entries`
         }
         return `${this.pagination.meta.total} of ${this.pagination.meta.total} entries`
-    },
-    noData(){
-        return this.tableData.length === 0 && !this.loading ? true : false
     },
     pagesNumber() {
         if (!this.pagination.meta.to) {
@@ -64,22 +54,13 @@ const getters = {
             pagesArray.push(page)
         }
         return pagesArray
-    },
-    totalData() {
-        return (this.pagination.meta.to - this.pagination.meta.from) + 1
     }
 }
 
 const mutations = {
-    setColumns(state, columns){
-        state.columns = columns
-    },
-    startLoading(state){
-        state.loading = true
-    },
-    stopLoading(state){
-        state.loading = false
-    },
+    setColumns: (state, columns) => state.columns = columns,
+    startLoading: state => state.loading = true,
+    stopLoading: state => state.loading = false,
     toggleAll(state){
         if(!state.selectAll){
             state.selectAll = true
@@ -96,17 +77,12 @@ const mutations = {
             })
         }
     },
+
     setActiveColumnsAndQueries(state){
         state.columns.map(column => {
             state.activeColumns[column.title] = true;
             state.queries[column.title] = '';
         });
-    },
-
-    
-
-    serialNumber(key) {
-        return (this.currentPage - 1) * this.perPage + 1 + key
     },
 
     changePage(pageNumber) {
@@ -117,23 +93,22 @@ const mutations = {
     },
 
     sortByColumn(column) {
-        this.loading = true;
-        if (column.title === this.sortedColumn) {
-            this.order = (this.order === 'asc') ? 'desc' : 'asc'
+        state.loading = true;
+        if (column.title === state.sortedColumn) {
+            state.order = (state.order === 'asc') ? 'desc' : 'asc'
         } else {
-            this.sortedColumn = column.title
-            this.order = 'asc'
+            state.sortedColumn = column.title
+            state.order = 'asc'
         }
-        this.fetchData()
     },
 
     select(item){
-        if(!this.selected.includes(item.id)){
-            this.selected.push(item.id)
-            this.selectBoxes[item.id] = true
+        if(!store.selected.includes(item.id)){
+            store.selected.push(item.id)
+            store.selectBoxes[item.id] = true
         } else {
-            this.selected.splice(this.selected.indexOf(item.id), 1)
-            this.selectBoxes[item.id] = false
+            store.selected.splice(store.selected.indexOf(item.id), 1)
+            store.selectBoxes[item.id] = false
         }
     },
     
@@ -146,29 +121,28 @@ const mutations = {
         this.fetchData()
     },
 
-    fetchData: _.debounce(function(reset, msg){
-        if (reset) this.currentPage = 1
-        if (this.generalSearch == null) this.generalSearch = ''
+    fetchData: _.debounce(function(state, reset){
+        if (reset) state.currentPage = 1
+        if (state.generalSearch == null) state.generalSearch = ''
 
-        let dataFetchUrl = `${this.url}?page=${this.currentPage}&column=${this.sortedColumn}&order=${this.order}&per_page=${this.perPage}&search=${this.generalSearch}`
+        let dataFetchUrl = `${state.url}?page=${state.currentPage}&column=${state.sortedColumn}&order=${state.order}&per_page=${state.perPage}&search=${state.generalSearch}`
 
-        Object.keys(this.queries).map(item => {
-            let queryItem = this.queries[item];
+        Object.keys(state.queries).map(item => {
+            let queryItem = state.queries[item];
             if (queryItem == null) queryItem = ''
             dataFetchUrl += '&' + item + '=' + queryItem;
         })
 
-        this.loading = true;
+        state.loading = true;
         axios.get(dataFetchUrl)
             .then(({ data }) => {
-                this.pagination = data
-                this.tableData = data.data
-                // if(msg) setTimeout(() => this.$notify(msg), 200)
-                this.loading = false
-                this.$store.dispatch('loading/setLoading', false);
+                state.pagination = data
+                state.tableData = data.data
+                state.loading = false
+                state.$store.dispatch('loading/setLoading', false);
             }).catch(error => {
-                this.tableData = []
-                this.handleFailure(error)
+                state.tableData = []
+                state.handleFailure(error)
             })
     }, 500),
 }
@@ -195,6 +169,13 @@ const actions = {
     },
     fetchData(context){
         context.commit('startLoading')
+        context.commit('fetchData')
+    },
+    select(context, item){
+        context.commit('select', item)
+    },
+    sortByColumn: (context, column) => {
+        context.commit('sortedColumn', column)
         context.commit('fetchData')
     }
 }
