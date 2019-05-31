@@ -10,6 +10,10 @@
 
 <script>
 	export default {
-		
+		computed: {
+            errors(){
+                return this.$store.getters['form/getErrors']
+            }
+        }
 	}
 </script>

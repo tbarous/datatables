@@ -8,8 +8,13 @@
 
 <script>
 	export default {
-		computed:{
-			noData: () => this.$store.getters['datatable/noData']
+		computed: {
+			noData() {
+				return this.$store.getters['datatable/noData']
+			},
+			columns() {
+                return this.$store.getters['datatable/getColumns']
+            }
 		}
 	}
 </script>

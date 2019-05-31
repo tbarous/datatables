@@ -49,7 +49,8 @@ const mutations = {
 const actions = {
     setOptions(context, options){
         context.commit('setOptions', options)
-    }
+    },
+    setPicker: (context) => null
 }
 
 export default {

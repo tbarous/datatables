@@ -8,12 +8,15 @@
 
 <script>
 	export default{
-		computed:{
-            generalSearch: () => this.$store.getters['datatable/generalSearch']
+		computed: {
+            generalSearch() {
+                return this.$store.getters['datatable/generalSearch']
+            }
         },
-
-        methods:{
-            fetchData: () => this.$store.dispatch('datatable/fetchData', true)
+        methods: {
+            fetchData() {
+                this.$store.dispatch('datatable/fetchData', true)
+            }
         }
 	}
 </script>

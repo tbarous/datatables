@@ -36,8 +36,11 @@
 <script>
 	export default{
 		computed: {
-            selectAll(){
+            selectAll() {
                 return this.$store.getters['datatable/getSelectAll']
+            },
+            columns() {
+                return this.$store.getters['datatable/getColumns']
             }
         }
 	}

@@ -7,7 +7,9 @@
 <script>
 export default {
 	computed: {
-		loading: () => this.$store.getters['datatable/getLoading']
+		loading() {
+			return this.$store.getters['datatable/getLoading']
+		}
 	}
 }
 </script>

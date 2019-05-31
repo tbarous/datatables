@@ -1,29 +1,19 @@
 const state = {
-    users: {}
+    errors: {}
 }
 
 const getters = {
-    getData: state => {
-        return state.users
-    },
-    getURL: state => {
-        return state.users.url
-    },
-    getColumns: state => {
-        return state.users.columns
+    getErrors: state => {
+        return state.errors
     },
 }
 
 const mutations = {
-    setData(state, users){
-        state.users = users
-    }
+
 }
 
 const actions = {
-    setUpdating(context, users){
-        context.commit('setData', users)
-    }
+
 }
 
 export default {

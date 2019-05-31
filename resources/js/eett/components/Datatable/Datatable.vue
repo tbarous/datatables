@@ -34,6 +34,7 @@ import Tools from './Tools'
 import Search from './Search'
 import ColumnSearch from './ColumnSearch'
 import NoData from './NoData'
+import Headers from './Headers'
 
 export default {
     mounted(){
@@ -55,7 +56,8 @@ export default {
         Tools,
         Search,
         ColumnSearch,
-        NoData
+        NoData,
+        Headers
     }
 }
 </script>

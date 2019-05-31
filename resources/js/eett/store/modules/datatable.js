@@ -26,28 +26,30 @@ const getters = {
     getSelected: state => state.selected,
     getColumns: state => state.columns,
     getPerPage: state => state.perPage,
+    getCurrentPage: state => state.currentPage,
+    getPagesNumber: state => state.pagesNumber,
     getItemsShow: state => state.itemsShow,
     getActiveColumns: state => state.activeColumns,
     noData: state => state.tableData.length === 0 && !state.loading ? true : false,
-    totalData: () => this.pagination.meta.to - this.pagination.meta.from + 1,
-    serialNumber: (state) => (key) => (this.currentPage - 1) * this.perPage + 1 + key,
+    totalData: () => state.pagination.meta.to - state.pagination.meta.from + 1,
+    serialNumber: (state) => (key) => (state.currentPage - 1) * state.perPage + 1 + key,
     getItemsCount() {
-        if(this.perPage < this.pagination.meta.total) {
-            return `${this.perPage} of ${this.pagination.meta.total} entries`
+        if(state.perPage < state.pagination.meta.total) {
+            return `${state.perPage} of ${state.pagination.meta.total} entries`
         }
-        return `${this.pagination.meta.total} of ${this.pagination.meta.total} entries`
+        return `${state.pagination.meta.total} of ${state.pagination.meta.total} entries`
     },
     pagesNumber() {
-        if (!this.pagination.meta.to) {
+        if (!state.pagination.meta.to) {
             return []
         }
-        let from = this.pagination.meta.current_page - this.offset
+        let from = state.pagination.meta.current_page - state.offset
         if (from < 1) {
             from = 1
         }
-        let to = from + (this.offset * 2)
-        if (to >= this.pagination.meta.last_page) {
-            to = this.pagination.meta.last_page
+        let to = from + (state.offset * 2)
+        if (to >= state.pagination.meta.last_page) {
+            to = state.pagination.meta.last_page
         }
         let pagesArray = []
         for (let page = from; page <= to; page++) {
@@ -61,6 +63,7 @@ const mutations = {
     setColumns: (state, columns) => state.columns = columns,
     startLoading: state => state.loading = true,
     stopLoading: state => state.loading = false,
+
     toggleAll(state){
         if(!state.selectAll){
             state.selectAll = true
@@ -85,11 +88,10 @@ const mutations = {
         });
     },
 
-    changePage(pageNumber) {
-        this.loading = true
-        this.currentPage = pageNumber
-        this.selectAll = false
-        this.fetchData()
+    changePage: (state, pageNumber) => {
+        state.loading = true
+        state.currentPage = pageNumber
+        state.selectAll = false
     },
 
     sortByColumn(column) {
@@ -112,13 +114,13 @@ const mutations = {
         }
     },
     
-    clearFilters(){
-        this.queries = {}
-        this.generalSearch = ''
-        this.columns.map(column => {
-            this.queries[column.title] = '';
+    clearFilters: state => {
+        state.queries = {}
+        state.generalSearch = ''
+        state.columns.map(column => {
+            state.queries[column.title] = '';
         });
-        this.fetchData()
+        state.fetchData()
     },
 
     fetchData: _.debounce(function(state, reset){
@@ -148,15 +150,9 @@ const mutations = {
 }
 
 const actions = {
-    setColumns(context, columns){
-        context.commit('setColumns', columns)
-    },
-    startLoading(context){
-        context.commit('startLoading')
-    },
-    stopLoading(context){
-        context.commit('stopLoading')
-    },
+    setColumns: (context, columns) => context.commit('setColumns', columns),
+    startLoading: (context) => context.commit('startLoading'),
+    stopLoading: (context) => context.commit('stopLoading'),
     setActiveColumnsAndQueries(context){
         context.commit('setActiveColumnsAndQueries')
     },
@@ -174,8 +170,14 @@ const actions = {
     select(context, item){
         context.commit('select', item)
     },
+
     sortByColumn: (context, column) => {
         context.commit('sortedColumn', column)
+        context.commit('fetchData')
+    },
+
+    changePage: (context) => {
+        context.commit('changePage')
         context.commit('fetchData')
     }
 }

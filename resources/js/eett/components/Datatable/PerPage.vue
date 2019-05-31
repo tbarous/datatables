@@ -1,5 +1,5 @@
 <template>
-	<v-flex xs6>
+    <v-flex xs6>
         <div>
             <span>Show</span>
             <v-select :items="itemsShow" label="Show" solo :value="perPage" @change="fetchData"></v-select>
@@ -9,14 +9,20 @@
 </template>
 
 <script>
-	export default{
-		computed: {
-            perPage: () => this.$store.getters['datatable/getPerPage'],
-            itemsShow: () => this.$store.getters['datatable/getItemsShow']
+export default {
+    computed: {
+        perPage() {
+            return this.$store.getters['datatable/getPerPage']
         },
-
-        methods:{
-            fetchData: () => this.$store.dispatch('datatable/fetchData', true)
+        itemsShow() {
+            return this.$store.getters['datatable/getItemsShow']
         }
-	}
+    },
+    methods: {
+        fetchData() {
+            this.$store.dispatch('datatable/fetchData', true)
+        }
+    }
+}
+
 </script>

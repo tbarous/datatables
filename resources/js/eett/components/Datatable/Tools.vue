@@ -29,14 +29,23 @@
 <script>
 	export default{
 		computed: {
-            selected: () => this.$store.getters['datatable/selected']
+            selected() {
+                return this.$store.getters['datatable/getSelected']
+            }
         },
-
         methods: {
-            openUpdate: () => this.$store.dispatch('ui/openUpdateDialog'),
-            openView: () => this.$store.dispatch('ui/openViewDialog'),
-            clearFilters: () => this.$store.dispatch('datatable/clearFilters'),
-            fetchData: () => this.$store.dispatch('datatable/fetchData')
+            openUpdate(){
+                this.$store.dispatch('ui/openUpdateDialog')
+            },
+            openView(){
+                this.$store.dispatch('ui/openViewDialog')
+            },
+            clearFilters(){
+                this.$store.dispatch('datatable/clearFilters')
+            },
+            fetchData(){
+                this.$store.dispatch('datatable/fetchData')
+            }
         }
 	}
 </script>

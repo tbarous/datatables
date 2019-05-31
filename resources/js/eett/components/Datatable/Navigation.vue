@@ -1,22 +1,9 @@
 <template>
 	<nav v-if="pagination && tableData.length > 0" class="text-center ml-auto mr-auto d-flex align-center justify-content-center">
         <ul class="pagination justify-content-center m-0">
-            <li :class="{'disabled' : currentPage === 1}">
-                <v-btn :disabled="currentPage === 1" dark fab small class="page-link d-flex" 
-                    href="#" @click.prevent="changePage(1)">
+            <li v-for="i in 2">
+                <v-btn :disabled="firstDisabled(i)" dark fab small class="page-link d-flex" href="#" @click.prevent="switchPage(i)">
                     <v-icon>fast_rewind</v-icon>
-                </v-btn>
-            </li>
-            <li :class="{'disabled' : currentPage === 1}">
-                <v-btn 
-                    :disabled="currentPage === 1"
-                    dark
-                    fab 
-                    small
-                    class="page-link d-flex" 
-                    href="#" 
-                    @click.prevent="changePage(currentPage - 1)">
-                    <v-icon>chevron_left</v-icon>
                 </v-btn>
             </li>
 
@@ -64,7 +51,30 @@
 </template>
 
 <script>
-	export default{
-		
+	export default {
+        computed: {
+            currentPage() {
+                return this.$store.getters['datatable/getCurrentPage']
+            },
+            pagesNumber() {
+                return this.$store.getters['datatable/getPagesNumber']
+            }
+        },
+		methods: {
+            firstDisabled(index) {
+                if(this.currentPage === 1 && index >= 1 && index<=2){
+                    return true
+                }
+            },
+            switchPage(index) {
+                if(this.currentPage === 1 && index == 1){
+                     this.$store.dispatch('changePage', 1)
+                }
+
+                if(this.currentPage === 1 && index == 1){
+                     this.$store.dispatch('changePage', this.currentPage-1)
+                }
+            }
+        }
 	}
 </script>
