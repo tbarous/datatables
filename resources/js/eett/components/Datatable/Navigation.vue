@@ -53,15 +53,15 @@
             },
             switchPage(index) {
                 if(this.currentPage === 1 && index == 1){
-                     this.$store.dispatch('changePage', 1)
+                     this.$store.dispatch('datatable/changePage', 1)
                 }
 
                 if(this.currentPage === 1 && index == 1){
-                     this.$store.dispatch('changePage', this.currentPage-1)
+                     this.$store.dispatch('datatable/changePage', this.currentPage-1)
                 }
             },
             changePage(page){
-                this.$store.dispatch('changePage', page)
+                this.$store.dispatch('datatable/changePage', page)
             }
         }
 	}

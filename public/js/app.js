@@ -2253,15 +2253,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     switchPage: function switchPage(index) {
       if (this.currentPage === 1 && index == 1) {
-        this.$store.dispatch('changePage', 1);
+        this.$store.dispatch('datatable/changePage', 1);
       }
 
       if (this.currentPage === 1 && index == 1) {
-        this.$store.dispatch('changePage', this.currentPage - 1);
+        this.$store.dispatch('datatable/changePage', this.currentPage - 1);
       }
     },
     changePage: function changePage(page) {
-      this.$store.dispatch('changePage', page);
+      this.$store.dispatch('datatable/changePage', page);
     }
   }
 });
@@ -99619,9 +99619,6 @@ var getters = {
   getSortedColumn: function getSortedColumn(state) {
     return state.sortedColumn;
   },
-  getPagesNumber: function getPagesNumber(state) {
-    return state.pagesNumber;
-  },
   getQueries: function getQueries(state) {
     return state.queries;
   },
@@ -99649,7 +99646,7 @@ var getters = {
 
     return "".concat(state.pagination.meta.total, " of ").concat(state.pagination.meta.total, " entries");
   },
-  pagesNumber: function pagesNumber() {
+  getPagesNumber: function getPagesNumber() {
     if (!state.pagination.meta.to) {
       return [];
     }
@@ -99791,8 +99788,8 @@ var actions = {
     context.commit('sortedColumn', column);
     context.commit('fetchData');
   },
-  changePage: function changePage(context) {
-    context.commit('changePage');
+  changePage: function changePage(context, page) {
+    context.commit('changePage', page);
     context.commit('fetchData');
   }
 };

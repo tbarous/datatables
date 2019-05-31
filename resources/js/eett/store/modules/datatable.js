@@ -31,7 +31,6 @@ const getters = {
     getTableData: state => {console.log(state.tableData);return state.tableData},
     getCurrentPage: state => state.currentPage,
     getSortedColumn: state => state.sortedColumn,
-    getPagesNumber: state => state.pagesNumber,
     getQueries: state => state.queries,
     getItemsShow: state => state.itemsShow,
     getActiveColumns: state => state.activeColumns,
@@ -44,7 +43,7 @@ const getters = {
         }
         return `${state.pagination.meta.total} of ${state.pagination.meta.total} entries`
     },
-    pagesNumber() {
+    getPagesNumber() {
         if (!state.pagination.meta.to) {
             return []
         }
@@ -178,8 +177,8 @@ const actions = {
         context.commit('sortedColumn', column)
         context.commit('fetchData')
     },
-    changePage: (context) => {
-        context.commit('changePage')
+    changePage: (context, page) => {
+        context.commit('changePage', page)
         context.commit('fetchData')
     }
 }
