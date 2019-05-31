@@ -168,7 +168,8 @@
                         </td>
                         <td 
                             v-if="activeColumns[key]" 
-                            v-for="(value, key) in data">
+                            v-for="(value, key) in data"
+                        >
                             {{value}}
                         </td>
                         <td width="10%" style="white-space: nowrap">
@@ -256,7 +257,7 @@
                 <v-card-text>
                     <v-form 
                         method="post" 
-                        @submit.prevent="update(editingIndex, editingRow)">
+                        @submit.prevent="update">
                         <v-text-field 
                             :label="column.title" 
                             solo 
@@ -272,7 +273,7 @@
 
                         <div v-if="errors.update" class="mt-3">
                             <div v-for="(error, index) in errors.update" :key="index">
-                                <p class="text-danger" v-for="thing in error">
+                                <p class="text-danger lead" v-for="thing in error">
                                     {{thing}}
                                 </p>
                             </div>
@@ -529,11 +530,13 @@ export default {
             }
         },
 
-        update(index, row) {
+        update() {
             this.$store.dispatch('loading/setLoading', true);
-            axios.post(this.url + '/update', {
-                row: JSON.stringify(row)
+            axios.post(this.url + '/' + this.editingRow.id + '/update', {
+                row: JSON.stringify(this.editingRow)
             }).then(response => {
+                console.log(response)
+                this.errors.update = ''
                 this.fetchData(false, {type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'})
             }).catch(error => {
                 this.handleFailure(error, 'update')

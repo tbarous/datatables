@@ -47,14 +47,14 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request)
     {
-        $user = json_decode($request->row, true);
+        $validated = (object) $request->validated();
+        // return $request->id;
+        $user = User::find($request->id);
+        $user->username = $validated->username;
+        $user->email = $validated->email;
+        $user->save();
 
-        $request->validated();
-
-        unset($user['created_at']);
-        unset($user['updated_at']);
-
-        User::where('id', $user['id'])->update($user);
+        return $user;
     }
 
     public function updateMany(Request $request)

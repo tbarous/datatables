@@ -16,6 +16,15 @@ class UserUpdateRequest extends FormRequest
         return true;
     }
 
+    protected function getValidatorInstance()
+    {
+        $data = json_decode($this->row, true);
+
+        $this->getInputSource()->replace($data);
+
+        return parent::getValidatorInstance();
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

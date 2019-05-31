@@ -2413,6 +2413,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -2591,13 +2592,16 @@ __webpack_require__.r(__webpack_exports__);
         this.selectBoxes[item.id] = false;
       }
     },
-    update: function update(index, row) {
+    update: function update() {
       var _this4 = this;
 
       this.$store.dispatch('loading/setLoading', true);
-      axios.post(this.url + '/update', {
-        row: JSON.stringify(row)
+      axios.post(this.url + '/' + this.editingRow.id + '/update', {
+        row: JSON.stringify(this.editingRow)
       }).then(function (response) {
+        console.log(response);
+        _this4.errors.update = '';
+
         _this4.fetchData(false, {
           type: 'success',
           text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'
@@ -53681,7 +53685,7 @@ var render = function() {
                       on: {
                         submit: function($event) {
                           $event.preventDefault()
-                          return _vm.update(_vm.editingIndex, _vm.editingRow)
+                          return _vm.update($event)
                         }
                       }
                     },
@@ -53729,7 +53733,7 @@ var render = function() {
                                 _vm._l(error, function(thing) {
                                   return _c(
                                     "p",
-                                    { staticClass: "text-danger" },
+                                    { staticClass: "text-danger lead" },
                                     [
                                       _vm._v(
                                         "\n                                " +
