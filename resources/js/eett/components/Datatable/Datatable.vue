@@ -8,70 +8,19 @@
         <tools></tools>
         <search></search>
         <table-loader></table-loader>
-
         <div class="wrapper double-scroll">
-            <table v-scroll class="elevation-3 table table-bordered bg-white mb-0" id="resultsTable" data-tableName="Test Table 2">
+            <table v-scroll id="table" data-tableName="Test Table 2">
                 <thead>
                     <headers></headers>
                     <column-search></column-search>
-
-                    
-
+                </thead>
                 <tbody>
                     <no-data></no-data>
-
-                    <tr 
-                        v-for="(data, key1) in tableData" 
-                        :key="data.id" 
-                        class="m-datatable__row" 
-                        v-else
-                    >
-                        <td width="5%">{{serialNumber(key1)}}</td>
-                        <td width="5%">
-                            <v-checkbox 
-                                v-model="selectBoxes[data.id]" 
-                                color="black" 
-                                @change="select(data)"
-                            >
-                            </v-checkbox>
-                        </td>
-                        <td 
-                            v-if="activeColumns[key]" 
-                            v-for="(value, key) in data"
-                        >
-                            {{value}}
-                        </td>
-                        <td width="10%" style="white-space: nowrap">
-                            <v-btn 
-                                flat 
-                                @click="setEditDialog(key1, data)" 
-                                fab 
-                                dark 
-                                small 
-                                color="info"
-                            >
-                                <v-icon dark>
-                                    edit
-                                </v-icon>
-                            </v-btn>
-
-                            <v-btn
-                                @click="destroy(editingRow, data)"
-                                flat 
-                                fab 
-                                dark 
-                                small 
-                                color="red"
-                            >
-                                <v-icon dark>delete</v-icon>
-                            </v-btn>
-                        </td>
-                    </tr>
+                    <body></body>
                 </tbody>
             </table>
         </div>
         <table-loader></table-loader>
-        
         <navigation></navigation>
     </div>
 </template>
@@ -84,36 +33,9 @@ import DataDetails from './DataDetails'
 import Tools from './Tools'
 import Search from './Search'
 import ColumnSearch from './ColumnSearch'
+import NoData from './NoData'
 
 export default {
-    data() {
-        return {
-            tableData: [],
-            selectAll: false,
-            sortedColumn: this.columns[3].title,
-            // order: 'desc',
-            // itemsShow: [15, 50, 100],
-            generalSearch: '',
-            queries: {},
-            editingIndex: 0,
-            editingRow: {},
-            viewColumns: false,
-            activeColumns: {},
-            selected: [],
-            selectBoxes: {},
-            editMultipleDialog: false,
-            editingMultipleRow: {},
-            dialog: {
-                editMultiple: false,
-                edit: false,
-                viewColumns: false
-            },
-            errors: {
-                update: ''
-            }
-        }
-    },
-
     mounted(){
         $('.double-scroll').doubleScroll()
         $('input[name="datefilter"]').daterangepicker(this.options)
@@ -122,7 +44,7 @@ export default {
 
     created() {
         this.$store.dispatch('datatable/setActiveColumnsAndQueries')
-        return this.fetchData()
+        return this.$store.dispatch('datatable/fetchData')
     },
 
     computed: {
@@ -161,16 +83,10 @@ export default {
         },
         options(){
             return this.$store.getters['daterangepicker/getOptions']
-        }
-    },
-
-    methods: {
-        setEditDialog(key1, data){
-             this.openDialog('edit'); 
-             this.editingIndex = key1; 
-             Object.assign(this.editingRow, data);
         },
-        
+        sortedColumn(){
+            return this.$store.getters['datatable/sortedColumn']
+        }
     },
 
     components: {

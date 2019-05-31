@@ -14,6 +14,14 @@ const state = {
     perPage: 15,
     order: 'desc',
     itemsShow: [15, 50, 100],
+    sortedColumn: '',
+    selectAll: false,
+    generalSearch: '',
+    tableData: [],
+    queries: {},
+    activeColumns: {},
+    selected: [],
+    selectBoxes: {},
 }
 
 const getters = {
@@ -27,7 +35,6 @@ const getters = {
         if(this.perPage < this.pagination.meta.total) {
             return `${this.perPage} of ${this.pagination.meta.total} entries`
         }
-
         return `${this.pagination.meta.total} of ${this.pagination.meta.total} entries`
     },
     noData(){
@@ -66,59 +73,30 @@ const mutations = {
     stopLoading(state){
         state.loading = false
     },
-    toggleAll(){
-        if(!this.selectAll){
-            this.selectAll = true
-            this.tableData.map(item=>{
-                this.selectBoxes[item.id] = true
-                if(this.selected.indexOf(item.id) == -1) this.selected.push(item.id)
+    toggleAll(state){
+        if(!state.selectAll){
+            state.selectAll = true
+            state.tableData.map(item=>{
+                state.selectBoxes[item.id] = true
+                if(state.selected.indexOf(item.id) == -1) state.selected.push(item.id)
             })
         } else {
-            this.selectAll = false
-            this.tableData.map(item=>{
-                this.selectBoxes[item.id] = false
-                if(this.selected.indexOf(item.id) != -1)
-                    this.selected.splice(this.selected.indexOf(item.id), 1)
+            state.selectAll = false
+            state.tableData.map(item=>{
+                state.selectBoxes[item.id] = false
+                if(state.selected.indexOf(item.id) != -1)
+                    state.selected.splice(state.selected.indexOf(item.id), 1)
             })
         }
     },
-    setActiveColumnsAndQueries(){
-        this.columns.map(column => {
-            this.activeColumns[column.title] = true;
-            this.queries[column.title] = '';
+    setActiveColumnsAndQueries(state){
+        state.columns.map(column => {
+            state.activeColumns[column.title] = true;
+            state.queries[column.title] = '';
         });
     },
 
-    fetchData(reset = false, msg = null){
-        this.loading = true
-        this.fetch(reset, msg)
-    },
-
-    fetch: _.debounce(function(reset, msg){
-        if (reset) this.currentPage = 1
-        if (this.generalSearch == null) this.generalSearch = ''
-
-        let dataFetchUrl = `${this.url}?page=${this.currentPage}&column=${this.sortedColumn}&order=${this.order}&per_page=${this.perPage}&search=${this.generalSearch}`
-
-        Object.keys(this.queries).map(item => {
-            let queryItem = this.queries[item];
-            if (queryItem == null) queryItem = ''
-            dataFetchUrl += '&' + item + '=' + queryItem;
-        })
-
-        this.loading = true;
-        axios.get(dataFetchUrl)
-            .then(({ data }) => {
-                this.pagination = data
-                this.tableData = data.data
-                // if(msg) setTimeout(() => this.$notify(msg), 200)
-                this.loading = false
-                this.$store.dispatch('loading/setLoading', false);
-            }).catch(error => {
-                this.tableData = []
-                this.handleFailure(error)
-            })
-    }, 500),
+    
 
     serialNumber(key) {
         return (this.currentPage - 1) * this.perPage + 1 + key
@@ -152,13 +130,13 @@ const mutations = {
         }
     },
     clearFilters(){
-            this.queries = {}
-            this.generalSearch = ''
-            this.columns.map(column => {
-                this.queries[column.title] = '';
-            });
-            this.fetchData()
-        }
+        this.queries = {}
+        this.generalSearch = ''
+        this.columns.map(column => {
+            this.queries[column.title] = '';
+        });
+        this.fetchData()
+    }
 }
 
 const actions = {
@@ -170,7 +148,14 @@ const actions = {
     },
     stopLoading(context){
         context.commit('stopLoading')
-    }
+    },
+    setActiveColumnsAndQueries(context){
+        context.commit('setActiveColumnsAndQueries')
+    },
+    fetchData(context, reset = false){
+        context.commit('startLoading')
+        context.dispatch('api/fetch')
+    },
 }
 
 export default {

@@ -64,6 +64,31 @@ const actions = {
     // setResourceURL(context, resourceURL){
     //     context.commit('setResourceURL', resourceURL)
     // }
+    fetch: _.debounce(function(reset, msg){
+        if (reset) this.currentPage = 1
+        if (this.generalSearch == null) this.generalSearch = ''
+
+        let dataFetchUrl = `${this.url}?page=${this.currentPage}&column=${this.sortedColumn}&order=${this.order}&per_page=${this.perPage}&search=${this.generalSearch}`
+
+        Object.keys(this.queries).map(item => {
+            let queryItem = this.queries[item];
+            if (queryItem == null) queryItem = ''
+            dataFetchUrl += '&' + item + '=' + queryItem;
+        })
+
+        this.loading = true;
+        axios.get(dataFetchUrl)
+            .then(({ data }) => {
+                this.pagination = data
+                this.tableData = data.data
+                // if(msg) setTimeout(() => this.$notify(msg), 200)
+                this.loading = false
+                this.$store.dispatch('loading/setLoading', false);
+            }).catch(error => {
+                this.tableData = []
+                this.handleFailure(error)
+            })
+    }, 500),
 }
 
 export default {
