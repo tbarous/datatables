@@ -2,6 +2,7 @@
      
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UsersResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -44,9 +45,11 @@ class UserController extends Controller
      * @param  Request $request [description]
      * @return [type]           [description]
      */
-    public function update(Request $request)
+    public function update(UserUpdateRequest $request)
     {
         $user = json_decode($request->row, true);
+
+        $request->validated();
 
         unset($user['created_at']);
         unset($user['updated_at']);

@@ -2405,6 +2405,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2450,6 +2458,9 @@ __webpack_require__.r(__webpack_exports__);
         locale: {// format: 'DD/MM/YY hh:mm'
         },
         autoUpdateInput: false
+      },
+      errors: {
+        update: ''
       }
     };
   },
@@ -2547,7 +2558,7 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         _this3.tableData = [];
 
-        _this3.handleFailure();
+        _this3.handleFailure(error);
       });
     }, 500),
     serialNumber: function serialNumber(key) {
@@ -2592,7 +2603,7 @@ __webpack_require__.r(__webpack_exports__);
           text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'
         });
       })["catch"](function (error) {
-        _this4.handleFailure;
+        _this4.handleFailure(error, 'update');
       });
     },
     setEditDialog: function setEditDialog(key1, data) {
@@ -2612,7 +2623,7 @@ __webpack_require__.r(__webpack_exports__);
           text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been deleted'
         });
       })["catch"](function (error) {
-        _this5.handleFailure;
+        _this5.handleFailure(error);
       });
     },
     updateMultiple: function updateMultiple(row) {
@@ -2628,7 +2639,7 @@ __webpack_require__.r(__webpack_exports__);
           text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Items has been updated'
         });
       })["catch"](function (error) {
-        _this6.handleFailure;
+        _this6.handleFailure(error);
       });
     },
     toggleAll: function toggleAll() {
@@ -2648,13 +2659,19 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
-    handleFailure: function handleFailure() {
+    handleFailure: function handleFailure(error, type) {
       this.loading = false;
       this.$store.dispatch('loading/setLoading', false);
-      this.fetchData(false, {
-        type: 'danger',
-        text: '<i class="fa fa-times" aria-hidden="true"></i> &nbsp;An error occured'
-      });
+
+      if (error) {
+        console.log(error.response.data.errors);
+        this.errors[type] = error.response.data.errors;
+      } else {
+        this.fetchData(false, {
+          type: 'danger',
+          text: '<i class="fa fa-times" aria-hidden="true"></i> &nbsp;An error occured'
+        });
+      }
     },
     clearFilters: function clearFilters() {
       var _this8 = this;
@@ -53699,7 +53716,35 @@ var render = function() {
                           attrs: { color: "primary", type: "submit" }
                         },
                         [_vm._v("edit")]
-                      )
+                      ),
+                      _vm._v(" "),
+                      _vm.errors.update
+                        ? _c(
+                            "div",
+                            { staticClass: "mt-3" },
+                            _vm._l(_vm.errors.update, function(error, index) {
+                              return _c(
+                                "div",
+                                { key: index },
+                                _vm._l(error, function(thing) {
+                                  return _c(
+                                    "p",
+                                    { staticClass: "text-danger" },
+                                    [
+                                      _vm._v(
+                                        "\n                                " +
+                                          _vm._s(thing) +
+                                          "\n                            "
+                                      )
+                                    ]
+                                  )
+                                }),
+                                0
+                              )
+                            }),
+                            0
+                          )
+                        : _vm._e()
                     ],
                     2
                   ),
@@ -54159,7 +54204,7 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("loading", {
-        attrs: { active: _vm.loading, "is-full-page": false },
+        attrs: { active: _vm.loading, "is-full-page": true },
         on: {
           "update:active": function($event) {
             _vm.loading = $event
@@ -99304,15 +99349,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************************!*\
   !*** ./resources/js/eett/views/mass-update/Index.vue ***!
   \*******************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Index_vue_vue_type_template_id_ac8ae85a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Index.vue?vue&type=template&id=ac8ae85a& */ "./resources/js/eett/views/mass-update/Index.vue?vue&type=template&id=ac8ae85a&");
 /* harmony import */ var _Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Index.vue?vue&type=script&lang=js& */ "./resources/js/eett/views/mass-update/Index.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -99342,7 +99386,7 @@ component.options.__file = "resources/js/eett/views/mass-update/Index.vue"
 /*!********************************************************************************!*\
   !*** ./resources/js/eett/views/mass-update/Index.vue?vue&type=script&lang=js& ***!
   \********************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

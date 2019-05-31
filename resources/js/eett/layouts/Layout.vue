@@ -4,7 +4,7 @@
         <Navbar></Navbar>
         <Content></Content>
         <notifications animation-name="fade" position="bottom right" />
-        <loading :active.sync="loading" :is-full-page="false"></loading>
+        <loading :active.sync="loading" :is-full-page="true"></loading>
         <to-top></to-top>
     </v-app>
 </template>

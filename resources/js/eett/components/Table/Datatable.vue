@@ -269,6 +269,14 @@
                         </v-text-field>
                         <br>
                         <v-btn class="ml-0 w-100" color="primary" type="submit">edit</v-btn>
+
+                        <div v-if="errors.update" class="mt-3">
+                            <div v-for="(error, index) in errors.update" :key="index">
+                                <p class="text-danger" v-for="thing in error">
+                                    {{thing}}
+                                </p>
+                            </div>
+                        </div>
                     </v-form>
                     
                     <v-btn 
@@ -382,6 +390,10 @@ export default {
                     // format: 'DD/MM/YY hh:mm'
                 },
                 autoUpdateInput: false
+            },
+
+            errors: {
+                update: ''
             }
         }
     },
@@ -481,7 +493,7 @@ export default {
                     this.$store.dispatch('loading/setLoading', false);
                 }).catch(error => {
                     this.tableData = []
-                    this.handleFailure()
+                    this.handleFailure(error)
                 })
         }, 500),
 
@@ -524,7 +536,7 @@ export default {
             }).then(response => {
                 this.fetchData(false, {type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'})
             }).catch(error => {
-                this.handleFailure
+                this.handleFailure(error, 'update')
             })
         },
 
@@ -541,7 +553,7 @@ export default {
             }).then(response => {
                 this.fetchData(false, {type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been deleted'})
             }).catch(error => {
-                this.handleFailure
+                this.handleFailure(error)
             })
         },
 
@@ -553,7 +565,7 @@ export default {
             }).then(response => {
                 this.fetchData(false, {type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Items has been updated'})
             }).catch(error => {
-                this.handleFailure
+                this.handleFailure(error)
             })
         },
 
@@ -574,10 +586,16 @@ export default {
             }
         },
 
-        handleFailure(){
+        handleFailure(error, type){
             this.loading = false
             this.$store.dispatch('loading/setLoading', false)
-            this.fetchData(false, {type: 'danger', text: '<i class="fa fa-times" aria-hidden="true"></i> &nbsp;An error occured'})
+
+            if(error){
+                console.log(error.response.data.errors)
+                this.errors[type] = error.response.data.errors
+            } else {
+                this.fetchData(false, {type: 'danger', text: '<i class="fa fa-times" aria-hidden="true"></i> &nbsp;An error occured'})
+            }
         },
 
         clearFilters(){

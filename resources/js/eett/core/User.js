@@ -1,9 +1,9 @@
 import api from '../api'
 
-module.exports = class User {
-
+class User {
 	constructor(){
 		this.resource = '/users'
+		this.username = 
 	}
 
 	getUsers(){
@@ -11,5 +11,3 @@ module.exports = class User {
 	}
 
 }
-
-export default User
