@@ -1902,7 +1902,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     var clipboard = new Clipboard('#export-btn');
@@ -1928,7 +1927,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -1942,7 +1940,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -1983,24 +1980,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("datatable", {
@@ -2027,8 +2006,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
 //
 //
 //
@@ -2158,6 +2135,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -52598,7 +52576,7 @@ var render = function() {
           attrs: { id: "export-btn", "data-clipboard-target": "#resultsTable" }
         },
         [
-          _vm._v("\n                    Export\n                    "),
+          _vm._v("\n            Export "),
           _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-file-export")])
         ],
         1
@@ -52637,7 +52615,7 @@ var render = function() {
         "v-btn",
         { attrs: { color: "green", dark: "", href: "/storage/invoices.xlsx" } },
         [
-          _vm._v("\n                    Excel \n                    "),
+          _vm._v("\n            Excel "),
           _c("v-icon", { attrs: { small: "" } }, [_vm._v("far fa-file-excel")])
         ],
         1
@@ -52683,7 +52661,7 @@ var render = function() {
           }
         },
         [
-          _vm._v("\n                    PDF \n                    "),
+          _vm._v("\n            PDF "),
           _c("v-icon", { attrs: { small: "" } }, [_vm._v("far fa-file-pdf")])
         ],
         1
@@ -52749,23 +52727,15 @@ var render = function() {
                       staticStyle: { "min-width": "100px" },
                       attrs: {
                         clearable: "",
+                        value: _vm.queries[column.title],
                         solo: "",
                         autocomplete: "off",
-                        name: "name",
-                        label: "",
                         "prepend-inner-icon": "search"
                       },
                       on: {
                         input: function($event) {
                           return _vm.fetchData(true)
                         }
-                      },
-                      model: {
-                        value: _vm.queries[column.title],
-                        callback: function($$v) {
-                          _vm.$set(_vm.queries, column.title, $$v)
-                        },
-                        expression: "queries[column.title]"
                       }
                     })
                   : _vm._e(),
@@ -52808,7 +52778,7 @@ var render = function() {
           : _vm._e()
       }),
       _vm._v(" "),
-      _c("th", { attrs: { width: "10%" } })
+      _c("th")
     ],
     2
   )
@@ -52839,15 +52809,13 @@ var render = function() {
     _c("div", { staticClass: "items-count" }, [
       !_vm.loading
         ? _c("div", [
-            _c("p", { staticClass: "text-white" }, [
-              _vm._v(
-                "\n                    Last Update @ " +
-                  _vm._s(_vm.pagination.meta.last_update) +
-                  "\n                "
-              )
+            _c("p", { staticClass: "text-dark" }, [
+              _vm._v("Last Update @ " + _vm._s(_vm.pagination.meta.last_update))
             ]),
             _vm._v(" "),
-            _c("i", [_vm._v(_vm._s(_vm.getItemsCount))])
+            _c("i", { staticClass: "text-dark" }, [
+              _vm._v(_vm._s(_vm.getItemsCount))
+            ])
           ])
         : _c("div", { staticStyle: { height: "50px" } }, [
             _c("img", { attrs: { src: "/images/ajax-loader.gif", alt: "" } })
@@ -52855,7 +52823,9 @@ var render = function() {
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
-      _c("u", [_vm._v("Selected: " + _vm._s(_vm.selected.length))])
+      _c("u", { staticClass: "text-dark" }, [
+        _vm._v("Selected: " + _vm._s(_vm.selected.length))
+      ])
     ])
   ])
 }

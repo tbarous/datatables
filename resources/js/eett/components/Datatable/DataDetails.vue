@@ -2,16 +2,14 @@
 	<v-flex xs6 class="text-right">
         <div class="items-count">
             <div v-if="!loading">
-                <p class="text-white">
-                    Last Update @ {{pagination.meta.last_update}}
-                </p>
-                <i>{{getItemsCount}}</i>
+                <p class="text-dark">Last Update @ {{pagination.meta.last_update}}</p>
+                <i class="text-dark">{{getItemsCount}}</i>
             </div>
             <div v-else style="height: 50px;">
                 <img src="/images/ajax-loader.gif" alt="">
             </div>
             <br>
-            <u>Selected: {{selected.length}}</u>
+            <u class="text-dark">Selected: {{selected.length}}</u>
         </div>
     </v-flex>
 </template>
