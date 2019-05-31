@@ -1,6 +1,6 @@
 <template>
-	<div v-if="errors.update" class="mt-3">
-        <div v-for="(error, index) in errors.update" :key="index">
+	<div v-if="errors" class="mt-3">
+        <div v-for="(error, index) in errors" :key="index">
             <p class="text-danger lead" v-for="thing in error">
                 {{thing}}
             </p>

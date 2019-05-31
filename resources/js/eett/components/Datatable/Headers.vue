@@ -12,20 +12,19 @@
         <th></th>
     </tr>
 </template>
-
 <script>
+import { mapGetters } from 'vuex'
 export default {
     computed: {
-        activeColumns() {
-            return this.$store.getters['getActiveColumns']
-        },
-        columns() {
-            return this.$store.getters['getColumns']
-        }
+        ...mapGetters("datatable", {
+            activeColumns: 'getActiveColumns',
+            columns: 'getColumns',
+            sortedColumn: 'getSortedColumn'
+        })
     },
     methods: {
         sortByColumn(column) {
-            this.$store.dispatch('sortByColumn', column)
+            this.$store.dispatch('datatable/sortByColumn', column)
         }
     }
 }

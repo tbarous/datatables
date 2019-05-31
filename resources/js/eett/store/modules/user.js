@@ -1,5 +1,7 @@
 const state = {
-    users: {}
+    users: {},
+    columns: [],
+    resourceURL: ''
 }
 
 const getters = {
@@ -7,16 +9,18 @@ const getters = {
         return state.users
     },
     getResourceURL: state => {
-        return state.users.url
+        return state.resourceURL
     },
     getColumns: state => {
-        return state.users.columns
+        return state.columns
     },
 }
 
 const mutations = {
     setData(state, users){
         state.users = users
+        state.columns = users.columns
+        state.resourceURL = users.url
     }
 }
 

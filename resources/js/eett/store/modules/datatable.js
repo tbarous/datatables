@@ -1,6 +1,7 @@
 import _ from 'lodash'
 
 const state = {
+    url: '',
     columns: {},
     loading: false,
     pagination: { meta: { to: 1, from: 1 } },
@@ -26,13 +27,17 @@ const getters = {
     getSelected: state => state.selected,
     getColumns: state => state.columns,
     getPerPage: state => state.perPage,
+    getSelectBoxes: state => state.selectBoxes,
+    getTableData: state => {console.log(state.tableData);return state.tableData},
     getCurrentPage: state => state.currentPage,
+    getSortedColumn: state => state.sortedColumn,
     getPagesNumber: state => state.pagesNumber,
+    getQueries: state => state.queries,
     getItemsShow: state => state.itemsShow,
     getActiveColumns: state => state.activeColumns,
-    noData: state => state.tableData.length === 0 && !state.loading ? true : false,
+    noData: state => state.tableData.length === 0 && !state.loading,
     totalData: () => state.pagination.meta.to - state.pagination.meta.from + 1,
-    serialNumber: (state) => (key) => (state.currentPage - 1) * state.perPage + 1 + key,
+    getSerialNumber: (state) => (key) => (state.currentPage - 1) * state.perPage + 1 + key,
     getItemsCount() {
         if(state.perPage < state.pagination.meta.total) {
             return `${state.perPage} of ${state.pagination.meta.total} entries`
@@ -63,6 +68,7 @@ const mutations = {
     setColumns: (state, columns) => state.columns = columns,
     startLoading: state => state.loading = true,
     stopLoading: state => state.loading = false,
+    setResourceURL: (state, resourceURL) => state.url = resourceURL,
 
     toggleAll(state){
         if(!state.selectAll){
@@ -120,7 +126,6 @@ const mutations = {
         state.columns.map(column => {
             state.queries[column.title] = '';
         });
-        state.fetchData()
     },
 
     fetchData: _.debounce(function(state, reset){
@@ -138,13 +143,15 @@ const mutations = {
         state.loading = true;
         axios.get(dataFetchUrl)
             .then(({ data }) => {
+                console.log(data)
                 state.pagination = data
                 state.tableData = data.data
                 state.loading = false
-                state.$store.dispatch('loading/setLoading', false);
+                // state.$store.dispatch('loading/setLoading', false);
             }).catch(error => {
-                state.tableData = []
-                state.handleFailure(error)
+                // console.log(error)
+                // state.tableData = []
+                // state.handleFailure(error)
             })
     }, 500),
 }
@@ -153,29 +160,24 @@ const actions = {
     setColumns: (context, columns) => context.commit('setColumns', columns),
     startLoading: (context) => context.commit('startLoading'),
     stopLoading: (context) => context.commit('stopLoading'),
-    setActiveColumnsAndQueries(context){
-        context.commit('setActiveColumnsAndQueries')
-    },
-    fetch(context, reset = false){
+    setActiveColumnsAndQueries: (context) => context.commit('setActiveColumnsAndQueries'),
+    
+    select: (context, item) => context.commit('select', item),
+
+
+    clearFilters: (context) => {
         context.commit('startLoading')
-        context.dispatch('api/fetch')
-    },
-    clearFilters(context){
         context.commit('clearFilters')
+        context.commit('fetchData')
     },
     fetchData(context){
         context.commit('startLoading')
         context.commit('fetchData')
     },
-    select(context, item){
-        context.commit('select', item)
-    },
-
     sortByColumn: (context, column) => {
         context.commit('sortedColumn', column)
         context.commit('fetchData')
     },
-
     changePage: (context) => {
         context.commit('changePage')
         context.commit('fetchData')

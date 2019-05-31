@@ -9,14 +9,14 @@
         <search></search>
         <table-loader></table-loader>
         <div class="wrapper double-scroll">
-            <table v-scroll id="table" data-tableName="Test Table 2">
+            <table id="table" data-tableName="Test Table 2" v-scroll>
                 <thead>
                     <headers></headers>
                     <column-search></column-search>
                 </thead>
                 <tbody>
                     <no-data></no-data>
-                    <body></body>
+                    <table-body></table-body>
                 </tbody>
             </table>
         </div>
@@ -35,8 +35,15 @@ import Search from './Search'
 import ColumnSearch from './ColumnSearch'
 import NoData from './NoData'
 import Headers from './Headers'
+import TableBody from './TableBody'
 
 export default {
+    computed: {
+        options() {
+            return this.$store.getters['daterangepicker/getOptions']
+        }
+    },
+
     mounted(){
         $('.double-scroll').doubleScroll()
         $('input[name="datefilter"]').daterangepicker(this.options)
@@ -57,7 +64,8 @@ export default {
         Search,
         ColumnSearch,
         NoData,
-        Headers
+        Headers,
+        TableBody
     }
 }
 </script>

@@ -17,20 +17,15 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
 	export default{
 		computed: {
-			loading(){
-				return this.$store.getters['datatable/getLoading']
-			},
-			pagination(){
-				return this.$store.getters['datatable/getPagination']
-			},
-			getItemsCount(){
-				return this.$store.getters['datatable/getItemsCount']
-			},
-			selected(){
-				return this.$store.getters['datatable/getSelected']
-			}
+			...mapGetters("datatable", {
+	            loading: 'getLoading',
+	            pagination: 'getPagination',
+	            getItemsCount: 'getItemsCount',
+	            selected: 'getSelected',
+	        })
 		}
 	}
 </script>

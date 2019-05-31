@@ -5,9 +5,7 @@
             <PDF></PDF>
             <copy></copy>
         </v-layout>
-
         <datatable></datatable>
-
         <update></update>
         <update-multiple></update-multiple>
     </div>
@@ -23,8 +21,10 @@ import Copy from './../components/Datatable/Actions/Copy'
 
 export default {
     created(){
-        this.$store.commit('api/setResourceURL', this.$store.getters['users/getResourceURL'])
-        this.$store.commit('datatable/setColumns', this.$store.getters['users/getColumns'])
+        const url = this.$store.getters['user/getResourceURL']
+        this.$store.commit('api/setResourceURL', url)
+        this.$store.commit('datatable/setResourceURL', url)
+        this.$store.commit('datatable/setColumns', this.$store.getters['user/getColumns'])
     },
 
     components: {

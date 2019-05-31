@@ -7,42 +7,25 @@
                 </v-btn>
             </li>
 
-            <li 
-                v-for="page in pagesNumber" 
-                class="page-item" 
-                :class="{'active': page == currentPage}">
+            <li v-for="page in pagesNumber" class="page-item" :class="{'active': page == currentPage}">
                 <!-- :class="{'active': page == pagination.meta.current_page}" -->
-                <v-btn fab small
-                    href="javascript:void(0)" 
-                    @click.prevent="changePage(page)" 
-                    class="page-link d-flex">
+                <v-btn fab small href="javascript:void(0)" @click.prevent="changePage(page)" class="page-link d-flex">
                     {{ page }}
                 </v-btn>
             </li>
 
-            <li 
-                :class="{'disabled': currentPage === pagination.meta.last_page }">
-                <v-btn
-                    :disabled="currentPage === pagination.meta.last_page"
-                    dark
-                    fab
-                    small
-                    class="page-link d-flex" 
-                    href="#" 
+            <li :class="{'disabled': currentPage === pagination.meta.last_page }">
+                <v-btn :disabled="currentPage === pagination.meta.last_page"
+                    dark fab small class="page-link d-flex" href="#" 
                     @click.prevent="changePage(currentPage + 1)">
                     <v-icon>chevron_right</v-icon>
                 </v-btn>
             </li>
-            <li 
-                :class="{'disabled': currentPage === pagination.meta.last_page }">
-                <v-btn
-                    :disabled="currentPage === pagination.meta.last_page"
-                    dark
-                    fab
-                    small
-                    class="page-link d-flex" 
-                    href="#" 
-                    @click.prevent="changePage(pagination.meta.last_page)">
+
+            <li :class="{'disabled': currentPage === pagination.meta.last_page }">
+                <v-btn :disabled="currentPage === pagination.meta.last_page"
+                    dark fab small class="page-link d-flex" 
+                    href="#" @click.prevent="changePage(pagination.meta.last_page)">
                     <v-icon>fast_forward</v-icon>
                 </v-btn>
             </li>
@@ -51,14 +34,16 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
+    
 	export default {
         computed: {
-            currentPage() {
-                return this.$store.getters['datatable/getCurrentPage']
-            },
-            pagesNumber() {
-                return this.$store.getters['datatable/getPagesNumber']
-            }
+            ...mapGetters("datatable", {
+                currentPage: 'getCurrentPage',
+                pagesNumber: 'getPagesNumber',
+                pagination: 'getPagination',
+                tableData: 'getTableData'
+            })
         },
 		methods: {
             firstDisabled(index) {
@@ -74,6 +59,9 @@
                 if(this.currentPage === 1 && index == 1){
                      this.$store.dispatch('changePage', this.currentPage-1)
                 }
+            },
+            changePage(page){
+                this.$store.dispatch('changePage', page)
             }
         }
 	}

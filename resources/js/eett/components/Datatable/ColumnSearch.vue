@@ -1,13 +1,10 @@
 <template>
-	<tr class="bg-dark text-white">
-        <th width="5%"></th>
-        <th width="5%">
+	<tr>
+        <th></th>
+        <th>
             <v-checkbox class="toggleAll mt-0" @click.self="toggleAll" :value="selectAll"></v-checkbox>
         </th>
-        <th class="pt-0 pb-0" 
-            v-if="activeColumns[column.title]" 
-            v-for="column in columns" 
-            :key="column.title">
+        <th v-if="activeColumns[column.title]" v-for="column in columns" :key="column.title">
             <v-text-field 
                 clearable 
                 style="min-width: 100px;"
@@ -34,14 +31,16 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
+
 	export default{
 		computed: {
-            selectAll() {
-                return this.$store.getters['datatable/getSelectAll']
-            },
-            columns() {
-                return this.$store.getters['datatable/getColumns']
-            }
+            ...mapGetters("datatable", {
+                selectAll: 'getSelectAll',
+                columns: 'getColumns',
+                activeColumns: 'getActiveColumns',
+                queries: 'getQueries'
+            })
         }
 	}
 </script>

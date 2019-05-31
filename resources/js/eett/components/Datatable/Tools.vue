@@ -27,6 +27,9 @@
 </template>
 
 <script>
+    import { mapMutations } from 'vuex'
+    import { mapActions } from 'vuex'
+
 	export default{
 		computed: {
             selected() {
@@ -34,18 +37,16 @@
             }
         },
         methods: {
-            openUpdate(){
-                this.$store.dispatch('ui/openUpdateDialog')
-            },
-            openView(){
-                this.$store.dispatch('ui/openViewDialog')
-            },
-            clearFilters(){
-                this.$store.dispatch('datatable/clearFilters')
-            },
-            fetchData(){
-                this.$store.dispatch('datatable/fetchData')
-            }
+            ...mapMutations('ui', {
+              openUpdate: 'openUpdateDialog',
+              openView: 'openViewDialog'
+            }),
+            ...mapMutations('datatable', {
+              clearFilters: 'clearFilters',
+            }),
+            ...mapActions('datatable', {
+              fetchData: 'fetchData'
+            })
         }
 	}
 </script>

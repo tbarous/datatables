@@ -9,14 +9,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
     computed: {
-        perPage() {
-            return this.$store.getters['datatable/getPerPage']
-        },
-        itemsShow() {
-            return this.$store.getters['datatable/getItemsShow']
-        }
+        ...mapGetters("datatable", {
+            perPage: 'getPerPage',
+            itemsShow: 'getItemsShow'
+        })
     },
     methods: {
         fetchData() {

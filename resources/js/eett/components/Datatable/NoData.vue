@@ -7,14 +7,13 @@
 </template>
 
 <script>
+ 	import { mapGetters } from 'vuex'
 	export default {
 		computed: {
-			noData() {
-				return this.$store.getters['datatable/noData']
-			},
-			columns() {
-                return this.$store.getters['datatable/getColumns']
-            }
+			...mapGetters("datatable", {
+	            noData: 'noData',
+	            columns: 'getColumns'
+	        })
 		}
 	}
 </script>
