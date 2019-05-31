@@ -3,12 +3,7 @@ import _ from 'lodash'
 const state = {
     columns: {},
     loading: false,
-    pagination: {
-        meta: {
-            to: 1,
-            from: 1
-        }
-    },
+    pagination: { meta: { to: 1, from: 1 } },
     offset: 4,
     currentPage: 1,
     perPage: 15,
@@ -25,6 +20,18 @@ const state = {
 }
 
 const getters = {
+    getLoading: state => {
+        return state.loading
+    },
+    getSelectAll: state => {
+        return state.selectAll
+    },
+    getPagination: state => {
+        return state.pagination
+    },
+    getSelected: state => {
+        return state.selected
+    },
     getColumns: state => {
         return state.columns
     },
@@ -129,6 +136,7 @@ const mutations = {
             this.selectBoxes[item.id] = false
         }
     },
+    
     clearFilters(){
         this.queries = {}
         this.generalSearch = ''
@@ -136,7 +144,33 @@ const mutations = {
             this.queries[column.title] = '';
         });
         this.fetchData()
-    }
+    },
+
+    fetchData: _.debounce(function(reset, msg){
+        if (reset) this.currentPage = 1
+        if (this.generalSearch == null) this.generalSearch = ''
+
+        let dataFetchUrl = `${this.url}?page=${this.currentPage}&column=${this.sortedColumn}&order=${this.order}&per_page=${this.perPage}&search=${this.generalSearch}`
+
+        Object.keys(this.queries).map(item => {
+            let queryItem = this.queries[item];
+            if (queryItem == null) queryItem = ''
+            dataFetchUrl += '&' + item + '=' + queryItem;
+        })
+
+        this.loading = true;
+        axios.get(dataFetchUrl)
+            .then(({ data }) => {
+                this.pagination = data
+                this.tableData = data.data
+                // if(msg) setTimeout(() => this.$notify(msg), 200)
+                this.loading = false
+                this.$store.dispatch('loading/setLoading', false);
+            }).catch(error => {
+                this.tableData = []
+                this.handleFailure(error)
+            })
+    }, 500),
 }
 
 const actions = {
@@ -152,10 +186,17 @@ const actions = {
     setActiveColumnsAndQueries(context){
         context.commit('setActiveColumnsAndQueries')
     },
-    fetchData(context, reset = false){
+    fetch(context, reset = false){
         context.commit('startLoading')
         context.dispatch('api/fetch')
     },
+    clearFilters(context){
+        context.commit('clearFilters')
+    },
+    fetchData(context){
+        context.commit('startLoading')
+        context.commit('fetchData')
+    }
 }
 
 export default {

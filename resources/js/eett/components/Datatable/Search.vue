@@ -1,16 +1,14 @@
 <template>
 	<v-layout>
         <v-flex xs3 offset-xs9>
-            <v-text-field 
-                class="generalSearch"
+            <v-text-field class="generalSearch"
                 @input="fetchData(true)" 
-                v-model="generalSearch"
+                :value="generalSearch"
                 solo 
                 prepend-inner-icon="search" 
                 autocomplete="off" 
                 clearable 
-                label="Search"
-            >
+                label="Search">
             </v-text-field>
         </v-flex>
     </v-layout>
@@ -18,6 +16,8 @@
 
 <script>
 	export default{
-		
+		computed:{
+            generalSearch: () => this.$store.getters['datatable/generalSearch']
+        }
 	}
 </script>

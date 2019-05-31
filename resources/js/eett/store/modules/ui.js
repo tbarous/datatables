@@ -1,6 +1,9 @@
 const state = {
     top: false,
-    drawer: true
+    drawer: true,
+    viewDialog: false,
+    updateDialog: false,
+    updateMultipleDialog: false
 }
 
 const getters = {
@@ -34,8 +37,14 @@ const mutations = {
     openUpdateMultipleDialog(state){
         state.updateMultipleDialog = true
     },
+    openViewDialog(state){
+        state.viewDialog = true
+    },
     closeUpdateDialog(state){
         state.updateDialog = false
+    },
+    closeViewDialog(state){
+        state.viewDialog = false
     },
     closeUpdateMultipleDialog(state){
         state.updateMultipleDialog = false
@@ -43,6 +52,7 @@ const mutations = {
     closeAllDialogs(){
         state.updateDialog = false
         state.updateMultipleDialog = false
+        state.viewDialog = false
     }
 }
 

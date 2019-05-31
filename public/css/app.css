@@ -1787,17 +1787,22 @@ pre code {
   padding: 0.3rem;
 }
 
-.table-bordered {
+.table-bordered,
+.table {
   border: 1px solid #dee2e6;
 }
 
 .table-bordered th,
-.table-bordered td {
+.table th,
+.table-bordered td,
+.table td {
   border: 1px solid #dee2e6;
 }
 
 .table-bordered thead th,
-.table-bordered thead td {
+.table thead th,
+.table-bordered thead td,
+.table thead td {
   border-bottom-width: 2px;
 }
 
@@ -2031,7 +2036,8 @@ pre code {
   border-color: #454d55;
 }
 
-.table-dark.table-bordered {
+.table-dark.table-bordered,
+.table-dark.table {
   border: 0;
 }
 
@@ -2052,7 +2058,8 @@ pre code {
     -webkit-overflow-scrolling: touch;
   }
 
-  .table-responsive-sm > .table-bordered {
+  .table-responsive-sm > .table-bordered,
+  .table-responsive-sm > .table {
     border: 0;
   }
 }
@@ -2065,7 +2072,8 @@ pre code {
     -webkit-overflow-scrolling: touch;
   }
 
-  .table-responsive-md > .table-bordered {
+  .table-responsive-md > .table-bordered,
+  .table-responsive-md > .table {
     border: 0;
   }
 }
@@ -2078,7 +2086,8 @@ pre code {
     -webkit-overflow-scrolling: touch;
   }
 
-  .table-responsive-lg > .table-bordered {
+  .table-responsive-lg > .table-bordered,
+  .table-responsive-lg > .table {
     border: 0;
   }
 }
@@ -2091,7 +2100,8 @@ pre code {
     -webkit-overflow-scrolling: touch;
   }
 
-  .table-responsive-xl > .table-bordered {
+  .table-responsive-xl > .table-bordered,
+  .table-responsive-xl > .table {
     border: 0;
   }
 }
@@ -2103,7 +2113,8 @@ pre code {
   -webkit-overflow-scrolling: touch;
 }
 
-.table-responsive > .table-bordered {
+.table-responsive > .table-bordered,
+.table-responsive > .table {
   border: 0;
 }
 
@@ -6966,7 +6977,8 @@ button.bg-dark:focus {
   background-color: #1d2124 !important;
 }
 
-.bg-white {
+.bg-white,
+.table {
   background-color: #fff !important;
 }
 
@@ -8307,6 +8319,7 @@ button.bg-dark:focus {
 }
 
 .mb-0,
+.table,
 .my-0 {
   margin-bottom: 0 !important;
 }
@@ -10784,7 +10797,9 @@ a.text-dark:focus {
   }
 
   .table-bordered th,
-  .table-bordered td {
+  .table th,
+  .table-bordered td,
+  .table td {
     border: 1px solid #dee2e6 !important;
   }
 

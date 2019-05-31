@@ -1,18 +1,13 @@
 <template>
-    <div class="loader" :class="{nopacity: !loading}">
-        <v-progress-linear class="mb-0 mt-0" :indeterminate="true" color="blue">
-        </v-progress-linear>
+    <div :class="{nopacity: !loading}">
+        <v-progress-linear :indeterminate="true"></v-progress-linear>
     </div>
 </template>
 
 <script>
 export default {
-	props: {
-		loading: {
-			type: Boolean,
-			required: true
-		}
+	computed: {
+		loading: () => this.$store.getters['datatable/getLoading']
 	}
 }
-
 </script>

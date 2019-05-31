@@ -1999,10 +1999,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  computed: {
+    selectAll: function selectAll() {
+      return this.$store.getters['datatable/getSelectAll'];
+    }
+  }
+});
 
 /***/ }),
 
@@ -2033,7 +2036,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  computed: {
+    loading: function loading() {
+      return this.$store.getters['datatable/getLoading'];
+    },
+    pagination: function pagination() {
+      return this.$store.getters['datatable/getPagination'];
+    },
+    getItemsCount: function getItemsCount() {
+      return this.$store.getters['datatable/getItemsCount'];
+    },
+    selected: function selected() {
+      return this.$store.getters['datatable/getSelected'];
+    }
+  }
+});
 
 /***/ }),
 
@@ -2300,6 +2318,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+var _this = undefined;
+
 //
 //
 //
@@ -2316,9 +2336,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  computed: {
+    generalSearch: function generalSearch() {
+      return _this.$store.getters['datatable/generalSearch'];
+    }
+  }
+});
 
 /***/ }),
 
@@ -2331,7 +2355,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
+var _this = undefined;
+
 //
 //
 //
@@ -2339,10 +2364,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    loading: {
-      type: Boolean,
-      required: true
+  computed: {
+    loading: function loading() {
+      return _this.$store.getters['datatable/getLoading'];
     }
   }
 });
@@ -2390,12 +2414,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  computed: {
+    selected: function selected() {
+      return this.$store.getters['datatable/selected'];
+    }
+  },
+  methods: {
+    openUpdate: function openUpdate() {
+      this.$store.dispatch('ui/openUpdateDialog');
+    },
+    openView: function openView() {
+      this.$store.dispatch('ui/openViewDialog');
+    },
+    clearFilters: function clearFilters() {
+      this.$store.dispatch('datatable/clearFilters');
+    },
+    fetch: function fetch() {
+      this.$store.dispatch('datatable/fetch');
+    }
+  }
+});
 
 /***/ }),
 
@@ -52593,7 +52632,7 @@ var render = function() {
         [
           _c("v-checkbox", {
             staticClass: "toggleAll mt-0",
-            attrs: { color: "white" },
+            attrs: { value: _vm.selectAll },
             on: {
               click: function($event) {
                 if ($event.target !== $event.currentTarget) {
@@ -52601,13 +52640,6 @@ var render = function() {
                 }
                 return _vm.toggleAll($event)
               }
-            },
-            model: {
-              value: _vm.selectAll,
-              callback: function($$v) {
-                _vm.selectAll = $$v
-              },
-              expression: "selectAll"
             }
           })
         ],
@@ -52717,9 +52749,9 @@ var render = function() {
         ? _c("div", [
             _c("p", { staticClass: "text-white" }, [
               _vm._v(
-                "\n                            Last Update @ " +
+                "\n                    Last Update @ " +
                   _vm._s(_vm.pagination.meta.last_update) +
-                  "\n                        "
+                  "\n                "
               )
             ]),
             _vm._v(" "),
@@ -53121,6 +53153,7 @@ var render = function() {
           _c("v-text-field", {
             staticClass: "generalSearch",
             attrs: {
+              value: _vm.generalSearch,
               solo: "",
               "prepend-inner-icon": "search",
               autocomplete: "off",
@@ -53131,13 +53164,6 @@ var render = function() {
               input: function($event) {
                 return _vm.fetchData(true)
               }
-            },
-            model: {
-              value: _vm.generalSearch,
-              callback: function($$v) {
-                _vm.generalSearch = $$v
-              },
-              expression: "generalSearch"
             }
           })
         ],
@@ -53171,13 +53197,8 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "loader", class: { nopacity: !_vm.loading } },
-    [
-      _c("v-progress-linear", {
-        staticClass: "mb-0 mt-0",
-        attrs: { indeterminate: true, color: "blue" }
-      })
-    ],
+    { class: { nopacity: !_vm.loading } },
+    [_c("v-progress-linear", { attrs: { indeterminate: true } })],
     1
   )
 }
@@ -53205,7 +53226,6 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-layout",
-    { staticClass: "table-tools" },
     [
       _c(
         "v-flex",
@@ -53213,16 +53233,9 @@ var render = function() {
         [
           _c(
             "v-btn",
-            {
-              attrs: { color: "blue", dark: "" },
-              on: {
-                click: function($event) {
-                  return _vm.fetchData(true)
-                }
-              }
-            },
+            { attrs: { color: "blue", dark: "" }, on: { click: _vm.fetch } },
             [
-              _vm._v("\n                    Reload \n                    "),
+              _vm._v("\n            Reload \n            "),
               _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-sync")])
             ],
             1
@@ -53239,7 +53252,7 @@ var render = function() {
             "v-btn",
             { attrs: { color: "yellow" }, on: { click: _vm.clearFilters } },
             [
-              _vm._v("\n                    Clear \n                    "),
+              _vm._v("\n            Clear \n            "),
               _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-eraser")])
             ],
             1
@@ -53256,14 +53269,10 @@ var render = function() {
             "v-btn",
             {
               attrs: { color: "secondary", dark: "" },
-              on: {
-                click: function($event) {
-                  return _vm.openDialog("viewColumns")
-                }
-              }
+              on: { click: _vm.openView }
             },
             [
-              _vm._v("\n                    Columns \n                    "),
+              _vm._v("\n            Columns \n            "),
               _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-columns")])
             ],
             1
@@ -53279,19 +53288,11 @@ var render = function() {
           _c(
             "v-btn",
             {
-              attrs: {
-                disabled: _vm.selected.length < 2,
-                color: "secondary",
-                dark: ""
-              },
-              on: {
-                click: function($event) {
-                  return _vm.openDialog("editMultiple")
-                }
-              }
+              attrs: { disabled: _vm.selected.length < 2, dark: "" },
+              on: { click: _vm.openUpdate }
             },
             [
-              _vm._v("\n                    Update \n                    "),
+              _vm._v("\n            Update \n            "),
               _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-edit")])
             ],
             1
@@ -99142,36 +99143,9 @@ var mutations = {
     }
   }
 };
-var actions = {
-  // setResourceURL(context, resourceURL){
+var actions = {// setResourceURL(context, resourceURL){
   //     context.commit('setResourceURL', resourceURL)
   // }
-  fetch: _.debounce(function (reset, msg) {
-    var _this4 = this;
-
-    if (reset) this.currentPage = 1;
-    if (this.generalSearch == null) this.generalSearch = '';
-    var dataFetchUrl = "".concat(this.url, "?page=").concat(this.currentPage, "&column=").concat(this.sortedColumn, "&order=").concat(this.order, "&per_page=").concat(this.perPage, "&search=").concat(this.generalSearch);
-    Object.keys(this.queries).map(function (item) {
-      var queryItem = _this4.queries[item];
-      if (queryItem == null) queryItem = '';
-      dataFetchUrl += '&' + item + '=' + queryItem;
-    });
-    this.loading = true;
-    axios.get(dataFetchUrl).then(function (_ref) {
-      var data = _ref.data;
-      _this4.pagination = data;
-      _this4.tableData = data.data; // if(msg) setTimeout(() => this.$notify(msg), 200)
-
-      _this4.loading = false;
-
-      _this4.$store.dispatch('loading/setLoading', false);
-    })["catch"](function (error) {
-      _this4.tableData = [];
-
-      _this4.handleFailure(error);
-    });
-  }, 500)
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
@@ -99303,6 +99277,18 @@ var state = {
   selectBoxes: {}
 };
 var getters = (_getters = {
+  getLoading: function getLoading(state) {
+    return state.loading;
+  },
+  getSelectAll: function getSelectAll(state) {
+    return state.selectAll;
+  },
+  getPagination: function getPagination(state) {
+    return state.pagination;
+  },
+  getSelected: function getSelected(state) {
+    return state.selected;
+  },
   getColumns: function getColumns(state) {
     return state.columns;
   }
@@ -99413,7 +99399,33 @@ var mutations = {
       _this.queries[column.title] = '';
     });
     this.fetchData();
-  }
+  },
+  fetchData: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (reset, msg) {
+    var _this2 = this;
+
+    if (reset) this.currentPage = 1;
+    if (this.generalSearch == null) this.generalSearch = '';
+    var dataFetchUrl = "".concat(this.url, "?page=").concat(this.currentPage, "&column=").concat(this.sortedColumn, "&order=").concat(this.order, "&per_page=").concat(this.perPage, "&search=").concat(this.generalSearch);
+    Object.keys(this.queries).map(function (item) {
+      var queryItem = _this2.queries[item];
+      if (queryItem == null) queryItem = '';
+      dataFetchUrl += '&' + item + '=' + queryItem;
+    });
+    this.loading = true;
+    axios.get(dataFetchUrl).then(function (_ref) {
+      var data = _ref.data;
+      _this2.pagination = data;
+      _this2.tableData = data.data; // if(msg) setTimeout(() => this.$notify(msg), 200)
+
+      _this2.loading = false;
+
+      _this2.$store.dispatch('loading/setLoading', false);
+    })["catch"](function (error) {
+      _this2.tableData = [];
+
+      _this2.handleFailure(error);
+    });
+  }, 500)
 };
 var actions = {
   setColumns: function setColumns(context, columns) {
@@ -99428,10 +99440,17 @@ var actions = {
   setActiveColumnsAndQueries: function setActiveColumnsAndQueries(context) {
     context.commit('setActiveColumnsAndQueries');
   },
-  fetchData: function fetchData(context) {
+  fetch: function fetch(context) {
     var reset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
     context.commit('startLoading');
     context.dispatch('api/fetch');
+  },
+  clearFilters: function clearFilters(context) {
+    context.commit('clearFilters');
+  },
+  fetchData: function fetchData(context) {
+    context.commit('startLoading');
+    context.commit('fetchData');
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -99601,7 +99620,10 @@ var actions = {
 __webpack_require__.r(__webpack_exports__);
 var state = {
   top: false,
-  drawer: true
+  drawer: true,
+  viewDialog: false,
+  updateDialog: false,
+  updateMultipleDialog: false
 };
 var getters = {
   getTop: function getTop(state) {
@@ -99633,8 +99655,14 @@ var mutations = {
   openUpdateMultipleDialog: function openUpdateMultipleDialog(state) {
     state.updateMultipleDialog = true;
   },
+  openViewDialog: function openViewDialog(state) {
+    state.viewDialog = true;
+  },
   closeUpdateDialog: function closeUpdateDialog(state) {
     state.updateDialog = false;
+  },
+  closeViewDialog: function closeViewDialog(state) {
+    state.viewDialog = false;
   },
   closeUpdateMultipleDialog: function closeUpdateMultipleDialog(state) {
     state.updateMultipleDialog = false;
@@ -99642,6 +99670,7 @@ var mutations = {
   closeAllDialogs: function closeAllDialogs() {
     state.updateDialog = false;
     state.updateMultipleDialog = false;
+    state.viewDialog = false;
   }
 };
 var actions = {
@@ -100615,7 +100644,7 @@ component.options.__file = "resources/js/eett/views/mass-update/sites/Halted.vue
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed (from ./node_modules/css-loader/index.js):\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/lib/loader.js):\n\r\n    @extend .elevation-3;\r\n   ^\r\n      The target selector was not found.\nUse \"@extend .elevation-3 !optional\" to avoid this error.\n  ╷\n6 │     @extend .elevation-3;\r\n  │     ^^^^^^^^^^^^^^^^^^^^\n  ╵\n  resources\\sass\\eett\\_custom.scss 6:5  root stylesheet\r\n      in C:\\xampp\\htdocs\\project\\resources\\sass\\eett\\_custom.scss (line 6, column 5)\n    at runLoaders (C:\\xampp\\htdocs\\project\\node_modules\\webpack\\lib\\NormalModule.js:301:20)\n    at C:\\xampp\\htdocs\\project\\node_modules\\loader-runner\\lib\\LoaderRunner.js:367:11\n    at C:\\xampp\\htdocs\\project\\node_modules\\loader-runner\\lib\\LoaderRunner.js:233:18\n    at context.callback (C:\\xampp\\htdocs\\project\\node_modules\\loader-runner\\lib\\LoaderRunner.js:111:13)\n    at render (C:\\xampp\\htdocs\\project\\node_modules\\sass-loader\\lib\\loader.js:52:13)\n    at Function.$2 (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:24443:48)\n    at wP.$2 (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:15367:15)\n    at uU.vt (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:9079:42)\n    at uU.vs (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:9081:32)\n    at iB.uF (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:8429:46)\n    at us.$0 (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:8571:7)\n    at Object.eH (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:1512:80)\n    at ad.ba (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:8492:3)\n    at iO.ba (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:8422:25)\n    at iO.cv (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:8409:6)\n    at py.cv (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:8199:35)\n    at Object.m (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:1383:19)\n    at C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:5078:51\n    at xf.a (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:1394:71)\n    at xf.$2 (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:8214:23)\n    at vS.$2 (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:8209:25)\n    at uU.vt (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:9079:42)\n    at uU.vs (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:9081:32)\n    at iB.uF (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:8429:46)\n    at us.$0 (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:8571:7)\n    at Object.eH (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:1512:80)\n    at ad.ba (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:8492:3)\n    at iO.ba (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:8422:25)\n    at iO.cv (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:8409:6)\n    at Object.eval (eval at CM (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:648:15), <anonymous>:3:37)\n    at uU.vt (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:9079:42)\n    at uU.vs (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:9081:32)\n    at iB.uF (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:8429:46)\n    at us.$0 (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:8571:7)\n    at Object.eH (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:1512:80)\n    at ad.ba (C:\\xampp\\htdocs\\project\\node_modules\\sass\\sass.dart.js:8492:3)");
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 

@@ -2,12 +2,12 @@
     font-family: 'Nunito' !important;
 }
 
-.table{
-    @extend .elevation-3;
-    @extend .table;
-    @extend .table-bordered;
-    @extend .bg-white;
-    @extend .mb-0;
+.table {
+    @extend .elevation-3!optional;
+    @extend .table!optional;
+    @extend .table-bordered!optional;
+    @extend .bg-white!optional;
+    @extend .mb-0!optional;
 }
 
 a:hover {
