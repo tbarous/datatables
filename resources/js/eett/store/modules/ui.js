@@ -7,48 +7,23 @@ const state = {
 }
 
 const getters = {
-    getTop: state => {
-        return state.top
-    },
-    getDrawer: state => {
-        return state.drawer
-    },
-    getUpdateDialog: state => {
-        return state.updateDialog
-    },
-    getUpdateMultipleDialog: state => {
-        return state.updateMultipleDialog
-    }
+    getTop: state => state.top,
+    getDrawer: state => state.drawer,
+    getUpdateDialog: state => state.updateDialog,
+    getViewDialog: state => state.viewDialog,
+    getUpdateMultipleDialog: state => state.updateMultipleDialog
 }
 
 const mutations = {
-    setTop(state, top) {
-        state.top = top
-    },
-    setDrawer(state, drawer) {
-        state.drawer = drawer
-    },
-    toggleDrawer(state) {
-        state.drawer = !state.drawer
-    },
-    openUpdateDialog(state){
-        state.updateDialog = true
-    },
-    openUpdateMultipleDialog(state){
-        state.updateMultipleDialog = true
-    },
-    openViewDialog(state){
-        state.viewDialog = true
-    },
-    closeUpdateDialog(state){
-        state.updateDialog = false
-    },
-    closeViewDialog(state){
-        state.viewDialog = false
-    },
-    closeUpdateMultipleDialog(state){
-        state.updateMultipleDialog = false
-    },
+    setTop: (state, top) => state.top = top,
+    setDrawer: (state, drawer) => state.drawer = drawer,
+    toggleDrawer: (state) => state.drawer = !state.drawer,
+    openUpdateDialog: (state) => state.updateDialog = true,
+    openUpdateMultipleDialog: (state) => state.updateMultipleDialog = true,
+    openViewDialog: (state) => state.viewDialog = true,
+    closeUpdateDialog: (state) => state.updateDialog = false,
+    closeViewDialog: (state) => state.viewDialog = false,
+    closeUpdateMultipleDialog: (state) => state.updateMultipleDialog = false,
     closeAllDialogs(){
         state.updateDialog = false
         state.updateMultipleDialog = false

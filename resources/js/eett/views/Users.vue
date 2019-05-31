@@ -8,6 +8,7 @@
         <datatable></datatable>
         <update></update>
         <update-multiple></update-multiple>
+        <view-columns></view-columns>
     </div>
 </template>
 
@@ -18,6 +19,7 @@ import UpdateMultiple from './../components/Dialogs/UpdateMultiple'
 import Excel from './../components/Datatable/Actions/Excel'
 import PDF from './../components/Datatable/Actions/PDF'
 import Copy from './../components/Datatable/Actions/Copy'
+import ViewColumns from './../components/Dialogs/ViewColumns'
 
 export default {
     created(){
@@ -33,7 +35,8 @@ export default {
         UpdateMultiple,
         Excel,
         PDF,
-        Copy
+        Copy,
+        ViewColumns
     }
 }
 </script>
