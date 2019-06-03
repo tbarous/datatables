@@ -25,6 +25,15 @@ $(document).on('scroll', () => {
     $(window).scrollTop() > 500 ? store.dispatch('ui/setTop', true) : store.dispatch('ui/setTop', false)
 })
 
+
+
+import Errors from './components/Form/Errors'
+import { mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
+import { mapMutations } from 'vuex'
+
+Vue.component('errors', Errors);
+
 import "./Filters"
 
 store.dispatch('data/setData', data)

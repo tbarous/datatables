@@ -29,23 +29,22 @@
 <script>
     import { mapMutations } from 'vuex'
     import { mapActions } from 'vuex'
+    import { mapGetters } from 'vuex'
 
 	export default{
 		computed: {
-            selected() {
-                return this.$store.getters['datatable/getSelected']
-            }
+            ...mapGetters("datatable", {
+                selected: 'getSelected',
+            })
         },
         methods: {
             ...mapMutations('ui', {
-              openUpdate: 'openUpdateDialog',
-              openView: 'openViewDialog'
-            }),
-            ...mapMutations('datatable', {
-              clearFilters: 'clearFilters',
+                openUpdate: 'openUpdateDialog',
+                openView: 'openViewDialog'
             }),
             ...mapActions('datatable', {
-              fetchData: 'fetchData'
+                clearFilters: 'clearFilters',
+                fetchData: 'fetchData'
             })
         }
 	}

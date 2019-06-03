@@ -7,7 +7,7 @@
             </td>
             <td v-if="activeColumns[key]" v-for="(value, key) in data">{{value}}</td>
             <td width="10%" style="white-space: nowrap">
-                <v-btn flat fab dark small color="info" @click="setEditDialog(key1, data)">
+                <v-btn flat fab dark small color="info" @click="setEditDialog(data)">
                     <v-icon dark>edit</v-icon>
                 </v-btn>
                 <v-btn flat fab dark small color="red" @click="destroy(editingRow, data)">
@@ -39,6 +39,11 @@ export default {
             // return this.$store.state.getters['datatable/getSerialNumber'](datakey)
             return 1
         },
+
+        setEditDialog(editingRow){
+            this.$store.commit('datatable/setEditingRow', editingRow)
+            this.$store.commit('ui/openUpdateDialog')
+        }
     }
 }
 </script>

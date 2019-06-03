@@ -1980,13 +1980,48 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("datatable", {
     selectAll: 'getSelectAll',
     columns: 'getColumns',
-    activeColumns: 'getActiveColumns',
-    queries: 'getQueries'
+    activeColumns: 'getActiveColumns'
+  }), {
+    queries: {
+      get: function get() {
+        return this.$store.getters['datatable/getQueries'];
+      },
+      set: function set(queries) {
+        this.$store.commit('datatable/setQueries', queries);
+      }
+    }
+  }),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('datatable', {
+    fetchData: 'fetchData'
   }))
 });
 
@@ -2006,6 +2041,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -2306,12 +2342,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("datatable", {
-    perPage: 'getPerPage',
+    // perPage: 'getPerPage',
     itemsShow: 'getItemsShow'
-  })),
+  }), {
+    perPage: {
+      get: function get() {
+        return this.$store.getters['datatable/getPerPage'];
+      },
+      set: function set(perPage) {
+        this.$store.dispatch('datatable/setPerPage', perPage);
+      }
+    }
+  }),
   methods: {
     fetchData: function fetchData() {
       this.$store.dispatch('datatable/fetchData', true);
@@ -2330,6 +2381,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2338,17 +2394,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
-    generalSearch: function generalSearch() {
-      return this.$store.getters['datatable/generalSearch'];
+    generalSearch: {
+      get: function get() {
+        return this.$store.getters['datatable/getGeneralSearch'];
+      },
+      set: function set(generalSearch) {
+        this.$store.commit('datatable/setGeneralSearch', generalSearch);
+      }
     }
   },
-  methods: {
-    fetchData: function fetchData() {
-      this.$store.dispatch('datatable/fetchData', true);
-    }
-  }
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("datatable", {
+    fetchData: 'fetchData'
+  }))
 });
 
 /***/ }),
@@ -2402,6 +2472,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     serial: function serial(datakey) {
       // return this.$store.state.getters['datatable/getSerialNumber'](datakey)
       return 1;
+    },
+    setEditDialog: function setEditDialog(editingRow) {
+      this.$store.commit('datatable/setEditingRow', editingRow);
+      this.$store.commit('ui/openUpdateDialog');
     }
   }
 });
@@ -2477,18 +2551,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: {
-    selected: function selected() {
-      return this.$store.getters['datatable/getSelected'];
-    }
-  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("datatable", {
+    selected: 'getSelected'
+  })),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('ui', {
     openUpdate: 'openUpdateDialog',
     openView: 'openViewDialog'
-  }), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('datatable', {
-    clearFilters: 'clearFilters'
   }), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('datatable', {
+    clearFilters: 'clearFilters',
     fetchData: 'fetchData'
   }))
 });
@@ -2505,6 +2577,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Form_Errors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../Form/Errors */ "./resources/js/eett/components/Form/Errors.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2534,22 +2611,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: {
-    dialog: function dialog() {
-      return this.$store.getters['ui/getUpdateDialog'];
-    },
-    columns: function columns() {
-      return this.$store.getters['datatable/columns'];
-    }
-  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])("datatable", {
+    columns: 'getColumns',
+    editingRow: 'getEditingRow'
+  }), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])("ui", {
+    dialog: 'getUpdateDialog'
+  })),
   methods: {
     close: function close() {
       return this.$store.commit('ui/closeUpdateDialog');
     }
-  },
-  components: {
-    Errors: _Form_Errors__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -52786,7 +52859,6 @@ var render = function() {
                       staticStyle: { "min-width": "100px" },
                       attrs: {
                         clearable: "",
-                        value: _vm.queries[column.title],
                         solo: "",
                         autocomplete: "off",
                         "prepend-inner-icon": "search"
@@ -52795,6 +52867,13 @@ var render = function() {
                         input: function($event) {
                           return _vm.fetchData(true)
                         }
+                      },
+                      model: {
+                        value: _vm.queries[column.title],
+                        callback: function($$v) {
+                          _vm.$set(_vm.queries, column.title, $$v)
+                        },
+                        expression: "queries[column.title]"
                       }
                     })
                   : _vm._e(),
@@ -52865,23 +52944,32 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("v-flex", { staticClass: "text-right", attrs: { xs6: "" } }, [
-    _c("div", { staticClass: "items-count" }, [
-      !_vm.loading
-        ? _c("div", [
-            _c("p", { staticClass: "text-dark" }, [
-              _vm._v("Last Update @ " + _vm._s(_vm.pagination.meta.last_update))
-            ]),
-            _vm._v(" "),
+    !_vm.loading
+      ? _c("div", { staticStyle: { height: "80px" } }, [
+          _c("p", { staticClass: "text-dark" }, [
+            _vm._v("Last Update @ " + _vm._s(_vm.pagination.meta.last_update))
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-dark" }, [
             _c("i", { staticClass: "text-dark" }, [
-              _vm._v(_vm._s(_vm.getItemsCount))
+              _vm._v("Displaying " + _vm._s(_vm.getItemsCount))
             ])
           ])
-        : _c("div", { staticStyle: { height: "50px" } }, [
-            _c("img", { attrs: { src: "/images/ajax-loader.gif", alt: "" } })
-          ]),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
+        ])
+      : _c(
+          "div",
+          { staticStyle: { height: "80px" } },
+          [
+            _vm.loading
+              ? _c("v-progress-circular", {
+                  attrs: { indeterminate: "", color: "primary" }
+                })
+              : _vm._e()
+          ],
+          1
+        ),
+    _vm._v(" "),
+    _c("p", { staticClass: "text-dark" }, [
       _c("u", { staticClass: "text-dark" }, [
         _vm._v("Selected: " + _vm._s(_vm.selected.length))
       ])
@@ -52928,6 +53016,7 @@ var render = function() {
           "table",
           {
             directives: [{ name: "scroll", rawName: "v-scroll" }],
+            staticClass: "mt-0 pt-0 table table-bordered elevation-3",
             attrs: { id: "table", "data-tableName": "Test Table 2" }
           },
           [
@@ -53245,13 +53334,15 @@ var render = function() {
         _c("span", [_vm._v("Show")]),
         _vm._v(" "),
         _c("v-select", {
-          attrs: {
-            items: _vm.itemsShow,
-            label: "Show",
-            solo: "",
-            value: _vm.perPage
-          },
-          on: { change: _vm.fetchData }
+          attrs: { items: _vm.itemsShow, label: "Show", solo: "" },
+          on: { change: _vm.fetchData },
+          model: {
+            value: _vm.perPage,
+            callback: function($$v) {
+              _vm.perPage = $$v
+            },
+            expression: "perPage"
+          }
         }),
         _vm._v(" "),
         _c("span", [_vm._v("entries")])
@@ -53292,14 +53383,24 @@ var render = function() {
           _c("v-text-field", {
             staticClass: "generalSearch",
             attrs: {
-              value: _vm.generalSearch,
               solo: "",
               "prepend-inner-icon": "search",
               autocomplete: "off",
               clearable: "",
               label: "Search"
             },
-            on: { input: _vm.fetchData }
+            on: {
+              input: function($event) {
+                return _vm.fetchData(true)
+              }
+            },
+            model: {
+              value: _vm.generalSearch,
+              callback: function($$v) {
+                _vm.generalSearch = $$v
+              },
+              expression: "generalSearch"
+            }
           })
         ],
         1
@@ -53381,7 +53482,7 @@ var render = function() {
                       },
                       on: {
                         click: function($event) {
-                          return _vm.setEditDialog(_vm.key1, data)
+                          return _vm.setEditDialog(data)
                         }
                       }
                     },
@@ -97685,7 +97786,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_notification__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_notification__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-loading-overlay */ "./node_modules/vue-loading-overlay/dist/vue-loading.min.js");
 /* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _Filters__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Filters */ "./resources/js/eett/Filters/index.js");
+/* harmony import */ var _components_Form_Errors__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/Form/Errors */ "./resources/js/eett/components/Form/Errors.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _Filters__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Filters */ "./resources/js/eett/Filters/index.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/eett/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -97705,6 +97808,11 @@ Vue.component('layout', __webpack_require__(/*! ./layouts/Layout.vue */ "./resou
 $(document).on('scroll', function () {
   $(window).scrollTop() > 500 ? _store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('ui/setTop', true) : _store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('ui/setTop', false);
 });
+
+
+
+
+Vue.component('errors', _components_Form_Errors__WEBPACK_IMPORTED_MODULE_7__["default"]);
 
 _store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('data/setData', data);
 var app = new Vue({
@@ -99779,7 +99887,8 @@ var state = {
   queries: {},
   activeColumns: {},
   selected: [],
-  selectBoxes: {}
+  selectBoxes: {},
+  editingRow: {}
 };
 var getters = {
   getLoading: function getLoading(state) {
@@ -99804,7 +99913,6 @@ var getters = {
     return state.selectBoxes;
   },
   getTableData: function getTableData(state) {
-    console.log(state.tableData);
     return state.tableData;
   },
   getCurrentPage: function getCurrentPage(state) {
@@ -99812,6 +99920,12 @@ var getters = {
   },
   getSortedColumn: function getSortedColumn(state) {
     return state.sortedColumn;
+  },
+  getGeneralSearch: function getGeneralSearch(state) {
+    return state.generalSearch;
+  },
+  getEditingRow: function getEditingRow(state) {
+    return state.editingRow;
   },
   getQueries: function getQueries(state) {
     return state.queries;
@@ -99927,9 +100041,6 @@ var mutations = {
   clearFilters: function clearFilters(state) {
     state.queries = {};
     state.generalSearch = '';
-    state.columns.map(function (column) {
-      state.queries[column.title] = '';
-    });
   },
   fetchData: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (state, reset) {
     if (reset) state.currentPage = 1;
@@ -99943,7 +100054,7 @@ var mutations = {
     state.loading = true;
     axios.get(dataFetchUrl).then(function (_ref) {
       var data = _ref.data;
-      console.log(data);
+      // console.log(data)
       state.pagination = data;
       state.tableData = data.data;
       state.loading = false; // state.$store.dispatch('loading/setLoading', false);
@@ -99951,7 +100062,19 @@ var mutations = {
       // state.tableData = []
       // state.handleFailure(error)
     });
-  }, 500)
+  }, 500),
+  setGeneralSearch: function setGeneralSearch(state, generalSearch) {
+    state.generalSearch = generalSearch;
+  },
+  setQueries: function setQueries(state, queries) {
+    state.queries = queries;
+  },
+  setPerPage: function setPerPage(state, perPage) {
+    state.perPage = perPage;
+  },
+  setEditingRow: function setEditingRow(state, editingRow) {
+    state.editingRow = editingRow;
+  }
 };
 var actions = {
   setColumns: function setColumns(context, columns) {
@@ -99984,6 +100107,11 @@ var actions = {
   },
   changePage: function changePage(context, page) {
     context.commit('changePage', page);
+    context.commit('fetchData');
+  },
+  setPerPage: function setPerPage(context, perPage) {
+    context.commit('startLoading');
+    context.commit('setPerPage', perPage);
     context.commit('fetchData');
   }
 };

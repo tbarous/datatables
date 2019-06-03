@@ -18,6 +18,7 @@ const state = {
     activeColumns: {},
     selected: [],
     selectBoxes: {},
+    editingRow: {}
 }
 
 const getters = {
@@ -28,9 +29,11 @@ const getters = {
     getColumns: state => state.columns,
     getPerPage: state => state.perPage,
     getSelectBoxes: state => state.selectBoxes,
-    getTableData: state => {console.log(state.tableData);return state.tableData},
+    getTableData: state => state.tableData,
     getCurrentPage: state => state.currentPage,
     getSortedColumn: state => state.sortedColumn,
+    getGeneralSearch: state => state.generalSearch,
+    getEditingRow: state => state.editingRow,
     getQueries: state => state.queries,
     getItemsShow: state => state.itemsShow,
     getActiveColumns: state => state.activeColumns,
@@ -68,7 +71,6 @@ const mutations = {
     startLoading: state => state.loading = true,
     stopLoading: state => state.loading = false,
     setResourceURL: (state, resourceURL) => state.url = resourceURL,
-
     toggleAll(state){
         if(!state.selectAll){
             state.selectAll = true
@@ -85,20 +87,17 @@ const mutations = {
             })
         }
     },
-
     setActiveColumnsAndQueries(state){
         state.columns.map(column => {
             state.activeColumns[column.title] = true;
             state.queries[column.title] = '';
         });
     },
-
     changePage: (state, pageNumber) => {
         state.loading = true
         state.currentPage = pageNumber
         state.selectAll = false
     },
-
     sortByColumn(column) {
         state.loading = true;
         if (column.title === state.sortedColumn) {
@@ -108,7 +107,6 @@ const mutations = {
             state.order = 'asc'
         }
     },
-
     select(item){
         if(!store.selected.includes(item.id)){
             store.selected.push(item.id)
@@ -118,15 +116,10 @@ const mutations = {
             store.selectBoxes[item.id] = false
         }
     },
-    
     clearFilters: state => {
         state.queries = {}
         state.generalSearch = ''
-        state.columns.map(column => {
-            state.queries[column.title] = '';
-        });
     },
-
     fetchData: _.debounce(function(state, reset){
         if (reset) state.currentPage = 1
         if (state.generalSearch == null) state.generalSearch = ''
@@ -142,7 +135,7 @@ const mutations = {
         state.loading = true;
         axios.get(dataFetchUrl)
             .then(({ data }) => {
-                console.log(data)
+                // console.log(data)
                 state.pagination = data
                 state.tableData = data.data
                 state.loading = false
@@ -153,6 +146,18 @@ const mutations = {
                 // state.handleFailure(error)
             })
     }, 500),
+    setGeneralSearch: (state, generalSearch) => {
+        state.generalSearch = generalSearch
+    },
+    setQueries: (state, queries) => {
+        state.queries = queries
+    },
+    setPerPage: (state, perPage) => {
+        state.perPage = perPage
+    },
+    setEditingRow: (state, editingRow) => {
+        state.editingRow = editingRow
+    }
 }
 
 const actions = {
@@ -160,10 +165,7 @@ const actions = {
     startLoading: (context) => context.commit('startLoading'),
     stopLoading: (context) => context.commit('stopLoading'),
     setActiveColumnsAndQueries: (context) => context.commit('setActiveColumnsAndQueries'),
-    
     select: (context, item) => context.commit('select', item),
-
-
     clearFilters: (context) => {
         context.commit('startLoading')
         context.commit('clearFilters')
@@ -179,6 +181,11 @@ const actions = {
     },
     changePage: (context, page) => {
         context.commit('changePage', page)
+        context.commit('fetchData')
+    },
+    setPerPage: (context, perPage) => {
+        context.commit('startLoading')
+        context.commit('setPerPage', perPage)
         context.commit('fetchData')
     }
 }

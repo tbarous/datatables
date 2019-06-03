@@ -28,15 +28,18 @@
 
 <script>
 	import Errors from './../Form/Errors'
+    import { mapGetters } from 'vuex'
 
 	export default {
         computed: {
-            dialog(){
-                return this.$store.getters['ui/getUpdateDialog']
-            },
-            columns(){
-                return this.$store.getters['datatable/columns']
-            }
+            ...mapGetters("datatable", {
+                columns: 'getColumns',
+                editingRow: 'getEditingRow'
+
+            }),
+            ...mapGetters("ui", {
+                dialog: 'getUpdateDialog',
+            }),
         },
 
         methods: {
@@ -44,9 +47,5 @@
                 return this.$store.commit('ui/closeUpdateDialog')
             }
         },
-
-        components: {
-            Errors
-        }
 	}
 </script>

@@ -1,16 +1,17 @@
 <template>
 	<v-flex xs6 class="text-right">
-        <div class="items-count">
-            <div v-if="!loading">
-                <p class="text-dark">Last Update @ {{pagination.meta.last_update}}</p>
-                <i class="text-dark">{{getItemsCount}}</i>
-            </div>
-            <div v-else style="height: 50px;">
-                <img src="/images/ajax-loader.gif" alt="">
-            </div>
-            <br>
-            <u class="text-dark">Selected: {{selected.length}}</u>
+        <div v-if="!loading" style="height: 80px">
+            <p class="text-dark">Last Update @ {{pagination.meta.last_update}}</p>
+            <p class="text-dark">
+                 <i class="text-dark">Displaying {{getItemsCount}}</i>
+            </p>
         </div>
+        <div v-else style="height: 80px;">
+            <v-progress-circular v-if="loading" indeterminate color="primary"></v-progress-circular>
+        </div>
+        <p class="text-dark">
+            <u class="text-dark">Selected: {{selected.length}}</u>
+        </p>
     </v-flex>
 </template>
 
