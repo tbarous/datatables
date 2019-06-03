@@ -20,12 +20,13 @@ import { mapActions } from 'vuex'
 export default {
     computed: {
         ...mapGetters("datatable", {
-            activeColumns: 'getActiveColumns',
             columns: 'getColumns',
             sortedColumn: 'getSortedColumn',
-            order: 'getOrder'
-        })
+            order: 'getOrder',
+            activeColumns: 'getActiveColumns'
+        }),
     },
+
     methods: {
         sortByColumn(column) {
             this.$store.dispatch('datatable/sortByColumn', column)

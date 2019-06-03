@@ -2190,10 +2190,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("datatable", {
-    activeColumns: 'getActiveColumns',
     columns: 'getColumns',
     sortedColumn: 'getSortedColumn',
-    order: 'getOrder'
+    order: 'getOrder',
+    activeColumns: 'getActiveColumns'
   })),
   methods: {
     sortByColumn: function sortByColumn(column) {
@@ -2730,6 +2730,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: {
     close: function close() {
       this.$store.commit('ui/closeViewDialog');
+    },
+    changeActiveColumns: function changeActiveColumns() {
+      this.$store.commit('datatable/changeActiveColumns');
     }
   }
 });
@@ -53922,36 +53925,25 @@ var render = function() {
           _c(
             "v-card-text",
             { staticClass: "d-flex", staticStyle: { "flex-flow": "wrap" } },
-            [
-              _vm._l(_vm.columns, function(column, key) {
-                return _c("v-checkbox", {
-                  key: column.title,
-                  staticClass: "d-inline-block ml-3",
-                  attrs: {
-                    label: _vm._f("columnLow")(column.title),
-                    color: "black"
-                  },
-                  model: {
-                    value: _vm.activeColumns[column.title],
-                    callback: function($$v) {
-                      _vm.$set(_vm.activeColumns, column.title, $$v)
-                    },
-                    expression: "activeColumns[column.title]"
-                  }
-                })
-              }),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                {
-                  staticClass: "w-100 ml-0 mr-0",
-                  attrs: { dark: "" },
-                  on: { click: _vm.close }
+            _vm._l(_vm.columns, function(column, key) {
+              return _c("v-checkbox", {
+                key: column.title,
+                staticClass: "d-inline-block ml-3",
+                attrs: {
+                  label: _vm._f("columnLow")(column.title),
+                  color: "black"
                 },
-                [_vm._v("Ok")]
-              )
-            ],
-            2
+                on: { change: _vm.changeActiveColumns },
+                model: {
+                  value: _vm.activeColumns[column.title],
+                  callback: function($$v) {
+                    _vm.$set(_vm.activeColumns, column.title, $$v)
+                  },
+                  expression: "activeColumns[column.title]"
+                }
+              })
+            }),
+            1
           ),
           _vm._v(" "),
           _c(
@@ -100081,6 +100073,16 @@ var mutations = {
   },
   setEditingRow: function setEditingRow(state, editingRow) {
     state.editingRow = editingRow;
+  },
+  setActiveColumns: function setActiveColumns(state, activeColumns) {
+    state.activeColumns = activeColumns;
+    console.log(state.activeColumns);
+  },
+  changeActiveColumns: function changeActiveColumns(state) {
+    var obj = {};
+    Object.assign(obj, state.activeColumns);
+    state.activeColumns = {};
+    state.activeColumns = obj;
   }
 };
 var actions = {

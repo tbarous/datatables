@@ -10,9 +10,9 @@
                     :key="column.title" 
                     v-model="activeColumns[column.title]" 
                     :label="column.title | columnLow" 
+                    @change="changeActiveColumns"
                     color="black">
                 </v-checkbox>
-                <v-btn dark class="w-100 ml-0 mr-0" @click="close">Ok</v-btn>
             </v-card-text>
             
             <v-btn @click="close" class="close-window" flat icon>
@@ -32,12 +32,16 @@
             ...mapGetters("datatable", {
                 columns: 'getColumns',
                 activeColumns: 'getActiveColumns'
-            })
+            }),
         },
 
         methods: {
             close(){
                 this.$store.commit('ui/closeViewDialog')
+            },
+
+            changeActiveColumns(){
+                this.$store.commit('datatable/changeActiveColumns')
             }
         }
     }

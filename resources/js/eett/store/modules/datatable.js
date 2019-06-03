@@ -156,6 +156,16 @@ const mutations = {
     },
     setEditingRow: (state, editingRow) => {
         state.editingRow = editingRow
+    },
+    setActiveColumns: (state, activeColumns) => {
+        state.activeColumns = activeColumns
+        console.log(state.activeColumns)
+    },
+    changeActiveColumns: (state) => {
+        let obj = {}
+        Object.assign(obj, state.activeColumns)
+        state.activeColumns = {}
+        state.activeColumns = obj
     }
 }
 
