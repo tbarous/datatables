@@ -5,6 +5,7 @@
             <PDF></PDF>
             <copy></copy>
         </v-layout>
+        <v-divider></v-divider>
         <datatable></datatable>
         <update></update>
         <!-- <update-multiple></update-multiple> -->

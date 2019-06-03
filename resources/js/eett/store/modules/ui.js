@@ -35,31 +35,7 @@ const mutations = {
     }
 }
 
-const actions = {
-    setTop(context, top) {
-        context.commit('setTop', top)
-    },
-    setDrawer(context, drawer) {
-        context.commit('setDrawer', drawer)
-    },
-    toggleDrawer(context) {
-        context.commit('toggleDrawer')
-    },
-    toTop() {
-        $("html, body").animate({ scrollTop: 0 }, "slow");
-    },
-    closeAllDialogs(context){
-         context.commit('closeAllDialogs')
-    },
-
-
-    startLoading(context){
-         context.commit('startLoading')
-    },
-    stopLoading(context){
-         context.commit('stopLoading')
-    }
-}
+const actions = {}
 
 export default {
     namespaced: true,

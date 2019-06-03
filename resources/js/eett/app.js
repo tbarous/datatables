@@ -22,10 +22,8 @@ Vue.component('loading', Loading);
 Vue.component('layout', require('./layouts/Layout.vue').default);
 
 $(document).on('scroll', () => {
-    $(window).scrollTop() > 500 ? store.dispatch('ui/setTop', true) : store.dispatch('ui/setTop', false)
+    $(window).scrollTop() > 500 ? store.commit('ui/setTop', true) : store.commit('ui/setTop', false)
 })
-
-
 
 import Errors from './components/Form/Errors'
 import { mapGetters } from 'vuex'

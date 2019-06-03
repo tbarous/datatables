@@ -49,7 +49,12 @@
             }),
             ...mapActions("datatable", {
                 update: 'update',
-            })
+            }),
+
+            update(){
+                this.$store.commit('ui/startLoading')
+                this.$store.dispatch('datatable/update').then(() => this.$store.commit('ui/stopLoading'))
+            }
         },
 	}
 </script>

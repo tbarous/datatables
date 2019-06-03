@@ -2691,7 +2691,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     close: 'closeUpdateDialog'
   }), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("datatable", {
     update: 'update'
-  }))
+  }), {
+    update: function update() {
+      var _this = this;
+
+      this.$store.commit('ui/startLoading');
+      this.$store.dispatch('datatable/update').then(function () {
+        return _this.$store.commit('ui/stopLoading');
+      });
+    }
+  })
 });
 
 /***/ }),
@@ -2866,7 +2875,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  methods: {
+    toggleDrawer: function toggleDrawer() {
+      this.$store.commit('ui/toggleDrawer');
+    },
+    logout: function logout() {
+      this.$store.dispatch('auth/logout');
+    }
+  }
+});
 
 /***/ }),
 
@@ -3097,6 +3115,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Datatable_Actions_PDF__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../components/Datatable/Actions/PDF */ "./resources/js/eett/components/Datatable/Actions/PDF.vue");
 /* harmony import */ var _components_Datatable_Actions_Copy__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../components/Datatable/Actions/Copy */ "./resources/js/eett/components/Datatable/Actions/Copy.vue");
 /* harmony import */ var _components_Dialogs_Columns__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../components/Dialogs/Columns */ "./resources/js/eett/components/Dialogs/Columns.vue");
+//
 //
 //
 //
@@ -53502,16 +53521,15 @@ var render = function() {
               _vm._v(" "),
               _vm._l(data, function(value, key) {
                 return _vm.activeColumns[key]
-                  ? _c("td", [_vm._v(_vm._s(value))])
+                  ? _c("td", { attrs: { width: "10%" } }, [
+                      _vm._v(_vm._s(value))
+                    ])
                   : _vm._e()
               }),
               _vm._v(" "),
               _c(
                 "td",
-                {
-                  staticStyle: { "white-space": "nowrap" },
-                  attrs: { width: "10%" }
-                },
+                { staticStyle: { "white-space": "nowrap" } },
                 [
                   _c(
                     "v-btn",
@@ -54178,7 +54196,7 @@ var render = function() {
         on: {
           click: function($event) {
             $event.stopPropagation()
-            return _vm.$store.dispatch("ui/toggleDrawer")
+            return _vm.toggleDrawer($event)
           }
         }
       }),
@@ -54189,14 +54207,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "v-btn",
-        {
-          attrs: { icon: "" },
-          on: {
-            click: function($event) {
-              return _vm.$store.dispatch("auth/logout")
-            }
-          }
-        },
+        { attrs: { icon: "" }, on: { click: _vm.logout } },
         [_c("v-icon", [_vm._v("exit_to_app")])],
         1
       )
@@ -54585,6 +54596,8 @@ var render = function() {
         [_c("excel"), _vm._v(" "), _c("PDF"), _vm._v(" "), _c("copy")],
         1
       ),
+      _vm._v(" "),
+      _c("v-divider"),
       _vm._v(" "),
       _c("datatable"),
       _vm._v(" "),
@@ -97854,7 +97867,7 @@ Vue.use(vue_notification__WEBPACK_IMPORTED_MODULE_5___default.a);
 Vue.component('loading', vue_loading_overlay__WEBPACK_IMPORTED_MODULE_6___default.a);
 Vue.component('layout', __webpack_require__(/*! ./layouts/Layout.vue */ "./resources/js/eett/layouts/Layout.vue")["default"]);
 $(document).on('scroll', function () {
-  $(window).scrollTop() > 500 ? _store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('ui/setTop', true) : _store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('ui/setTop', false);
+  $(window).scrollTop() > 500 ? _store__WEBPACK_IMPORTED_MODULE_0__["default"].commit('ui/setTop', true) : _store__WEBPACK_IMPORTED_MODULE_0__["default"].commit('ui/setTop', false);
 });
 
 
@@ -100199,18 +100212,14 @@ var mutations = {
     state.activeColumns = {};
     state.activeColumns = obj;
   },
-  update: function update(state, commit) {
+  update: function update(state) {
     axios.post(state.url + '/update', {
       row: JSON.stringify(state.editingRow)
     }).then(function (response) {
       console.log(response); // this.errors.update = ''
       // this.$store.dispatch('loading/setLoading', false);
       // this.$notify({type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'})
-
-      state.fetchData(false);
-      commit('ui/stopLoading', null, {
-        root: true
-      });
+      // state.fetchData(false)
     })["catch"](function (error) {// this.handleFailure(error, 'update')
     });
   }
@@ -100259,10 +100268,9 @@ var actions = {
         commit = _ref2.commit,
         getters = _ref2.getters,
         rootGetters = _ref2.rootGetters;
-    commit('ui/startLoading', null, {
-      root: true
-    });
-    commit('update', commit);
+    // commit('ui/startLoading', null, { root: true })
+    commit('update');
+    commit('fetchData'); // commit('ui/stopLoading', null, { root: true })
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -100464,31 +100472,7 @@ var mutations = {
     state.viewDialog = false;
   }
 };
-var actions = {
-  setTop: function setTop(context, top) {
-    context.commit('setTop', top);
-  },
-  setDrawer: function setDrawer(context, drawer) {
-    context.commit('setDrawer', drawer);
-  },
-  toggleDrawer: function toggleDrawer(context) {
-    context.commit('toggleDrawer');
-  },
-  toTop: function toTop() {
-    $("html, body").animate({
-      scrollTop: 0
-    }, "slow");
-  },
-  closeAllDialogs: function closeAllDialogs(context) {
-    context.commit('closeAllDialogs');
-  },
-  startLoading: function startLoading(context) {
-    context.commit('startLoading');
-  },
-  stopLoading: function stopLoading(context) {
-    context.commit('stopLoading');
-  }
-};
+var actions = {};
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
   state: state,

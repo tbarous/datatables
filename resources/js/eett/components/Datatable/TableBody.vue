@@ -5,8 +5,8 @@
             <td>
                 <v-checkbox v-model="selectBoxes[data.id]" @change="select(data)"></v-checkbox>
             </td>
-            <td v-if="activeColumns[key]" v-for="(value, key) in data">{{value}}</td>
-            <td width="10%" style="white-space: nowrap">
+            <td width="10%" v-if="activeColumns[key]" v-for="(value, key) in data">{{value}}</td>
+            <td style="white-space: nowrap">
                 <v-btn flat fab dark small color="info" @click="setEditingRow(data)">
                     <v-icon dark>edit</v-icon>
                 </v-btn>
