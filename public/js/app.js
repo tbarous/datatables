@@ -2187,11 +2187,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("datatable", {
     activeColumns: 'getActiveColumns',
     columns: 'getColumns',
-    sortedColumn: 'getSortedColumn'
+    sortedColumn: 'getSortedColumn',
+    order: 'getOrder'
   })),
   methods: {
     sortByColumn: function sortByColumn(column) {
@@ -53016,7 +53018,7 @@ var render = function() {
           "table",
           {
             directives: [{ name: "scroll", rawName: "v-scroll" }],
-            staticClass: "mt-0 pt-0 table table-bordered elevation-3",
+            staticClass: "m-0 pt-0 table table-bordered elevation-3",
             attrs: { id: "table", "data-tableName": "Test Table 2" }
           },
           [
@@ -53545,7 +53547,12 @@ var render = function() {
   return _c(
     "div",
     { class: { nopacity: !_vm.loading } },
-    [_c("v-progress-linear", { attrs: { indeterminate: true } })],
+    [
+      _c("v-progress-linear", {
+        staticClass: "m-0",
+        attrs: { indeterminate: true }
+      })
+    ],
     1
   )
 }
@@ -99880,7 +99887,7 @@ var state = {
   perPage: 15,
   order: 'desc',
   itemsShow: [15, 50, 100],
-  sortedColumn: '',
+  sortedColumn: 'updated_at',
   selectAll: false,
   generalSearch: '',
   tableData: [],
@@ -99905,6 +99912,9 @@ var getters = {
   },
   getColumns: function getColumns(state) {
     return state.columns;
+  },
+  getOrder: function getOrder(state) {
+    return state.order;
   },
   getPerPage: function getPerPage(state) {
     return state.perPage;
@@ -100015,13 +100025,10 @@ var mutations = {
     });
   },
   changePage: function changePage(state, pageNumber) {
-    state.loading = true;
     state.currentPage = pageNumber;
     state.selectAll = false;
   },
-  sortByColumn: function sortByColumn(column) {
-    state.loading = true;
-
+  sortByColumn: function sortByColumn(state, column) {
     if (column.title === state.sortedColumn) {
       state.order = state.order === 'asc' ? 'desc' : 'asc';
     } else {
@@ -100102,7 +100109,8 @@ var actions = {
     context.commit('fetchData');
   },
   sortByColumn: function sortByColumn(context, column) {
-    context.commit('sortedColumn', column);
+    context.commit('startLoading');
+    context.commit('sortByColumn', column);
     context.commit('fetchData');
   },
   changePage: function changePage(context, page) {

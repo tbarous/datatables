@@ -10,7 +10,7 @@ const state = {
     perPage: 15,
     order: 'desc',
     itemsShow: [15, 50, 100],
-    sortedColumn: '',
+    sortedColumn: 'updated_at',
     selectAll: false,
     generalSearch: '',
     tableData: [],
@@ -27,6 +27,7 @@ const getters = {
     getPagination: state => state.pagination,
     getSelected: state => state.selected,
     getColumns: state => state.columns,
+    getOrder: state => state.order,
     getPerPage: state => state.perPage,
     getSelectBoxes: state => state.selectBoxes,
     getTableData: state => state.tableData,
@@ -94,12 +95,10 @@ const mutations = {
         });
     },
     changePage: (state, pageNumber) => {
-        state.loading = true
         state.currentPage = pageNumber
         state.selectAll = false
     },
-    sortByColumn(column) {
-        state.loading = true;
+    sortByColumn(state, column) {
         if (column.title === state.sortedColumn) {
             state.order = (state.order === 'asc') ? 'desc' : 'asc'
         } else {
@@ -176,7 +175,8 @@ const actions = {
         context.commit('fetchData')
     },
     sortByColumn: (context, column) => {
-        context.commit('sortedColumn', column)
+        context.commit('startLoading')
+        context.commit('sortByColumn', column)
         context.commit('fetchData')
     },
     changePage: (context, page) => {

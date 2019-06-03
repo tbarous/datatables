@@ -1,6 +1,6 @@
 <template>
     <div :class="{nopacity: !loading}">
-        <v-progress-linear :indeterminate="true"></v-progress-linear>
+        <v-progress-linear :indeterminate="true" class="m-0"></v-progress-linear>
     </div>
 </template>
 

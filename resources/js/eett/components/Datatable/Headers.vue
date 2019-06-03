@@ -15,12 +15,15 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
+
 export default {
     computed: {
         ...mapGetters("datatable", {
             activeColumns: 'getActiveColumns',
             columns: 'getColumns',
-            sortedColumn: 'getSortedColumn'
+            sortedColumn: 'getSortedColumn',
+            order: 'getOrder'
         })
     },
     methods: {
