@@ -53332,29 +53332,31 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("v-flex", { attrs: { xs6: "" } }, [
-    _c(
-      "div",
-      [
-        _c("span", [_vm._v("Show")]),
-        _vm._v(" "),
-        _c("v-select", {
-          attrs: { items: _vm.itemsShow, label: "Show", solo: "" },
-          on: { change: _vm.fetchData },
-          model: {
-            value: _vm.perPage,
-            callback: function($$v) {
-              _vm.perPage = $$v
-            },
-            expression: "perPage"
-          }
-        }),
-        _vm._v(" "),
-        _c("span", [_vm._v("entries")])
-      ],
-      1
-    )
-  ])
+  return _c(
+    "v-flex",
+    { attrs: { xs6: "" } },
+    [
+      _c("br"),
+      _vm._v(" "),
+      _c("span", [_vm._v("Show")]),
+      _vm._v(" "),
+      _c("v-select", {
+        staticClass: "d-inline-block",
+        attrs: { items: _vm.itemsShow, label: "Show", solo: "" },
+        on: { change: _vm.fetchData },
+        model: {
+          value: _vm.perPage,
+          callback: function($$v) {
+            _vm.perPage = $$v
+          },
+          expression: "perPage"
+        }
+      }),
+      _vm._v(" "),
+      _c("span", [_vm._v("entries")])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
