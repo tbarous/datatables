@@ -175,7 +175,7 @@ const mutations = {
             console.log(response)
             // this.errors.update = ''
             // this.$store.dispatch('loading/setLoading', false);
-            // this.$notify({type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'})
+            
             // state.fetchData(false)
         }).catch(error => {
             // this.handleFailure(error, 'update')
@@ -213,10 +213,7 @@ const actions = {
         context.commit('fetchData')
     },
     update: ({ dispatch, commit, getters, rootGetters }) => {
-        // commit('ui/startLoading', null, { root: true })
         commit('update')
-        commit('fetchData')
-        // commit('ui/stopLoading', null, { root: true })
     }
 }
 

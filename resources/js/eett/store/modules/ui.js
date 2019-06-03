@@ -4,7 +4,8 @@ const state = {
     drawer: true,
     viewDialog: false,
     updateDialog: false,
-    updateMultipleDialog: false
+    updateMultipleDialog: false,
+    // message: false
 }
 
 const getters = {
@@ -32,7 +33,8 @@ const mutations = {
         state.updateDialog = false
         state.updateMultipleDialog = false
         state.viewDialog = false
-    }
+    },
+    // showMessage: (state) => state.message = true
 }
 
 const actions = {}

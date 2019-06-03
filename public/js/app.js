@@ -2697,6 +2697,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.$store.commit('ui/startLoading');
       this.$store.dispatch('datatable/update').then(function () {
+        _this.$notify({
+          type: 'success',
+          text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'
+        });
+      }).then(function () {
+        return _this.$store.dispatch('datatable/fetchData');
+      }).then(function () {
         return _this.$store.commit('ui/stopLoading');
       });
     }
@@ -100218,7 +100225,6 @@ var mutations = {
     }).then(function (response) {
       console.log(response); // this.errors.update = ''
       // this.$store.dispatch('loading/setLoading', false);
-      // this.$notify({type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'})
       // state.fetchData(false)
     })["catch"](function (error) {// this.handleFailure(error, 'update')
     });
@@ -100268,9 +100274,7 @@ var actions = {
         commit = _ref2.commit,
         getters = _ref2.getters,
         rootGetters = _ref2.rootGetters;
-    // commit('ui/startLoading', null, { root: true })
     commit('update');
-    commit('fetchData'); // commit('ui/stopLoading', null, { root: true })
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -100410,7 +100414,8 @@ var state = {
   drawer: true,
   viewDialog: false,
   updateDialog: false,
-  updateMultipleDialog: false
+  updateMultipleDialog: false // message: false
+
 };
 var getters = {
   getTop: function getTop(state) {

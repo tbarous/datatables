@@ -53,7 +53,12 @@
 
             update(){
                 this.$store.commit('ui/startLoading')
-                this.$store.dispatch('datatable/update').then(() => this.$store.commit('ui/stopLoading'))
+                this.$store.dispatch('datatable/update')
+                    .then(() => {
+                        this.$notify({type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'})
+                    })
+                    .then(() => this.$store.dispatch('datatable/fetchData'))
+                    .then(() => this.$store.commit('ui/stopLoading'))
             }
         },
 	}
