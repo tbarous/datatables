@@ -1,54 +1,47 @@
 <template>
-  <v-navigation-drawer fixed app :value="drawer" dark width="270" stateless>
-  
-    <Toolbar></Toolbar>
-    <v-divider class="mt-0 mb-0"></v-divider>
-
-    <v-list class="p-0">
-      <div v-for="page in pages" :key="page.title" v-if="page.children.length">
-        <v-list-group :prepend-icon="page.icon" :value="false" >
-        <template v-slot:activator>
-          <v-list-tile>
-            <v-list-tile-title>{{page.name}}</v-list-tile-title>
-          </v-list-tile>
-        </template>
-
-        <Subgroup :pages="page.children"></Subgroup>
-      </v-list-group>
+    <v-navigation-drawer fixed app :value="drawer" dark width="270" stateless>
+        <Toolbar></Toolbar>
         <v-divider class="mt-0 mb-0"></v-divider>
-      </div>
-      
+        <v-list class="p-0">
+            <div v-for="page in pages" :key="page.title" v-if="page.children.length">
+                <v-list-group :prepend-icon="page.icon" :value="false">
+                    <template v-slot:activator>
+                        <v-list-tile>
+                            <v-list-tile-title>{{page.name}}</v-list-tile-title>
+                        </v-list-tile>
+                    </template>
+                    <Subgroup :pages="page.children"></Subgroup>
+                </v-list-group>
+                <v-divider class="mt-0 mb-0"></v-divider>
+            </div>
 
-      <div v-for="page in pages" :key="page.name" v-if="!page.children.length">
-        <v-list-tile :to="page.slug" >
-          <v-list-tile-action>
-            <v-icon>{{page.icon}}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>{{page.name}}</v-list-tile-title>
-        </v-list-tile>
-        <v-divider class="mt-0 mb-0"></v-divider>
-      </div>
-    </v-list>
-  </v-navigation-drawer>
+            <div v-for="page in pages" :key="page.name" v-if="!page.children.length">
+                <v-list-tile :to="page.slug">
+                    <v-list-tile-action>
+                        <v-icon>{{page.icon}}</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-title>{{page.name}}</v-list-tile-title>
+                </v-list-tile>
+                <v-divider class="mt-0 mb-0"></v-divider>
+            </div>
+        </v-list>
+    </v-navigation-drawer>
 </template>
 
 <script>
-  import Toolbar from './Toolbar'
-  import Subgroup from './Subgroup'
+import Toolbar from './Toolbar'
+import Subgroup from './Subgroup'
+import { mapGetters } from 'vuex'
 
-  export default {
+export default {
     computed: {
-      pages (){
-        return this.$store.getters['pages/getPages']
-      },
-      drawer(){
-        return this.$store.getters['ui/getDrawer']
-      }
+      ...mapGetters("pages", {
+        pages: 'getPages',
+      }),
+      ...mapGetters("ui", {
+        drawer: 'getDrawer',
+      })
     },
-
-    components: {
-      Subgroup,
-      Toolbar
-    }
-  }
+    components: { Subgroup, Toolbar }
+}
 </script>

@@ -14,28 +14,30 @@
                     <v-btn class="ml-0 w-100" color="primary" type="submit">edit</v-btn>
                 </v-form>
                 
-                <v-btn @click="close" class="close-window" flat icon>
-                    <v-icon small>fa fa-times</v-icon>
-                </v-btn>
+                <errors></errors>
+                <close-dialog></close-dialog>
             </v-card-text>
         </v-card>
     </v-dialog>
 </template>
 
 <script>
-	export default{
-        computed: {
-            dialog() {
-                return this.$store.getters['ui/getUpdateMultipleDialog']
-            },
-            columns(){
-                return this.$store.getters['datatable/columns']
-            }
-        },
+    import CloseDialog from './../UI/CloseDialog'
+    import { mapGetters } from 'vuex'
 
+	export default {
+        components: {CloseDialog},
+        computed: {
+            ...mapGetters("datatable", {
+                columns: 'getColumns'
+            }),
+            ...mapGetters("ui", {
+                dialog: 'getUpdateMultipleDialog',
+            }),
+        },
 		methods: {
             close() {
-                this.$store.commit('ui/closeUpdateMultipleDialog')
+                this.$store.commit('ui/toggleDialog')
             }
         }
 	}

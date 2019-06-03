@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import loading from './modules/loading'
 import user from './modules/user'
 import pages from './modules/pages'
 import auth from './modules/auth'
@@ -16,7 +15,6 @@ const debug = process.env.NODE_ENV !== 'production'
 
 export default new Vuex.Store({
   modules: {
-    loading,
     user,
     pages,
     auth,

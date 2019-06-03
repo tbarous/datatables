@@ -106,13 +106,13 @@ const mutations = {
             state.order = 'asc'
         }
     },
-    select(item){
-        if(!store.selected.includes(item.id)){
-            store.selected.push(item.id)
-            store.selectBoxes[item.id] = true
+    select(state, item){
+        if(!state.selected.includes(item.id)){
+            state.selected.push(item.id)
+            state.selectBoxes[item.id] = true
         } else {
-            store.selected.splice(store.selected.indexOf(item.id), 1)
-            store.selectBoxes[item.id] = false
+            state.selected.splice(state.selected.indexOf(item.id), 1)
+            state.selectBoxes[item.id] = false
         }
     },
     clearFilters: state => {
@@ -155,7 +155,8 @@ const mutations = {
         state.perPage = perPage
     },
     setEditingRow: (state, editingRow) => {
-        state.editingRow = editingRow
+        Object.assign(state.editingRow, editingRow)
+        // state.editingRow = editingRow
     },
     setActiveColumns: (state, activeColumns) => {
         state.activeColumns = activeColumns
@@ -166,7 +167,21 @@ const mutations = {
         Object.assign(obj, state.activeColumns)
         state.activeColumns = {}
         state.activeColumns = obj
-    }
+    },
+    update(state, commit) {
+        axios.post(state.url + '/update', {
+            row: JSON.stringify(state.editingRow)
+        }).then(response => {
+            console.log(response)
+            // this.errors.update = ''
+            // this.$store.dispatch('loading/setLoading', false);
+            // this.$notify({type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'})
+            state.fetchData(false)
+            commit('ui/stopLoading', null, { root: true })
+        }).catch(error => {
+            // this.handleFailure(error, 'update')
+        })
+    },
 }
 
 const actions = {
@@ -197,6 +212,10 @@ const actions = {
         context.commit('startLoading')
         context.commit('setPerPage', perPage)
         context.commit('fetchData')
+    },
+    update: ({ dispatch, commit, getters, rootGetters }) => {
+        commit('ui/startLoading', null, { root: true })
+        commit('update', commit)
     }
 }
 

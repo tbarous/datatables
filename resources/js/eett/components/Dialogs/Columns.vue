@@ -15,16 +15,17 @@
                 </v-checkbox>
             </v-card-text>
             
-            <v-btn @click="close" class="close-window" flat icon>
-                <v-icon small>fa fa-times</v-icon>
-            </v-btn>
+            <close-dialog></close-dialog>
         </v-card>
     </v-dialog>
 </template>
 
 <script>
     import { mapGetters } from 'vuex'
+    import CloseDialog from './../UI/CloseDialog'
+
     export default {
+        components: {CloseDialog},
         computed: {
             ...mapGetters("ui", {
                 dialog: 'getViewDialog',
@@ -37,7 +38,7 @@
 
         methods: {
             close(){
-                this.$store.commit('ui/closeViewDialog')
+                this.$store.commit('ui/toggleDialog')
             },
 
             changeActiveColumns(){

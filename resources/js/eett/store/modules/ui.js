@@ -1,4 +1,5 @@
 const state = {
+    loading: false,
     top: false,
     drawer: true,
     viewDialog: false,
@@ -11,10 +12,13 @@ const getters = {
     getDrawer: state => state.drawer,
     getUpdateDialog: state => state.updateDialog,
     getViewDialog: state => state.viewDialog,
-    getUpdateMultipleDialog: state => state.updateMultipleDialog
+    getUpdateMultipleDialog: state => state.updateMultipleDialog,
+    getLoading: state => state.loading
 }
 
 const mutations = {
+    startLoading: (state) => state.loading = true,
+    stopLoading: (state) => state.loading = false,
     setTop: (state, top) => state.top = top,
     setDrawer: (state, drawer) => state.drawer = drawer,
     toggleDrawer: (state) => state.drawer = !state.drawer,
@@ -46,6 +50,14 @@ const actions = {
     },
     closeAllDialogs(context){
          context.commit('closeAllDialogs')
+    },
+
+
+    startLoading(context){
+         context.commit('startLoading')
+    },
+    stopLoading(context){
+         context.commit('stopLoading')
     }
 }
 

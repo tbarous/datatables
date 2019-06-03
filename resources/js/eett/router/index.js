@@ -12,7 +12,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    store.dispatch('ui/closeAllDialogs');
+    store.commit('ui/closeAllDialogs', false);
     next()
 })
 

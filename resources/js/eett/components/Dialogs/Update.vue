@@ -17,8 +17,7 @@
                 </v-form>
 
                 <errors></errors>
-                
-                <v-btn class="close-window" @click="close" flat icon>
+                <v-btn @click="close" class="close-window" flat icon>
                     <v-icon small>fa fa-times</v-icon>
                 </v-btn>
             </v-card-text>
@@ -28,24 +27,29 @@
 
 <script>
 	import Errors from './../Form/Errors'
+    import CloseDialog from './../UI/CloseDialog'
     import { mapGetters } from 'vuex'
+    import { mapMutations } from 'vuex'
+    import { mapActions } from 'vuex'
 
 	export default {
+        components: {CloseDialog},
         computed: {
             ...mapGetters("datatable", {
                 columns: 'getColumns',
                 editingRow: 'getEditingRow'
-
             }),
             ...mapGetters("ui", {
                 dialog: 'getUpdateDialog',
             }),
         },
-
         methods: {
-            close() {
-                return this.$store.commit('ui/closeUpdateDialog')
-            }
+            ...mapMutations("ui", {
+                close: 'closeUpdateDialog',
+            }),
+            ...mapActions("datatable", {
+                update: 'update',
+            })
         },
 	}
 </script>

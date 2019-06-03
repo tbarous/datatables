@@ -25,7 +25,7 @@
 
         computed: {
             loading() {
-                return this.$store.getters['loading/getLoading']
+                return this.$store.getters['ui/getLoading']
             },
         }
     }

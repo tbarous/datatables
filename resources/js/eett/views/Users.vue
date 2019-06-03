@@ -7,8 +7,8 @@
         </v-layout>
         <datatable></datatable>
         <update></update>
-        <update-multiple></update-multiple>
-        <view-columns></view-columns>
+        <!-- <update-multiple></update-multiple> -->
+        <columns></columns>
     </div>
 </template>
 
@@ -19,7 +19,7 @@ import UpdateMultiple from './../components/Dialogs/UpdateMultiple'
 import Excel from './../components/Datatable/Actions/Excel'
 import PDF from './../components/Datatable/Actions/PDF'
 import Copy from './../components/Datatable/Actions/Copy'
-import ViewColumns from './../components/Dialogs/ViewColumns'
+import Columns from './../components/Dialogs/Columns'
 
 export default {
     created(){
@@ -31,12 +31,12 @@ export default {
 
     components: {
         Datatable,
-        Update,
-        UpdateMultiple,
         Excel,
         PDF,
         Copy,
-        ViewColumns
+        Update,
+        UpdateMultiple,
+        Columns
     }
 }
 </script>

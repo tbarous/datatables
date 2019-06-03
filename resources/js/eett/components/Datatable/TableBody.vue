@@ -3,14 +3,14 @@
         <tr v-for="(data, datakey) in tableData" :key="data.id" v-if="!noData">
             <td>{{serial(datakey)}}</td>
             <td>
-                <v-checkbox :value="selectBoxes[data.id]" @change="select(item)"></v-checkbox>
+                <v-checkbox v-model="selectBoxes[data.id]" @change="select(data)"></v-checkbox>
             </td>
             <td v-if="activeColumns[key]" v-for="(value, key) in data">{{value}}</td>
             <td width="10%" style="white-space: nowrap">
-                <v-btn flat fab dark small color="info" @click="setEditDialog(data)">
+                <v-btn flat fab dark small color="info" @click="setEditingRow(data)">
                     <v-icon dark>edit</v-icon>
                 </v-btn>
-                <v-btn flat fab dark small color="red" @click="destroy(editingRow, data)">
+                <v-btn flat fab dark small color="red" @click="destroy(data)">
                     <v-icon dark>delete</v-icon>
                 </v-btn>
             </td>
@@ -32,7 +32,7 @@ export default {
 
     methods: {
         select(item) {
-            this.$store.dispatch('datatable/select', item)
+            this.$store.commit('datatable/select', item)
         },
 
         serial(datakey) {
@@ -40,9 +40,13 @@ export default {
             return 1
         },
 
-        setEditDialog(editingRow){
+        setEditingRow(editingRow){
             this.$store.commit('datatable/setEditingRow', editingRow)
             this.$store.commit('ui/openUpdateDialog')
+        },
+
+        destroy(data){
+           
         }
     }
 }
