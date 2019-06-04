@@ -8,7 +8,9 @@
                 </v-form>
                 
                 <errors></errors>
-                <close-dialog></close-dialog>
+                <v-btn @click="close" class="close-window" flat icon>
+                    <v-icon small>fa fa-times</v-icon>
+                </v-btn>
             </v-card-text>
         </v-card>
     </v-dialog>

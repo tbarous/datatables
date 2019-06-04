@@ -15,18 +15,18 @@
                 </v-form>
                 
                 <errors></errors>
-                <close-dialog></close-dialog>
+                <v-btn @click="close" class="close-window" flat icon>
+                    <v-icon small>fa fa-times</v-icon>
+                </v-btn>
             </v-card-text>
         </v-card>
     </v-dialog>
 </template>
 
 <script>
-    import CloseDialog from './../UI/CloseDialog'
     import { mapGetters } from 'vuex'
 
 	export default {
-        components: {CloseDialog},
         computed: {
             ...mapGetters("datatable", {
                 columns: 'getColumns'

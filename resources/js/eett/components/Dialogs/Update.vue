@@ -27,13 +27,11 @@
 
 <script>
 	import Errors from './../Form/Errors'
-    import CloseDialog from './../UI/CloseDialog'
     import { mapGetters } from 'vuex'
     import { mapMutations } from 'vuex'
     import { mapActions } from 'vuex'
 
 	export default {
-        components: {CloseDialog},
         computed: {
             ...mapGetters("datatable", {
                 columns: 'getColumns',
@@ -50,7 +48,6 @@
             ...mapActions("datatable", {
                 update: 'update',
             }),
-
             update(){
                 this.$store.commit('ui/startLoading')
                 this.$store.dispatch('datatable/update')

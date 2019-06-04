@@ -2578,7 +2578,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _UI_CloseDialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../UI/CloseDialog */ "./resources/js/eett/components/UI/CloseDialog.vue");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -2605,26 +2604,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    CloseDialog: _UI_CloseDialog__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("ui", {
     dialog: 'getViewDialog'
   }), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("datatable", {
     columns: 'getColumns',
     activeColumns: 'getActiveColumns'
   })),
-  methods: {
-    close: function close() {
-      this.$store.commit('ui/toggleDialog');
-    },
-    changeActiveColumns: function changeActiveColumns() {
-      this.$store.commit('datatable/changeActiveColumns');
-    }
-  }
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("ui", {
+    close: 'closeViewDialog'
+  }), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("datatable", {
+    changeActiveColumns: 'changeActiveColumns'
+  }))
 });
 
 /***/ }),
@@ -2639,8 +2634,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Form_Errors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../Form/Errors */ "./resources/js/eett/components/Form/Errors.vue");
-/* harmony import */ var _UI_CloseDialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../UI/CloseDialog */ "./resources/js/eett/components/UI/CloseDialog.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -2676,20 +2670,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    CloseDialog: _UI_CloseDialog__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])("datatable", {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])("datatable", {
     columns: 'getColumns',
     editingRow: 'getEditingRow'
-  }), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])("ui", {
+  }), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])("ui", {
     dialog: 'getUpdateDialog'
   })),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapMutations"])("ui", {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])("ui", {
     close: 'closeUpdateDialog'
-  }), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("datatable", {
+  }), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])("datatable", {
     update: 'update'
   }), {
     update: function update() {
@@ -2721,8 +2711,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _UI_CloseDialog__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../UI/CloseDialog */ "./resources/js/eett/components/UI/CloseDialog.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -2750,15 +2739,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    CloseDialog: _UI_CloseDialog__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])("datatable", {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("datatable", {
     columns: 'getColumns'
-  }), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])("ui", {
+  }), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("ui", {
     dialog: 'getUpdateMultipleDialog'
   })),
   methods: {
@@ -2971,31 +2958,6 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     auth: function auth() {
       return this.$store.getters['auth/getAuth'];
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/eett/components/UI/CloseDialog.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/eett/components/UI/CloseDialog.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  methods: {
-    close: function close() {
-      this.$store.commit('ui/closeDialog');
     }
   }
 });
@@ -53783,7 +53745,16 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("close-dialog")
+          _c(
+            "v-btn",
+            {
+              staticClass: "close-window",
+              attrs: { flat: "", icon: "" },
+              on: { click: _vm.close }
+            },
+            [_c("v-icon", { attrs: { small: "" } }, [_vm._v("fa fa-times")])],
+            1
+          )
         ],
         1
       )
@@ -53995,7 +53966,20 @@ var render = function() {
               _vm._v(" "),
               _c("errors"),
               _vm._v(" "),
-              _c("close-dialog")
+              _c(
+                "v-btn",
+                {
+                  staticClass: "close-window",
+                  attrs: { flat: "", icon: "" },
+                  on: { click: _vm.close }
+                },
+                [
+                  _c("v-icon", { attrs: { small: "" } }, [
+                    _vm._v("fa fa-times")
+                  ])
+                ],
+                1
+              )
             ],
             1
           )
@@ -54389,39 +54373,6 @@ var render = function() {
         1
       )
     ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/eett/components/UI/CloseDialog.vue?vue&type=template&id=39f176ad&":
-/*!**********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/eett/components/UI/CloseDialog.vue?vue&type=template&id=39f176ad& ***!
-  \**********************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "v-btn",
-    {
-      staticClass: "close-window",
-      attrs: { flat: "", icon: "" },
-      on: { click: _vm.close }
-    },
-    [_c("v-icon", { attrs: { small: "" } }, [_vm._v("fa fa-times")])],
     1
   )
 }
@@ -99488,75 +99439,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Toolbar_vue_vue_type_template_id_5a8dcd68___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Toolbar_vue_vue_type_template_id_5a8dcd68___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/eett/components/UI/CloseDialog.vue":
-/*!*********************************************************!*\
-  !*** ./resources/js/eett/components/UI/CloseDialog.vue ***!
-  \*********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _CloseDialog_vue_vue_type_template_id_39f176ad___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CloseDialog.vue?vue&type=template&id=39f176ad& */ "./resources/js/eett/components/UI/CloseDialog.vue?vue&type=template&id=39f176ad&");
-/* harmony import */ var _CloseDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CloseDialog.vue?vue&type=script&lang=js& */ "./resources/js/eett/components/UI/CloseDialog.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _CloseDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _CloseDialog_vue_vue_type_template_id_39f176ad___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _CloseDialog_vue_vue_type_template_id_39f176ad___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/eett/components/UI/CloseDialog.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/eett/components/UI/CloseDialog.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************!*\
-  !*** ./resources/js/eett/components/UI/CloseDialog.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CloseDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./CloseDialog.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/eett/components/UI/CloseDialog.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CloseDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/eett/components/UI/CloseDialog.vue?vue&type=template&id=39f176ad&":
-/*!****************************************************************************************!*\
-  !*** ./resources/js/eett/components/UI/CloseDialog.vue?vue&type=template&id=39f176ad& ***!
-  \****************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CloseDialog_vue_vue_type_template_id_39f176ad___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./CloseDialog.vue?vue&type=template&id=39f176ad& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/eett/components/UI/CloseDialog.vue?vue&type=template&id=39f176ad&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CloseDialog_vue_vue_type_template_id_39f176ad___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CloseDialog_vue_vue_type_template_id_39f176ad___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
