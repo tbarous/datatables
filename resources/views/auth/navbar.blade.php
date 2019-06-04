@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm bg-dark">
+<!-- <nav class="navbar navbar-expand-sm bg-dark">
     <ul class="navbar-nav">
         <li class="nav-item">
             <a class="nav-link text-white" href="/">
@@ -6,4 +6,4 @@
             </a>
         </li>
     </ul>
-</nav>
+</nav> -->

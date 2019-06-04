@@ -10,19 +10,17 @@ export default {
     SET_ACTIVE_COLUMNS: (state, activeColumns) => state.activeColumns = activeColumns,
     TOGGLE_ALL(state){
         state.selectAll = !state.selectAll
-        console.log(state.selectAll)
         state.selectBoxes = {}
-        state.tableData.map(item => {
+        state.tableData.forEach(item => {
             state.selectBoxes[item.id] = Boolean(state.selectAll)
             if(state.selected.indexOf(item.id) == -1 && state.selectAll) state.selected.push(item.id)
             if(state.selected.indexOf(item.id) != -1 && !state.selectAll) state.selected.splice(state.selected.indexOf(item.id), 1)
         })
-        console.log(state.selected)
     },
 
     // Set all columns to active and queries to empty strings
     INITIALIZE(state){
-        state.columns.map(column => {
+        state.columns.forEach(column => {
             state.activeColumns[column.title] = true;
             state.queries[column.title] = ''
         });
@@ -58,18 +56,20 @@ export default {
     },
 
     PREPARE_FOR_FETCH: (state, reset) => {
-        // Reset the pagination
+        // Reset the pagination if needs resetting
         if (reset) state.currentPage = 1
 
-        // Make sure null values are ''
-        if(state.generalSearch == null) {state.generalSearch = ''}
-        Object.keys(state.queries).forEach(item => {
-            let queryItem = state.queries[item];
-            if (queryItem == null) queryItem = ''
-            state.dataFetchUrl += '&' + item + '=' + queryItem;
-        })
+        // Make sure search null value is ''
+        state.generalSearch = nullToEmpty(state.generalSearch)
 
+        // Prepare the fetch URL
         state.dataFetchUrl = `${state.resourceURL}?page=${state.currentPage}&column=${state.sortedColumn}&order=${state.order}&per_page=${state.perPage}&search=${state.generalSearch}`
+
+        // Make sure other search null values are ''
+        Object.keys(state.queries).forEach(item => {
+            state.queries[item] = nullToEmpty(state.queries[item])
+            state.dataFetchUrl += '&' + item + '=' + state.queries[item];
+        })
     },
 
     // Make changes on active datatable columns
@@ -142,4 +142,9 @@ export default {
         state.resourceURL = resourceURL
         state.columns = columns 
     }
+}
+
+function nullToEmpty(string){
+    if(string == null) return ''
+    return string
 }

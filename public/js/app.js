@@ -2952,6 +2952,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.commit('ui/TOGGLE_DRAWER');
     },
     logout: function logout() {
+      this.$store.commit('ui/START_LOADING');
       this.$store.dispatch('auth/LOGOUT');
     }
   }
@@ -100099,18 +100100,16 @@ __webpack_require__.r(__webpack_exports__);
   },
   TOGGLE_ALL: function TOGGLE_ALL(state) {
     state.selectAll = !state.selectAll;
-    console.log(state.selectAll);
     state.selectBoxes = {};
-    state.tableData.map(function (item) {
+    state.tableData.forEach(function (item) {
       state.selectBoxes[item.id] = Boolean(state.selectAll);
       if (state.selected.indexOf(item.id) == -1 && state.selectAll) state.selected.push(item.id);
       if (state.selected.indexOf(item.id) != -1 && !state.selectAll) state.selected.splice(state.selected.indexOf(item.id), 1);
     });
-    console.log(state.selected);
   },
   // Set all columns to active and queries to empty strings
   INITIALIZE: function INITIALIZE(state) {
-    state.columns.map(function (column) {
+    state.columns.forEach(function (column) {
       state.activeColumns[column.title] = true;
       state.queries[column.title] = '';
     });
@@ -100141,19 +100140,17 @@ __webpack_require__.r(__webpack_exports__);
     state.generalSearch = '';
   },
   PREPARE_FOR_FETCH: function PREPARE_FOR_FETCH(state, reset) {
-    // Reset the pagination
-    if (reset) state.currentPage = 1; // Make sure null values are ''
+    // Reset the pagination if needs resetting
+    if (reset) state.currentPage = 1; // Make sure search null value is ''
 
-    if (state.generalSearch == null) {
-      state.generalSearch = '';
-    }
+    state.generalSearch = nullToEmpty(state.generalSearch); // Prepare the fetch URL
+
+    state.dataFetchUrl = "".concat(state.resourceURL, "?page=").concat(state.currentPage, "&column=").concat(state.sortedColumn, "&order=").concat(state.order, "&per_page=").concat(state.perPage, "&search=").concat(state.generalSearch); // Make sure other search null values are ''
 
     Object.keys(state.queries).forEach(function (item) {
-      var queryItem = state.queries[item];
-      if (queryItem == null) queryItem = '';
-      state.dataFetchUrl += '&' + item + '=' + queryItem;
+      state.queries[item] = nullToEmpty(state.queries[item]);
+      state.dataFetchUrl += '&' + item + '=' + state.queries[item];
     });
-    state.dataFetchUrl = "".concat(state.resourceURL, "?page=").concat(state.currentPage, "&column=").concat(state.sortedColumn, "&order=").concat(state.order, "&per_page=").concat(state.perPage, "&search=").concat(state.generalSearch);
   },
   // Make changes on active datatable columns
   CHANGE_ACTIVE_COLUMNS: function CHANGE_ACTIVE_COLUMNS(state) {
@@ -100246,6 +100243,11 @@ __webpack_require__.r(__webpack_exports__);
     state.columns = columns;
   }
 });
+
+function nullToEmpty(string) {
+  if (string == null) return '';
+  return string;
+}
 
 /***/ }),
 

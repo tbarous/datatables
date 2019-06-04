@@ -16,6 +16,7 @@
 				this.$store.commit('ui/TOGGLE_DRAWER')
 			},
 			logout(){
+				this.$store.commit('ui/START_LOADING')
 				this.$store.dispatch('auth/LOGOUT')
 			}
 		}
