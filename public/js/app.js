@@ -2058,9 +2058,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   }),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('datatable', {
-    fetchData: 'FETCH_DATA'
-  }))
+  methods: {
+    fetchData: function fetchData() {
+      this.$store.dispatch('datatable/FETCH_DATA', true);
+    }
+  }
 });
 
 /***/ }),
@@ -2362,7 +2364,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("datatable", {
-    // perPage: 'getPerPage',
     itemsShow: 'GET_ITEMS_SHOW'
   }), {
     perPage: {
@@ -99856,9 +99857,9 @@ __webpack_require__.r(__webpack_exports__);
     context.commit('CLEAR_FILTERS');
     context.dispatch('FETCH_DATA');
   },
-  FETCH_DATA: function FETCH_DATA(context) {
+  FETCH_DATA: function FETCH_DATA(context, reset) {
     context.commit('START_LOADING');
-    context.commit('PREPARE_FOR_FETCH');
+    context.commit('PREPARE_FOR_FETCH', reset);
     context.commit('FETCH_DATA');
   },
   SORT_BY_COLUMN: function SORT_BY_COLUMN(context, column) {
@@ -100112,16 +100113,19 @@ __webpack_require__.r(__webpack_exports__);
     state.generalSearch = '';
   },
   PREPARE_FOR_FETCH: function PREPARE_FOR_FETCH(state, reset) {
-    if (reset) state.currentPage = 1;
-    state.dataFetchUrl = "".concat(state.resourceURL, "?page=").concat(state.currentPage, "&column=").concat(state.sortedColumn, "&order=").concat(state.order, "&per_page=").concat(state.perPage, "&search=").concat(state.generalSearch);
-    /* Make sure null values are ''*/
+    // Reset the pagination
+    if (reset) state.currentPage = 1; // Make sure null values are ''
 
-    if (state.generalSearch == null) state.generalSearch = '';
+    if (state.generalSearch == null) {
+      state.generalSearch = '';
+    }
+
     Object.keys(state.queries).map(function (item) {
       var queryItem = state.queries[item];
       if (queryItem == null) queryItem = '';
       state.dataFetchUrl += '&' + item + '=' + queryItem;
     });
+    state.dataFetchUrl = "".concat(state.resourceURL, "?page=").concat(state.currentPage, "&column=").concat(state.sortedColumn, "&order=").concat(state.order, "&per_page=").concat(state.perPage, "&search=").concat(state.generalSearch);
   },
   // Make changes on active datatable columns
   CHANGE_ACTIVE_COLUMNS: function CHANGE_ACTIVE_COLUMNS(state) {

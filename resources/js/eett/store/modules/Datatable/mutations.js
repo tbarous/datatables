@@ -55,16 +55,18 @@ export default {
     },
 
     PREPARE_FOR_FETCH: (state, reset) => {
+        // Reset the pagination
         if (reset) state.currentPage = 1
-        state.dataFetchUrl = `${state.resourceURL}?page=${state.currentPage}&column=${state.sortedColumn}&order=${state.order}&per_page=${state.perPage}&search=${state.generalSearch}`
 
-        /* Make sure null values are ''*/
-        if (state.generalSearch == null) state.generalSearch = ''
+        // Make sure null values are ''
+        if(state.generalSearch == null) {state.generalSearch = ''}
         Object.keys(state.queries).map(item => {
             let queryItem = state.queries[item];
             if (queryItem == null) queryItem = ''
             state.dataFetchUrl += '&' + item + '=' + queryItem;
         })
+
+        state.dataFetchUrl = `${state.resourceURL}?page=${state.currentPage}&column=${state.sortedColumn}&order=${state.order}&per_page=${state.perPage}&search=${state.generalSearch}`
     },
 
     // Make changes on active datatable columns

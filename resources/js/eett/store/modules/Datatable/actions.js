@@ -5,9 +5,9 @@ export default {
         context.dispatch('FETCH_DATA')
     },
 
-    FETCH_DATA(context){
+    FETCH_DATA(context, reset){
         context.commit('START_LOADING')
-        context.commit('PREPARE_FOR_FETCH')
+        context.commit('PREPARE_FOR_FETCH', reset)
         context.commit('FETCH_DATA')
     },
 
@@ -21,7 +21,7 @@ export default {
         context.commit('CHANGE_PAGE', page)
         context.dispatch('FETCH_DATA')
     },
-    
+
     SET_PER_PAGE: (context, perPage) => {
         context.commit('START_LOADING')
         context.commit('SET_PER_PAGE', perPage)

@@ -19,7 +19,6 @@ import { mapGetters } from 'vuex'
 export default {
     computed: {
         ...mapGetters("datatable", {
-            // perPage: 'getPerPage',
             itemsShow: 'GET_ITEMS_SHOW'
         }),
 
