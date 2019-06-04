@@ -54,6 +54,9 @@ class User extends Authenticatable
                 ['title' => 'created_at', 'sortable' => true, 'searchable' => true, 'type'=> 'date'],
                 ['title' => 'updated_at', 'sortable' => true, 'searchable' => true, 'type'=> 'date']
             ],
+            'form' => [
+                'update' => ['username', 'email']
+            ],
             'url' => 'api/users'
         ];
 

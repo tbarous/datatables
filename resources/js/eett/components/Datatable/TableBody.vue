@@ -27,7 +27,16 @@ export default {
             noData: 'noData',
             selectBoxes: 'getSelectBoxes',
             activeColumns: 'getActiveColumns'
-        })
+        }),
+        options() {
+            return this.$store.getters['daterangepicker/getOptions']
+        }
+    },
+
+    mounted(){
+        $('.double-scroll').doubleScroll()
+        $('input[name="datefilter"]').daterangepicker(this.options)
+        this.$store.dispatch('daterangepicker/setPicker')
     },
 
     methods: {

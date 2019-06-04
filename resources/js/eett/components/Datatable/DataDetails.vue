@@ -20,10 +20,10 @@
 	export default{
 		computed: {
 			...mapGetters("datatable", {
-	            loading: 'getLoading',
-	            pagination: 'getPagination',
-	            getItemsCount: 'getItemsCount',
-	            selected: 'getSelected',
+	            loading: 'GET_LOADING',
+	            pagination: 'GET_PAGINATION',
+	            getItemsCount: 'GET_ITEMS_COUNT',
+	            selected: 'GET_SELECTED',
 	        })
 		}
 	}

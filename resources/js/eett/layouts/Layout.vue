@@ -14,6 +14,7 @@
     import Navbar from './../components/Navigation/Navbar'
     import Content from './../components/Content'
     import ToTop from './../components/UI/ToTop'
+    import { mapGetters } from 'vuex'
 
     export default {
         components: {
@@ -24,9 +25,9 @@
         },
 
         computed: {
-            loading() {
-                return this.$store.getters['ui/getLoading']
-            },
+            ...mapGetters("ui", {
+                loading: 'getLoading',
+            })
         }
     }
 </script>

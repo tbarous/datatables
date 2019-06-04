@@ -3,7 +3,7 @@
         <v-card>
             <v-card-title class="headline grey lighten-2" primary-title>Edit fields</v-card-title>
             <v-card-text>
-                <v-form method="post" @submit.prevent="updateMultiple(editingMultipleRow)">
+                <v-form method="post" @submit.prevent="updateMultiple">
                     <v-text-field :label="column.title" solo 
                         v-for="(column, key) in columns" 
                         :key="column.title" 
@@ -25,20 +25,22 @@
 
 <script>
     import { mapGetters } from 'vuex'
+    import { mapMutations } from 'vuex'
 
 	export default {
         computed: {
             ...mapGetters("datatable", {
-                columns: 'getColumns'
+                columns: 'getColumns',
+                editingMultipleRow: 'editingMultipleRow'
             }),
             ...mapGetters("ui", {
                 dialog: 'getUpdateMultipleDialog',
             }),
         },
 		methods: {
-            close() {
-                this.$store.commit('ui/toggleDialog')
-            }
+            ...mapMutations("ui", {
+                close: 'closeUpdateMultipleDialog',
+            }),
         }
 	}
 </script>

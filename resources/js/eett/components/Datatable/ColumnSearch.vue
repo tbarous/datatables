@@ -2,16 +2,9 @@
 	<tr>
         <th></th>
         <th>
-            <v-checkbox 
-                class="toggleAll mt-0" 
-                @click.self="toggleAll" 
-                :value="selectAll">
-            </v-checkbox>
+            <v-checkbox class="mt-0" @click.self="toggleAll" :value="selectAll"></v-checkbox>
         </th>
-        <th 
-            v-if="activeColumns[column.title]" 
-            v-for="column in columns" 
-            :key="column.title">
+        <th v-if="activeColumns[column.title]" v-for="column in columns" :key="column.title">
             <v-text-field 
                 clearable 
                 style="min-width: 100px;" 
@@ -42,23 +35,22 @@
 	export default{
 		computed: {
             ...mapGetters("datatable", {
-                selectAll: 'getSelectAll',
-                columns: 'getColumns',
-                activeColumns: 'getActiveColumns'
+                selectAll: 'GET_SELECT_ALL',
+                columns: 'GET_COLUMNS',
+                activeColumns: 'GET_ACTIVE_COLUMNS'
             }),
             queries: {
                 get() {
-                    return this.$store.getters['datatable/getQueries']
+                    return this.$store.getters['datatable/GET_QUERIES']
                 },
                 set(queries){
-                    this.$store.commit('datatable/setQueries', queries)
+                    this.$store.commit('datatable/SET_QUERIES', queries)
                 }
             }
         },
-
         methods: {
             ...mapActions('datatable', {
-                fetchData: 'fetchData',
+                fetchData: 'FETCH_DATA',
             })
         }
 	}

@@ -39,19 +39,11 @@ import TableBody from './TableBody'
 
 export default {
     computed: {
-        options() {
-            return this.$store.getters['daterangepicker/getOptions']
-        }
-    },
-
-    mounted(){
-        $('.double-scroll').doubleScroll()
-        $('input[name="datefilter"]').daterangepicker(this.options)
-        this.$store.dispatch('daterangepicker/setPicker')
+        
     },
 
     created() {
-        this.$store.dispatch('datatable/setActiveColumnsAndQueries')
+        this.$store.dispatch('datatable/INITIALIZE')
         return this.$store.dispatch('datatable/fetchData')
     },
 

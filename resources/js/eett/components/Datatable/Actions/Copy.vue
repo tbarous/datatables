@@ -9,7 +9,7 @@
 <script>
 	export default{
 		mounted(){
-        	var clipboard = new Clipboard('#export-btn');
+        	// var clipboard = new Clipboard('#export-btn');
 		}
 	}
 </script>

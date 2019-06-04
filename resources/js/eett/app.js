@@ -34,7 +34,9 @@ Vue.component('errors', Errors);
 
 import "./Filters"
 
-store.dispatch('data/setData', data)
+store.dispatch('auth/setData', data.auth)
+store.dispatch('user/setData', data.users)
+store.dispatch('pages/setData', data.pages)
 
 const app = new Vue({
     router,

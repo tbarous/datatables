@@ -1901,8 +1901,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    var clipboard = new Clipboard('#export-btn');
+  mounted: function mounted() {// var clipboard = new Clipboard('#export-btn');
   }
 });
 
@@ -1994,32 +1993,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("datatable", {
-    selectAll: 'getSelectAll',
-    columns: 'getColumns',
-    activeColumns: 'getActiveColumns'
+    selectAll: 'GET_SELECT_ALL',
+    columns: 'GET_COLUMNS',
+    activeColumns: 'GET_ACTIVE_COLUMNS'
   }), {
     queries: {
       get: function get() {
-        return this.$store.getters['datatable/getQueries'];
+        return this.$store.getters['datatable/GET_QUERIES'];
       },
       set: function set(queries) {
-        this.$store.commit('datatable/setQueries', queries);
+        this.$store.commit('datatable/SET_QUERIES', queries);
       }
     }
   }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('datatable', {
-    fetchData: 'fetchData'
+    fetchData: 'FETCH_DATA'
   }))
 });
 
@@ -2059,10 +2051,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("datatable", {
-    loading: 'getLoading',
-    pagination: 'getPagination',
-    getItemsCount: 'getItemsCount',
-    selected: 'getSelected'
+    loading: 'GET_LOADING',
+    pagination: 'GET_PAGINATION',
+    getItemsCount: 'GET_ITEMS_COUNT',
+    selected: 'GET_SELECTED'
   }))
 });
 
@@ -2125,18 +2117,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: {
-    options: function options() {
-      return this.$store.getters['daterangepicker/getOptions'];
-    }
-  },
-  mounted: function mounted() {
-    $('.double-scroll').doubleScroll();
-    $('input[name="datefilter"]').daterangepicker(this.options);
-    this.$store.dispatch('daterangepicker/setPicker');
-  },
+  computed: {},
   created: function created() {
-    this.$store.dispatch('datatable/setActiveColumnsAndQueries');
+    this.$store.dispatch('datatable/INITIALIZE');
     return this.$store.dispatch('datatable/fetchData');
   },
   components: {
@@ -2464,7 +2447,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     noData: 'noData',
     selectBoxes: 'getSelectBoxes',
     activeColumns: 'getActiveColumns'
-  })),
+  }), {
+    options: function options() {
+      return this.$store.getters['daterangepicker/getOptions'];
+    }
+  }),
+  mounted: function mounted() {
+    $('.double-scroll').doubleScroll();
+    $('input[name="datefilter"]').daterangepicker(this.options);
+    this.$store.dispatch('daterangepicker/setPicker');
+  },
   methods: {
     select: function select(item) {
       this.$store.commit('datatable/select', item);
@@ -2742,17 +2734,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("datatable", {
-    columns: 'getColumns'
+    columns: 'getColumns',
+    editingMultipleRow: 'editingMultipleRow'
   }), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("ui", {
     dialog: 'getUpdateMultipleDialog'
   })),
-  methods: {
-    close: function close() {
-      this.$store.commit('ui/toggleDialog');
-    }
-  }
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("ui", {
+    close: 'closeUpdateMultipleDialog'
+  }))
 });
 
 /***/ }),
@@ -3002,6 +2994,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Navigation_Navbar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../components/Navigation/Navbar */ "./resources/js/eett/components/Navigation/Navbar.vue");
 /* harmony import */ var _components_Content__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../components/Content */ "./resources/js/eett/components/Content.vue");
 /* harmony import */ var _components_UI_ToTop__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../components/UI/ToTop */ "./resources/js/eett/components/UI/ToTop.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -3013,6 +3010,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -3024,11 +3022,9 @@ __webpack_require__.r(__webpack_exports__);
     Content: _components_Content__WEBPACK_IMPORTED_MODULE_2__["default"],
     ToTop: _components_UI_ToTop__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
-  computed: {
-    loading: function loading() {
-      return this.$store.getters['ui/getLoading'];
-    }
-  }
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapGetters"])("ui", {
+    loading: 'getLoading'
+  }))
 });
 
 /***/ }),
@@ -3061,7 +3057,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({});
@@ -3108,10 +3103,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
-    var url = this.$store.getters['user/getResourceURL'];
-    this.$store.commit('api/setResourceURL', url);
-    this.$store.commit('datatable/setResourceURL', url);
-    this.$store.commit('datatable/setColumns', this.$store.getters['user/getColumns']);
+    this.$store.commit('datatable/SET_DATATABLE', this.$store.getters['user/GET_DATATABLE']); // const url = this.$store.getters['user/getResourceURL']
+    // this.$store.commit('datatable/setResourceURL', url)
+    // this.$store.commit('datatable/setColumns', this.$store.getters['user/getColumns'])
   },
   components: {
     Datatable: _components_Datatable_Datatable__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -52856,7 +52850,7 @@ var render = function() {
         "th",
         [
           _c("v-checkbox", {
-            staticClass: "toggleAll mt-0",
+            staticClass: "mt-0",
             attrs: { value: _vm.selectAll },
             on: {
               click: function($event) {
@@ -53322,9 +53316,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _vm.noData
     ? _c("tr", [
-        _c("td", { attrs: { colspan: _vm.columns.length + 3 } }, [
-          _vm._v("\n            No data was found\n        ")
-        ])
+        _c(
+          "td",
+          { staticClass: "p-3", attrs: { colspan: _vm.columns.length + 3 } },
+          [_vm._v("\n            No data was found\n        ")]
+        )
       ])
     : _vm._e()
 }
@@ -53922,7 +53918,7 @@ var render = function() {
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
-                      return _vm.updateMultiple(_vm.editingMultipleRow)
+                      return _vm.updateMultiple($event)
                     }
                   }
                 },
@@ -54560,6 +54556,8 @@ var render = function() {
       _c("datatable"),
       _vm._v(" "),
       _c("update"),
+      _vm._v(" "),
+      _c("update-multiple"),
       _vm._v(" "),
       _c("columns")
     ],
@@ -97833,7 +97831,9 @@ $(document).on('scroll', function () {
 
 Vue.component('errors', _components_Form_Errors__WEBPACK_IMPORTED_MODULE_7__["default"]);
 
-_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('data/setData', data);
+_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('auth/setData', data.auth);
+_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('user/setData', data.users);
+_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('pages/setData', data.pages);
 var app = new Vue({
   router: _router__WEBPACK_IMPORTED_MODULE_1__["default"],
   axios: _api__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -99646,16 +99646,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _modules_user__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/user */ "./resources/js/eett/store/modules/user.js");
-/* harmony import */ var _modules_pages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/pages */ "./resources/js/eett/store/modules/pages.js");
-/* harmony import */ var _modules_auth__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/auth */ "./resources/js/eett/store/modules/auth.js");
-/* harmony import */ var _modules_ui__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/ui */ "./resources/js/eett/store/modules/ui.js");
-/* harmony import */ var _modules_data__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/data */ "./resources/js/eett/store/modules/data.js");
-/* harmony import */ var _modules_datatable__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/datatable */ "./resources/js/eett/store/modules/datatable.js");
-/* harmony import */ var _modules_api__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/api */ "./resources/js/eett/store/modules/api.js");
-/* harmony import */ var _modules_daterangepicker__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/daterangepicker */ "./resources/js/eett/store/modules/daterangepicker.js");
-
-
+/* harmony import */ var _modules_User__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/User */ "./resources/js/eett/store/modules/User/index.js");
+/* harmony import */ var _modules_Page__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/Page */ "./resources/js/eett/store/modules/Page/index.js");
+/* harmony import */ var _modules_Auth__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/Auth */ "./resources/js/eett/store/modules/Auth/index.js");
+/* harmony import */ var _modules_UI__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/UI */ "./resources/js/eett/store/modules/UI/index.js");
+/* harmony import */ var _modules_Datatable__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/Datatable */ "./resources/js/eett/store/modules/Datatable/index.js");
+/* harmony import */ var _modules_Daterangepicker__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/Daterangepicker */ "./resources/js/eett/store/modules/Daterangepicker/index.js");
 
 
 
@@ -99668,14 +99664,12 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 var debug = "development" !== 'production';
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   modules: {
-    user: _modules_user__WEBPACK_IMPORTED_MODULE_2__["default"],
-    pages: _modules_pages__WEBPACK_IMPORTED_MODULE_3__["default"],
-    auth: _modules_auth__WEBPACK_IMPORTED_MODULE_4__["default"],
-    ui: _modules_ui__WEBPACK_IMPORTED_MODULE_5__["default"],
-    data: _modules_data__WEBPACK_IMPORTED_MODULE_6__["default"],
-    datatable: _modules_datatable__WEBPACK_IMPORTED_MODULE_7__["default"],
-    api: _modules_api__WEBPACK_IMPORTED_MODULE_8__["default"],
-    daterangepicker: _modules_daterangepicker__WEBPACK_IMPORTED_MODULE_9__["default"]
+    user: _modules_User__WEBPACK_IMPORTED_MODULE_2__["default"],
+    pages: _modules_Page__WEBPACK_IMPORTED_MODULE_3__["default"],
+    auth: _modules_Auth__WEBPACK_IMPORTED_MODULE_4__["default"],
+    ui: _modules_UI__WEBPACK_IMPORTED_MODULE_5__["default"],
+    datatable: _modules_Datatable__WEBPACK_IMPORTED_MODULE_6__["default"],
+    daterangepicker: _modules_Daterangepicker__WEBPACK_IMPORTED_MODULE_7__["default"]
   },
   // strict: debug
   strict: false
@@ -99683,297 +99677,215 @@ var debug = "development" !== 'production';
 
 /***/ }),
 
-/***/ "./resources/js/eett/store/modules/api.js":
-/*!************************************************!*\
-  !*** ./resources/js/eett/store/modules/api.js ***!
-  \************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./resources/js/eett/store/modules/Auth/actions.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/eett/store/modules/Auth/actions.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var state = {
-  resourceURL: ''
-};
-var getters = {
-  getResourceURL: function getResourceURL(state) {
-    return state.resourceURL;
-  }
-};
-var mutations = {
-  setResourceURL: function setResourceURL(state, resourceURL) {
-    state.resourceURL = resourceURL;
-  },
-  update: function update() {
-    var _this = this;
-
-    this.$store.dispatch('loading/setLoading', true);
-    axios.post(this.url + '/update', {
-      row: JSON.stringify(this.editingRow)
-    }).then(function (response) {
-      console.log(response);
-      _this.errors.update = '';
-
-      _this.$store.dispatch('loading/setLoading', false);
-
-      _this.$notify({
-        type: 'success',
-        text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'
-      });
-
-      _this.fetchData(false, {
-        type: 'success',
-        text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'
-      });
-    })["catch"](function (error) {
-      _this.handleFailure(error, 'update');
-    });
-  },
-  destroy: function destroy(index, row) {
-    var _this2 = this;
-
-    this.$store.dispatch('loading/setLoading', true);
-    axios.post(this.url + '/destroy', {
-      id: row.id
-    }).then(function (response) {
-      _this2.fetchData(false, {
-        type: 'success',
-        text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been deleted'
-      });
-    })["catch"](function (error) {
-      _this2.handleFailure(error);
-    });
-  },
-  updateMultiple: function updateMultiple(row) {
-    var _this3 = this;
-
-    this.$store.dispatch('loading/setLoading', true);
-    axios.post(this.url + '/update-many', {
-      selected: JSON.stringify(this.selected),
-      row: JSON.stringify(row)
-    }).then(function (response) {
-      _this3.fetchData(false, {
-        type: 'success',
-        text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Items has been updated'
-      });
-    })["catch"](function (error) {
-      _this3.handleFailure(error);
-    });
-  },
-  handleFailure: function handleFailure(error, type) {
-    this.loading = false;
-    this.$store.dispatch('loading/setLoading', false);
-
-    if (error) {
-      console.log(error.response.data.errors);
-      this.errors[type] = error.response.data.errors;
-    } else {
-      this.fetchData(false, {
-        type: 'danger',
-        text: '<i class="fa fa-times" aria-hidden="true"></i> &nbsp;An error occured'
-      });
-    }
-  }
-};
-var actions = {// setResourceURL(context, resourceURL){
-  //     context.commit('setResourceURL', resourceURL)
-  // }
-};
-/* harmony default export */ __webpack_exports__["default"] = ({
-  namespaced: true,
-  state: state,
-  getters: getters,
-  actions: actions,
-  mutations: mutations
-});
-
-/***/ }),
-
-/***/ "./resources/js/eett/store/modules/auth.js":
-/*!*************************************************!*\
-  !*** ./resources/js/eett/store/modules/auth.js ***!
-  \*************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var state = {
-  auth: {}
-};
-var getters = {
-  getAuth: function getAuth(state) {
-    return state.auth;
-  }
-};
-var mutations = {
-  setUser: function setUser(state, user) {
-    state.user = user;
-  },
-  setData: function setData(state, auth) {
-    state.auth = auth;
-  }
-};
 var actions = {
-  logout: function logout() {
+  LOGOUT: function LOGOUT() {
     axios.post('/logout').then(function (response) {
       window.location.href = '/';
     })["catch"](function (e) {
       console.log(e.response.data);
     });
-  },
-  setData: function setData(context, auth) {
-    context.commit('setData', auth);
   }
 };
-/* harmony default export */ __webpack_exports__["default"] = ({
-  namespaced: true,
-  state: state,
-  getters: getters,
-  actions: actions,
-  mutations: mutations
-});
 
 /***/ }),
 
-/***/ "./resources/js/eett/store/modules/data.js":
-/*!*************************************************!*\
-  !*** ./resources/js/eett/store/modules/data.js ***!
-  \*************************************************/
+/***/ "./resources/js/eett/store/modules/Auth/getters.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/eett/store/modules/Auth/getters.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var getters = {
+  GET_AUTH: function GET_AUTH(state) {
+    return state.auth;
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/js/eett/store/modules/Auth/index.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/eett/store/modules/Auth/index.js ***!
+  \*******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../store */ "./resources/js/eett/store/index.js");
+/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getters */ "./resources/js/eett/store/modules/Auth/getters.js");
+/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_getters__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mutations */ "./resources/js/eett/store/modules/Auth/mutations.js");
+/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_mutations__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./actions */ "./resources/js/eett/store/modules/Auth/actions.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_actions__WEBPACK_IMPORTED_MODULE_2__);
 
-var state = {};
-var getters = {};
-var mutations = {};
-var actions = {
-  setData: function setData(_ref) {
-    var commit = _ref.commit,
-        dispatch = _ref.dispatch;
-    _store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('auth/setData', data.auth);
-    _store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('user/setData', data.users);
-    _store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('pages/setData', data.pages);
-  }
-};
-/* harmony default export */ __webpack_exports__["default"] = ({
-  namespaced: true,
-  state: state,
-  getters: getters,
-  actions: actions,
-  mutations: mutations
-});
 
-/***/ }),
-
-/***/ "./resources/js/eett/store/modules/datatable.js":
-/*!******************************************************!*\
-  !*** ./resources/js/eett/store/modules/datatable.js ***!
-  \******************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 
 var state = {
-  url: '',
-  columns: {},
-  loading: false,
-  pagination: {
-    meta: {
-      to: 1,
-      from: 1
-    }
-  },
-  offset: 4,
-  currentPage: 1,
-  perPage: 15,
-  order: 'desc',
-  itemsShow: [15, 50, 100],
-  sortedColumn: 'updated_at',
-  selectAll: false,
-  generalSearch: '',
-  tableData: [],
-  queries: {},
-  activeColumns: {},
-  selected: [],
-  selectBoxes: {},
-  editingRow: {}
+  auth: {}
 };
-var getters = {
-  getLoading: function getLoading(state) {
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: state,
+  getters: _getters__WEBPACK_IMPORTED_MODULE_0___default.a,
+  actions: _actions__WEBPACK_IMPORTED_MODULE_2___default.a,
+  mutations: _mutations__WEBPACK_IMPORTED_MODULE_1___default.a
+});
+
+/***/ }),
+
+/***/ "./resources/js/eett/store/modules/Auth/mutations.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/eett/store/modules/Auth/mutations.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var mutations = {
+  SET_DATA: function SET_DATA(state, auth) {
+    return state.auth = auth;
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/js/eett/store/modules/Datatable/actions.js":
+/*!**************************************************************!*\
+  !*** ./resources/js/eett/store/modules/Datatable/actions.js ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  // setColumns: (context, columns) => context.commit('setColumns', columns),
+  // startLoading: (context) => context.commit('startLoading'),
+  // stopLoading: (context) => context.commit('stopLoading'),
+  // setActiveColumnsAndQueries: (context) => context.commit('setActiveColumnsAndQueries'),
+  // select: (context, item) => context.commit('select', item),
+  clearFilters: function clearFilters(context) {
+    context.commit('startLoading');
+    context.commit('clearFilters');
+    context.commit('fetchData');
+  },
+  fetchData: function fetchData(context) {
+    context.commit('startLoading');
+    context.commit('fetchData');
+  },
+  sortByColumn: function sortByColumn(context, column) {
+    context.commit('startLoading');
+    context.commit('sortByColumn', column);
+    context.commit('fetchData');
+  },
+  changePage: function changePage(context, page) {
+    context.commit('changePage', page);
+    context.commit('fetchData');
+  },
+  setPerPage: function setPerPage(context, perPage) {
+    context.commit('startLoading');
+    context.commit('setPerPage', perPage);
+    context.commit('fetchData');
+  },
+  update: function update(_ref) {
+    var dispatch = _ref.dispatch,
+        commit = _ref.commit,
+        getters = _ref.getters,
+        rootGetters = _ref.rootGetters;
+    commit('update');
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/eett/store/modules/Datatable/getters.js":
+/*!**************************************************************!*\
+  !*** ./resources/js/eett/store/modules/Datatable/getters.js ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  GET_LOADING: function GET_LOADING(state) {
     return state.loading;
   },
-  getSelectAll: function getSelectAll(state) {
+  GET_SELECT_ALL: function GET_SELECT_ALL(state) {
     return state.selectAll;
   },
-  getPagination: function getPagination(state) {
+  GET_PAGINATION: function GET_PAGINATION(state) {
     return state.pagination;
   },
-  getSelected: function getSelected(state) {
+  GET_SELECTED: function GET_SELECTED(state) {
     return state.selected;
   },
-  getColumns: function getColumns(state) {
+  GET_COLUMNS: function GET_COLUMNS(state) {
     return state.columns;
   },
-  getOrder: function getOrder(state) {
+  GET_ORDER: function GET_ORDER(state) {
     return state.order;
   },
-  getPerPage: function getPerPage(state) {
+  GET_PER_PAGE: function GET_PER_PAGE(state) {
     return state.perPage;
   },
-  getSelectBoxes: function getSelectBoxes(state) {
+  GET_SELECT_BOXES: function GET_SELECT_BOXES(state) {
     return state.selectBoxes;
   },
-  getTableData: function getTableData(state) {
+  GET_TABLE_DATA: function GET_TABLE_DATA(state) {
     return state.tableData;
   },
-  getCurrentPage: function getCurrentPage(state) {
+  GET_CURRENT_PAGE: function GET_CURRENT_PAGE(state) {
     return state.currentPage;
   },
-  getSortedColumn: function getSortedColumn(state) {
+  GET_SORTED_COLUMN: function GET_SORTED_COLUMN(state) {
     return state.sortedColumn;
   },
-  getGeneralSearch: function getGeneralSearch(state) {
+  GET_GENERAL_SEARCH: function GET_GENERAL_SEARCH(state) {
     return state.generalSearch;
   },
-  getEditingRow: function getEditingRow(state) {
+  GET_EDITING_ROW: function GET_EDITING_ROW(state) {
     return state.editingRow;
   },
-  getQueries: function getQueries(state) {
+  GET_EDITING_MULTIPLE_ROW: function GET_EDITING_MULTIPLE_ROW(state) {
+    return state.editingMultipleRow;
+  },
+  GET_QUERIES: function GET_QUERIES(state) {
     return state.queries;
   },
-  getItemsShow: function getItemsShow(state) {
+  GET_ITEMS_SHOW: function GET_ITEMS_SHOW(state) {
     return state.itemsShow;
   },
-  getActiveColumns: function getActiveColumns(state) {
+  GET_ACTIVE_COLUMNS: function GET_ACTIVE_COLUMNS(state) {
     return state.activeColumns;
   },
-  noData: function noData(state) {
+  NO_DATA: function NO_DATA(state) {
     return state.tableData.length === 0 && !state.loading;
   },
-  totalData: function totalData() {
+  TOTAL_DATA: function TOTAL_DATA() {
     return state.pagination.meta.to - state.pagination.meta.from + 1;
   },
-  getSerialNumber: function getSerialNumber(state) {
+  GET_SERIAL_NUMBER: function GET_SERIAL_NUMBER(state) {
     return function (key) {
       return (state.currentPage - 1) * state.perPage + 1 + key;
     };
   },
-  getItemsCount: function getItemsCount() {
+  GET_ITEMS_COUNT: function GET_ITEMS_COUNT() {
     if (state.perPage < state.pagination.meta.total) {
       return "".concat(state.perPage, " of ").concat(state.pagination.meta.total, " entries");
     }
 
     return "".concat(state.pagination.meta.total, " of ").concat(state.pagination.meta.total, " entries");
   },
-  getPagesNumber: function getPagesNumber() {
+  GET_PAGES_NUMBER: function GET_PAGES_NUMBER() {
     if (!state.pagination.meta.to) {
       return [];
     }
@@ -99998,46 +99910,120 @@ var getters = {
 
     return pagesArray;
   }
-};
-var mutations = {
-  setColumns: function setColumns(state, columns) {
-    return state.columns = columns;
-  },
-  startLoading: function startLoading(state) {
-    return state.loading = true;
-  },
-  stopLoading: function stopLoading(state) {
-    return state.loading = false;
-  },
-  setResourceURL: function setResourceURL(state, resourceURL) {
-    return state.url = resourceURL;
-  },
-  toggleAll: function toggleAll(state) {
-    if (!state.selectAll) {
-      state.selectAll = true;
-      state.tableData.map(function (item) {
-        state.selectBoxes[item.id] = true;
-        if (state.selected.indexOf(item.id) == -1) state.selected.push(item.id);
-      });
-    } else {
-      state.selectAll = false;
-      state.tableData.map(function (item) {
-        state.selectBoxes[item.id] = false;
-        if (state.selected.indexOf(item.id) != -1) state.selected.splice(state.selected.indexOf(item.id), 1);
-      });
+});
+
+/***/ }),
+
+/***/ "./resources/js/eett/store/modules/Datatable/index.js":
+/*!************************************************************!*\
+  !*** ./resources/js/eett/store/modules/Datatable/index.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getters */ "./resources/js/eett/store/modules/Datatable/getters.js");
+/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mutations */ "./resources/js/eett/store/modules/Datatable/mutations.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./actions */ "./resources/js/eett/store/modules/Datatable/actions.js");
+
+
+
+
+var state = {
+  url: '',
+  columns: {},
+  loading: false,
+  pagination: {
+    meta: {
+      to: 1,
+      from: 1
     }
   },
-  setActiveColumnsAndQueries: function setActiveColumnsAndQueries(state) {
+  offset: 4,
+  currentPage: 1,
+  perPage: 15,
+  order: 'desc',
+  itemsShow: [15, 50, 100],
+  sortedColumn: 'updated_at',
+  selectAll: false,
+  generalSearch: '',
+  tableData: [],
+  queries: {},
+  activeColumns: {},
+  selected: [],
+  selectBoxes: {},
+  editingRow: {},
+  editingMultipleRow: {}
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: state,
+  getters: _getters__WEBPACK_IMPORTED_MODULE_1__["default"],
+  actions: _actions__WEBPACK_IMPORTED_MODULE_3__["default"],
+  mutations: _mutations__WEBPACK_IMPORTED_MODULE_2__["default"]
+});
+
+/***/ }),
+
+/***/ "./resources/js/eett/store/modules/Datatable/mutations.js":
+/*!****************************************************************!*\
+  !*** ./resources/js/eett/store/modules/Datatable/mutations.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  SET_COLUMNS: function SET_COLUMNS(state, columns) {
+    return state.columns = columns;
+  },
+  START_LOADING: function START_LOADING(state) {
+    return state.loading = true;
+  },
+  STOP_LOADING: function STOP_LOADING(state) {
+    return state.loading = false;
+  },
+  SET_RESOURCE_URL: function SET_RESOURCE_URL(state, resourceURL) {
+    return state.url = resourceURL;
+  },
+  SET_GENERAL_SEARCH: function SET_GENERAL_SEARCH(state, generalSearch) {
+    return state.generalSearch = generalSearch;
+  },
+  SET_QUERIES: function SET_QUERIES(state, queries) {
+    return state.queries = queries;
+  },
+  SET_PER_PAGE: function SET_PER_PAGE(state, perPage) {
+    return state.perPage = perPage;
+  },
+  SET_EDITING_ROW: function SET_EDITING_ROW(state, editingRow) {
+    return Object.assign(state.editingRow, editingRow);
+  },
+  SET_ACTIVE_COLUMNS: function SET_ACTIVE_COLUMNS(state, activeColumns) {
+    return state.activeColumns = activeColumns;
+  },
+  TOGGLE_ALL: function TOGGLE_ALL(state) {
+    state.selectAll = !state.selectAll;
+    state.tableData.map(function (item) {
+      state.selectBoxes[item.id] = Boolean(state.selectAll);
+      if (state.selected.indexOf(item.id) == -1) state.selected.push(item.id);
+      if (state.selected.indexOf(item.id) != -1) state.selected.splice(state.selected.indexOf(item.id), 1);
+    });
+  },
+  INITIALIZE: function INITIALIZE(state) {
     state.columns.map(function (column) {
       state.activeColumns[column.title] = true;
       state.queries[column.title] = '';
     });
   },
-  changePage: function changePage(state, pageNumber) {
+  CHANGE_PAGE: function CHANGE_PAGE(state, pageNumber) {
     state.currentPage = pageNumber;
     state.selectAll = false;
   },
-  sortByColumn: function sortByColumn(state, column) {
+  SORT_BY_COLUMN: function SORT_BY_COLUMN(state, column) {
     if (column.title === state.sortedColumn) {
       state.order = state.order === 'asc' ? 'desc' : 'asc';
     } else {
@@ -100045,20 +100031,16 @@ var mutations = {
       state.order = 'asc';
     }
   },
-  select: function select(state, item) {
-    if (!state.selected.includes(item.id)) {
-      state.selected.push(item.id);
-      state.selectBoxes[item.id] = true;
-    } else {
-      state.selected.splice(state.selected.indexOf(item.id), 1);
-      state.selectBoxes[item.id] = false;
-    }
+  SELECT: function SELECT(state, item) {
+    var hmm = state.selected.includes(item.id);
+    hmm ? state.selected.push(item.id) : state.selected.splice(state.selected.indexOf(item.id), 1);
+    state.selectBoxes[item.id] = !Boolean(hmm);
   },
-  clearFilters: function clearFilters(state) {
+  CLEAR_FILTERS: function CLEAR_FILTERS(state) {
     state.queries = {};
     state.generalSearch = '';
   },
-  fetchData: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (state, reset) {
+  FETCH_DATA: _.debounce(function (state, reset) {
     if (reset) state.currentPage = 1;
     if (state.generalSearch == null) state.generalSearch = '';
     var dataFetchUrl = "".concat(state.url, "?page=").concat(state.currentPage, "&column=").concat(state.sortedColumn, "&order=").concat(state.order, "&per_page=").concat(state.perPage, "&search=").concat(state.generalSearch);
@@ -100070,38 +100052,20 @@ var mutations = {
     state.loading = true;
     axios.get(dataFetchUrl).then(function (_ref) {
       var data = _ref.data;
-      // console.log(data)
       state.pagination = data;
       state.tableData = data.data;
       state.loading = false; // state.$store.dispatch('loading/setLoading', false);
-    })["catch"](function (error) {// console.log(error)
-      // state.tableData = []
+    })["catch"](function (error) {// state.tableData = []
       // state.handleFailure(error)
     });
   }, 500),
-  setGeneralSearch: function setGeneralSearch(state, generalSearch) {
-    state.generalSearch = generalSearch;
-  },
-  setQueries: function setQueries(state, queries) {
-    state.queries = queries;
-  },
-  setPerPage: function setPerPage(state, perPage) {
-    state.perPage = perPage;
-  },
-  setEditingRow: function setEditingRow(state, editingRow) {
-    Object.assign(state.editingRow, editingRow); // state.editingRow = editingRow
-  },
-  setActiveColumns: function setActiveColumns(state, activeColumns) {
-    state.activeColumns = activeColumns;
-    console.log(state.activeColumns);
-  },
-  changeActiveColumns: function changeActiveColumns(state) {
+  CHANGE_ACTIVE_COLUMNS: function CHANGE_ACTIVE_COLUMNS(state) {
     var obj = {};
     Object.assign(obj, state.activeColumns);
     state.activeColumns = {};
     state.activeColumns = obj;
   },
-  update: function update(state) {
+  UPDATE: function UPDATE(state) {
     axios.post(state.url + '/update', {
       row: JSON.stringify(state.editingRow)
     }).then(function (response) {
@@ -100110,74 +100074,106 @@ var mutations = {
       // state.fetchData(false)
     })["catch"](function (error) {// this.handleFailure(error, 'update')
     });
+  },
+  destroy: function destroy(index, row) {
+    var _this = this;
+
+    this.$store.dispatch('loading/setLoading', true);
+    axios.post(this.url + '/destroy', {
+      id: row.id
+    }).then(function (response) {
+      _this.fetchData(false, {
+        type: 'success',
+        text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been deleted'
+      });
+    })["catch"](function (error) {
+      _this.handleFailure(error);
+    });
+  },
+  updateMultiple: function updateMultiple(row) {
+    var _this2 = this;
+
+    this.$store.dispatch('loading/setLoading', true);
+    axios.post(this.url + '/update-many', {
+      selected: JSON.stringify(this.selected),
+      row: JSON.stringify(row)
+    }).then(function (response) {
+      _this2.fetchData(false, {
+        type: 'success',
+        text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Items has been updated'
+      });
+    })["catch"](function (error) {
+      _this2.handleFailure(error);
+    });
+  },
+  handleFailure: function handleFailure(error, type) {
+    this.loading = false;
+    this.$store.dispatch('loading/setLoading', false);
+
+    if (error) {
+      console.log(error.response.data.errors);
+      this.errors[type] = error.response.data.errors;
+    } else {
+      this.fetchData(false, {
+        type: 'danger',
+        text: '<i class="fa fa-times" aria-hidden="true"></i> &nbsp;An error occured'
+      });
+    }
+  },
+  SET_DATATABLE: function SET_DATATABLE(state, resourceURL, columns) {
+    state.resourceURL = resourceURL;
+    state.columns = columns;
   }
-};
-var actions = {
-  setColumns: function setColumns(context, columns) {
-    return context.commit('setColumns', columns);
-  },
-  startLoading: function startLoading(context) {
-    return context.commit('startLoading');
-  },
-  stopLoading: function stopLoading(context) {
-    return context.commit('stopLoading');
-  },
-  setActiveColumnsAndQueries: function setActiveColumnsAndQueries(context) {
-    return context.commit('setActiveColumnsAndQueries');
-  },
-  select: function select(context, item) {
-    return context.commit('select', item);
-  },
-  clearFilters: function clearFilters(context) {
-    context.commit('startLoading');
-    context.commit('clearFilters');
-    context.commit('fetchData');
-  },
-  fetchData: function fetchData(context) {
-    context.commit('startLoading');
-    context.commit('fetchData');
-  },
-  sortByColumn: function sortByColumn(context, column) {
-    context.commit('startLoading');
-    context.commit('sortByColumn', column);
-    context.commit('fetchData');
-  },
-  changePage: function changePage(context, page) {
-    context.commit('changePage', page);
-    context.commit('fetchData');
-  },
-  setPerPage: function setPerPage(context, perPage) {
-    context.commit('startLoading');
-    context.commit('setPerPage', perPage);
-    context.commit('fetchData');
-  },
-  update: function update(_ref2) {
-    var dispatch = _ref2.dispatch,
-        commit = _ref2.commit,
-        getters = _ref2.getters,
-        rootGetters = _ref2.rootGetters;
-    commit('update');
-  }
-};
-/* harmony default export */ __webpack_exports__["default"] = ({
-  namespaced: true,
-  state: state,
-  getters: getters,
-  actions: actions,
-  mutations: mutations
 });
 
 /***/ }),
 
-/***/ "./resources/js/eett/store/modules/daterangepicker.js":
-/*!************************************************************!*\
-  !*** ./resources/js/eett/store/modules/daterangepicker.js ***!
-  \************************************************************/
+/***/ "./resources/js/eett/store/modules/Daterangepicker/actions.js":
+/*!********************************************************************!*\
+  !*** ./resources/js/eett/store/modules/Daterangepicker/actions.js ***!
+  \********************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({// 
+});
+
+/***/ }),
+
+/***/ "./resources/js/eett/store/modules/Daterangepicker/getters.js":
+/*!********************************************************************!*\
+  !*** ./resources/js/eett/store/modules/Daterangepicker/getters.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  GET_OPTIONS: function GET_OPTIONS(state) {
+    return state.options;
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/eett/store/modules/Daterangepicker/index.js":
+/*!******************************************************************!*\
+  !*** ./resources/js/eett/store/modules/Daterangepicker/index.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getters */ "./resources/js/eett/store/modules/Daterangepicker/getters.js");
+/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mutations */ "./resources/js/eett/store/modules/Daterangepicker/mutations.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./actions */ "./resources/js/eett/store/modules/Daterangepicker/actions.js");
+
+
+
 var state = {
   options: {
     // timePicker: true,
@@ -100194,21 +100190,36 @@ var state = {
     timePicker: true
   }
 };
-var getters = {
-  getOptions: function getOptions(state) {
-    return state.options;
-  }
-};
-var mutations = {
-  setOptions: function setOptions(state, options) {
-    state.options = options;
-  },
-  setPicker: function setPicker() {
-    var _this = this;
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: state,
+  getters: _getters__WEBPACK_IMPORTED_MODULE_0__["default"],
+  actions: _actions__WEBPACK_IMPORTED_MODULE_2__["default"],
+  mutations: _mutations__WEBPACK_IMPORTED_MODULE_1__["default"]
+});
 
-    var dateInputs = this.columns.filter(function (item) {
+/***/ }),
+
+/***/ "./resources/js/eett/store/modules/Daterangepicker/mutations.js":
+/*!**********************************************************************!*\
+  !*** ./resources/js/eett/store/modules/Daterangepicker/mutations.js ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var _this = undefined;
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  SET_OPTIONS: function SET_OPTIONS(state, options) {
+    return state.options = options;
+  },
+  SET_PICKER: function SET_PICKER() {
+    var dateInputs = _this.columns.filter(function (item) {
       return item.type == 'date';
     });
+
     dateInputs.map(function (item) {
       $('#' + item.title).on('apply.daterangepicker', function (ev, picker) {
         var value = picker.startDate.format('DD/MM/YYYY hh:mm') + ' - ' + picker.endDate.format('DD/MM/YYYY hh:mm');
@@ -100225,195 +100236,300 @@ var mutations = {
       });
     });
   }
-};
-var actions = {
-  setOptions: function setOptions(context, options) {
-    context.commit('setOptions', options);
-  },
-  setPicker: function setPicker(context) {
-    return null;
-  }
-};
-/* harmony default export */ __webpack_exports__["default"] = ({
-  namespaced: true,
-  state: state,
-  getters: getters,
-  actions: actions,
-  mutations: mutations
 });
 
 /***/ }),
 
-/***/ "./resources/js/eett/store/modules/pages.js":
-/*!**************************************************!*\
-  !*** ./resources/js/eett/store/modules/pages.js ***!
-  \**************************************************/
+/***/ "./resources/js/eett/store/modules/Page/actions.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/eett/store/modules/Page/actions.js ***!
+  \*********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({//
+});
+
+/***/ }),
+
+/***/ "./resources/js/eett/store/modules/Page/getters.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/eett/store/modules/Page/getters.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  GET_PAGES: function GET_PAGES(state) {
+    return state.pages;
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/eett/store/modules/Page/index.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/eett/store/modules/Page/index.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getters */ "./resources/js/eett/store/modules/Page/getters.js");
+/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mutations */ "./resources/js/eett/store/modules/Page/mutations.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./actions */ "./resources/js/eett/store/modules/Page/actions.js");
+
+
+
 var state = {
   pages: []
 };
-var getters = {
-  getPages: function getPages(state) {
-    return state.pages;
-  }
-};
-var mutations = {
-  setData: function setData(state, pages) {
-    state.pages = pages;
-  }
-};
-var actions = {
-  setData: function setData(context, pages) {
-    context.commit('setData', pages);
-  }
-};
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
   state: state,
-  getters: getters,
-  actions: actions,
-  mutations: mutations
+  getters: _getters__WEBPACK_IMPORTED_MODULE_0__["default"],
+  actions: _actions__WEBPACK_IMPORTED_MODULE_2__["default"],
+  mutations: _mutations__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
 
 /***/ }),
 
-/***/ "./resources/js/eett/store/modules/ui.js":
-/*!***********************************************!*\
-  !*** ./resources/js/eett/store/modules/ui.js ***!
-  \***********************************************/
+/***/ "./resources/js/eett/store/modules/Page/mutations.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/eett/store/modules/Page/mutations.js ***!
+  \***********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  SET_DATA: function SET_DATA(state, pages) {
+    return state.pages = pages;
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/eett/store/modules/UI/actions.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/eett/store/modules/UI/actions.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+
+/***/ "./resources/js/eett/store/modules/UI/getters.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/eett/store/modules/UI/getters.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  GET_TOP: function GET_TOP(state) {
+    return state.top;
+  },
+  GET_DRAWER: function GET_DRAWER(state) {
+    return state.drawer;
+  },
+  GET_UPDATE_DIALOG: function GET_UPDATE_DIALOG(state) {
+    return state.updateDialog;
+  },
+  GET_VIEW_DIALOG: function GET_VIEW_DIALOG(state) {
+    return state.viewDialog;
+  },
+  GET_UPDATE_MULTIPLE_DIALOG: function GET_UPDATE_MULTIPLE_DIALOG(state) {
+    return state.updateMultipleDialog;
+  },
+  GET_LOADING: function GET_LOADING(state) {
+    return state.loading;
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/eett/store/modules/UI/index.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/eett/store/modules/UI/index.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getters */ "./resources/js/eett/store/modules/UI/getters.js");
+/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mutations */ "./resources/js/eett/store/modules/UI/mutations.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./actions */ "./resources/js/eett/store/modules/UI/actions.js");
+
+
+
 var state = {
   loading: false,
   top: false,
   drawer: true,
   viewDialog: false,
   updateDialog: false,
-  updateMultipleDialog: false // message: false
-
+  updateMultipleDialog: false
 };
-var getters = {
-  getTop: function getTop(state) {
-    return state.top;
-  },
-  getDrawer: function getDrawer(state) {
-    return state.drawer;
-  },
-  getUpdateDialog: function getUpdateDialog(state) {
-    return state.updateDialog;
-  },
-  getViewDialog: function getViewDialog(state) {
-    return state.viewDialog;
-  },
-  getUpdateMultipleDialog: function getUpdateMultipleDialog(state) {
-    return state.updateMultipleDialog;
-  },
-  getLoading: function getLoading(state) {
-    return state.loading;
-  }
-};
-var mutations = {
-  startLoading: function startLoading(state) {
-    return state.loading = true;
-  },
-  stopLoading: function stopLoading(state) {
-    return state.loading = false;
-  },
-  setTop: function setTop(state, top) {
-    return state.top = top;
-  },
-  setDrawer: function setDrawer(state, drawer) {
-    return state.drawer = drawer;
-  },
-  toggleDrawer: function toggleDrawer(state) {
-    return state.drawer = !state.drawer;
-  },
-  openUpdateDialog: function openUpdateDialog(state) {
-    return state.updateDialog = true;
-  },
-  openUpdateMultipleDialog: function openUpdateMultipleDialog(state) {
-    return state.updateMultipleDialog = true;
-  },
-  openViewDialog: function openViewDialog(state) {
-    return state.viewDialog = true;
-  },
-  closeUpdateDialog: function closeUpdateDialog(state) {
-    return state.updateDialog = false;
-  },
-  closeViewDialog: function closeViewDialog(state) {
-    return state.viewDialog = false;
-  },
-  closeUpdateMultipleDialog: function closeUpdateMultipleDialog(state) {
-    return state.updateMultipleDialog = false;
-  },
-  closeAllDialogs: function closeAllDialogs() {
-    state.updateDialog = false;
-    state.updateMultipleDialog = false;
-    state.viewDialog = false;
-  }
-};
-var actions = {};
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
   state: state,
-  getters: getters,
-  actions: actions,
-  mutations: mutations
+  getters: _getters__WEBPACK_IMPORTED_MODULE_0__["default"],
+  actions: _actions__WEBPACK_IMPORTED_MODULE_2__["default"],
+  mutations: _mutations__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
 
 /***/ }),
 
-/***/ "./resources/js/eett/store/modules/user.js":
-/*!*************************************************!*\
-  !*** ./resources/js/eett/store/modules/user.js ***!
-  \*************************************************/
+/***/ "./resources/js/eett/store/modules/UI/mutations.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/eett/store/modules/UI/mutations.js ***!
+  \*********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  START_LOADING: function START_LOADING(state) {
+    return state.loading = true;
+  },
+  STOP_LOADING: function STOP_LOADING(state) {
+    return state.loading = false;
+  },
+  SET_TOP: function SET_TOP(state, top) {
+    return state.top = top;
+  },
+  SET_DRAWER: function SET_DRAWER(state, drawer) {
+    return state.drawer = drawer;
+  },
+  TOGGLE_DRAWER: function TOGGLE_DRAWER(state) {
+    return state.drawer = !state.drawer;
+  },
+  OPEN_UPDATE_DIALOG: function OPEN_UPDATE_DIALOG(state) {
+    return state.updateDialog = true;
+  },
+  OPEN_UPDATE_MULTIPLE_DIALOG: function OPEN_UPDATE_MULTIPLE_DIALOG(state) {
+    return state.updateMultipleDialog = true;
+  },
+  OPEN_VIEW_DIALOG: function OPEN_VIEW_DIALOG(state) {
+    return state.viewDialog = true;
+  },
+  CLOSE_UPDATE_DIALOG: function CLOSE_UPDATE_DIALOG(state) {
+    return state.updateDialog = false;
+  },
+  CLOSE_VIEW_DIALOG: function CLOSE_VIEW_DIALOG(state) {
+    return state.viewDialog = false;
+  },
+  CLOSE_UPDATE_MULTIPLE_DIALOG: function CLOSE_UPDATE_MULTIPLE_DIALOG(state) {
+    return state.updateMultipleDialog = false;
+  },
+  CLOSE_ALL_DIALOGS: function CLOSE_ALL_DIALOGS() {
+    state.updateDialog = false;
+    state.updateMultipleDialog = false;
+    state.viewDialog = false;
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/eett/store/modules/User/actions.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/eett/store/modules/User/actions.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({// 
+});
+
+/***/ }),
+
+/***/ "./resources/js/eett/store/modules/User/getters.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/eett/store/modules/User/getters.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var getters = {
+  GET_DATA: function GET_DATA(state) {
+    return state.users;
+  },
+  GET_RESOURCE_URL: function GET_RESOURCE_URL(state) {
+    return state.resourceURL;
+  },
+  GET_COLUMNS: function GET_COLUMNS(state) {
+    return state.columns;
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/js/eett/store/modules/User/index.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/eett/store/modules/User/index.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getters */ "./resources/js/eett/store/modules/User/getters.js");
+/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_getters__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mutations */ "./resources/js/eett/store/modules/User/mutations.js");
+/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_mutations__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./actions */ "./resources/js/eett/store/modules/User/actions.js");
+
+
+
 var state = {
   users: {},
   columns: [],
   resourceURL: ''
 };
-var getters = {
-  getData: function getData(state) {
-    return state.users;
-  },
-  getResourceURL: function getResourceURL(state) {
-    return state.resourceURL;
-  },
-  getColumns: function getColumns(state) {
-    return state.columns;
-  }
-};
-var mutations = {
-  setData: function setData(state, users) {
-    state.users = users;
-    state.columns = users.columns;
-    state.resourceURL = users.url;
-  }
-};
-var actions = {
-  setData: function setData(context, users) {
-    context.commit('setData', users);
-  }
-};
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
   state: state,
-  getters: getters,
-  actions: actions,
-  mutations: mutations
+  getters: _getters__WEBPACK_IMPORTED_MODULE_0___default.a,
+  actions: _actions__WEBPACK_IMPORTED_MODULE_2__["default"],
+  mutations: _mutations__WEBPACK_IMPORTED_MODULE_1___default.a
 });
+
+/***/ }),
+
+/***/ "./resources/js/eett/store/modules/User/mutations.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/eett/store/modules/User/mutations.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var mutations = {
+  SET_DATA: function SET_DATA(state, users) {
+    state.users = users;
+    state.columns = users.columns;
+    state.resourceURL = users.url;
+  },
+  GET_DATATABLE: function GET_DATATABLE(state) {
+    state.resourceURL, state.columns;
+  }
+};
 
 /***/ }),
 

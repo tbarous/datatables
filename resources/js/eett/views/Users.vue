@@ -8,7 +8,7 @@
         <v-divider></v-divider>
         <datatable></datatable>
         <update></update>
-        <!-- <update-multiple></update-multiple> -->
+        <update-multiple></update-multiple>
         <columns></columns>
     </div>
 </template>
@@ -24,10 +24,11 @@ import Columns from './../components/Dialogs/Columns'
 
 export default {
     created(){
-        const url = this.$store.getters['user/getResourceURL']
-        this.$store.commit('api/setResourceURL', url)
-        this.$store.commit('datatable/setResourceURL', url)
-        this.$store.commit('datatable/setColumns', this.$store.getters['user/getColumns'])
+        this.$store.commit('datatable/SET_DATATABLE', this.$store.getters['user/GET_DATATABLE'])
+
+        // const url = this.$store.getters['user/getResourceURL']
+        // this.$store.commit('datatable/setResourceURL', url)
+        // this.$store.commit('datatable/setColumns', this.$store.getters['user/getColumns'])
     },
 
     components: {

@@ -16,7 +16,6 @@ class Form {
         this.errors = new Errors();
     }
 
-
     /**
      * Fetch all relevant data for the form.
      */
@@ -30,7 +29,6 @@ class Form {
         return data;
     }
 
-
     /**
      * Reset the form fields.
      */
@@ -42,7 +40,6 @@ class Form {
         this.errors.clear();
     }
 
-
     /**
      * Send a POST request to the given URL.
      * .
@@ -51,7 +48,6 @@ class Form {
     post(url) {
         return this.submit('post', url);
     }
-
 
     /**
      * Send a PUT request to the given URL.
@@ -62,7 +58,6 @@ class Form {
         return this.submit('put', url);
     }
 
-
     /**
      * Send a PATCH request to the given URL.
      * .
@@ -72,7 +67,6 @@ class Form {
         return this.submit('patch', url);
     }
 
-
     /**
      * Send a DELETE request to the given URL.
      * .
@@ -81,7 +75,6 @@ class Form {
     delete(url) {
         return this.submit('delete', url);
     }
-
 
     /**
      * Submit the form.
@@ -105,7 +98,6 @@ class Form {
         });
     }
 
-
     /**
      * Handle a successful form submission.
      *
@@ -116,7 +108,6 @@ class Form {
 
         this.reset();
     }
-
 
     /**
      * Handle a failed form submission.

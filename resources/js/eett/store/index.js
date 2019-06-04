@@ -1,13 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import user from './modules/user'
-import pages from './modules/pages'
-import auth from './modules/auth'
-import ui from './modules/ui'
-import data from './modules/data'
-import datatable from './modules/datatable'
-import api from './modules/api'
-import daterangepicker from './modules/daterangepicker'
+
+import user from './modules/User'
+import pages from './modules/Page'
+import auth from './modules/Auth'
+import ui from './modules/UI'
+import datatable from './modules/Datatable'
+import daterangepicker from './modules/Daterangepicker'
 
 Vue.use(Vuex)
 
@@ -19,9 +18,7 @@ export default new Vuex.Store({
     pages,
     auth,
     ui,
-    data,
     datatable,
-    api,
     daterangepicker
   },
   // strict: debug
