@@ -19,7 +19,7 @@
         </v-flex>
 
         <v-flex xs2>
-            <v-btn :disabled="selected.length<2" @click="openUpdate">
+            <v-btn :disabled="selected.length < 2" @click="openUpdate">
                 Update <v-icon small>fas fa-edit</v-icon>
             </v-btn>
         </v-flex>
