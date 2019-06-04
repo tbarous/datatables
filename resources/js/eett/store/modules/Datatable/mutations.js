@@ -103,26 +103,27 @@ export default {
         })
     },
 
-    DESTROY(index, row){
-        this.$store.dispatch('loading/setLoading', true);
-        axios.post(this.resourceURL + '/destroy', {
+    // Destroy datatable row
+    DESTROY(state, {row, vm}){
+        axios.post(state.resourceURL + '/destroy', {
             id: row.id
         }).then(response => {
-            this.fetchData(false, {type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been deleted'})
+            vm.$notify({type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been deleted'})
         }).catch(error => {
-            // this.handleFailure(error)
+            vm.$notify({type: 'error', text: `<i class="fa fa-warning" aria-hidden="true"></i> &nbsp ${error.response.data.message} `})
         })
     },
 
-    UPDATE_MULTIPLE(row) {
-        this.$store.dispatch('loading/setLoading', true)
-        axios.post(this.resourceURL + '/update-many', {
-            selected: JSON.stringify(this.selected),
+    // Update many datatable rows
+    UPDATE_MULTIPLE(state, {vm}) {
+        let row = state.editingMultipleRow
+        axios.post(state.resourceURL + '/update-many', {
+            selected: JSON.stringify(state.selected),
             row: JSON.stringify(row)
         }).then(response => {
-            this.fetchData(false, {type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Items has been updated'})
+            vm.$notify({type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Items have been updated'})
         }).catch(error => {
-            // this.handleFailure(error)
+            vm.$notify({type: 'error', text: `<i class="fa fa-warning" aria-hidden="true"></i> &nbsp ${error.response.data.message} `})
         })
     },
 

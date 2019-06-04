@@ -2507,7 +2507,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$store.commit('datatable/SET_EDITING_ROW', editingRow);
       this.$store.commit('ui/OPEN_UPDATE_DIALOG');
     },
-    destroy: function destroy(data) {}
+    destroy: function destroy(row) {
+      var _this = this;
+
+      this.$store.commit('ui/START_LOADING');
+      this.$store.dispatch('datatable/DESTROY', {
+        row: row,
+        vm: this
+      }).then(function () {
+        return _this.$store.dispatch('datatable/FETCH_DATA');
+      }).then(function () {
+        return _this.$store.commit('ui/STOP_LOADING');
+      });
+    }
   }
 });
 
@@ -2628,7 +2640,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     selected: 'GET_SELECTED'
   })),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('ui', {
-    openUpdate: 'OPEN_UPDATE_DIALOG',
+    openUpdateMultiple: 'OPEN_UPDATE_MULTIPLE_DIALOG',
     openView: 'OPEN_VIEW_DIALOG'
   }), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('datatable', {
     clearFilters: 'CLEAR_FILTERS',
@@ -2816,7 +2828,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   })),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("ui", {
     close: 'CLOSE_UPDATE_MULTIPLE_DIALOG'
-  }))
+  }), {
+    update: function update() {
+      var _this = this;
+
+      this.$store.commit('ui/START_LOADING');
+      this.$store.dispatch('datatable/UPDATE_MULTIPLE', {
+        vm: this
+      }).then(function () {
+        return _this.$store.dispatch('datatable/FETCH_DATA');
+      }).then(function () {
+        return _this.$store.commit('ui/STOP_LOADING');
+      });
+    }
+  })
 });
 
 /***/ }),
@@ -53738,7 +53763,7 @@ var render = function() {
         "v-btn",
         {
           attrs: { disabled: _vm.selected.length < 2 },
-          on: { click: _vm.openUpdate }
+          on: { click: _vm.openUpdateMultiple }
         },
         [
           _vm._v("\n        Update "),
@@ -53993,7 +54018,7 @@ var render = function() {
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
-                      return _vm.updateMultiple($event)
+                      return _vm.update($event)
                     }
                   }
                 },
@@ -99864,6 +99889,17 @@ __webpack_require__.r(__webpack_exports__);
   UPDATE: function UPDATE(context, vm) {
     context.commit('UPDATE', vm);
   },
+  UPDATE_MULTIPLE: function UPDATE_MULTIPLE(context, vm) {
+    context.commit('UPDATE_MULTIPLE', vm);
+  },
+  DESTROY: function DESTROY(context, _ref) {
+    var row = _ref.row,
+        vm = _ref.vm;
+    context.commit('DESTROY', {
+      row: row,
+      vm: vm
+    });
+  },
   INITIALIZE: function INITIALIZE(context) {
     context.commit('INITIALIZE');
   }
@@ -100153,33 +100189,41 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
   },
-  DESTROY: function DESTROY(index, row) {
-    var _this = this;
-
-    this.$store.dispatch('loading/setLoading', true);
-    axios.post(this.resourceURL + '/destroy', {
+  // Destroy datatable row
+  DESTROY: function DESTROY(state, _ref3) {
+    var row = _ref3.row,
+        vm = _ref3.vm;
+    axios.post(state.resourceURL + '/destroy', {
       id: row.id
     }).then(function (response) {
-      _this.fetchData(false, {
+      vm.$notify({
         type: 'success',
         text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been deleted'
       });
-    })["catch"](function (error) {// this.handleFailure(error)
+    })["catch"](function (error) {
+      vm.$notify({
+        type: 'error',
+        text: "<i class=\"fa fa-warning\" aria-hidden=\"true\"></i> &nbsp ".concat(error.response.data.message, " ")
+      });
     });
   },
-  UPDATE_MULTIPLE: function UPDATE_MULTIPLE(row) {
-    var _this2 = this;
-
-    this.$store.dispatch('loading/setLoading', true);
-    axios.post(this.resourceURL + '/update-many', {
-      selected: JSON.stringify(this.selected),
+  // Update many datatable rows
+  UPDATE_MULTIPLE: function UPDATE_MULTIPLE(state, _ref4) {
+    var vm = _ref4.vm;
+    var row = state.editingMultipleRow;
+    axios.post(state.resourceURL + '/update-many', {
+      selected: JSON.stringify(state.selected),
       row: JSON.stringify(row)
     }).then(function (response) {
-      _this2.fetchData(false, {
+      vm.$notify({
         type: 'success',
-        text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Items has been updated'
+        text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Items have been updated'
       });
-    })["catch"](function (error) {// this.handleFailure(error)
+    })["catch"](function (error) {
+      vm.$notify({
+        type: 'error',
+        text: "<i class=\"fa fa-warning\" aria-hidden=\"true\"></i> &nbsp ".concat(error.response.data.message, " ")
+      });
     });
   },
   HANDLE_FAILURE: function HANDLE_FAILURE(error, type) {
@@ -100195,9 +100239,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  SET_DATATABLE: function SET_DATATABLE(state, _ref3) {
-    var resourceURL = _ref3.resourceURL,
-        columns = _ref3.columns;
+  SET_DATATABLE: function SET_DATATABLE(state, _ref5) {
+    var resourceURL = _ref5.resourceURL,
+        columns = _ref5.columns;
     state.resourceURL = resourceURL;
     state.columns = columns;
   }

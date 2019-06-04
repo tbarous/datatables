@@ -53,7 +53,12 @@ export default {
             this.$store.commit('datatable/SET_EDITING_ROW', editingRow)
             this.$store.commit('ui/OPEN_UPDATE_DIALOG')
         },
-        destroy(data){}
+        destroy(row){
+            this.$store.commit('ui/START_LOADING')
+            this.$store.dispatch('datatable/DESTROY', {row:row, vm: this})
+                .then(() => this.$store.dispatch('datatable/FETCH_DATA'))
+                .then(() => this.$store.commit('ui/STOP_LOADING'))
+        }
     }
 }
 </script>

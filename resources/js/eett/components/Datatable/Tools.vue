@@ -12,7 +12,7 @@
             Columns <v-icon small>fas fa-columns</v-icon>
         </v-btn>
 
-        <v-btn :disabled="selected.length < 2" @click="openUpdate">
+        <v-btn :disabled="selected.length < 2" @click="openUpdateMultiple">
             Update <v-icon small>fas fa-edit</v-icon>
         </v-btn>
     </v-layout>
@@ -31,7 +31,7 @@
         },
         methods: {
             ...mapMutations('ui', {
-                openUpdate: 'OPEN_UPDATE_DIALOG',
+                openUpdateMultiple: 'OPEN_UPDATE_MULTIPLE_DIALOG',
                 openView: 'OPEN_VIEW_DIALOG'
             }),
             ...mapActions('datatable', {

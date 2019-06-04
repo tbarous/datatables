@@ -3,7 +3,7 @@
         <v-card>
             <v-card-title class="headline grey lighten-2" primary-title>Edit fields</v-card-title>
             <v-card-text>
-                <v-form method="post" @submit.prevent="updateMultiple">
+                <v-form method="post" @submit.prevent="update">
                     <v-text-field :label="column.title" solo 
                         v-for="(column, key) in columns" 
                         :key="column.title" 
@@ -41,6 +41,12 @@
             ...mapMutations("ui", {
                 close: 'CLOSE_UPDATE_MULTIPLE_DIALOG',
             }),
+            update(){
+                this.$store.commit('ui/START_LOADING')
+                this.$store.dispatch('datatable/UPDATE_MULTIPLE', {vm: this})
+                    .then(() => this.$store.dispatch('datatable/FETCH_DATA'))
+                    .then(() => this.$store.commit('ui/STOP_LOADING'))
+            }
         }
 	}
 </script>

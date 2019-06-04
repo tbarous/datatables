@@ -31,6 +31,14 @@ export default {
     UPDATE: (context, vm) => {
         context.commit('UPDATE', vm)
     },
+
+    UPDATE_MULTIPLE: (context, vm) => {
+        context.commit('UPDATE_MULTIPLE', vm)
+    },
+
+    DESTROY: (context, {row, vm}) => {
+        context.commit('DESTROY', {row,vm})
+    },
     
     INITIALIZE: (context) => {
         context.commit('INITIALIZE')

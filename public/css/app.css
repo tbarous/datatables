@@ -10874,10 +10874,6 @@ button {
   font-family: inherit !important;
 }
 
-.v-btn__content i {
-  margin-left: 10px;
-}
-
 .disabled .page-link {
   background-color: black !important;
 }
