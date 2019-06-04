@@ -1,17 +1,16 @@
 <template>
-    <v-flex xs6>
-        <br>
+    <div>
         <span>Show</span>
         <v-select 
-            class="d-inline-block"
+            style="width: 100px;"
+            class="d-inline-block ml-3 mr-3"
             :items="itemsShow" 
-            label="Show" 
-            solo 
+            label="Show" solo 
             v-model="perPage" 
             @change="fetchData">
         </v-select>
         <span>entries</span>
-    </v-flex>
+    </div>
 </template>
 
 <script>

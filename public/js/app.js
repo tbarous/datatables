@@ -2098,6 +2098,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("datatable", {
@@ -2360,7 +2361,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("datatable", {
@@ -2593,14 +2593,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -52824,7 +52816,10 @@ var render = function() {
     [
       _c(
         "v-btn",
-        { attrs: { color: "green", dark: "", href: "/storage/invoices.xlsx" } },
+        {
+          staticClass: "ml-0",
+          attrs: { color: "green", dark: "", href: "/storage/invoices.xlsx" }
+        },
         [
           _vm._v("\n        Excel "),
           _c("v-icon", { attrs: { small: "" } }, [_vm._v("far fa-file-excel")])
@@ -53022,7 +53017,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("v-flex", { staticClass: "text-right", attrs: { xs6: "" } }, [
+  return _c("div", [
+    _c("br"),
+    _vm._v(" "),
     !_vm.loading
       ? _c("div", { staticStyle: { height: "80px" } }, [
           _c("p", { staticClass: "text-dark" }, [
@@ -53041,7 +53038,7 @@ var render = function() {
           [
             _vm.loading
               ? _c("v-progress-circular", {
-                  attrs: { indeterminate: "", color: "primary" }
+                  attrs: { small: "", indeterminate: "", color: "primary" }
                 })
               : _vm._e()
           ],
@@ -53397,15 +53394,13 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-flex",
-    { attrs: { xs6: "" } },
+    "div",
     [
-      _c("br"),
-      _vm._v(" "),
       _c("span", [_vm._v("Show")]),
       _vm._v(" "),
       _c("v-select", {
-        staticClass: "d-inline-block",
+        staticClass: "d-inline-block ml-3 mr-3",
+        staticStyle: { width: "100px" },
         attrs: { items: _vm.itemsShow, label: "Show", solo: "" },
         on: { change: _vm.fetchData },
         model: {
@@ -53698,72 +53693,44 @@ var render = function() {
     "v-layout",
     [
       _c(
-        "v-flex",
-        { attrs: { xs2: "" } },
+        "v-btn",
+        { staticClass: "ml-0", on: { click: _vm.fetchData } },
         [
-          _c(
-            "v-btn",
-            { on: { click: _vm.fetchData } },
-            [
-              _vm._v("\n            Reload "),
-              _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-sync")])
-            ],
-            1
-          )
+          _vm._v("\n        Reload "),
+          _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-sync")])
         ],
         1
       ),
       _vm._v(" "),
       _c(
-        "v-flex",
-        { attrs: { xs2: "" } },
+        "v-btn",
+        { on: { click: _vm.clearFilters } },
         [
-          _c(
-            "v-btn",
-            { on: { click: _vm.clearFilters } },
-            [
-              _vm._v("\n            Clear "),
-              _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-eraser")])
-            ],
-            1
-          )
+          _vm._v("\n        Clear "),
+          _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-eraser")])
         ],
         1
       ),
       _vm._v(" "),
       _c(
-        "v-flex",
-        { attrs: { xs2: "" } },
+        "v-btn",
+        { on: { click: _vm.openView } },
         [
-          _c(
-            "v-btn",
-            { on: { click: _vm.openView } },
-            [
-              _vm._v("\n            Columns "),
-              _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-columns")])
-            ],
-            1
-          )
+          _vm._v("\n        Columns "),
+          _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-columns")])
         ],
         1
       ),
       _vm._v(" "),
       _c(
-        "v-flex",
-        { attrs: { xs2: "" } },
+        "v-btn",
+        {
+          attrs: { disabled: _vm.selected.length < 2 },
+          on: { click: _vm.openUpdate }
+        },
         [
-          _c(
-            "v-btn",
-            {
-              attrs: { disabled: _vm.selected.length < 2 },
-              on: { click: _vm.openUpdate }
-            },
-            [
-              _vm._v("\n            Update "),
-              _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-edit")])
-            ],
-            1
-          )
+          _vm._v("\n        Update "),
+          _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-edit")])
         ],
         1
       )
@@ -100120,7 +100087,7 @@ __webpack_require__.r(__webpack_exports__);
       state.generalSearch = '';
     }
 
-    Object.keys(state.queries).map(function (item) {
+    Object.keys(state.queries).forEach(function (item) {
       var queryItem = state.queries[item];
       if (queryItem == null) queryItem = '';
       state.dataFetchUrl += '&' + item + '=' + queryItem;

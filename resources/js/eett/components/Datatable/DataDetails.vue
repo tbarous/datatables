@@ -1,5 +1,6 @@
 <template>
-	<v-flex xs6 class="text-right">
+	<div>
+        <br>
         <div v-if="!loading" style="height: 80px">
             <p class="text-dark">Last Update @ {{pagination.meta.last_update}}</p>
             <p class="text-dark">
@@ -7,12 +8,12 @@
             </p>
         </div>
         <div v-else style="height: 80px;">
-            <v-progress-circular v-if="loading" indeterminate color="primary"></v-progress-circular>
+            <v-progress-circular small v-if="loading" indeterminate color="primary"></v-progress-circular>
         </div>
         <p class="text-dark">
             <u class="text-dark">Selected: {{selected.length}}</u>
         </p>
-    </v-flex>
+    </div>
 </template>
 
 <script>

@@ -60,7 +60,7 @@ export default {
 
         // Make sure null values are ''
         if(state.generalSearch == null) {state.generalSearch = ''}
-        Object.keys(state.queries).map(item => {
+        Object.keys(state.queries).forEach(item => {
             let queryItem = state.queries[item];
             if (queryItem == null) queryItem = ''
             state.dataFetchUrl += '&' + item + '=' + queryItem;
