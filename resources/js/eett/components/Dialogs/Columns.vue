@@ -29,19 +29,19 @@
     export default {
         computed: {
             ...mapGetters("ui", {
-                dialog: 'getViewDialog',
+                dialog: 'GET_VIEW_DIALOG',
             }),
             ...mapGetters("datatable", {
-                columns: 'getColumns',
-                activeColumns: 'getActiveColumns'
+                columns: 'GET_COLUMNS',
+                activeColumns: 'GET_ACTIVE_COLUMNS'
             }),
         },
         methods: {
             ...mapMutations("ui", {
-                close: 'closeViewDialog',
+                close: 'CLOSE_VIEW_DIALOG',
             }),
             ...mapMutations("datatable", {
-                changeActiveColumns: 'changeActiveColumns',
+                changeActiveColumns: 'CHANGE_ACTIVE_COLUMNS',
             })
         }
     }

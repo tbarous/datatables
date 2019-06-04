@@ -18,15 +18,12 @@
 
     export default {
         components: {
-            Drawer,
-            Navbar,
-            Content,
-            ToTop
+            Drawer, Navbar, Content, ToTop
         },
 
         computed: {
             ...mapGetters("ui", {
-                loading: 'getLoading',
+                loading: 'GET_LOADING',
             })
         }
     }

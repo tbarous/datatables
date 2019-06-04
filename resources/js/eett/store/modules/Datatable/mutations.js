@@ -2,7 +2,7 @@ export default {
     SET_COLUMNS: (state, columns) => state.columns = columns,
     START_LOADING: state => state.loading = true,
     STOP_LOADING: state => state.loading = false,
-    SET_RESOURCE_URL: (state, resourceURL) => state.url = resourceURL,
+    SET_RESOURCE_URL: (state, resourceURL) => state.resourceURL = resourceURL,
     SET_GENERAL_SEARCH: (state, generalSearch) => state.generalSearch = generalSearch,
     SET_QUERIES: (state, queries) => state.queries = queries,
     SET_PER_PAGE: (state, perPage) => state.perPage = perPage,
@@ -43,10 +43,10 @@ export default {
         state.queries = {}
         state.generalSearch = ''
     },
-    FETCH_DATA: _.debounce(function(state, reset){
+    FETCH_DATA: _.debounce((state, reset) => {
         if (reset) state.currentPage = 1
         if (state.generalSearch == null) state.generalSearch = ''
-        let dataFetchUrl = `${state.url}?page=${state.currentPage}&column=${state.sortedColumn}&order=${state.order}&per_page=${state.perPage}&search=${state.generalSearch}`
+        let dataFetchUrl = `${state.resourceURL}?page=${state.currentPage}&column=${state.sortedColumn}&order=${state.order}&per_page=${state.perPage}&search=${state.generalSearch}`
 
         Object.keys(state.queries).map(item => {
             let queryItem = state.queries[item];
@@ -73,10 +73,9 @@ export default {
         state.activeColumns = obj
     },
     UPDATE(state) {
-         axios.post(state.url + '/update', {
+         axios.post(state.resourceURL + '/update', {
             row: JSON.stringify(state.editingRow)
         }).then(response => {
-            console.log(response)
             // this.errors.update = ''
             // this.$store.dispatch('loading/setLoading', false);
             
@@ -85,9 +84,9 @@ export default {
             // this.handleFailure(error, 'update')
         })
     },
-    destroy(index, row){
+    DESTROY(index, row){
         this.$store.dispatch('loading/setLoading', true);
-        axios.post(this.url + '/destroy', {
+        axios.post(this.resourceURL + '/destroy', {
             id: row.id
         }).then(response => {
             this.fetchData(false, {type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been deleted'})
@@ -95,9 +94,9 @@ export default {
             this.handleFailure(error)
         })
     },
-    updateMultiple(row) {
+    UPDATE_MULTIPLE(row) {
         this.$store.dispatch('loading/setLoading', true)
-        axios.post(this.url + '/update-many', {
+        axios.post(this.resourceURL + '/update-many', {
             selected: JSON.stringify(this.selected),
             row: JSON.stringify(row)
         }).then(response => {
@@ -106,19 +105,20 @@ export default {
             this.handleFailure(error)
         })
     },
-    handleFailure(error, type){
+    HANDLE_FAILURE(error, type){
         this.loading = false
         this.$store.dispatch('loading/setLoading', false)
 
         if(error){
-            console.log(error.response.data.errors)
             this.errors[type] = error.response.data.errors
         } else {
             this.fetchData(false, {type: 'danger', text: '<i class="fa fa-times" aria-hidden="true"></i> &nbsp;An error occured'})
         }
     },
 
-    SET_DATATABLE: (state, resourceURL, columns) => { 
+    SET_DATATABLE: (state, {resourceURL, columns}) => { 
+        console.log(resourceURL)
+        console.log(columns)
         state.resourceURL = resourceURL
         state.columns = columns 
     }

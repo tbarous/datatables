@@ -10,7 +10,7 @@ export default {
     CLOSE_UPDATE_DIALOG: (state) => state.updateDialog = false,
     CLOSE_VIEW_DIALOG: (state) => state.viewDialog = false,
     CLOSE_UPDATE_MULTIPLE_DIALOG: (state) => state.updateMultipleDialog = false,
-    CLOSE_ALL_DIALOGS: () => {
+    CLOSE_ALL_DIALOGS: (state) => {
         state.updateDialog = false;
         state.updateMultipleDialog = false;
         state.viewDialog = false;

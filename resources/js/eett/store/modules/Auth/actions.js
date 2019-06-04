@@ -1,4 +1,4 @@
-const actions = {
+export default {
     LOGOUT: () => {
         axios.post('/logout').then(response => {
             window.location.href = '/'

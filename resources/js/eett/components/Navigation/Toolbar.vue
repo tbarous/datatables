@@ -18,7 +18,7 @@
 	export default {
 		computed: {
             auth(){
-                return this.$store.getters['auth/getAuth']
+                return this.$store.getters['auth/GET_AUTH']
             }
 		}
 	}

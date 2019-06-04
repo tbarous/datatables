@@ -2,13 +2,13 @@ require('./bootstrap')
 
 window.Vue = require('vue');
 
+import "./Filters"
 import store from './store'
 import router from './router'
 import axios from './api'
 
 import Vuetify from 'vuetify'
 Vue.use(Vuetify);
-// import 'vuetify/dist/vuetify.min';
 
 import DateRangePicker from '@gravitano/vue-date-range-picker'
 Vue.use(DateRangePicker);
@@ -18,25 +18,18 @@ Vue.use(Notifications)
 
 import Loading from 'vue-loading-overlay';
 Vue.component('loading', Loading);
-
-Vue.component('layout', require('./layouts/Layout.vue').default);
-
-$(document).on('scroll', () => {
-    $(window).scrollTop() > 500 ? store.commit('ui/setTop', true) : store.commit('ui/setTop', false)
-})
+Vue.component('layout', require('./Layouts/Layout.vue').default);
 
 import Errors from './components/Form/Errors'
-import { mapGetters } from 'vuex'
-import { mapActions } from 'vuex'
-import { mapMutations } from 'vuex'
-
 Vue.component('errors', Errors);
 
-import "./Filters"
+$(document).on('scroll', () => {
+    $(window).scrollTop() > 500 ? store.commit('ui/SET_TOP', true) : store.commit('ui/SET_TOP', false)
+})
 
-store.dispatch('auth/setData', data.auth)
-store.dispatch('user/setData', data.users)
-store.dispatch('pages/setData', data.pages)
+store.commit('auth/SET_DATA', data.auth)
+store.commit('user/SET_DATA', data.users)
+store.commit('pages/SET_DATA', data.pages)
 
 const app = new Vue({
     router,

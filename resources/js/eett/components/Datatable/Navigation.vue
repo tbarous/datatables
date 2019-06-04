@@ -39,10 +39,10 @@
 	export default {
         computed: {
             ...mapGetters("datatable", {
-                currentPage: 'getCurrentPage',
-                pagesNumber: 'getPagesNumber',
-                pagination: 'getPagination',
-                tableData: 'getTableData'
+                currentPage: 'GET_CURRENT_PAGE',
+                pagesNumber: 'GET_PAGES_NUMBER',
+                pagination: 'GET_PAGINATION',
+                tableData: 'GET_TABLE_DATA'
             })
         },
 		methods: {
@@ -59,15 +59,15 @@
 
             switchPage(index) {
                 if(index == 1){
-                     this.$store.dispatch('datatable/changePage', 1)
+                     this.$store.dispatch('datatable/CHANGE_PAGE', 1)
                 }
 
                 if(index==2){
-                     this.$store.dispatch('datatable/changePage', this.currentPage-1)
+                     this.$store.dispatch('datatable/CHANGE_PAGE', this.currentPage-1)
                 }
             },
             changePage(page){
-                this.$store.dispatch('datatable/changePage', page)
+                this.$store.dispatch('datatable/CHANGE_PAGE', page)
             }
         }
 	}

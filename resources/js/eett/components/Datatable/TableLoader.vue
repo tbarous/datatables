@@ -5,11 +5,12 @@
 </template>
 
 <script>
-export default {
-	computed: {
-		loading() {
-			return this.$store.getters['datatable/getLoading']
+	import { mapGetters } from 'vuex'
+	export default {
+		computed: {
+			...mapGetters("datatable", {
+                loading: 'GET_LOADING',
+            })
 		}
 	}
-}
 </script>

@@ -7,13 +7,11 @@
 	        	</v-list-tile>
 	      	</template>
 	     	<v-divider class="mt-0 mb-0"></v-divider>
-
 	      	<Subgroup :pages="page.children"></Subgroup>
 	    </v-list-group>
 		
 		<div v-for="(page, i) in pages" :key="i">
 			<v-list-tile :to="page.slug" v-if="!page.children.length">
-		        
 		        <v-list-tile-action>
 		          	<v-icon v-text="page.icon"></v-icon>
 		        </v-list-tile-action>

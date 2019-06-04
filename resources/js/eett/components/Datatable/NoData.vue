@@ -11,8 +11,8 @@
 	export default {
 		computed: {
 			...mapGetters("datatable", {
-	            noData: 'noData',
-	            columns: 'getColumns'
+	            noData: 'NO_DATA',
+	            columns: 'GET_COLUMNS'
 	        })
 		}
 	}

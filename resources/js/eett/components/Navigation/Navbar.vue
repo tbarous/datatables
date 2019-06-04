@@ -13,10 +13,10 @@
 	export default {
 		methods: {
 			toggleDrawer(){
-				this.$store.commit('ui/toggleDrawer')
+				this.$store.commit('ui/TOGGLE_DRAWER')
 			},
 			logout(){
-				this.$store.dispatch('auth/logout')
+				this.$store.dispatch('auth/LOGOUT')
 			}
 		}
 	}

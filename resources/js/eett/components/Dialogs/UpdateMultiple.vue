@@ -30,16 +30,16 @@
 	export default {
         computed: {
             ...mapGetters("datatable", {
-                columns: 'getColumns',
-                editingMultipleRow: 'editingMultipleRow'
+                columns: 'GET_COLUMNS',
+                editingMultipleRow: 'GET_EDITING_MULTIPLE_ROW'
             }),
             ...mapGetters("ui", {
-                dialog: 'getUpdateMultipleDialog',
+                dialog: 'GET_UPDATE_MULTIPLE_DIALOG',
             }),
         },
 		methods: {
             ...mapMutations("ui", {
-                close: 'closeUpdateMultipleDialog',
+                close: 'CLOSE_UPDATE_MULTIPLE_DIALOG',
             }),
         }
 	}

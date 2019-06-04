@@ -20,6 +20,5 @@
 	import Errors from './../Form/Errors'
 
 	export default {
-        components: {CloseDialog},
 	}
 </script>

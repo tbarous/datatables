@@ -1,7 +1,7 @@
 export default {
     GET_LOADING: state =>  state.loading,
     GET_SELECT_ALL: state => state.selectAll,
-    GET_PAGINATION: state => state.pagination,
+    GET_PAGINATION: state => {console.log(state.pagination);return state.pagination},
     GET_SELECTED: state => state.selected,
     GET_COLUMNS: state => state.columns,
     GET_ORDER: state => state.order,
@@ -19,13 +19,13 @@ export default {
     NO_DATA: state => state.tableData.length === 0 && !state.loading,
     TOTAL_DATA: () => state.pagination.meta.to - state.pagination.meta.from + 1,
     GET_SERIAL_NUMBER: (state) => (key) => (state.currentPage - 1) * state.perPage + 1 + key,
-    GET_ITEMS_COUNT() {
+    GET_ITEMS_COUNT: (state) => {
         if(state.perPage < state.pagination.meta.total) {
             return `${state.perPage} of ${state.pagination.meta.total} entries`
         }
         return `${state.pagination.meta.total} of ${state.pagination.meta.total} entries`
     },
-    GET_PAGES_NUMBER() {
+    GET_PAGES_NUMBER: (state) => {
         if (!state.pagination.meta.to) {
             return []
         }

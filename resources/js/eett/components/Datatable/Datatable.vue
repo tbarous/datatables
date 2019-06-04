@@ -1,25 +1,12 @@
 <template>
     <div>
-        <v-layout>
-            <per-page></per-page>
-            <data-details></data-details>
-        </v-layout>
+        <per-page></per-page>
+        <data-details></data-details>
         <v-divider></v-divider>
         <tools></tools>
         <search></search>
         <table-loader></table-loader>
-        <div class="wrapper double-scroll">
-            <table id="table" class="m-0 pt-0 table table-bordered elevation-3" data-tableName="Test Table 2" v-scroll>
-                <thead>
-                    <headers></headers>
-                    <column-search></column-search>
-                </thead>
-                <tbody>
-                    <no-data></no-data>
-                    <table-body></table-body>
-                </tbody>
-            </table>
-        </div>
+        <table-section></table-section>    
         <table-loader></table-loader>
         <navigation></navigation>
     </div>
@@ -32,32 +19,16 @@ import PerPage from './PerPage'
 import DataDetails from './DataDetails'
 import Tools from './Tools'
 import Search from './Search'
-import ColumnSearch from './ColumnSearch'
-import NoData from './NoData'
-import Headers from './Headers'
-import TableBody from './TableBody'
+import TableSection from './TableSection'
 
 export default {
-    computed: {
-        
-    },
-
     created() {
         this.$store.dispatch('datatable/INITIALIZE')
-        return this.$store.dispatch('datatable/fetchData')
+            .then(() => this.$store.dispatch('datatable/FETCH_DATA'))
     },
 
     components: {
-        TableLoader,
-        Navigation,
-        PerPage,
-        DataDetails,
-        Tools,
-        Search,
-        ColumnSearch,
-        NoData,
-        Headers,
-        TableBody
+        TableLoader, Navigation, PerPage, DataDetails, Tools, Search, TableSection
     }
 }
 </script>

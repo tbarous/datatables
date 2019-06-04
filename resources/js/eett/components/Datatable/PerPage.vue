@@ -20,21 +20,21 @@ export default {
     computed: {
         ...mapGetters("datatable", {
             // perPage: 'getPerPage',
-            itemsShow: 'getItemsShow'
+            itemsShow: 'GET_ITEMS_SHOW'
         }),
 
         perPage: {
             get(){
-                return this.$store.getters['datatable/getPerPage']
+                return this.$store.getters['datatable/GET_PER_PAGE']
             },
             set(perPage){
-                this.$store.dispatch('datatable/setPerPage', perPage)
+                this.$store.dispatch('datatable/SET_PER_PAGE', perPage)
             }
         }
     },
     methods: {
         fetchData() {
-            this.$store.dispatch('datatable/fetchData', true)
+            this.$store.dispatch('datatable/FETCH_DATA', true)
         }
     }
 }

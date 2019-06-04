@@ -16,7 +16,6 @@
                     <v-btn class="ml-0 w-100" color="primary" type="submit">edit</v-btn>
                 </v-form>
 
-                <errors></errors>
                 <v-btn @click="close" class="close-window" flat icon>
                     <v-icon small>fa fa-times</v-icon>
                 </v-btn>
@@ -26,7 +25,6 @@
 </template>
 
 <script>
-	import Errors from './../Form/Errors'
     import { mapGetters } from 'vuex'
     import { mapMutations } from 'vuex'
     import { mapActions } from 'vuex'
@@ -34,28 +32,28 @@
 	export default {
         computed: {
             ...mapGetters("datatable", {
-                columns: 'getColumns',
-                editingRow: 'getEditingRow'
+                columns: 'GET_COLUMNS',
+                editingRow: 'GET_EDITING_ROW'
             }),
             ...mapGetters("ui", {
-                dialog: 'getUpdateDialog',
+                dialog: 'GET_UPDATE_DIALOG',
             }),
         },
         methods: {
             ...mapMutations("ui", {
-                close: 'closeUpdateDialog',
+                close: 'CLOSE_UPDATE_DIALOG',
             }),
             ...mapActions("datatable", {
-                update: 'update',
+                update: 'UPDATE',
             }),
             update(){
-                this.$store.commit('ui/startLoading')
-                this.$store.dispatch('datatable/update')
+                this.$store.commit('ui/START_LOADING')
+                this.$store.dispatch('datatable/UPDATE')
                     .then(() => {
                         this.$notify({type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'})
                     })
-                    .then(() => this.$store.dispatch('datatable/fetchData'))
-                    .then(() => this.$store.commit('ui/stopLoading'))
+                    .then(() => this.$store.dispatch('datatable/FETCH_DATA'))
+                    .then(() => this.$store.commit('ui/STOP_LOADING'))
             }
         },
 	}

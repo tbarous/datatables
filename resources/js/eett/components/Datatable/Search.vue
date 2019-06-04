@@ -23,16 +23,16 @@
 		computed: {
             generalSearch: {
                 get() {
-                    return this.$store.getters['datatable/getGeneralSearch']
+                    return this.$store.getters['datatable/GET_GENERAL_SEARCH']
                 },
                 set(generalSearch){
-                    this.$store.commit('datatable/setGeneralSearch', generalSearch)
+                    this.$store.commit('datatable/SET_GENERAL_SEARCH', generalSearch)
                 }
             }
         },
         methods: {
             ...mapActions("datatable", {
-                fetchData: 'fetchData'
+                fetchData: 'FETCH_DATA'
             })
         }
 	}

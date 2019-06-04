@@ -4,30 +4,33 @@ export default {
     // stopLoading: (context) => context.commit('stopLoading'),
     // setActiveColumnsAndQueries: (context) => context.commit('setActiveColumnsAndQueries'),
     // select: (context, item) => context.commit('select', item),
-    clearFilters: (context) => {
-        context.commit('startLoading')
-        context.commit('clearFilters')
-        context.commit('fetchData')
+    CLEAR_FILTERS: (context) => {
+        context.commit('START_LOADING')
+        context.commit('CLEAR_FILTERS')
+        context.commit('FETCH_DATA')
     },
-    fetchData(context){
-        context.commit('startLoading')
-        context.commit('fetchData')
+    FETCH_DATA(context){
+        context.commit('START_LOADING')
+        context.commit('FETCH_DATA')
     },
-    sortByColumn: (context, column) => {
-        context.commit('startLoading')
-        context.commit('sortByColumn', column)
-        context.commit('fetchData')
+    SORT_BY_COLUMN: (context, column) => {
+        context.commit('START_LOADING')
+        context.commit('SORT_BY_COLUMN', column)
+        context.commit('FETCH_DATA')
     },
-    changePage: (context, page) => {
-        context.commit('changePage', page)
-        context.commit('fetchData')
+    CHANGE_PAGE: (context, page) => {
+        context.commit('CHANGE_PAGE', page)
+        context.commit('FETCH_DATA')
     },
-    setPerPage: (context, perPage) => {
-        context.commit('startLoading')
-        context.commit('setPerPage', perPage)
-        context.commit('fetchData')
+    SET_PER_PAGE: (context, perPage) => {
+        context.commit('START_LOADING')
+        context.commit('SET_PER_PAGE', perPage)
+        context.commit('FETCH_DATA')
     },
-    update: ({ dispatch, commit, getters, rootGetters }) => {
-        commit('update')
+    UPDATE: ({ dispatch, commit, getters, rootGetters }) => {
+        commit('UPDATE')
+    },
+    INITIALIZE: (context) => {
+        context.commit('INITIALIZE')
     }
 }

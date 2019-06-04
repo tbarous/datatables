@@ -4,7 +4,7 @@ import mutations from './mutations'
 import actions from './actions'
 
 const state = {
-    url: '',
+    resourceURL: '',
     columns: {},
     loading: false,
     pagination: { meta: { to: 1, from: 1 } },

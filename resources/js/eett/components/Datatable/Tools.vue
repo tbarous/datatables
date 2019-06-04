@@ -34,17 +34,17 @@
 	export default{
 		computed: {
             ...mapGetters("datatable", {
-                selected: 'getSelected',
+                selected: 'GET_SELECTED',
             })
         },
         methods: {
             ...mapMutations('ui', {
-                openUpdate: 'openUpdateDialog',
-                openView: 'openViewDialog'
+                openUpdate: 'OPEN_UPDATE_DIALOG',
+                openView: 'OPEN_VIEW_DIALOG'
             }),
             ...mapActions('datatable', {
-                clearFilters: 'clearFilters',
-                fetchData: 'fetchData'
+                clearFilters: 'CLEAR_FILTERS',
+                fetchData: 'FETCH_DATA'
             })
         }
 	}

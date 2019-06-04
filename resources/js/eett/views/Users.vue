@@ -1,10 +1,8 @@
 <template>
     <div>
-        <v-layout>
-            <excel></excel>
-            <PDF></PDF>
-            <copy></copy>
-        </v-layout>
+        <excel></excel>
+        <PDF></PDF>
+        <copy></copy>
         <v-divider></v-divider>
         <datatable></datatable>
         <update></update>
@@ -25,20 +23,10 @@ import Columns from './../components/Dialogs/Columns'
 export default {
     created(){
         this.$store.commit('datatable/SET_DATATABLE', this.$store.getters['user/GET_DATATABLE'])
-
-        // const url = this.$store.getters['user/getResourceURL']
-        // this.$store.commit('datatable/setResourceURL', url)
-        // this.$store.commit('datatable/setColumns', this.$store.getters['user/getColumns'])
     },
 
     components: {
-        Datatable,
-        Excel,
-        PDF,
-        Copy,
-        Update,
-        UpdateMultiple,
-        Columns
+        Datatable, Excel, PDF, Copy, Update, UpdateMultiple, Columns
     }
 }
 </script>

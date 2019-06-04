@@ -23,25 +23,27 @@ import { mapGetters } from 'vuex'
 export default {
     computed: {
         ...mapGetters("datatable", {
-            tableData: 'getTableData',
-            noData: 'noData',
-            selectBoxes: 'getSelectBoxes',
-            activeColumns: 'getActiveColumns'
+            tableData: 'GET_TABLE_DATA',
+            noData: 'NO_DATA',
+            selectBoxes: 'GET_SELECT_BOXES',
+            activeColumns: 'GET_ACTIVE_COLUMNS'
         }),
         options() {
-            return this.$store.getters['daterangepicker/getOptions']
+            return this.$store.getters['daterangepicker/GET_OPTIONS']
         }
     },
 
     mounted(){
         $('.double-scroll').doubleScroll()
         $('input[name="datefilter"]').daterangepicker(this.options)
-        this.$store.dispatch('daterangepicker/setPicker')
+        let columns = this.$store.getters['datatable/GET_COLUMNS']
+        let queries = this.$store.getters['datatable/GET_QUERIES']
+        this.$store.commit('daterangepicker/SET_PICKER', columns, queries)
     },
 
     methods: {
         select(item) {
-            this.$store.commit('datatable/select', item)
+            this.$store.commit('datatable/SELECT', item)
         },
 
         serial(datakey) {
@@ -50,8 +52,8 @@ export default {
         },
 
         setEditingRow(editingRow){
-            this.$store.commit('datatable/setEditingRow', editingRow)
-            this.$store.commit('ui/openUpdateDialog')
+            this.$store.commit('datatable/SET_EDITING_ROW', editingRow)
+            this.$store.commit('ui/OPEN_UPDATE_DIALOG')
         },
 
         destroy(data){
