@@ -7,8 +7,6 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="{{ asset('css/auth.css') }}" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
-    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/css/mdb.min.css" rel="stylesheet"> -->
 	<style>
 		#app{
 		    display: flex;
@@ -39,14 +37,5 @@
 		<div class="overlay"></div>
 		@yield('content')
 	</div>
-  
-    <script>
-    	var app = new Vue({
-  		el: '#app',
-		  data: {
-		    message: 'Hello Vue!'
-		  }
-		})
-    </script>
 </body>
 </html>

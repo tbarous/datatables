@@ -6,7 +6,7 @@
 
             <div class="col-md-6">
                 <div>
-                    <div style="font-size:30px;letter-spacing: 5px;" class="text-center text-white">
+                    <div style="font-size:36px;letter-spacing: 5px;" class="text-center text-white">
                         VICTUS NETWORKS
                     </div>
 
@@ -30,7 +30,7 @@
                             </div>
 
                             <div class="form-group row mb-0">
-                                <div class="col-md-8 offset-md-2">
+                                <div class="col-md-8 offset-md-6" style="height: 30px">
                                     @if ($errors->has('username'))
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $errors->first('username') }}</strong>
