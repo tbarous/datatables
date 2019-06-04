@@ -2043,11 +2043,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("datatable", {
     selectAll: 'GET_SELECT_ALL',
     columns: 'GET_COLUMNS',
-    activeColumns: 'GET_ACTIVE_COLUMNS'
+    activeColumns: 'GET_ACTIVE_COLUMNS',
+    smallColumnWidth: 'GET_SMALL_COLUMN_WIDTH'
   }), {
     queries: {
       get: function get() {
@@ -2058,11 +2060,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   }),
-  methods: {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("datatable", {
+    toggleAll: 'TOGGLE_ALL'
+  }), {
     fetchData: function fetchData() {
       this.$store.dispatch('datatable/FETCH_DATA', true);
     }
-  }
+  })
 });
 
 /***/ }),
@@ -2156,6 +2160,10 @@ __webpack_require__.r(__webpack_exports__);
       return _this.$store.dispatch('datatable/FETCH_DATA');
     });
   },
+  mounted: function mounted() {
+    var $table = $('table');
+    $table.floatThead();
+  },
   components: {
     TableLoader: _TableLoader__WEBPACK_IMPORTED_MODULE_0__["default"],
     Navigation: _Navigation__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -2205,7 +2213,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     columns: 'GET_COLUMNS',
     sortedColumn: 'GET_SORTED_COLUMN',
     order: 'GET_ORDER',
-    activeColumns: 'GET_ACTIVE_COLUMNS'
+    activeColumns: 'GET_ACTIVE_COLUMNS',
+    smallColumnWidth: 'GET_SMALL_COLUMN_WIDTH'
   })),
   methods: {
     sortByColumn: function sortByColumn(column) {
@@ -2314,8 +2323,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
 //
 //
 //
@@ -2475,7 +2482,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     tableData: 'GET_TABLE_DATA',
     noData: 'NO_DATA',
     selectBoxes: 'GET_SELECT_BOXES',
-    activeColumns: 'GET_ACTIVE_COLUMNS'
+    activeColumns: 'GET_ACTIVE_COLUMNS',
+    smallColumnWidth: 'GET_SMALL_COLUMN_WIDTH'
   }), {
     options: function options() {
       return this.$store.getters['daterangepicker/GET_OPTIONS'];
@@ -52900,14 +52908,16 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "tr",
+    { staticClass: "bg-dark" },
     [
-      _c("th"),
+      _c("th", { attrs: { width: _vm.smallColumnWidth } }),
       _vm._v(" "),
       _c(
         "th",
+        { attrs: { width: _vm.smallColumnWidth } },
         [
           _c("v-checkbox", {
-            staticClass: "mt-0",
+            staticClass: "mt-0 toggleAll",
             attrs: { value: _vm.selectAll },
             on: {
               click: function($event) {
@@ -53124,9 +53134,9 @@ var render = function() {
     "tr",
     { staticClass: "bg-dark text-white" },
     [
-      _c("th"),
+      _c("th", { attrs: { width: _vm.smallColumnWidth } }),
       _vm._v(" "),
-      _c("th"),
+      _c("th", { attrs: { width: _vm.smallColumnWidth } }),
       _vm._v(" "),
       _vm._l(_vm.columns, function(column) {
         return _vm.activeColumns[column.title]
@@ -53366,7 +53376,7 @@ var render = function() {
         _c(
           "td",
           { staticClass: "p-3", attrs: { colspan: _vm.columns.length + 3 } },
-          [_vm._v("\n            No data was found\n        ")]
+          [_vm._v("No data was found")]
         )
       ])
     : _vm._e()
@@ -53506,10 +53516,13 @@ var render = function() {
             "tr",
             { key: data.id },
             [
-              _c("td", [_vm._v(_vm._s(_vm.serial(datakey)))]),
+              _c("td", { attrs: { width: _vm.smallColumnWidth } }, [
+                _vm._v(_vm._s(_vm.serial(datakey)))
+              ]),
               _vm._v(" "),
               _c(
                 "td",
+                { attrs: { width: _vm.smallColumnWidth } },
                 [
                   _c("v-checkbox", {
                     on: {
@@ -99942,6 +99955,9 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     return pagesArray;
+  },
+  GET_SMALL_COLUMN_WIDTH: function GET_SMALL_COLUMN_WIDTH(state) {
+    return state.smallColumnWidth;
   }
 });
 
@@ -99966,6 +99982,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var state = {
+  smallColumnWidth: '5%',
   dataFetchUrl: '',
   resourceURL: '',
   columns: {},
@@ -100041,11 +100058,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   TOGGLE_ALL: function TOGGLE_ALL(state) {
     state.selectAll = !state.selectAll;
+    console.log(state.selectAll);
+    state.selectBoxes = {};
     state.tableData.map(function (item) {
       state.selectBoxes[item.id] = Boolean(state.selectAll);
-      if (state.selected.indexOf(item.id) == -1) state.selected.push(item.id);
-      if (state.selected.indexOf(item.id) != -1) state.selected.splice(state.selected.indexOf(item.id), 1);
+      if (state.selected.indexOf(item.id) == -1 && state.selectAll) state.selected.push(item.id);
+      if (state.selected.indexOf(item.id) != -1 && !state.selectAll) state.selected.splice(state.selected.indexOf(item.id), 1);
     });
+    console.log(state.selected);
   },
   // Set all columns to active and queries to empty strings
   INITIALIZE: function INITIALIZE(state) {
@@ -100173,8 +100193,6 @@ __webpack_require__.r(__webpack_exports__);
   SET_DATATABLE: function SET_DATATABLE(state, _ref3) {
     var resourceURL = _ref3.resourceURL,
         columns = _ref3.columns;
-    console.log(resourceURL);
-    console.log(columns);
     state.resourceURL = resourceURL;
     state.columns = columns;
   }

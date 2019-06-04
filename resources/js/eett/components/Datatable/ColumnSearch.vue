@@ -1,8 +1,8 @@
 <template>
-	<tr>
-        <th></th>
-        <th>
-            <v-checkbox class="mt-0" @click.self="toggleAll" :value="selectAll"></v-checkbox>
+	<tr class="bg-dark">
+        <th :width="smallColumnWidth"></th>
+        <th :width="smallColumnWidth">
+            <v-checkbox class="mt-0 toggleAll" @click.self="toggleAll" :value="selectAll"></v-checkbox>
         </th>
         <th v-if="activeColumns[column.title]" v-for="column in columns" :key="column.title">
             <v-text-field 
@@ -31,13 +31,15 @@
 <script>
     import { mapGetters } from 'vuex'
     import { mapActions } from 'vuex'
+    import { mapMutations } from 'vuex'
 
 	export default{
 		computed: {
             ...mapGetters("datatable", {
                 selectAll: 'GET_SELECT_ALL',
                 columns: 'GET_COLUMNS',
-                activeColumns: 'GET_ACTIVE_COLUMNS'
+                activeColumns: 'GET_ACTIVE_COLUMNS',
+                smallColumnWidth: 'GET_SMALL_COLUMN_WIDTH'
             }),
             queries: {
                 get() {
@@ -50,6 +52,9 @@
         },
         
         methods: {
+            ...mapMutations("datatable", {
+                toggleAll: 'TOGGLE_ALL'
+            }),
             fetchData() {
                 this.$store.dispatch('datatable/FETCH_DATA', true)
             }

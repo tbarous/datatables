@@ -40,6 +40,10 @@
 
 @charset "UTF-8";
 
+.toggleAll i {
+  color: #fff !important;
+}
+
 th {
   border: none !important;
 }
@@ -10969,6 +10973,10 @@ h3 {
 
 .pagination a {
   border: none;
+}
+
+.v-toolbar__content {
+  z-index: 999999999999999;
 }
 
 .to-top {

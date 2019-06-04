@@ -1,7 +1,7 @@
 <template>
     <tr class="bg-dark text-white">
-        <th></th>
-        <th></th>
+        <th :width="smallColumnWidth"></th>
+        <th :width="smallColumnWidth"></th>
         <th v-if="activeColumns[column.title]" v-for="column in columns" :key="column.title" @click="sortByColumn(column)" class="table-header">
             {{ column.title | columnHead }}
             <span v-if="column.title === sortedColumn">
@@ -23,10 +23,10 @@ export default {
             columns: 'GET_COLUMNS',
             sortedColumn: 'GET_SORTED_COLUMN',
             order: 'GET_ORDER',
-            activeColumns: 'GET_ACTIVE_COLUMNS'
+            activeColumns: 'GET_ACTIVE_COLUMNS',
+            smallColumnWidth: 'GET_SMALL_COLUMN_WIDTH'
         }),
     },
-
     methods: {
         sortByColumn(column) {
             this.$store.dispatch('datatable/SORT_BY_COLUMN', column)

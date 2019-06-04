@@ -1,8 +1,8 @@
 <template>
     <div style="display: contents;">
         <tr v-for="(data, datakey) in tableData" :key="data.id" v-if="!noData">
-            <td>{{serial(datakey)}}</td>
-            <td>
+            <td :width="smallColumnWidth">{{serial(datakey)}}</td>
+            <td :width="smallColumnWidth">
                 <v-checkbox v-model="selectBoxes[data.id]" @change="select(data)"></v-checkbox>
             </td>
             <td width="10%" v-if="activeColumns[key]" v-for="(value, key) in data">{{value}}</td>
@@ -26,13 +26,13 @@ export default {
             tableData: 'GET_TABLE_DATA',
             noData: 'NO_DATA',
             selectBoxes: 'GET_SELECT_BOXES',
-            activeColumns: 'GET_ACTIVE_COLUMNS'
+            activeColumns: 'GET_ACTIVE_COLUMNS',
+            smallColumnWidth: 'GET_SMALL_COLUMN_WIDTH'
         }),
         options() {
             return this.$store.getters['daterangepicker/GET_OPTIONS']
         }
     },
-
     mounted(){
         $('.double-scroll').doubleScroll()
         $('input[name="datefilter"]').daterangepicker(this.options)
@@ -45,20 +45,15 @@ export default {
         select(item) {
             this.$store.commit('datatable/SELECT', item)
         },
-
         serial(datakey) {
             // return this.$store.state.getters['datatable/getSerialNumber'](datakey)
             return 1
         },
-
         setEditingRow(editingRow){
             this.$store.commit('datatable/SET_EDITING_ROW', editingRow)
             this.$store.commit('ui/OPEN_UPDATE_DIALOG')
         },
-
-        destroy(data){
-           
-        }
+        destroy(data){}
     }
 }
 </script>

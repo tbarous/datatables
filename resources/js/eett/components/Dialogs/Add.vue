@@ -19,6 +19,5 @@
 <script>
 	import Errors from './../Form/Errors'
 
-	export default {
-	}
+	export default {}
 </script>

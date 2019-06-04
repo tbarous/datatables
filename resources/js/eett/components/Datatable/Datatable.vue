@@ -27,6 +27,11 @@ export default {
             .then(() => this.$store.dispatch('datatable/FETCH_DATA'))
     },
 
+    mounted(){
+        var $table = $('table');
+        $table.floatThead();
+    },
+
     components: {
         TableLoader, Navigation, PerPage, DataDetails, Tools, Search, TableSection
     }

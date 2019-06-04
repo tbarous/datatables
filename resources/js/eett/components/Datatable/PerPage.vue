@@ -20,7 +20,6 @@ export default {
         ...mapGetters("datatable", {
             itemsShow: 'GET_ITEMS_SHOW'
         }),
-
         perPage: {
             get(){
                 return this.$store.getters['datatable/GET_PER_PAGE']

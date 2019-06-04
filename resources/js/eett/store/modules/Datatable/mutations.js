@@ -10,11 +10,14 @@ export default {
     SET_ACTIVE_COLUMNS: (state, activeColumns) => state.activeColumns = activeColumns,
     TOGGLE_ALL(state){
         state.selectAll = !state.selectAll
+        console.log(state.selectAll)
+        state.selectBoxes = {}
         state.tableData.map(item => {
             state.selectBoxes[item.id] = Boolean(state.selectAll)
-            if(state.selected.indexOf(item.id) == -1) state.selected.push(item.id)
-            if(state.selected.indexOf(item.id) != -1) state.selected.splice(state.selected.indexOf(item.id), 1)
+            if(state.selected.indexOf(item.id) == -1 && state.selectAll) state.selected.push(item.id)
+            if(state.selected.indexOf(item.id) != -1 && !state.selectAll) state.selected.splice(state.selected.indexOf(item.id), 1)
         })
+        console.log(state.selected)
     },
 
     // Set all columns to active and queries to empty strings
@@ -135,8 +138,6 @@ export default {
     },
 
     SET_DATATABLE: (state, {resourceURL, columns}) => { 
-        console.log(resourceURL)
-        console.log(columns)
         state.resourceURL = resourceURL
         state.columns = columns 
     }
