@@ -8,7 +8,8 @@ const state = {
     drawer: true,
     viewDialog: false,
     updateDialog: false,
-    updateMultipleDialog: false
+    updateMultipleDialog: false,
+    notification: false
 }
 
 export default {

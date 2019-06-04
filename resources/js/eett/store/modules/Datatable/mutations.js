@@ -16,16 +16,22 @@ export default {
             if(state.selected.indexOf(item.id) != -1) state.selected.splice(state.selected.indexOf(item.id), 1)
         })
     },
+
+    // Set all columns to active and queries to empty strings
     INITIALIZE(state){
         state.columns.map(column => {
             state.activeColumns[column.title] = true;
             state.queries[column.title] = ''
         });
     },
+
+    // Change datatable page
     CHANGE_PAGE: (state, pageNumber) => {
         state.currentPage = pageNumber
         state.selectAll = false
     },
+
+    // Sort datatable by column
     SORT_BY_COLUMN(state, column) {
         if (column.title === state.sortedColumn) {
             state.order = (state.order === 'asc') ? 'desc' : 'asc'
@@ -34,56 +40,70 @@ export default {
             state.order = 'asc'
         }
     },
+
+    // Select item from datatable, if its included remove it
     SELECT(state, item){
-        let hmm = state.selected.includes(item.id)
-        hmm ? state.selected.push(item.id) : state.selected.splice(state.selected.indexOf(item.id), 1)
-        state.selectBoxes[item.id] = !Boolean(hmm)
+        const itemIncluded = state.selected.includes(item.id)
+        itemIncluded ? state.selected.push(item.id) : state.selected.splice(state.selected.indexOf(item.id), 1)
+        state.selectBoxes[item.id] = !Boolean(itemIncluded)
     },
+
+    // Clear datatable filters
     CLEAR_FILTERS: state => {
         state.queries = {}
         state.generalSearch = ''
     },
-    FETCH_DATA: _.debounce((state, reset) => {
-        if (reset) state.currentPage = 1
-        if (state.generalSearch == null) state.generalSearch = ''
-        let dataFetchUrl = `${state.resourceURL}?page=${state.currentPage}&column=${state.sortedColumn}&order=${state.order}&per_page=${state.perPage}&search=${state.generalSearch}`
 
+    PREPARE_FOR_FETCH: (state, reset) => {
+        if (reset) state.currentPage = 1
+        state.dataFetchUrl = `${state.resourceURL}?page=${state.currentPage}&column=${state.sortedColumn}&order=${state.order}&per_page=${state.perPage}&search=${state.generalSearch}`
+
+        /* Make sure null values are ''*/
+        if (state.generalSearch == null) state.generalSearch = ''
         Object.keys(state.queries).map(item => {
             let queryItem = state.queries[item];
             if (queryItem == null) queryItem = ''
-            dataFetchUrl += '&' + item + '=' + queryItem;
+            state.dataFetchUrl += '&' + item + '=' + queryItem;
         })
+    },
 
-        state.loading = true;
-        axios.get(dataFetchUrl)
-            .then(({ data }) => {
-                state.pagination = data
-                state.tableData = data.data
-                state.loading = false
-                // state.$store.dispatch('loading/setLoading', false);
-            }).catch(error => {
-                // state.tableData = []
-                // state.handleFailure(error)
-            })
-    }, 500),
+    // Make changes on active datatable columns
     CHANGE_ACTIVE_COLUMNS: (state) => {
         let obj = {}
         Object.assign(obj, state.activeColumns)
         state.activeColumns = {}
         state.activeColumns = obj
     },
-    UPDATE(state) {
-         axios.post(state.resourceURL + '/update', {
+
+    // Fetch datatable data
+    FETCH_DATA: _.debounce((state) => {
+        axios.get(state.dataFetchUrl)
+            .then(({ data }) => {
+                state.pagination = data
+                state.tableData = data.data
+                state.loading = false
+            }).catch(error => {
+                // 
+            })
+    }, 500),
+
+    // Update datatable row
+    UPDATE(state, {vm}) {
+        axios.post(state.resourceURL + '/update', {
             row: JSON.stringify(state.editingRow)
         }).then(response => {
-            // this.errors.update = ''
-            // this.$store.dispatch('loading/setLoading', false);
-            
-            // state.fetchData(false)
+            vm.$notify({
+                type: 'success', 
+                text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'
+            })
         }).catch(error => {
-            // this.handleFailure(error, 'update')
+            vm.$notify({
+                type: 'success', 
+                text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'
+            })
         })
     },
+
     DESTROY(index, row){
         this.$store.dispatch('loading/setLoading', true);
         axios.post(this.resourceURL + '/destroy', {
@@ -91,9 +111,10 @@ export default {
         }).then(response => {
             this.fetchData(false, {type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been deleted'})
         }).catch(error => {
-            this.handleFailure(error)
+            // this.handleFailure(error)
         })
     },
+
     UPDATE_MULTIPLE(row) {
         this.$store.dispatch('loading/setLoading', true)
         axios.post(this.resourceURL + '/update-many', {
@@ -102,9 +123,10 @@ export default {
         }).then(response => {
             this.fetchData(false, {type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Items has been updated'})
         }).catch(error => {
-            this.handleFailure(error)
+            // this.handleFailure(error)
         })
     },
+
     HANDLE_FAILURE(error, type){
         this.loading = false
         this.$store.dispatch('loading/setLoading', false)

@@ -48,10 +48,7 @@
             }),
             update(){
                 this.$store.commit('ui/START_LOADING')
-                this.$store.dispatch('datatable/UPDATE')
-                    .then(() => {
-                        this.$notify({type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'})
-                    })
+                this.$store.dispatch('datatable/UPDATE', {vm: this})
                     .then(() => this.$store.dispatch('datatable/FETCH_DATA'))
                     .then(() => this.$store.commit('ui/STOP_LOADING'))
             }

@@ -2752,11 +2752,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       this.$store.commit('ui/START_LOADING');
-      this.$store.dispatch('datatable/UPDATE').then(function () {
-        _this.$notify({
-          type: 'success',
-          text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'
-        });
+      this.$store.dispatch('datatable/UPDATE', {
+        vm: this
       }).then(function () {
         return _this.$store.dispatch('datatable/FETCH_DATA');
       }).then(function () {
@@ -99849,40 +99846,32 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  // setColumns: (context, columns) => context.commit('setColumns', columns),
-  // startLoading: (context) => context.commit('startLoading'),
-  // stopLoading: (context) => context.commit('stopLoading'),
-  // setActiveColumnsAndQueries: (context) => context.commit('setActiveColumnsAndQueries'),
-  // select: (context, item) => context.commit('select', item),
   CLEAR_FILTERS: function CLEAR_FILTERS(context) {
     context.commit('START_LOADING');
     context.commit('CLEAR_FILTERS');
-    context.commit('FETCH_DATA');
+    context.dispatch('FETCH_DATA');
   },
   FETCH_DATA: function FETCH_DATA(context) {
     context.commit('START_LOADING');
+    context.commit('PREPARE_FOR_FETCH');
     context.commit('FETCH_DATA');
   },
   SORT_BY_COLUMN: function SORT_BY_COLUMN(context, column) {
     context.commit('START_LOADING');
     context.commit('SORT_BY_COLUMN', column);
-    context.commit('FETCH_DATA');
+    context.dispatch('FETCH_DATA');
   },
   CHANGE_PAGE: function CHANGE_PAGE(context, page) {
     context.commit('CHANGE_PAGE', page);
-    context.commit('FETCH_DATA');
+    context.dispatch('FETCH_DATA');
   },
   SET_PER_PAGE: function SET_PER_PAGE(context, perPage) {
     context.commit('START_LOADING');
     context.commit('SET_PER_PAGE', perPage);
-    context.commit('FETCH_DATA');
+    context.dispatch('FETCH_DATA');
   },
-  UPDATE: function UPDATE(_ref) {
-    var dispatch = _ref.dispatch,
-        commit = _ref.commit,
-        getters = _ref.getters,
-        rootGetters = _ref.rootGetters;
-    commit('UPDATE');
+  UPDATE: function UPDATE(context, vm) {
+    context.commit('UPDATE', vm);
   },
   INITIALIZE: function INITIALIZE(context) {
     context.commit('INITIALIZE');
@@ -99908,7 +99897,6 @@ __webpack_require__.r(__webpack_exports__);
     return state.selectAll;
   },
   GET_PAGINATION: function GET_PAGINATION(state) {
-    console.log(state.pagination);
     return state.pagination;
   },
   GET_SELECTED: function GET_SELECTED(state) {
@@ -99965,29 +99953,15 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   GET_ITEMS_COUNT: function GET_ITEMS_COUNT(state) {
-    if (state.perPage < state.pagination.meta.total) {
-      return "".concat(state.perPage, " of ").concat(state.pagination.meta.total, " entries");
-    }
-
-    return "".concat(state.pagination.meta.total, " of ").concat(state.pagination.meta.total, " entries");
+    var of = "of ".concat(state.pagination.meta.total, " entries");
+    return state.perPage < state.pagination.meta.total ? "".concat(state.perPage, " ").concat(of) : "".concat(state.pagination.meta.total, " ").concat(of);
   },
   GET_PAGES_NUMBER: function GET_PAGES_NUMBER(state) {
-    if (!state.pagination.meta.to) {
-      return [];
-    }
-
+    if (!state.pagination.meta.to) return [];
     var from = state.pagination.meta.current_page - state.offset;
-
-    if (from < 1) {
-      from = 1;
-    }
-
+    if (from < 1) from = 1;
     var to = from + state.offset * 2;
-
-    if (to >= state.pagination.meta.last_page) {
-      to = state.pagination.meta.last_page;
-    }
-
+    if (to >= state.pagination.meta.last_page) to = state.pagination.meta.last_page;
     var pagesArray = [];
 
     for (var page = from; page <= to; page++) {
@@ -100019,6 +99993,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var state = {
+  dataFetchUrl: '',
   resourceURL: '',
   columns: {},
   loading: false,
@@ -100099,16 +100074,19 @@ __webpack_require__.r(__webpack_exports__);
       if (state.selected.indexOf(item.id) != -1) state.selected.splice(state.selected.indexOf(item.id), 1);
     });
   },
+  // Set all columns to active and queries to empty strings
   INITIALIZE: function INITIALIZE(state) {
     state.columns.map(function (column) {
       state.activeColumns[column.title] = true;
       state.queries[column.title] = '';
     });
   },
+  // Change datatable page
   CHANGE_PAGE: function CHANGE_PAGE(state, pageNumber) {
     state.currentPage = pageNumber;
     state.selectAll = false;
   },
+  // Sort datatable by column
   SORT_BY_COLUMN: function SORT_BY_COLUMN(state, column) {
     if (column.title === state.sortedColumn) {
       state.order = state.order === 'asc' ? 'desc' : 'asc';
@@ -100117,47 +100095,61 @@ __webpack_require__.r(__webpack_exports__);
       state.order = 'asc';
     }
   },
+  // Select item from datatable, if its included remove it
   SELECT: function SELECT(state, item) {
-    var hmm = state.selected.includes(item.id);
-    hmm ? state.selected.push(item.id) : state.selected.splice(state.selected.indexOf(item.id), 1);
-    state.selectBoxes[item.id] = !Boolean(hmm);
+    var itemIncluded = state.selected.includes(item.id);
+    itemIncluded ? state.selected.push(item.id) : state.selected.splice(state.selected.indexOf(item.id), 1);
+    state.selectBoxes[item.id] = !Boolean(itemIncluded);
   },
+  // Clear datatable filters
   CLEAR_FILTERS: function CLEAR_FILTERS(state) {
     state.queries = {};
     state.generalSearch = '';
   },
-  FETCH_DATA: _.debounce(function (state, reset) {
+  PREPARE_FOR_FETCH: function PREPARE_FOR_FETCH(state, reset) {
     if (reset) state.currentPage = 1;
+    state.dataFetchUrl = "".concat(state.resourceURL, "?page=").concat(state.currentPage, "&column=").concat(state.sortedColumn, "&order=").concat(state.order, "&per_page=").concat(state.perPage, "&search=").concat(state.generalSearch);
+    /* Make sure null values are ''*/
+
     if (state.generalSearch == null) state.generalSearch = '';
-    var dataFetchUrl = "".concat(state.resourceURL, "?page=").concat(state.currentPage, "&column=").concat(state.sortedColumn, "&order=").concat(state.order, "&per_page=").concat(state.perPage, "&search=").concat(state.generalSearch);
     Object.keys(state.queries).map(function (item) {
       var queryItem = state.queries[item];
       if (queryItem == null) queryItem = '';
-      dataFetchUrl += '&' + item + '=' + queryItem;
+      state.dataFetchUrl += '&' + item + '=' + queryItem;
     });
-    state.loading = true;
-    axios.get(dataFetchUrl).then(function (_ref) {
-      var data = _ref.data;
-      state.pagination = data;
-      state.tableData = data.data;
-      state.loading = false; // state.$store.dispatch('loading/setLoading', false);
-    })["catch"](function (error) {// state.tableData = []
-      // state.handleFailure(error)
-    });
-  }, 500),
+  },
+  // Make changes on active datatable columns
   CHANGE_ACTIVE_COLUMNS: function CHANGE_ACTIVE_COLUMNS(state) {
     var obj = {};
     Object.assign(obj, state.activeColumns);
     state.activeColumns = {};
     state.activeColumns = obj;
   },
-  UPDATE: function UPDATE(state) {
+  // Fetch datatable data
+  FETCH_DATA: _.debounce(function (state) {
+    axios.get(state.dataFetchUrl).then(function (_ref) {
+      var data = _ref.data;
+      state.pagination = data;
+      state.tableData = data.data;
+      state.loading = false;
+    })["catch"](function (error) {// 
+    });
+  }, 500),
+  // Update datatable row
+  UPDATE: function UPDATE(state, _ref2) {
+    var vm = _ref2.vm;
     axios.post(state.resourceURL + '/update', {
       row: JSON.stringify(state.editingRow)
-    }).then(function (response) {// this.errors.update = ''
-      // this.$store.dispatch('loading/setLoading', false);
-      // state.fetchData(false)
-    })["catch"](function (error) {// this.handleFailure(error, 'update')
+    }).then(function (response) {
+      vm.$notify({
+        type: 'success',
+        text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'
+      });
+    })["catch"](function (error) {
+      vm.$notify({
+        type: 'success',
+        text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'
+      });
     });
   },
   DESTROY: function DESTROY(index, row) {
@@ -100171,8 +100163,7 @@ __webpack_require__.r(__webpack_exports__);
         type: 'success',
         text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been deleted'
       });
-    })["catch"](function (error) {
-      _this.handleFailure(error);
+    })["catch"](function (error) {// this.handleFailure(error)
     });
   },
   UPDATE_MULTIPLE: function UPDATE_MULTIPLE(row) {
@@ -100187,8 +100178,7 @@ __webpack_require__.r(__webpack_exports__);
         type: 'success',
         text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Items has been updated'
       });
-    })["catch"](function (error) {
-      _this2.handleFailure(error);
+    })["catch"](function (error) {// this.handleFailure(error)
     });
   },
   HANDLE_FAILURE: function HANDLE_FAILURE(error, type) {
@@ -100204,9 +100194,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  SET_DATATABLE: function SET_DATATABLE(state, _ref2) {
-    var resourceURL = _ref2.resourceURL,
-        columns = _ref2.columns;
+  SET_DATATABLE: function SET_DATATABLE(state, _ref3) {
+    var resourceURL = _ref3.resourceURL,
+        columns = _ref3.columns;
     console.log(resourceURL);
     console.log(columns);
     state.resourceURL = resourceURL;
@@ -100463,7 +100453,8 @@ var state = {
   drawer: true,
   viewDialog: false,
   updateDialog: false,
-  updateMultipleDialog: false
+  updateMultipleDialog: false,
+  notification: false
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,

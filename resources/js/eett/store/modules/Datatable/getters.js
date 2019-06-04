@@ -1,7 +1,7 @@
 export default {
     GET_LOADING: state =>  state.loading,
     GET_SELECT_ALL: state => state.selectAll,
-    GET_PAGINATION: state => {console.log(state.pagination);return state.pagination},
+    GET_PAGINATION: state => state.pagination,
     GET_SELECTED: state => state.selected,
     GET_COLUMNS: state => state.columns,
     GET_ORDER: state => state.order,
@@ -20,27 +20,17 @@ export default {
     TOTAL_DATA: () => state.pagination.meta.to - state.pagination.meta.from + 1,
     GET_SERIAL_NUMBER: (state) => (key) => (state.currentPage - 1) * state.perPage + 1 + key,
     GET_ITEMS_COUNT: (state) => {
-        if(state.perPage < state.pagination.meta.total) {
-            return `${state.perPage} of ${state.pagination.meta.total} entries`
-        }
-        return `${state.pagination.meta.total} of ${state.pagination.meta.total} entries`
+        const of = `of ${state.pagination.meta.total} entries`
+        return state.perPage < state.pagination.meta.total ? `${state.perPage} ${of}` : `${state.pagination.meta.total} ${of}`
     },
     GET_PAGES_NUMBER: (state) => {
-        if (!state.pagination.meta.to) {
-            return []
-        }
+        if (!state.pagination.meta.to) return []
         let from = state.pagination.meta.current_page - state.offset
-        if (from < 1) {
-            from = 1
-        }
+        if (from < 1) from = 1
         let to = from + (state.offset * 2)
-        if (to >= state.pagination.meta.last_page) {
-            to = state.pagination.meta.last_page
-        }
+        if (to >= state.pagination.meta.last_page) to = state.pagination.meta.last_page
         let pagesArray = []
-        for (let page = from; page <= to; page++) {
-            pagesArray.push(page)
-        }
+        for (let page = from; page <= to; page++) pagesArray.push(page)
         return pagesArray
     }
 }
