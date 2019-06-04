@@ -92,15 +92,9 @@ export default {
         axios.post(state.resourceURL + '/update', {
             row: JSON.stringify(state.editingRow)
         }).then(response => {
-            vm.$notify({
-                type: 'success', 
-                text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'
-            })
+            vm.$notify({type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'})
         }).catch(error => {
-            vm.$notify({
-                type: 'success', 
-                text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'
-            })
+            vm.$notify({type: 'error', text: `<i class="fa fa-warning" aria-hidden="true"></i> &nbsp ${error.response.data.message} `})
         })
     },
 

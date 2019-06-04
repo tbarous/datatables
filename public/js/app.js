@@ -100147,8 +100147,8 @@ __webpack_require__.r(__webpack_exports__);
       });
     })["catch"](function (error) {
       vm.$notify({
-        type: 'success',
-        text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'
+        type: 'error',
+        text: "<i class=\"fa fa-warning\" aria-hidden=\"true\"></i> &nbsp ".concat(error.response.data.message, " ")
       });
     });
   },
