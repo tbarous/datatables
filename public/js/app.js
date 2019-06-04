@@ -53131,7 +53131,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "tr",
-    { staticClass: "bg-dark text-white" },
+    { staticClass: "bg-dark text-white", staticStyle: { height: "50px" } },
     [
       _c("th", { attrs: { width: _vm.smallColumnWidth } }),
       _vm._v(" "),
