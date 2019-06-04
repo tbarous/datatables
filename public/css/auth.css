@@ -10666,9 +10666,3 @@ a.text-dark:focus {
   }
 }
 
-body {
-  font-family: "Nunito" !important;
-  background-image: linear-gradient(113.7deg, #2b3a67 11.5%, #7a86ac 124.1%);
-  height: 100vh;
-}
-
