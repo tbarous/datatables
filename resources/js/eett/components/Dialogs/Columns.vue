@@ -1,5 +1,5 @@
 <template>
-    <v-dialog :value="dialog" width="500">
+    <v-dialog :value="dialog" persistent width="500">
         <v-card>
             <v-card-title class="headline grey lighten-2" primary-title>
                 Columns
@@ -13,11 +13,11 @@
                     @change="changeActiveColumns"
                     color="black">
                 </v-checkbox>
+
+                <v-btn @click="close" class="close-window" flat icon>
+                    <v-icon small>fa fa-times</v-icon>
+                </v-btn>
             </v-card-text>
-            
-            <v-btn @click="close" class="close-window" flat icon>
-                <v-icon small>fa fa-times</v-icon>
-            </v-btn>
         </v-card>
     </v-dialog>
 </template>

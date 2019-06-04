@@ -2160,9 +2160,8 @@ __webpack_require__.r(__webpack_exports__);
       return _this.$store.dispatch('datatable/FETCH_DATA');
     });
   },
-  mounted: function mounted() {
-    var $table = $('table');
-    $table.floatThead();
+  mounted: function mounted() {// var $table = $('table');
+    // $table.floatThead();
   },
   components: {
     TableLoader: _TableLoader__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -53775,7 +53774,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-dialog",
-    { attrs: { value: _vm.dialog, width: "500" } },
+    { attrs: { value: _vm.dialog, persistent: "", width: "500" } },
     [
       _c(
         "v-card",
@@ -53792,36 +53791,42 @@ var render = function() {
           _c(
             "v-card-text",
             { staticClass: "d-flex", staticStyle: { "flex-flow": "wrap" } },
-            _vm._l(_vm.columns, function(column, key) {
-              return _c("v-checkbox", {
-                key: column.title,
-                staticClass: "d-inline-block ml-3",
-                attrs: {
-                  label: _vm._f("columnLow")(column.title),
-                  color: "black"
-                },
-                on: { change: _vm.changeActiveColumns },
-                model: {
-                  value: _vm.activeColumns[column.title],
-                  callback: function($$v) {
-                    _vm.$set(_vm.activeColumns, column.title, $$v)
+            [
+              _vm._l(_vm.columns, function(column, key) {
+                return _c("v-checkbox", {
+                  key: column.title,
+                  staticClass: "d-inline-block ml-3",
+                  attrs: {
+                    label: _vm._f("columnLow")(column.title),
+                    color: "black"
                   },
-                  expression: "activeColumns[column.title]"
-                }
-              })
-            }),
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            {
-              staticClass: "close-window",
-              attrs: { flat: "", icon: "" },
-              on: { click: _vm.close }
-            },
-            [_c("v-icon", { attrs: { small: "" } }, [_vm._v("fa fa-times")])],
-            1
+                  on: { change: _vm.changeActiveColumns },
+                  model: {
+                    value: _vm.activeColumns[column.title],
+                    callback: function($$v) {
+                      _vm.$set(_vm.activeColumns, column.title, $$v)
+                    },
+                    expression: "activeColumns[column.title]"
+                  }
+                })
+              }),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  staticClass: "close-window",
+                  attrs: { flat: "", icon: "" },
+                  on: { click: _vm.close }
+                },
+                [
+                  _c("v-icon", { attrs: { small: "" } }, [
+                    _vm._v("fa fa-times")
+                  ])
+                ],
+                1
+              )
+            ],
+            2
           )
         ],
         1
