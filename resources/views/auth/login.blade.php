@@ -30,7 +30,7 @@
                             </div>
 
                             <div class="form-group row mb-0">
-                                <div class="col-md-8 offset-md-3">
+                                <div class="col-md-8 offset-md-2">
                                     @if ($errors->has('username'))
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $errors->first('username') }}</strong>
