@@ -44,7 +44,7 @@ export default {
     // Select item from datatable, if its included remove it
     SELECT(state, item){
         const itemIncluded = state.selected.includes(item.id)
-        itemIncluded ? state.selected.push(item.id) : state.selected.splice(state.selected.indexOf(item.id), 1)
+        !itemIncluded ? state.selected.push(item.id) : state.selected.splice(state.selected.indexOf(item.id), 1)
         state.selectBoxes[item.id] = !Boolean(itemIncluded)
     },
 

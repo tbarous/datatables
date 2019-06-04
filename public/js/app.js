@@ -2562,6 +2562,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -52776,8 +52777,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-flex",
-    { attrs: { xs2: "" } },
+    "div",
+    { staticClass: "d-inline-block" },
     [
       _c(
         "v-btn",
@@ -52785,7 +52786,7 @@ var render = function() {
           attrs: { id: "export-btn", "data-clipboard-target": "#resultsTable" }
         },
         [
-          _vm._v("\n            Export "),
+          _vm._v("\n        Export "),
           _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-file-export")])
         ],
         1
@@ -52817,14 +52818,14 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-flex",
-    { attrs: { xs2: "" } },
+    "div",
+    { staticClass: "d-inline-block" },
     [
       _c(
         "v-btn",
         { attrs: { color: "green", dark: "", href: "/storage/invoices.xlsx" } },
         [
-          _vm._v("\n            Excel "),
+          _vm._v("\n        Excel "),
           _c("v-icon", { attrs: { small: "" } }, [_vm._v("far fa-file-excel")])
         ],
         1
@@ -52856,8 +52857,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-flex",
-    { attrs: { xs2: "" } },
+    "div",
+    { staticClass: "d-inline-block" },
     [
       _c(
         "v-btn",
@@ -52870,7 +52871,7 @@ var render = function() {
           }
         },
         [
-          _vm._v("\n            PDF "),
+          _vm._v("\n        PDF "),
           _c("v-icon", { attrs: { small: "" } }, [_vm._v("far fa-file-pdf")])
         ],
         1
@@ -53650,21 +53651,25 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "wrapper double-scroll" }, [
-    _c(
-      "table",
-      {
-        directives: [{ name: "scroll", rawName: "v-scroll" }],
-        staticClass: "m-0 pt-0 table table-bordered elevation-3",
-        attrs: { id: "table", "data-tableName": "Test Table 2" }
-      },
-      [
-        _c("thead", [_c("headers"), _vm._v(" "), _c("column-search")], 1),
-        _vm._v(" "),
-        _c("tbody", [_c("no-data"), _vm._v(" "), _c("table-body")], 1)
-      ]
-    )
-  ])
+  return _c(
+    "div",
+    { staticClass: "wrapper", staticStyle: { overflow: "auto!important" } },
+    [
+      _c(
+        "table",
+        {
+          directives: [{ name: "scroll", rawName: "v-scroll" }],
+          staticClass: "m-0 pt-0 table table-bordered elevation-3",
+          attrs: { id: "table", "data-tableName": "Test Table 2" }
+        },
+        [
+          _c("thead", [_c("headers"), _vm._v(" "), _c("column-search")], 1),
+          _vm._v(" "),
+          _c("tbody", [_c("no-data"), _vm._v(" "), _c("table-body")], 1)
+        ]
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -100098,7 +100103,7 @@ __webpack_require__.r(__webpack_exports__);
   // Select item from datatable, if its included remove it
   SELECT: function SELECT(state, item) {
     var itemIncluded = state.selected.includes(item.id);
-    itemIncluded ? state.selected.push(item.id) : state.selected.splice(state.selected.indexOf(item.id), 1);
+    !itemIncluded ? state.selected.push(item.id) : state.selected.splice(state.selected.indexOf(item.id), 1);
     state.selectBoxes[item.id] = !Boolean(itemIncluded);
   },
   // Clear datatable filters
