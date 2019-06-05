@@ -5,21 +5,20 @@
             <v-card-text>
                 <v-form method="post" @submit.prevent="update">
                     <div v-for="(column, key) in columns" :key="column.title" >
-                         <v-text-field 
+
+                        <!-- v-if="column.type == 'text'"  -->
+                        <v-text-field 
+                            class="mt-3"
                             :label="column.title" 
                             solo 
-                            v-if="column.type == 'text'" 
                             type="text" 
                             v-model="editingRow[column.title]" 
-                            class="mt-3"
                             @input="clearError(column.title)">
                         </v-text-field>
 
-                        <!-- <transition name="fade"> -->
-                            <p class="text-danger mt-3" v-for="error in findError(column.title)">
-                                {{error}}
-                            </p>
-                        <!-- </transition> -->
+                        <p class="text-danger mt-3" v-for="error in findError(column.title)">
+                            {{error}}
+                        </p>
                     </div>
                    
                     <v-btn class="ml-0 w-100" color="primary" type="submit">edit</v-btn>

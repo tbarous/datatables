@@ -5,18 +5,18 @@
             <v-checkbox class="mt-0 toggleAll" @click.self="toggleAll" :value="selectAll"></v-checkbox>
         </th>
         <th v-if="activeColumns[column.title]" v-for="column in columns" :key="column.title">
-            <v-text-field 
+            <v-text-field
                 clearable 
-                style="min-width: 100px;" 
-                @input="fetchData(true)" 
+                @input="fetchData" 
                 v-model="queries[column.title]" 
-                v-if="column.type=='text'" 
+                :name="column.type" 
                 solo 
                 autocomplete="off" 
+                :id="column.title" 
                 prepend-inner-icon="search">
             </v-text-field>
 
-            <div class="position-relative">
+            <!-- <div class="position-relative">
                 <input 
                 type="text" 
                 name="datefilter" 
@@ -31,7 +31,7 @@
                 <v-btn fab small v-if="column.type=='date'" class="clearDate" :id="column.title" flat style="position: absolute;top:0;right:0;">
                      <v-icon small>fa fa-times</v-icon>
                 </v-btn>
-            </div>
+            </div> -->
         </th>
         <th></th>
     </tr>
@@ -60,7 +60,7 @@
             }
         },
         mounted(){
-            $('input[name="datefilter"]').daterangepicker(this.$store.getters['datatable/GET_OPTIONS'])
+            $('input[name="date"]').daterangepicker(this.$store.getters['datatable/GET_OPTIONS'])
             let columns = this.$store.getters['datatable/GET_COLUMNS']
             let queries = this.$store.getters['datatable/GET_QUERIES']
             // this.$store.commit('datatable/SET_PICKER', {columns:columns, queries:queries})
@@ -81,11 +81,11 @@
                 });
             })
 
-            $('.clearDate').on('click', (evt) => {
-                $(evt.currentTarget).siblings('input').val('')
-                this.$store.commit('datatable/EMPTY_QUERY', $(evt.currentTarget).attr('id'))
-                this.$store.dispatch('datatable/FETCH_DATA', true)
-              });
+            // $('.clearDate').on('click', (evt) => {
+            //     $(evt.currentTarget).siblings('input').val('')
+            //     this.$store.commit('datatable/EMPTY_QUERY', $(evt.currentTarget).attr('id'))
+            //     this.$store.dispatch('datatable/FETCH_DATA', true)
+            //   });
         },
         methods: {
             ...mapMutations("datatable", {

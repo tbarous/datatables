@@ -2024,7 +2024,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     var _this = this;
 
-    $('input[name="datefilter"]').daterangepicker(this.$store.getters['datatable/GET_OPTIONS']);
+    $('input[name="date"]').daterangepicker(this.$store.getters['datatable/GET_OPTIONS']);
     var columns = this.$store.getters['datatable/GET_COLUMNS'];
     var queries = this.$store.getters['datatable/GET_QUERIES']; // this.$store.commit('datatable/SET_PICKER', {columns:columns, queries:queries})
     // let {columns, queries} = payload
@@ -2046,14 +2046,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         _this.$store.dispatch('datatable/FETCH_DATA', true);
       });
-    });
-    $('.clearDate').on('click', function (evt) {
-      $(evt.currentTarget).siblings('input').val('');
-
-      _this.$store.commit('datatable/EMPTY_QUERY', $(evt.currentTarget).attr('id'));
-
-      _this.$store.dispatch('datatable/FETCH_DATA', true);
-    });
+    }); // $('.clearDate').on('click', (evt) => {
+    //     $(evt.currentTarget).siblings('input').val('')
+    //     this.$store.commit('datatable/EMPTY_QUERY', $(evt.currentTarget).attr('id'))
+    //     this.$store.dispatch('datatable/FETCH_DATA', true)
+    //   });
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("datatable", {
     toggleAll: 'TOGGLE_ALL'
@@ -2711,7 +2708,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
 //
 //
 //
@@ -52966,99 +52962,24 @@ var render = function() {
               "th",
               { key: column.title },
               [
-                column.type == "text"
-                  ? _c("v-text-field", {
-                      staticStyle: { "min-width": "100px" },
-                      attrs: {
-                        clearable: "",
-                        solo: "",
-                        autocomplete: "off",
-                        "prepend-inner-icon": "search"
-                      },
-                      on: {
-                        input: function($event) {
-                          return _vm.fetchData(true)
-                        }
-                      },
-                      model: {
-                        value: _vm.queries[column.title],
-                        callback: function($$v) {
-                          _vm.$set(_vm.queries, column.title, $$v)
-                        },
-                        expression: "queries[column.title]"
-                      }
-                    })
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "position-relative" },
-                  [
-                    column.type == "date"
-                      ? _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.queries[column.title],
-                              expression: "queries[column.title]"
-                            }
-                          ],
-                          staticClass: "date-range-picker elevation-2",
-                          attrs: {
-                            type: "text",
-                            name: "datefilter",
-                            autocomplete: "off",
-                            id: column.title
-                          },
-                          domProps: { value: _vm.queries[column.title] },
-                          on: {
-                            input: [
-                              function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.queries,
-                                  column.title,
-                                  $event.target.value
-                                )
-                              },
-                              _vm.fetchData
-                            ],
-                            change: _vm.fetchData
-                          }
-                        })
-                      : _vm._e(),
-                    _vm._v(" "),
-                    column.type == "date"
-                      ? _c(
-                          "v-btn",
-                          {
-                            staticClass: "clearDate",
-                            staticStyle: {
-                              position: "absolute",
-                              top: "0",
-                              right: "0"
-                            },
-                            attrs: {
-                              fab: "",
-                              small: "",
-                              id: column.title,
-                              flat: ""
-                            }
-                          },
-                          [
-                            _c("v-icon", { attrs: { small: "" } }, [
-                              _vm._v("fa fa-times")
-                            ])
-                          ],
-                          1
-                        )
-                      : _vm._e()
-                  ],
-                  1
-                )
+                _c("v-text-field", {
+                  attrs: {
+                    clearable: "",
+                    name: column.type,
+                    solo: "",
+                    autocomplete: "off",
+                    id: column.title,
+                    "prepend-inner-icon": "search"
+                  },
+                  on: { input: _vm.fetchData },
+                  model: {
+                    value: _vm.queries[column.title],
+                    callback: function($$v) {
+                      _vm.$set(_vm.queries, column.title, $$v)
+                    },
+                    expression: "queries[column.title]"
+                  }
+                })
               ],
               1
             )
@@ -53953,35 +53874,33 @@ var render = function() {
                       "div",
                       { key: column.title },
                       [
-                        column.type == "text"
-                          ? _c("v-text-field", {
-                              staticClass: "mt-3",
-                              attrs: {
-                                label: column.title,
-                                solo: "",
-                                type: "text"
-                              },
-                              on: {
-                                input: function($event) {
-                                  return _vm.clearError(column.title)
-                                }
-                              },
-                              model: {
-                                value: _vm.editingRow[column.title],
-                                callback: function($$v) {
-                                  _vm.$set(_vm.editingRow, column.title, $$v)
-                                },
-                                expression: "editingRow[column.title]"
-                              }
-                            })
-                          : _vm._e(),
+                        _c("v-text-field", {
+                          staticClass: "mt-3",
+                          attrs: {
+                            label: column.title,
+                            solo: "",
+                            type: "text"
+                          },
+                          on: {
+                            input: function($event) {
+                              return _vm.clearError(column.title)
+                            }
+                          },
+                          model: {
+                            value: _vm.editingRow[column.title],
+                            callback: function($$v) {
+                              _vm.$set(_vm.editingRow, column.title, $$v)
+                            },
+                            expression: "editingRow[column.title]"
+                          }
+                        }),
                         _vm._v(" "),
                         _vm._l(_vm.findError(column.title), function(error) {
                           return _c("p", { staticClass: "text-danger mt-3" }, [
                             _vm._v(
-                              "\n                                " +
+                              "\n                            " +
                                 _vm._s(error) +
-                                "\n                            "
+                                "\n                        "
                             )
                           ])
                         })
