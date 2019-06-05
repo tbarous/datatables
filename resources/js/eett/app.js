@@ -2,7 +2,7 @@ require('./bootstrap')
 
 window.Vue = require('vue');
 
-import "./Filters"
+import "./filters"
 import store from './store'
 import router from './router'
 import axios from './api'
@@ -18,7 +18,7 @@ Vue.use(Notifications)
 
 import Loading from 'vue-loading-overlay';
 Vue.component('loading', Loading);
-Vue.component('layout', require('./Layouts/Layout.vue').default);
+Vue.component('layout', require('./layouts/Layout.vue').default);
 
 import Errors from './components/Form/Errors'
 Vue.component('errors', Errors);

@@ -1,4 +1,5 @@
 export default {
+    CLEAR_ERROR: (state, title) => state.errors[title] = '',
     SET_COLUMNS: (state, columns) => state.columns = columns,
     START_LOADING: state => state.loading = true,
     STOP_LOADING: state => state.loading = false,
@@ -88,7 +89,7 @@ export default {
                 state.tableData = data.data
                 state.loading = false
             }).catch(error => {
-                // 
+                state.loading = false
             })
     }, 500),
 
@@ -99,6 +100,8 @@ export default {
         }).then(response => {
             vm.$notify({type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'})
         }).catch(error => {
+            console.log(error.response.data)
+            if(error.response.data.errors) state.errors = error.response.data.errors
             vm.$notify({type: 'error', text: `<i class="fa fa-warning" aria-hidden="true"></i> &nbsp ${error.response.data.message} `})
         })
     },
@@ -141,7 +144,11 @@ export default {
     SET_DATATABLE: (state, {resourceURL, columns}) => { 
         state.resourceURL = resourceURL
         state.columns = columns 
-    }
+    },
+
+    SET_OPTIONS: (state, options) => state.options = options,
+    SET_PICKER: (state, payload) => {},
+    EMPTY_QUERY: (state, title) => state.queries[title] = ''
 }
 
 function nullToEmpty(string){

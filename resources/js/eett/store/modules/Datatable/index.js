@@ -4,6 +4,13 @@ import mutations from './mutations'
 import actions from './actions'
 
 const state = {
+    options: {
+        autoUpdateInput: false,
+        locale: {
+            cancelLabel: 'Clear'
+        },
+        timePicker: true
+    },
     smallColumnWidth: '5%',
     dataFetchUrl: '',
     resourceURL: '',
@@ -24,7 +31,8 @@ const state = {
     selected: [],
     selectBoxes: {},
     editingRow: {},
-    editingMultipleRow: {}
+    editingMultipleRow: {},
+    errors: {}
 }
 
 export default {

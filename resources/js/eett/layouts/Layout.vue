@@ -12,7 +12,7 @@
 <script>
     import Drawer from './../components/Navigation/Drawer'
     import Navbar from './../components/Navigation/Navbar'
-    import Content from './../components/Content'
+    import Content from './../components/Contents/Content'
     import ToTop from './../components/UI/ToTop'
     import { mapGetters } from 'vuex'
 

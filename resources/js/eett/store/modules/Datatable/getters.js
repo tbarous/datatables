@@ -1,4 +1,9 @@
 export default {
+    GET_ERRORS: state => state.errors,
+    GET_ERROR: state => param => Object.keys(state.errors).map(item => {
+        if(item==param) return state.errors[item][0]
+    }),
+    GET_OPTIONS: state => state.options,
     GET_LOADING: state =>  state.loading,
     GET_SELECT_ALL: state => state.selectAll,
     GET_PAGINATION: state => state.pagination,

@@ -1,7 +1,7 @@
 <template>
     <div style="display: contents;">
         <tr v-for="(data, datakey) in tableData" :key="data.id" v-if="!noData">
-            <td :width="smallColumnWidth">{{serial(datakey)}}</td>
+            <!-- <td :width="smallColumnWidth">{{serial(datakey)}}</td> -->
             <td :width="smallColumnWidth">
                 <v-checkbox v-model="selectBoxes[data.id]" @change="select(data)"></v-checkbox>
             </td>
@@ -33,12 +33,9 @@ export default {
             return this.$store.getters['daterangepicker/GET_OPTIONS']
         }
     },
+    
     mounted(){
         $('.double-scroll').doubleScroll()
-        $('input[name="datefilter"]').daterangepicker(this.options)
-        let columns = this.$store.getters['datatable/GET_COLUMNS']
-        let queries = this.$store.getters['datatable/GET_QUERIES']
-        this.$store.commit('daterangepicker/SET_PICKER', columns, queries)
     },
 
     methods: {
