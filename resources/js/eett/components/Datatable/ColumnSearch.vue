@@ -5,6 +5,7 @@
         </th>
         <th v-if="activeColumns[column.title]" v-for="column in columns" :key="column.title">
             <v-text-field
+                style="font-size: 13px;"
                 clearable 
                 @input="fetchData" 
                 v-model="queries[column.title]" 
@@ -33,7 +34,7 @@
                 smallColumnWidth: 'GET_SMALL_COLUMN_WIDTH'
             }),
             queries: {
-                get() {
+                get(){
                     return this.$store.getters['datatable/GET_QUERIES']
                 },
                 set(queries){

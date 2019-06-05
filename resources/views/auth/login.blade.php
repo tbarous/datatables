@@ -27,7 +27,7 @@
                     </div>
                 </div>
 
-                <div class="text-right mt-2" style="height: 40px;">
+                <div class="text-right mt-3" style="height: 40px;">
                     @if ($errors->has('username'))
                         <span class="text-danger" role="alert">
                             <strong>{{ $errors->first('username') }}</strong>
@@ -36,7 +36,10 @@
                 </div>
                 
                 <div class="mt-3">
-                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                    <button type="submit" class="btn btn-primary w-100">
+                        <img id="loading" src="/images/ajax-loader.gif" alt="">
+                        Login
+                    </button>
                 </div>
             </form>
         </div>

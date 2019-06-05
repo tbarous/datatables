@@ -63,7 +63,6 @@ td {
 }
 table {
   table-layout: fixed;
-  border: none !important;
 }
 .wrapper {
   height: 600px;

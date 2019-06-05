@@ -1984,6 +1984,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -52943,6 +52944,7 @@ var render = function() {
               { key: column.title },
               [
                 _c("v-text-field", {
+                  staticStyle: { "font-size": "13px" },
                   attrs: {
                     clearable: "",
                     name: column.type,
