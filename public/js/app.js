@@ -3184,12 +3184,34 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.pages.forEach(function (item) {
       item.showChildren = false;
+      item.children.forEach(function (item2) {
+        item2.showChildren = false;
+        item2.children.forEach(function (item3) {
+          item3.showChildren = false;
+        });
+      });
     });
     console.log(this.pages);
   },
   methods: {
-    make: function make(index) {
-      this.pages[index].showChildren = !this.pages[index].showChildren; // console.log(this.pages[index].showChildren)
+    make: function make() {
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      console.log(args.length);
+
+      if (args.length == 1) {
+        this.pages[args[0]].showChildren = !this.pages[args[0]].showChildren;
+      }
+
+      if (args.length == 2) {
+        this.pages[args[0]].children[args[1]].showChildren = !this.pages[args[0]].children[args[1]].showChildren;
+      }
+
+      if (args.length == 3) {
+        this.pages[args[0]].children[args[1]].children[args[2]].showChildren = !this.pages[args[0]].children[args[1]].children[args[2]].showChildren;
+      }
 
       var temp = [];
       temp = this.pages.slice(0);
@@ -54692,7 +54714,7 @@ var render = function() {
                           {
                             on: {
                               click: function($event) {
-                                child.showChildren = true
+                                return _vm.make(index1, index2)
                               }
                             }
                           },
@@ -54720,7 +54742,21 @@ var render = function() {
                               }),
                               _vm._v(" "),
                               grandchild.children.length
-                                ? _c("v-icon", [_vm._v("fa fa-chevron-down")])
+                                ? _c(
+                                    "v-icon",
+                                    {
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.make(
+                                            index1,
+                                            index2,
+                                            index3
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("fa fa-chevron-down")]
+                                  )
                                 : _vm._e()
                             ],
                             1
