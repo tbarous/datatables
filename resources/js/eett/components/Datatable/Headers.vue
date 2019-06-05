@@ -1,6 +1,5 @@
 <template>
     <tr class="bg-dark text-white" style="height: 50px;">
-        <!-- <th :width="smallColumnWidth"></th> -->
         <th :width="smallColumnWidth"></th>
         <th v-if="activeColumns[column.title]" v-for="column in columns" :key="column.title" @click="sortByColumn(column)" class="table-header">
             {{ column.title | columnHead }}

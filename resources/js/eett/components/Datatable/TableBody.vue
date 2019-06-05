@@ -1,7 +1,6 @@
 <template>
     <div style="display: contents;">
         <tr v-for="(data, datakey) in tableData" :key="data.id" v-if="!noData">
-            <!-- <td :width="smallColumnWidth">{{serial(datakey)}}</td> -->
             <td :width="smallColumnWidth">
                 <v-checkbox v-model="selectBoxes[data.id]" @change="select(data)"></v-checkbox>
             </td>

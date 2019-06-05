@@ -1,6 +1,5 @@
 <template>
 	<tr class="bg-dark">
-        <!-- <th :width="smallColumnWidth"></th> -->
         <th :width="smallColumnWidth">
             <v-checkbox class="mt-0 toggleAll" @click.self="toggleAll" :value="selectAll"></v-checkbox>
         </th>
@@ -15,23 +14,6 @@
                 :id="column.title" 
                 prepend-inner-icon="search">
             </v-text-field>
-
-            <!-- <div class="position-relative">
-                <input 
-                type="text" 
-                name="datefilter" 
-                autocomplete="off" 
-                @input="fetchData"
-                @change="fetchData"
-                :id="column.title" 
-                v-if="column.type=='date'" 
-                v-model="queries[column.title]" 
-                class="date-range-picker elevation-2">
-                
-                <v-btn fab small v-if="column.type=='date'" class="clearDate" :id="column.title" flat style="position: absolute;top:0;right:0;">
-                     <v-icon small>fa fa-times</v-icon>
-                </v-btn>
-            </div> -->
         </th>
         <th></th>
     </tr>
