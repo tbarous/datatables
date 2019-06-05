@@ -1,6 +1,6 @@
 <?php
 
-use App\Page;
+use App\Models\Page;
 use Illuminate\Database\Seeder;
 
 class PageSeeder extends Seeder
@@ -60,6 +60,10 @@ class PageSeeder extends Seeder
 
         Page::create([
             'slug'=>'/users', 'name'=>'Users', 'path' => '/users', 'icon' => 'person', 'component' => 'Users'
+        ]);
+
+        Page::create([
+            'slug'=>'/pages', 'name'=>'Pages', 'path' => '/pages', 'icon' => 'fa fa-file', 'component' => 'Pages'
         ]);
     }
 }
