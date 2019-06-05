@@ -3053,11 +3053,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['page', 'show'],
+  created: function created() {
+    console.log(this.show);
+  },
   methods: {
     refresh: function refresh() {
+      alert(2);
       this.$store.commit('pages/REFRESH');
     }
   },
@@ -54548,57 +54553,57 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    [
-      _vm._v("\n\t" + _vm._s(_vm.page.showChildren) + "\n\t"),
-      _vm._l(_vm.page.children, function(child, index2) {
-        return _vm.show
-          ? _c(
-              "div",
-              {
-                key: child.id,
-                staticStyle: { "margin-left": "50px", "margin-top": "20px" }
-              },
-              [
-                _c("span", [_vm._v(_vm._s(index2 + 1) + ") ")]),
-                _vm._v(" "),
-                _c("v-text-field", {
-                  staticStyle: { display: "inline-block" },
-                  attrs: { solo: "", value: child.name }
-                }),
-                _vm._v(" "),
-                child.children.length
-                  ? _c(
-                      "v-icon",
-                      {
-                        on: {
-                          click: function($event) {
-                            child.showChildren = !child.showChildren
-                            _vm.refresh()
-                          }
+    _vm._l(_vm.page.children, function(child, index2) {
+      return _vm.show
+        ? _c(
+            "div",
+            {
+              key: child.id,
+              staticStyle: { "margin-left": "50px", "margin-top": "20px" }
+            },
+            [
+              _c("span", [_vm._v(_vm._s(index2 + 1) + ") ")]),
+              _vm._v(" "),
+              _c("v-text-field", {
+                staticStyle: { display: "inline-block" },
+                attrs: { solo: "", value: child.name }
+              }),
+              _vm._v(" "),
+              child.children.length
+                ? _c(
+                    "v-icon",
+                    {
+                      on: {
+                        click: function($event) {
+                          child.showChildren = !child.showChildren
+                          _vm.refresh()
                         }
-                      },
-                      [_vm._v("fa fa-chevron-down")]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                child.children.length
-                  ? _c(
-                      "div",
-                      [
-                        _c("Page", {
-                          attrs: { page: child, show: child.showChildren }
-                        })
-                      ],
-                      1
-                    )
-                  : _vm._e()
-              ],
-              1
-            )
-          : _vm._e()
-      })
-    ],
-    2
+                      }
+                    },
+                    [_vm._v("fa fa-chevron-down")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              child.children.length
+                ? _c(
+                    "div",
+                    [
+                      _vm._v(
+                        "\n\t\t\t" + _vm._s(child.showChildren) + "\n\t\t\t"
+                      ),
+                      _c("Page", {
+                        attrs: { page: child, show: child.showChildren }
+                      })
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ],
+            1
+          )
+        : _vm._e()
+    }),
+    0
   )
 }
 var staticRenderFns = []

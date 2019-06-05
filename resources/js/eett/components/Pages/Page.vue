@@ -1,6 +1,6 @@
 <template>
 	<div>
-		{{page.showChildren}}
+		<!-- {{page.showChildren}} -->
 		<div 
 			v-if="show" 
 			style="margin-left: 50px;margin-top:20px;" 
@@ -11,6 +11,7 @@
 			<v-icon @click="child.showChildren=!child.showChildren;refresh();" v-if="child.children.length">fa fa-chevron-down</v-icon>
 		
 			<div v-if="child.children.length">
+				{{child.showChildren}}
 				<Page :page="child" :show="child.showChildren"></Page>
 			</div>
 		</div>	
@@ -21,8 +22,10 @@
 	import Page from './Page'
 	export default {
 		props: ['page', 'show'],
+		created(){console.log(this.show)},
 		methods: {
 			refresh(){
+				alert(2)
 				this.$store.commit('pages/REFRESH')
 			}
 		},
