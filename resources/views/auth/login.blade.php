@@ -1,55 +1,44 @@
 @extends('layouts.auth')
 @section('content')
-    @include('auth.navbar')
-    <div class="container">
-        <div class="row justify-content-center">
+    <div style="z-index: 9999999;width: 400px;">
+        <h1>VICTUS NETWORKS</h1>
 
-            <div class="col-md-6">
-                <div>
-                    <div style="font-size:36px;letter-spacing: 5px;" class="text-center text-white">
-                        VICTUS NETWORKS
+        <div class="mt-5 pb-5">
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+
+                <div class="mt-3">
+                    <div>
+                        <label for="username">Username</label>
                     </div>
-
-                    <div class="mt-5 pb-5">
-                        <form method="POST" action="{{ route('login') }}">
-                            @csrf
-
-                            <div class="form-group row justify-content-center">
-                                <label for="username" class="col-sm-12 offset-sm-4 text-white col-form-label">Username</label>
-                                <div class="col-md-8">
-                                    <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required autofocus>
-                                </div>
-                            </div>
-
-                            <div class="form-group row justify-content-center">
-                                <label for="password" class="col-md-12 offset-sm-4 text-white col-form-label">Password</label>
-
-                                <div class="col-md-8">
-                                    <input id="password" type="password" class="form-control" name="password" required autocomplete="current-password">
-                                </div>
-                            </div>
-
-                            <div class="form-group row mb-0">
-                                <div class="col-md-8 offset-md-6" style="height: 30px">
-                                    @if ($errors->has('username'))
-                                        <span class="text-danger" role="alert">
-                                            <strong>{{ $errors->first('username') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group row mb-0 mt-4 justify-content-center">
-                                <div class="col-md-8">
-                                    <button type="submit" class="btn btn-primary w-100">
-                                        Login
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                    
+                    <div>
+                        <input class="form-control w-100" id="username" type="text" name="username" value="{{ old('username') }}" required autofocus>
                     </div>
                 </div>
-            </div>
+
+                <div class="mt-3">
+                    <div>
+                        <label for="password">Password</label>
+                    </div>
+                    
+                    <div>
+                        <input class="form-control w-100" id="password" type="password" name="password" required autocomplete="current-password">
+                    </div>
+                </div>
+
+                <div class="text-right mt-2" style="height: 40px;">
+                    @if ($errors->has('username'))
+                        <span class="text-danger" role="alert">
+                            <strong>{{ $errors->first('username') }}</strong>
+                        </span>
+                    @endif
+                </div>
+                
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                </div>
+            </form>
         </div>
     </div>
 @endsection

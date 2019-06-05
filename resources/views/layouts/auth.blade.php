@@ -17,6 +17,7 @@
 		    background-size: cover;
 		    overflow: hidden;
 		    box-shadow: inset 0 0 20px rgba(0,0,0,0.9);
+		    justify-content: center;
 		}
 
 		.overlay{
@@ -29,6 +30,13 @@
 		input, button{
 		    height: 50px!important;
 	        font-size: 19px!important;
+		}
+
+		h1 {
+			text-align: center;
+			color: #fff;
+			font-size:36px;
+			letter-spacing: 5px;
 		}
 	</style>
 </head>
