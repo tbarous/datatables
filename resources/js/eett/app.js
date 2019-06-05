@@ -23,10 +23,6 @@ Vue.component('layout', require('./layouts/Layout.vue').default);
 import Errors from './components/Form/Errors'
 Vue.component('errors', Errors);
 
-$(document).on('scroll', () => {
-    $(window).scrollTop() > 500 ? store.commit('ui/SET_TOP', true) : store.commit('ui/SET_TOP', false)
-})
-
 store.commit('auth/SET_DATA', data.auth)
 store.commit('user/SET_DATA', data.users)
 store.commit('pages/SET_DATA', data.pages)

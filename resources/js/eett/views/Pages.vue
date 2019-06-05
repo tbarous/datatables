@@ -1,28 +1,28 @@
 <template>
 	<div>
-		<div style="margin-top:20px;" v-for="(page, index1) in pages" :key="page.id">
+		<div 
+			style="margin-top:20px;" 
+			v-for="(page, index1) in pages" 
+			:key="page.id">
+			
 			<span>{{index1+1}}) </span>
 			<v-text-field style="display: inline-block;" solo :value="page.name"></v-text-field>
-			<v-icon @click="make(index1)" v-if="page.children.length">fa fa-chevron-down</v-icon>
-
-			<div v-if="page.showChildren" style="margin-left: 50px;margin-top:20px;" v-for="(child, index2) in page.children" :key="child.id">
-				<span>{{index2+1}}) </span>
-				<v-text-field style="display: inline-block;" solo :value="child.name"></v-text-field>
-				<v-icon @click="make(index1, index2)" v-if="child.children.length">fa fa-chevron-down</v-icon>
-
-				<p v-if="child.showChildren" style="margin-left: 50px;margin-top:20px;" v-for="(grandchild, index3) in child.children" :key="grandchild.id">
-					<span>{{index3+1}}) </span>
-					<v-text-field style="display: inline-block;" solo :value="grandchild.name"></v-text-field>
-					<v-icon @click="make(index1, index2, index3)" v-if="grandchild.children.length">fa fa-chevron-down</v-icon>
-				</p>
+			<v-icon @click="page.showChildren=!page.showChildren;refresh();" v-if="page.children.length">fa fa-chevron-down</v-icon>
+			
+			<div v-if="page.children.length">
+				<Page :page="page" :show="page.showChildren"></Page>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-	import Vue from 'vue'
+	import Page from './../components/Pages/Page'
+
 	export default {
+		components: {
+			Page
+		},
 		computed: {
 			pages: {
 				get(){
@@ -48,28 +48,9 @@
 		},
 
 		methods: {
-			make(...args){
-				console.log(args.length)
-				if(args.length==1){
-					this.pages[args[0]].showChildren = !this.pages[args[0]].showChildren
-				}
-
-				if(args.length==2){
-					this.pages[args[0]].children[args[1]].showChildren = !this.pages[args[0]].children[args[1]].showChildren
-				}
-
-				if(args.length==3){
-					this.pages[args[0]].children[args[1]].children[args[2]].showChildren = !this.pages[args[0]].children[args[1]].children[args[2]].showChildren
-				}
-
-				let temp = []
-
-				temp = this.pages.slice(0);
-
-				this.pages = []
-
-				this.pages = temp.slice(0);
-			}
+			refresh(){
+				this.$store.commit('pages/REFRESH')
+			},
 		}
 	}
 </script>

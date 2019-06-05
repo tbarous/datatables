@@ -22,7 +22,7 @@ export default {
     GET_ITEMS_SHOW: state => state.itemsShow,
     GET_ACTIVE_COLUMNS: state => state.activeColumns,
     NO_DATA: state => state.tableData.length === 0 && !state.loading,
-    TOTAL_DATA: () => state.pagination.meta.to - state.pagination.meta.from + 1,
+    TOTAL_DATA: state => state.pagination.meta.to - state.pagination.meta.from + 1,
     GET_SERIAL_NUMBER: (state) => (key) => (state.currentPage - 1) * state.perPage + 1 + key,
     GET_ITEMS_COUNT: (state) => {
         const of = `of ${state.pagination.meta.total} entries`

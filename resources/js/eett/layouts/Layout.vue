@@ -21,6 +21,12 @@
             Drawer, Navbar, Content, ToTop
         },
 
+        mounted(){
+            $(document).on('scroll', () => {
+                $(window).scrollTop() > 500 ? this.$store.commit('ui/SET_TOP', true) : this.$store.commit('ui/SET_TOP', false)
+            })
+        },
+
         computed: {
             ...mapGetters("ui", {
                 loading: 'GET_LOADING',

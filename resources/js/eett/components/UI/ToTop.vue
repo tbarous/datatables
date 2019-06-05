@@ -8,13 +8,13 @@
 	export default {
 		computed: {
             top() {
-                return this.$store.getters['ui/getTop']
+                return this.$store.getters['ui/GET_TOP']
             }
         },
 
         methods: {
             toTop(){
-                this.$store.dispatch('ui/toTop')
+                this.$store.commit('ui/TO_TOP')
             }
         }
 	}

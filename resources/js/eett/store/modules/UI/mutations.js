@@ -1,4 +1,5 @@
 export default {
+    TO_TOP: state => $("html, body").animate({ scrollTop: 0 }, "slow"),
     START_LOADING: (state) => state.loading = true,
     STOP_LOADING: (state) => state.loading = false,
     SET_TOP: (state, top) => state.top = top,
