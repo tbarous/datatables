@@ -2736,6 +2736,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -54054,26 +54055,28 @@ var render = function() {
                       "div",
                       { key: column.title },
                       [
-                        _c("v-text-field", {
-                          staticClass: "mt-3",
-                          attrs: {
-                            label: column.title,
-                            solo: "",
-                            type: "text"
-                          },
-                          on: {
-                            input: function($event) {
-                              return _vm.clearError(column.title)
-                            }
-                          },
-                          model: {
-                            value: _vm.editingRow[column.title],
-                            callback: function($$v) {
-                              _vm.$set(_vm.editingRow, column.title, $$v)
-                            },
-                            expression: "editingRow[column.title]"
-                          }
-                        }),
+                        column.editable
+                          ? _c("v-text-field", {
+                              staticClass: "mt-3",
+                              attrs: {
+                                label: column.title,
+                                solo: "",
+                                type: "text"
+                              },
+                              on: {
+                                input: function($event) {
+                                  return _vm.clearError(column.title)
+                                }
+                              },
+                              model: {
+                                value: _vm.editingRow[column.title],
+                                callback: function($$v) {
+                                  _vm.$set(_vm.editingRow, column.title, $$v)
+                                },
+                                expression: "editingRow[column.title]"
+                              }
+                            })
+                          : _vm._e(),
                         _vm._v(" "),
                         _vm._l(_vm.findError(column.title), function(error) {
                           return _c("p", { staticClass: "text-danger mt-3" }, [
@@ -54179,7 +54182,7 @@ var render = function() {
                 },
                 [
                   _vm._l(_vm.columns, function(column, key) {
-                    return column.type == "text"
+                    return column.editable
                       ? _c("v-text-field", {
                           key: column.title,
                           staticClass: "mt-3",
@@ -100727,23 +100730,26 @@ __webpack_require__.r(__webpack_exports__);
   SET_DATA: function SET_DATA(state, pages) {
     return state.pages = pages;
   },
-  REFRESH: function REFRESH(state, page) {// state.pages = traverse2(state.pages, page)
-    // console.log(state.pages)
-    // let temp = [...state.pages];
-    // state.pages = temp
+  REFRESH: function REFRESH(state, page) {
+    console.log(JSON.stringify(state.pages));
+    console.log(JSON.stringify(state.pages).search('"id":' + page.id));
+    var string = JSON.stringify(state.pages),
+        preString = '"id":6',
+        searchString = '"showChildren":false',
+        preIndex = string.indexOf(preString),
+        searchIndex = preIndex + string.substring(preIndex).indexOf(searchString); // console.log(JSON.stringify(state.pages).slice(searchIndex, searchIndex+20))
+
+    console.log(string.substring(preIndex).indexOf(searchString)); // let part1 = JSON.stringify(state.pages).slice(searchIndex)
+
+    var pages = JSON.stringify(state.pages);
+    var s = pages.substr(0, searchIndex) + '"showChildren":true' + pages.substr(searchIndex + 20);
+    console.log(s);
+    state.pages = [];
+    state.pages = JSON.parse(s);
+    console.log(JSON.stringify(state.pages).slice(searchIndex, searchIndex + 20));
+    console.log(state.pages);
   }
 });
-
-function traverse2(array, page) {// console.log(array)
-  //    return array.map(item => {
-  //        if(item.id == page.id){
-  //        	console.log('found' + item.name + ' show children:' + item.showChildren)
-  //        	item.showChildren = true
-  //        	// return
-  //        } 
-  //        item.children = traverse2(item.children, page)
-  //    })
-}
 
 /***/ }),
 

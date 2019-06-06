@@ -10,6 +10,7 @@
                         <v-text-field 
                             class="mt-3"
                             :label="column.title" 
+                            v-if="column.editable"
                             solo 
                             type="text" 
                             v-model="editingRow[column.title]" 

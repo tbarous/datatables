@@ -49,10 +49,22 @@ class User extends Authenticatable
     {
         $data = [
             'columns' => [
-                ['title' => 'username', 'sortable' => true, 'searchable' => true, 'type'=> 'text'],
-                ['title' => 'email', 'sortable' => true, 'searchable' => true, 'type'=> 'text'],
-                ['title' => 'created_at', 'sortable' => true, 'searchable' => true, 'type'=> 'date'],
-                ['title' => 'updated_at', 'sortable' => true, 'searchable' => true, 'type'=> 'date']
+                [
+                    'title' => 'username',
+                    'sortable' => true,
+                    'searchable' => true,
+                    'editable' => true,
+                    'type'=> 'text',
+                ],
+                [
+                    'title' => 'email',
+                    'sortable' => true,
+                    'searchable' => true,
+                    'type'=> 'text',
+                    'editable' => true
+                ],
+                ['title' => 'created_at', 'sortable' => true, 'searchable' => true, 'type'=> 'date', 'editable' => false],
+                ['title' => 'updated_at', 'sortable' => true, 'searchable' => true, 'type'=> 'date', 'editable' => false]
             ],
             'form' => [
                 'update' => ['username', 'email']

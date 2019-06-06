@@ -5,7 +5,7 @@
 			<v-text-field style="display: inline-block;" solo :value="page.name"></v-text-field>
 			
 			<v-btn color="success" @click="refresh(page);" v-if="page.children.length">
-				<v-icon >fa fa-chevron-down</v-icon>
+				<v-icon>fa fa-chevron-down</v-icon>
 			</v-btn>
 			
 			<!-- @click.stop.prevent.capture.self.once.passive -->

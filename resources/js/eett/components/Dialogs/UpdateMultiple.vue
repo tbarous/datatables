@@ -7,7 +7,7 @@
                     <v-text-field :label="column.title" solo 
                         v-for="(column, key) in columns" 
                         :key="column.title" 
-                        v-if="column.type == 'text'" 
+                        v-if="column.editable" 
                         type="text" 
                         v-model="editingMultipleRow[column.title]" class="mt-3">
                     </v-text-field>
