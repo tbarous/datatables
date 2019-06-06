@@ -1985,6 +1985,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -2009,9 +2013,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     $('input[name="date"]').daterangepicker(this.$store.getters['datatable/GET_OPTIONS']);
     var columns = this.$store.getters['datatable/GET_COLUMNS'];
-    var queries = this.$store.getters['datatable/GET_QUERIES']; // this.$store.commit('datatable/SET_PICKER', {columns:columns, queries:queries})
-    // let {columns, queries} = payload
-
+    var queries = this.$store.getters['datatable/GET_QUERIES'];
     var dateInputs = columns.filter(function (item) {
       return item.type == 'date';
     });
@@ -2019,7 +2021,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       $('#' + item.title).on('apply.daterangepicker', function (ev, picker) {
         var value = picker.startDate.format('DD/MM/YYYY hh:mm') + ' - ' + picker.endDate.format('DD/MM/YYYY hh:mm');
         queries[item.title] = value;
-        $('#' + item.title).val(value);
+        $('#' + item.title).val(value); // this.$store.commit('datatable/SET_QUERY', {title: item.title, value: value})
 
         _this.$store.dispatch('datatable/FETCH_DATA', true);
       });
@@ -2029,11 +2031,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         _this.$store.dispatch('datatable/FETCH_DATA', true);
       });
-    }); // $('.clearDate').on('click', (evt) => {
-    //     $(evt.currentTarget).siblings('input').val('')
-    //     this.$store.commit('datatable/EMPTY_QUERY', $(evt.currentTarget).attr('id'))
-    //     this.$store.dispatch('datatable/FETCH_DATA', true)
-    //   });
+    });
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("datatable", {
     toggleAll: 'TOGGLE_ALL'
@@ -53035,32 +53033,46 @@ var render = function() {
       _vm._v(" "),
       _vm._l(_vm.columns, function(column) {
         return _vm.activeColumns[column.title]
-          ? _c(
-              "th",
-              { key: column.title },
-              [
-                _c("v-text-field", {
-                  staticStyle: { "font-size": "13px" },
-                  attrs: {
-                    clearable: "",
-                    name: column.type,
-                    solo: "",
-                    autocomplete: "off",
-                    id: column.title,
-                    "prepend-inner-icon": "search"
-                  },
-                  on: { input: _vm.fetchData },
-                  model: {
+          ? _c("th", { key: column.title }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
                     value: _vm.queries[column.title],
-                    callback: function($$v) {
-                      _vm.$set(_vm.queries, column.title, $$v)
-                    },
                     expression: "queries[column.title]"
                   }
-                })
-              ],
-              1
-            )
+                ],
+                staticClass: "form-control",
+                class: { dateinput: column.type == "date" },
+                staticStyle: {
+                  "font-size": "13px",
+                  background: "#fff",
+                  height: "50px"
+                },
+                attrs: {
+                  clearable: "",
+                  name: column.type,
+                  solo: "",
+                  autocomplete: "off",
+                  id: column.title,
+                  readonly: column.type == "date",
+                  "prepend-inner-icon": "search"
+                },
+                domProps: { value: _vm.queries[column.title] },
+                on: {
+                  input: [
+                    function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.queries, column.title, $event.target.value)
+                    },
+                    _vm.fetchData
+                  ]
+                }
+              })
+            ])
           : _vm._e()
       }),
       _vm._v(" "),
@@ -100302,8 +100314,12 @@ __webpack_require__.r(__webpack_exports__);
 var state = {
   options: {
     autoUpdateInput: false,
+    autoApply: true,
+    opens: 'left',
+    buttonClasses: 'btn btn-dark',
     locale: {
-      cancelLabel: 'Clear'
+      cancelLabel: 'Clear',
+      format: 'DD/MM/YYYY H:mm'
     },
     timePicker: true
   },

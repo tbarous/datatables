@@ -6,8 +6,12 @@ import actions from './actions'
 const state = {
     options: {
         autoUpdateInput: false,
+        autoApply: true,
+        opens: 'left',
+        buttonClasses: 'btn btn-dark',
         locale: {
-            cancelLabel: 'Clear'
+            cancelLabel: 'Clear',
+            format: 'DD/MM/YYYY H:mm'
         },
         timePicker: true
     },

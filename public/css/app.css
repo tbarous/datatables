@@ -46,6 +46,16 @@
 .toggleAll i {
   color: #fff !important;
 }
+.dateinput .v-input__append-inner {
+  display: none;
+}
+.daterangepicker {
+  background-color: #343a40 !important;
+  border: none !important;
+}
+.daterangepicker .drp-selected {
+  color: #fff;
+}
 th {
   border: none !important;
   letter-spacing: 2px;

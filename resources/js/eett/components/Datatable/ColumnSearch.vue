@@ -4,8 +4,9 @@
             <v-checkbox class="mt-0 toggleAll" @click.self="toggleAll" :value="selectAll"></v-checkbox>
         </th>
         <th v-if="activeColumns[column.title]" v-for="column in columns" :key="column.title">
-            <v-text-field
-                style="font-size: 13px;"
+            <input
+                style="font-size: 13px;background: #fff; height: 50px;"
+                class="form-control"
                 clearable 
                 @input="fetchData" 
                 v-model="queries[column.title]" 
@@ -13,8 +14,11 @@
                 solo 
                 autocomplete="off" 
                 :id="column.title" 
-                prepend-inner-icon="search">
-            </v-text-field>
+                :readonly="column.type == 'date'"
+                prepend-inner-icon="search"
+                :class="{'dateinput': column.type=='date'}"
+            >
+            </input>
         </th>
         <th></th>
     </tr>
@@ -46,14 +50,13 @@
             $('input[name="date"]').daterangepicker(this.$store.getters['datatable/GET_OPTIONS'])
             let columns = this.$store.getters['datatable/GET_COLUMNS']
             let queries = this.$store.getters['datatable/GET_QUERIES']
-            // this.$store.commit('datatable/SET_PICKER', {columns:columns, queries:queries})
-            // let {columns, queries} = payload
             let dateInputs = columns.filter(item => item.type == 'date')
             dateInputs.forEach(item => {
                 $('#' + item.title).on('apply.daterangepicker', (ev, picker) => {
                     let value = picker.startDate.format('DD/MM/YYYY hh:mm') + ' - ' + picker.endDate.format('DD/MM/YYYY hh:mm')
                     queries[item.title] = value
                     $('#' + item.title).val(value)
+                    // this.$store.commit('datatable/SET_QUERY', {title: item.title, value: value})
                     this.$store.dispatch('datatable/FETCH_DATA', true)
                 });
 
@@ -63,12 +66,6 @@
                     this.$store.dispatch('datatable/FETCH_DATA', true)
                 });
             })
-
-            // $('.clearDate').on('click', (evt) => {
-            //     $(evt.currentTarget).siblings('input').val('')
-            //     this.$store.commit('datatable/EMPTY_QUERY', $(evt.currentTarget).attr('id'))
-            //     this.$store.dispatch('datatable/FETCH_DATA', true)
-            //   });
         },
         methods: {
             ...mapMutations("datatable", {
@@ -76,10 +73,7 @@
             }),
             fetchData() {
                 this.$store.dispatch('datatable/FETCH_DATA', true)
-            },
-            // empty(title){
-            //     this.$store.commit('datatable/EMPTY_QUERY', title)
-            // }
+            }
         }
 	}
 </script>
