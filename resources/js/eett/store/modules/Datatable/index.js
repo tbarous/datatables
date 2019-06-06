@@ -8,10 +8,11 @@ const state = {
         autoUpdateInput: false,
         autoApply: true,
         opens: 'left',
-        buttonClasses: 'btn btn-dark',
+        buttonClasses: 'btn btn-secondary',
         locale: {
-            cancelLabel: 'Clear',
-            format: 'DD/MM/YYYY H:mm'
+            cancelLabel: 'CLEAR',
+            format: 'DD/MM/YYYY H:mm',
+            applyLabel: "CONFIRM",
         },
         timePicker: true
     },

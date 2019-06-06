@@ -56,6 +56,11 @@
 .daterangepicker .drp-selected {
   color: #fff;
 }
+.daterangepicker .calendar-table {
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
 th {
   border: none !important;
   letter-spacing: 2px;

@@ -2177,6 +2177,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -53214,32 +53229,107 @@ var render = function() {
       _vm._v(" "),
       _vm._l(_vm.columns, function(column) {
         return _vm.activeColumns[column.title]
-          ? _c(
-              "th",
-              {
-                key: column.title,
-                staticClass: "table-header",
-                on: {
-                  click: function($event) {
-                    return _vm.sortByColumn(column)
-                  }
-                }
-              },
-              [
-                _vm._v(
-                  "\n        " +
-                    _vm._s(_vm._f("columnHead")(column.title)) +
-                    "\n        "
-                ),
-                column.title === _vm.sortedColumn
-                  ? _c("span", [
-                      _vm.order === "asc"
-                        ? _c("i", { staticClass: "fas fa-chevron-up" })
-                        : _c("i", { staticClass: "fas fa-chevron-down" })
-                    ])
-                  : _vm._e()
-              ]
-            )
+          ? _c("th", { key: column.title, staticClass: "table-header" }, [
+              _c(
+                "div",
+                { staticClass: "position-relative" },
+                [
+                  _c(
+                    "v-menu",
+                    {
+                      staticClass: "d-inline-block",
+                      staticStyle: {
+                        position: "absolute",
+                        top: "0",
+                        left: "5px",
+                        margin: "0"
+                      },
+                      attrs: { "offset-y": "" },
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "activator",
+                            fn: function(ref) {
+                              var on = ref.on
+                              return [
+                                _c(
+                                  "v-btn",
+                                  _vm._g(
+                                    {
+                                      staticClass: "d-inline-block",
+                                      staticStyle: {
+                                        width: "5px",
+                                        height: "5px",
+                                        color: "#fff"
+                                      },
+                                      attrs: {
+                                        icon: "",
+                                        small: "",
+                                        flat: "",
+                                        fab: ""
+                                      }
+                                    },
+                                    on
+                                  ),
+                                  [
+                                    _c(
+                                      "v-icon",
+                                      { attrs: { small: "", flat: "" } },
+                                      [_vm._v("fa fa-filter")]
+                                    )
+                                  ],
+                                  1
+                                )
+                              ]
+                            }
+                          }
+                        ],
+                        null,
+                        true
+                      )
+                    },
+                    [
+                      _vm._v(" "),
+                      _c(
+                        "v-list",
+                        _vm._l([1, 2, 3], function(item, index) {
+                          return _c(
+                            "v-list-tile",
+                            { key: index, on: { click: function($event) {} } },
+                            [_c("v-list-tile-title", [_vm._v(_vm._s(item))])],
+                            1
+                          )
+                        }),
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      staticClass: "d-inline-block",
+                      on: {
+                        click: function($event) {
+                          return _vm.sortByColumn(column)
+                        }
+                      }
+                    },
+                    [_vm._v(_vm._s(_vm._f("columnHead")(column.title)))]
+                  ),
+                  _vm._v(" "),
+                  column.title === _vm.sortedColumn
+                    ? _c("span", [
+                        _vm.order === "asc"
+                          ? _c("i", { staticClass: "fas fa-chevron-up" })
+                          : _c("i", { staticClass: "fas fa-chevron-down" })
+                      ])
+                    : _vm._e()
+                ],
+                1
+              )
+            ])
           : _vm._e()
       }),
       _vm._v(" "),
@@ -100316,10 +100406,11 @@ var state = {
     autoUpdateInput: false,
     autoApply: true,
     opens: 'left',
-    buttonClasses: 'btn btn-dark',
+    buttonClasses: 'btn btn-secondary',
     locale: {
-      cancelLabel: 'Clear',
-      format: 'DD/MM/YYYY H:mm'
+      cancelLabel: 'CLEAR',
+      format: 'DD/MM/YYYY H:mm',
+      applyLabel: "CONFIRM"
     },
     timePicker: true
   },
