@@ -3053,20 +3053,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['page', 'show'],
-  created: function created() {
-    console.log(this.show);
-  },
+  name: 'Page',
+  props: ['pages'],
   methods: {
-    refresh: function refresh() {
-      alert(2);
-      this.$store.commit('pages/REFRESH');
+    refresh: function refresh(page) {
+      this.$store.commit('pages/REFRESH', page);
     }
-  },
-  name: 'Page'
+  }
 });
 
 /***/ }),
@@ -3206,18 +3201,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3243,13 +3226,8 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     });
-    console.log(this.pages);
   },
-  methods: {
-    refresh: function refresh() {
-      this.$store.commit('pages/REFRESH');
-    }
-  }
+  methods: {}
 });
 
 /***/ }),
@@ -54553,55 +54531,52 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    _vm._l(_vm.page.children, function(child, index2) {
-      return _vm.show
-        ? _c(
-            "div",
-            {
-              key: child.id,
-              staticStyle: { "margin-left": "50px", "margin-top": "20px" }
-            },
-            [
-              _c("span", [_vm._v(_vm._s(index2 + 1) + ") ")]),
-              _vm._v(" "),
-              _c("v-text-field", {
-                staticStyle: { display: "inline-block" },
-                attrs: { solo: "", value: child.name }
-              }),
-              _vm._v(" "),
-              child.children.length
-                ? _c(
-                    "v-icon",
-                    {
-                      on: {
-                        click: function($event) {
-                          child.showChildren = !child.showChildren
-                          _vm.refresh()
-                        }
-                      }
-                    },
-                    [_vm._v("fa fa-chevron-down")]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              child.children.length
-                ? _c(
-                    "div",
-                    [
-                      _vm._v(
-                        "\n\t\t\t" + _vm._s(child.showChildren) + "\n\t\t\t"
-                      ),
-                      _c("Page", {
-                        attrs: { page: child, show: child.showChildren }
+    _vm._l(_vm.pages, function(page, index) {
+      return _c(
+        "div",
+        { key: page.id, staticStyle: { "margin-top": "20px" } },
+        [
+          _c("span", [_vm._v(_vm._s(index + 1) + ") ")]),
+          _vm._v(" "),
+          _c("v-text-field", {
+            staticStyle: { display: "inline-block" },
+            attrs: { solo: "", value: page.name }
+          }),
+          _vm._v(" "),
+          page.children.length
+            ? _c(
+                "v-btn",
+                {
+                  attrs: { color: "success" },
+                  on: {
+                    click: function($event) {
+                      return _vm.refresh(page)
+                    }
+                  }
+                },
+                [_c("v-icon", [_vm._v("fa fa-chevron-down")])],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          page.children.length
+            ? _c(
+                "div",
+                [
+                  _vm._v("\n\t\t\t" + _vm._s(page.showChildren) + "\n\t\t\t"),
+                  page.showChildren
+                    ? _c("Page", {
+                        staticStyle: { "margin-left": "40px" },
+                        attrs: { show: page.showChildren, pages: page.children }
                       })
-                    ],
-                    1
-                  )
-                : _vm._e()
-            ],
-            1
-          )
-        : _vm._e()
+                    : _vm._e()
+                ],
+                1
+              )
+            : _vm._e()
+        ],
+        1
+      )
     }),
     0
   )
@@ -54772,50 +54747,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    _vm._l(_vm.pages, function(page, index1) {
-      return _c(
-        "div",
-        { key: page.id, staticStyle: { "margin-top": "20px" } },
-        [
-          _c("span", [_vm._v(_vm._s(index1 + 1) + ") ")]),
-          _vm._v(" "),
-          _c("v-text-field", {
-            staticStyle: { display: "inline-block" },
-            attrs: { solo: "", value: page.name }
-          }),
-          _vm._v(" "),
-          page.children.length
-            ? _c(
-                "v-icon",
-                {
-                  on: {
-                    click: function($event) {
-                      page.showChildren = !page.showChildren
-                      _vm.refresh()
-                    }
-                  }
-                },
-                [_vm._v("fa fa-chevron-down")]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          page.children.length
-            ? _c(
-                "div",
-                [
-                  _c("Page", { attrs: { page: page, show: page.showChildren } })
-                ],
-                1
-              )
-            : _vm._e()
-        ],
-        1
-      )
-    }),
-    0
-  )
+  return _c("div", [_c("Page", { attrs: { pages: _vm.pages } })], 1)
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -100688,13 +100620,23 @@ __webpack_require__.r(__webpack_exports__);
   SET_DATA: function SET_DATA(state, pages) {
     return state.pages = pages;
   },
-  REFRESH: function REFRESH(state) {
-    var temp = [];
-    temp = state.pages.slice(0);
-    state.pages = [];
-    state.pages = temp.slice(0); // console.log(state.pages)
+  REFRESH: function REFRESH(state, page) {// state.pages = traverse2(state.pages, page)
+    // console.log(state.pages)
+    // let temp = [...state.pages];
+    // state.pages = temp
   }
 });
+
+function traverse2(array, page) {// console.log(array)
+  //    return array.map(item => {
+  //        if(item.id == page.id){
+  //        	console.log('found' + item.name + ' show children:' + item.showChildren)
+  //        	item.showChildren = true
+  //        	// return
+  //        } 
+  //        item.children = traverse2(item.children, page)
+  //    })
+}
 
 /***/ }),
 

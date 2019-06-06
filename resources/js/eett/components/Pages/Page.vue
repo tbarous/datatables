@@ -1,34 +1,31 @@
 <template>
 	<div>
-		<!-- {{page.showChildren}} -->
-		<div 
-			v-if="show" 
-			style="margin-left: 50px;margin-top:20px;" 
-			v-for="(child, index2) in page.children" 
-			:key="child.id">
-			<span>{{index2+1}}) </span>
-			<v-text-field style="display: inline-block;" solo :value="child.name"></v-text-field>
-			<v-icon @click="child.showChildren=!child.showChildren;refresh();" v-if="child.children.length">fa fa-chevron-down</v-icon>
-		
-			<div v-if="child.children.length">
-				{{child.showChildren}}
-				<Page :page="child" :show="child.showChildren"></Page>
+		<div style="margin-top:20px;" v-for="(page, index) in pages" :key="page.id">
+			<span>{{index+1}}) </span>
+			<v-text-field style="display: inline-block;" solo :value="page.name"></v-text-field>
+			
+			<v-btn color="success" @click="refresh(page);" v-if="page.children.length">
+				<v-icon >fa fa-chevron-down</v-icon>
+			</v-btn>
+			
+			<!-- @click.stop.prevent.capture.self.once.passive -->
+			<div v-if="page.children.length">
+				{{page.showChildren}}
+				<Page v-if="page.showChildren" :show="page.showChildren" style="margin-left:40px;" :pages="page.children"></Page>
 			</div>
-		</div>	
+		</div>
 	</div>
 </template>
 
 <script>
 	import Page from './Page'
 	export default {
-		props: ['page', 'show'],
-		created(){console.log(this.show)},
+		name: 'Page',
+		props: ['pages'],
 		methods: {
-			refresh(){
-				alert(2)
-				this.$store.commit('pages/REFRESH')
+			refresh(page){
+				this.$store.commit('pages/REFRESH', page)
 			}
 		},
-		name: 'Page',
 	}
 </script>
