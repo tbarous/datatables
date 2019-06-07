@@ -1,28 +1,37 @@
 export default {
     SET_DATA: (state, pages) => state.pages = pages,
     REFRESH: (state, page) => {
+    	let pages = JSON.stringify(state.pages)
+		var id = '"id":6'
+		var searchString = '"showChildren":false'
+		var index = pages.indexOf(id)
+		console.log(index)
+		// var searchIndex = preIndex + pages.substring(preIndex).indexOf(searchString);
 
-    	console.log(JSON.stringify(state.pages))
+		var sub = pages.substr(index-100)
+		console.log(sub)
+		var foundstringIndex = sub.indexOf(searchString)
+		console.log(foundstringIndex)
+		// console.log(index+foundstringIndex)
+		// var tochange = pages.substr(foundstringIndex, 20)
+		// console.log(pages.slice(0, 1777))
 
-    	console.log(JSON.stringify(state.pages).search('"id":'+page.id))
+		var final = pages.slice(0, index + foundstringIndex) + '"showChildren":true' + pages.slice(index+foundstringIndex + 20)
+		// console.log(final)
 
-    	var string = JSON.stringify(state.pages),
-		  preString = '"id":6',
-		  searchString = '"showChildren":false',
-		  preIndex = string.indexOf(preString),
-		  searchIndex = preIndex + string.substring(preIndex).indexOf(searchString);
+
 
 		  // console.log(JSON.stringify(state.pages).slice(searchIndex, searchIndex+20))
-		  console.log(string.substring(preIndex).indexOf(searchString))
+		  // console.log(string.substring(preIndex).indexOf(searchString))
 		  // let part1 = JSON.stringify(state.pages).slice(searchIndex)
-		let pages = JSON.stringify(state.pages)
-		let s = pages.substr(0, searchIndex) + '"showChildren":true' + pages.substr(searchIndex + 20);
-    	console.log(s)
+		
+		// let s = pages.substr(0, searchIndex) + '"showChildren":true' + pages.substr(searchIndex + 20);
+    	// console.log(s)
 
     	state.pages = []
-    	state.pages = JSON.parse(s)
+    	state.pages = JSON.parse(final)
 
-    	console.log(JSON.stringify(state.pages).slice(searchIndex, searchIndex+20))
+    	// console.log(JSON.stringify(state.pages).slice(searchIndex, searchIndex+20))
 
     	console.log(state.pages)
     }

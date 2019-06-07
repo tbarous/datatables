@@ -1,38 +1,29 @@
 <template>
 	<div>
-		<Page :pages="pages"></Page>
+		<div id="tree">
+			<TreeMenu :name="'aa'" :children="pages.children" :depth="0"></TreeMenu>
+		</div>
 	</div>
 </template>
 
 <script>
-	import Page from './../components/Pages/Page'
+	import TreeMenu from './../components/Navigation/TreeMenu'
 
 	export default {
-		components: { Page },
-
+		components: { TreeMenu },
 		computed: {
 			pages: {
 				get(){
-					return this.$store.getters['pages/GET_PAGES']
+					let p = Object.assign({}, this.$store.getters['pages/GET_PAGES'])
+					p = {name:'root'}
+					p.children = this.$store.getters['pages/GET_PAGES']
+					console.log(p)
+					return p
 				},
 				set(pages){
 					this.$store.commit('pages/SET_DATA', pages)
 				}				
 			}
-		},
-
-		created(){
-			this.pages.forEach(item => {
-				item.showChildren = false
-				item.children.forEach(item2 => {
-					item2.showChildren = false
-					item2.children.forEach(item3 => {
-						item3.showChildren = false
-					})
-				})
-			})
-		},
-
-		methods: {}
+		}
 	}
 </script>
