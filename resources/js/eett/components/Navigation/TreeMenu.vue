@@ -1,14 +1,11 @@
 <template>
 	<div class="tree-menu">
-
-    <div :style="indent" @click="handleEvent" :class="{ folders: children, items: !children }">
-      <span v-if="children&&!showChildren">&#9654;</span>
-      <span v-else-if="children&&showChildren">&#9660;</span>
-      {{ name }}
-    </div>
-
-    <TreeMenu v-if="showChildren" v-for="node in children" :key="node.id"
-        :children="node.children" :name="node.name" :depth="depth+1"></TreeMenu>
+	    <div :style="indent" :class="{ folders: children, items: !children }">
+	      	<v-btn fab small v-if="children&&!showChildren" @click="handleEvent">&#9654;</v-btn>
+	      	<v-btn fab small v-else-if="children&&showChildren" @click="handleEvent">&#9660;</v-btn>
+	      	<v-text-field :disabled="name=='root'" class="d-inline-block" solo style="width: 150px" name="name" :label="name" id="id"></v-text-field>
+	    </div>
+	    <TreeMenu v-if="showChildren" v-for="node in children" :key="node.id" :children="node.children" :name="node.name" :depth="depth+1"></TreeMenu>
   	</div>
 </template>
 
@@ -30,9 +27,9 @@
 	 	},
 	  	methods: {
 	    	handleEvent: function(ev) {
-	      		if(ev.currentTarget.className === "items") {
+	      		if(ev.currentTarget.parentElement.className === "items") {
 	        		alert("The item selected is " + ev.currentTarget.innerText);
-	      		} else if(ev.currentTarget.className === "folders") {
+	      		} else if(ev.currentTarget.parentElement.className === "folders") {
 	        		this.showChildren = !this.showChildren;
 	      		}
 	    	},

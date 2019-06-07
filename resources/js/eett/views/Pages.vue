@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div id="tree">
-			<TreeMenu :name="'aa'" :children="pages.children" :depth="0"></TreeMenu>
+			<TreeMenu :name="pages.name" :children="pages.children" :depth="0"></TreeMenu>
 		</div>
 	</div>
 </template>
@@ -14,11 +14,7 @@
 		computed: {
 			pages: {
 				get(){
-					let p = Object.assign({}, this.$store.getters['pages/GET_PAGES'])
-					p = {name:'root'}
-					p.children = this.$store.getters['pages/GET_PAGES']
-					console.log(p)
-					return p
+					return {name:'root', children:this.$store.getters['pages/GET_PAGES']}
 				},
 				set(pages){
 					this.$store.commit('pages/SET_DATA', pages)

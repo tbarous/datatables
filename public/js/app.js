@@ -3059,9 +3059,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'TreeMenu',
@@ -3083,9 +3080,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     handleEvent: function handleEvent(ev) {
-      if (ev.currentTarget.className === "items") {
+      if (ev.currentTarget.parentElement.className === "items") {
         alert("The item selected is " + ev.currentTarget.innerText);
-      } else if (ev.currentTarget.className === "folders") {
+      } else if (ev.currentTarget.parentElement.className === "folders") {
         this.showChildren = !this.showChildren;
       }
     }
@@ -3239,13 +3236,10 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     pages: {
       get: function get() {
-        var p = Object.assign({}, this.$store.getters['pages/GET_PAGES']);
-        p = {
-          name: 'root'
+        return {
+          name: 'root',
+          children: this.$store.getters['pages/GET_PAGES']
         };
-        p.children = this.$store.getters['pages/GET_PAGES'];
-        console.log(p);
-        return p;
       },
       set: function set(pages) {
         this.$store.commit('pages/SET_DATA', pages);
@@ -54652,17 +54646,42 @@ var render = function() {
         "div",
         {
           class: { folders: _vm.children, items: !_vm.children },
-          style: _vm.indent,
-          on: { click: _vm.handleEvent }
+          style: _vm.indent
         },
         [
           _vm.children && !_vm.showChildren
-            ? _c("span", [_vm._v("▶")])
+            ? _c(
+                "v-btn",
+                {
+                  attrs: { fab: "", small: "" },
+                  on: { click: _vm.handleEvent }
+                },
+                [_vm._v("▶")]
+              )
             : _vm.children && _vm.showChildren
-            ? _c("span", [_vm._v("▼")])
+            ? _c(
+                "v-btn",
+                {
+                  attrs: { fab: "", small: "" },
+                  on: { click: _vm.handleEvent }
+                },
+                [_vm._v("▼")]
+              )
             : _vm._e(),
-          _vm._v("\n      " + _vm._s(_vm.name) + "\n    ")
-        ]
+          _vm._v(" "),
+          _c("v-text-field", {
+            staticClass: "d-inline-block",
+            staticStyle: { width: "150px" },
+            attrs: {
+              disabled: _vm.name == "root",
+              solo: "",
+              name: "name",
+              label: _vm.name,
+              id: "id"
+            }
+          })
+        ],
+        1
       ),
       _vm._v(" "),
       _vm._l(_vm.children, function(node) {
@@ -54853,7 +54872,11 @@ var render = function() {
       { attrs: { id: "tree" } },
       [
         _c("TreeMenu", {
-          attrs: { name: "aa", children: _vm.pages.children, depth: 0 }
+          attrs: {
+            name: _vm.pages.name,
+            children: _vm.pages.children,
+            depth: 0
+          }
         })
       ],
       1
