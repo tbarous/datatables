@@ -18,7 +18,7 @@
 	<script>
 		$('form').one('submit', function(e) {
 		    e.preventDefault();
-		    $('#loading').show();
+		    $('#loading').css('opacity', '1');
 		    setTimeout(()=>{
 		    	$(this).submit();
 		    }, 500);

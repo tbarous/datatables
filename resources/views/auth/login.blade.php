@@ -27,10 +27,10 @@
                     </div>
                 </div>
 
-                <div class="text-right mt-3 errors" style="height: 40px;">
+                <div class="mt-3 errors" style="height: 40px;">
                     @if ($errors->has('username'))
-                        <span class="text-danger" role="alert">
-                            <strong>{{ $errors->first('username') }}</strong>
+                        <span class="text-white" role="alert">
+                            {{ $errors->first('username') }}
                         </span>
                     @endif
                 </div>
