@@ -2945,7 +2945,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])("pages", {
-    pages: 'GET_PAGES'
+    pages: 'GET_MENU'
   }), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])("ui", {
     drawer: 'GET_DRAWER'
   })),
@@ -3201,20 +3201,29 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_Datatable_Datatable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Datatable/Datatable */ "./resources/js/eett/components/Datatable/Datatable.vue");
 //
 //
 //
 //
 //
 //
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Datatable: _components_Datatable_Datatable__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  created: function created() {
+    this.$store.commit('datatable/SET_DATATABLE', this.$store.getters['pages/GET_DATATABLE']);
+  },
   computed: {
     pages: {
       get: function get() {
         return this.$store.getters['pages/GET_PAGES'];
       },
       set: function set(pages) {
-        this.$store.commit('pages/SET_DATA', pages);
+        this.$store.commit('pages/SET_PAGES', pages);
       }
     }
   }
@@ -54772,7 +54781,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_c("v-treeview", { attrs: { items: _vm.pages } })], 1)
+  return _c(
+    "div",
+    [
+      _c("v-treeview", { attrs: { items: _vm.pages } }),
+      _vm._v(" "),
+      _c("datatable")
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -98091,7 +98108,8 @@ Vue.use(vuejs_dialog__WEBPACK_IMPORTED_MODULE_9___default.a, {
 });
 _store__WEBPACK_IMPORTED_MODULE_1__["default"].commit('auth/SET_DATA', data.auth);
 _store__WEBPACK_IMPORTED_MODULE_1__["default"].commit('user/SET_DATA', data.users);
-_store__WEBPACK_IMPORTED_MODULE_1__["default"].commit('pages/SET_DATA', data.pages);
+_store__WEBPACK_IMPORTED_MODULE_1__["default"].commit('pages/SET_MENU', data.menu);
+_store__WEBPACK_IMPORTED_MODULE_1__["default"].commit('pages/SET_PAGES', data.pages);
 var app = new Vue({
   router: _router__WEBPACK_IMPORTED_MODULE_2__["default"],
   axios: _api__WEBPACK_IMPORTED_MODULE_3__["default"],
@@ -100096,14 +100114,14 @@ router.beforeEach(function (to, from, next) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 function traverse(array) {
-  array.map(function (item) {
+  array.forEach(function (item) {
     item.component = __webpack_require__("./resources/js/eett/views sync recursive ^\\.\\/.*$")("./" + item.component)["default"];
     if (item.children.length) traverse(item.children);
   });
 }
 
-traverse(Object.values(window.data.pages));
-/* harmony default export */ __webpack_exports__["default"] = (window.data.pages);
+traverse(Object.values(window.data.menu));
+/* harmony default export */ __webpack_exports__["default"] = (window.data.menu);
 
 /***/ }),
 
@@ -100691,8 +100709,20 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  GET_PAGES: function GET_PAGES(state) {
-    return state.pages;
+  GET_MENU: function GET_MENU(state) {
+    return state.menu;
+  },
+  GET_RESOURCE_URL: function GET_RESOURCE_URL(state) {
+    return state.resourceURL;
+  },
+  GET_COLUMNS: function GET_COLUMNS(state) {
+    return state.columns;
+  },
+  GET_DATATABLE: function GET_DATATABLE(state) {
+    return {
+      resourceURL: state.resourceURL,
+      columns: state.columns
+    };
   }
 });
 
@@ -100714,7 +100744,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var state = {
-  pages: []
+  menu: [],
+  pages: {},
+  columns: [],
+  resourceURL: ''
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
@@ -100736,35 +100769,13 @@ var state = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  SET_DATA: function SET_DATA(state, pages) {
-    return state.pages = pages;
+  SET_MENU: function SET_MENU(state, menu) {
+    return state.menu = menu;
   },
-  REFRESH: function REFRESH(state, page) {
-    var pages = JSON.stringify(state.pages);
-    var id = '"id":6';
-    var searchString = '"showChildren":false';
-    var index = pages.indexOf(id);
-    console.log(index); // var searchIndex = preIndex + pages.substring(preIndex).indexOf(searchString);
-
-    var sub = pages.substr(index - 100);
-    console.log(sub);
-    var foundstringIndex = sub.indexOf(searchString);
-    console.log(foundstringIndex); // console.log(index+foundstringIndex)
-    // var tochange = pages.substr(foundstringIndex, 20)
-    // console.log(pages.slice(0, 1777))
-
-    var _final = pages.slice(0, index + foundstringIndex) + '"showChildren":true' + pages.slice(index + foundstringIndex + 20); // console.log(final)
-    // console.log(JSON.stringify(state.pages).slice(searchIndex, searchIndex+20))
-    // console.log(string.substring(preIndex).indexOf(searchString))
-    // let part1 = JSON.stringify(state.pages).slice(searchIndex)
-    // let s = pages.substr(0, searchIndex) + '"showChildren":true' + pages.substr(searchIndex + 20);
-    // console.log(s)
-
-
-    state.pages = [];
-    state.pages = JSON.parse(_final); // console.log(JSON.stringify(state.pages).slice(searchIndex, searchIndex+20))
-
-    console.log(state.pages);
+  SET_PAGES: function SET_PAGES(state, pages) {
+    state.pages = pages;
+    state.columns = pages.columns;
+    state.resourceURL = pages.url;
   }
 });
 

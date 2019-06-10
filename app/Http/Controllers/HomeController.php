@@ -48,7 +48,8 @@ class HomeController extends Controller
         $data = [
             'auth' => auth()->user(),
             'users' => (new User)->getData(),
-            'pages' => Page::getData()
+            'menu' => (new Page)->getMenu(),
+            'pages' => (new Page)->getData()
         ];
 
         return view('layouts.app', compact('data'));

@@ -32,7 +32,7 @@ import { mapGetters } from 'vuex'
 export default {
     computed: {
       ...mapGetters("pages", {
-        pages: 'GET_PAGES',
+        pages: 'GET_MENU',
       }),
       ...mapGetters("ui", {
         drawer: 'GET_DRAWER',

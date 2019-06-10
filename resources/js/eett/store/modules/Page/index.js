@@ -3,7 +3,10 @@ import mutations from './mutations'
 import actions from './actions'
 
 const state = {
-    pages: []
+    menu: [],
+    pages: {},
+    columns: [],
+    resourceURL: ''
 }
 
 export default {
