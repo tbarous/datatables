@@ -103,7 +103,6 @@ export default {
         }).then(response => {
             vm.$notify({type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'})
         }).catch(error => {
-            console.log(error.response.data)
             if(error.response.data.errors) state.errors = error.response.data.errors
             vm.$notify({type: 'error', text: `<i class="fa fa-warning" aria-hidden="true"></i> &nbsp ${error.response.data.message} `})
         })
@@ -145,7 +144,6 @@ export default {
     },
 
     SET_DATATABLE: (state, {resourceURL, columns}) => { 
-        console.log(columns)
         state.resourceURL = resourceURL
         state.columns = columns 
     },

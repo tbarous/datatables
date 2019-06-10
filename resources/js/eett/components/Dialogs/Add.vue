@@ -1,7 +1,7 @@
 <template>
-	<v-dialog v-model="dialog.edit" persistent width="500">
+	<v-dialog v-model="dialog" persistent width="500">
         <v-card>
-            <v-card-title class="headline grey lighten-2" primary-title>Edit</v-card-title>
+            <v-card-title class="headline grey lighten-2" primary-title>Add</v-card-title>
             <v-card-text>
                 <v-form method="post" @submit.prevent="update">
                     <v-btn class="ml-0 w-100" color="primary" type="submit">edit</v-btn>

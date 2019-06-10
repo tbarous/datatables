@@ -21,4 +21,21 @@ class PageController extends Controller
 
         return PageResource::collection($pages);
     }
+
+    public function update(Request $request)
+    {
+        $request = (object) json_decode($request->row, true);
+        $page = Page::find($request->id);
+        $page->name = $request->name;
+        $page->save();
+
+        return $page;
+    }
+
+    public function destroy(Request $request)
+    {
+        $user = Page::find($request->id);
+
+        $user->delete();
+    }
 }

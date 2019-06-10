@@ -3200,10 +3200,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_Datatable_Datatable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Datatable/Datatable */ "./resources/js/eett/components/Datatable/Datatable.vue");
-/* harmony import */ var _components_Datatable_Actions_Excel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../components/Datatable/Actions/Excel */ "./resources/js/eett/components/Datatable/Actions/Excel.vue");
-/* harmony import */ var _components_Datatable_Actions_PDF__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../components/Datatable/Actions/PDF */ "./resources/js/eett/components/Datatable/Actions/PDF.vue");
-/* harmony import */ var _components_Datatable_Actions_Copy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../components/Datatable/Actions/Copy */ "./resources/js/eett/components/Datatable/Actions/Copy.vue");
+/* harmony import */ var _components_Dialogs_Update__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../components/Dialogs/Update */ "./resources/js/eett/components/Dialogs/Update.vue");
+/* harmony import */ var _components_Datatable_Datatable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Datatable/Datatable */ "./resources/js/eett/components/Datatable/Datatable.vue");
+/* harmony import */ var _components_Datatable_Actions_Excel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../components/Datatable/Actions/Excel */ "./resources/js/eett/components/Datatable/Actions/Excel.vue");
+/* harmony import */ var _components_Datatable_Actions_PDF__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../components/Datatable/Actions/PDF */ "./resources/js/eett/components/Datatable/Actions/PDF.vue");
+/* harmony import */ var _components_Datatable_Actions_Copy__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../components/Datatable/Actions/Copy */ "./resources/js/eett/components/Datatable/Actions/Copy.vue");
 //
 //
 //
@@ -3215,16 +3216,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    Datatable: _components_Datatable_Datatable__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Excel: _components_Datatable_Actions_Excel__WEBPACK_IMPORTED_MODULE_1__["default"],
-    PDF: _components_Datatable_Actions_PDF__WEBPACK_IMPORTED_MODULE_2__["default"],
-    Copy: _components_Datatable_Actions_Copy__WEBPACK_IMPORTED_MODULE_3__["default"]
+    Datatable: _components_Datatable_Datatable__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Excel: _components_Datatable_Actions_Excel__WEBPACK_IMPORTED_MODULE_2__["default"],
+    PDF: _components_Datatable_Actions_PDF__WEBPACK_IMPORTED_MODULE_3__["default"],
+    Copy: _components_Datatable_Actions_Copy__WEBPACK_IMPORTED_MODULE_4__["default"],
+    Update: _components_Dialogs_Update__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   created: function created() {
     this.$store.commit('datatable/SET_DATATABLE', this.$store.getters['pages/GET_DATATABLE']);
@@ -54804,7 +54808,9 @@ var render = function() {
       _vm._v(" "),
       _c("v-divider"),
       _vm._v(" "),
-      _c("datatable")
+      _c("datatable"),
+      _vm._v(" "),
+      _c("update")
     ],
     1
   )
@@ -100645,7 +100651,6 @@ __webpack_require__.r(__webpack_exports__);
         text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'
       });
     })["catch"](function (error) {
-      console.log(error.response.data);
       if (error.response.data.errors) state.errors = error.response.data.errors;
       vm.$notify({
         type: 'error',
@@ -100706,7 +100711,6 @@ __webpack_require__.r(__webpack_exports__);
   SET_DATATABLE: function SET_DATATABLE(state, _ref5) {
     var resourceURL = _ref5.resourceURL,
         columns = _ref5.columns;
-    console.log(columns);
     state.resourceURL = resourceURL;
     state.columns = columns;
   },
