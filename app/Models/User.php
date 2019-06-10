@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
@@ -19,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'username', 'email', 'password',
     ];
 
     /**
@@ -29,6 +30,38 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token',
+    ];
+
+    /**
+     * The attributes that are shown on tables
+     * @var array
+     */
+    protected $tableData = [
+        'username', 'email', 'created_at', 'updated_at'
+    ];
+
+    /**
+     * The attributes that are filterable
+     * @var array
+     */
+    protected $filterable = [
+        'username'
+    ];
+
+    /**
+     * The attributes that are filterable
+     * @var array
+     */
+    protected $editable = [
+        'username'
+    ];
+
+    /**
+     * The attributes that are filterable
+     * @var array
+     */
+    protected $sortable = [
+        'username'
     ];
 
     /**
@@ -45,27 +78,26 @@ class User extends Authenticatable
         return (new UserFilter($request))->filter($builder);
     }
 
-    public static function getData()
+    public function getData()
     {
+        $columns = [];
+        $schema = DB::getDoctrineSchemaManager();
+        $res = $schema->listTableColumns('users');
+
+        foreach ($res as $r) {
+            if (in_array($r->getName(), $this->tableData)) {
+                $columns[] = [
+                    'title' => $r->getName(),
+                    'sortable' => in_array($r->getName(), $this->sortable),
+                    'filterable' => in_array($r->getName(), $this->filterable),
+                    'editable' => in_array($r->getName(), $this->editable),
+                    'type'=> $r->getType(),
+                ];
+            }
+        }
+
         $data = [
-            'columns' => [
-                [
-                    'title' => 'username',
-                    'sortable' => true,
-                    'searchable' => true,
-                    'editable' => true,
-                    'type'=> 'text',
-                ],
-                [
-                    'title' => 'email',
-                    'sortable' => true,
-                    'searchable' => true,
-                    'type'=> 'text',
-                    'editable' => true
-                ],
-                ['title' => 'created_at', 'sortable' => true, 'searchable' => true, 'type'=> 'date', 'editable' => false],
-                ['title' => 'updated_at', 'sortable' => true, 'searchable' => true, 'type'=> 'date', 'editable' => false]
-            ],
+            'columns' => $columns,
             'form' => [
                 'update' => ['username', 'email']
             ],

@@ -18,7 +18,8 @@
 	<script>
 		$('form').one('submit', function(e) {
 		    e.preventDefault();
-		    $('#loading').css('opacity', '1');
+		    $('#login-text').hide()
+		    $('#loading').show()
 		    setTimeout(()=>{
 		    	$(this).submit();
 		    }, 500);

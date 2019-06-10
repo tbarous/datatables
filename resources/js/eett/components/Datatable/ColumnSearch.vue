@@ -12,6 +12,7 @@
                 v-model="queries[column.title]" 
                 :name="column.type" 
                 solo 
+                v-if="column.filterable"
                 autocomplete="off" 
                 :id="column.title" 
                 :readonly="column.type == 'date'"

@@ -43,7 +43,7 @@ h1 {
   letter-spacing: 5px;
 }
 #loading {
-  opacity: 0;
+  display: none;
 }
 .errors span {
   text-align: center !important;

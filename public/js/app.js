@@ -1987,6 +1987,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -2161,6 +2162,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -52990,44 +52997,50 @@ var render = function() {
       _vm._l(_vm.columns, function(column) {
         return _vm.activeColumns[column.title]
           ? _c("th", { key: column.title }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.queries[column.title],
-                    expression: "queries[column.title]"
-                  }
-                ],
-                staticClass: "form-control",
-                class: { dateinput: column.type == "date" },
-                staticStyle: {
-                  "font-size": "13px",
-                  background: "#fff",
-                  height: "50px"
-                },
-                attrs: {
-                  clearable: "",
-                  name: column.type,
-                  solo: "",
-                  autocomplete: "off",
-                  id: column.title,
-                  readonly: column.type == "date",
-                  "prepend-inner-icon": "search"
-                },
-                domProps: { value: _vm.queries[column.title] },
-                on: {
-                  input: [
-                    function($event) {
-                      if ($event.target.composing) {
-                        return
+              column.filterable
+                ? _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.queries[column.title],
+                        expression: "queries[column.title]"
                       }
-                      _vm.$set(_vm.queries, column.title, $event.target.value)
+                    ],
+                    staticClass: "form-control",
+                    class: { dateinput: column.type == "date" },
+                    staticStyle: {
+                      "font-size": "13px",
+                      background: "#fff",
+                      height: "50px"
                     },
-                    _vm.fetchData
-                  ]
-                }
-              })
+                    attrs: {
+                      clearable: "",
+                      name: column.type,
+                      solo: "",
+                      autocomplete: "off",
+                      id: column.title,
+                      readonly: column.type == "date",
+                      "prepend-inner-icon": "search"
+                    },
+                    domProps: { value: _vm.queries[column.title] },
+                    on: {
+                      input: [
+                        function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.queries,
+                            column.title,
+                            $event.target.value
+                          )
+                        },
+                        _vm.fetchData
+                      ]
+                    }
+                  })
+                : _vm._e()
             ])
           : _vm._e()
       }),
@@ -53247,18 +53260,32 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      staticClass: "d-inline-block",
-                      on: {
-                        click: function($event) {
-                          return _vm.sortByColumn(column)
-                        }
-                      }
-                    },
-                    [_vm._v(_vm._s(_vm._f("columnHead")(column.title)))]
-                  ),
+                  !column.sortable
+                    ? _c("span", { staticClass: "d-inline-block" }, [
+                        _vm._v(
+                          "\n                " +
+                            _vm._s(_vm._f("columnHead")(column.title)) +
+                            "\n            "
+                        )
+                      ])
+                    : _c(
+                        "span",
+                        {
+                          staticClass: "d-inline-block",
+                          on: {
+                            click: function($event) {
+                              return _vm.sortByColumn(column)
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(_vm._f("columnHead")(column.title)) +
+                              "\n            "
+                          )
+                        ]
+                      ),
                   _vm._v(" "),
                   column.title === _vm.sortedColumn
                     ? _c("span", [

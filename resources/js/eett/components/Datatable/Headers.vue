@@ -16,7 +16,13 @@
                     </v-list>
                 </v-menu>
 
-                <span class="d-inline-block" @click="sortByColumn(column)">{{ column.title | columnHead }}</span>
+                <span v-if="!column.sortable" class="d-inline-block">
+                    {{ column.title | columnHead }}
+                </span>
+                <span v-else class="d-inline-block" @click="sortByColumn(column)">
+                    {{ column.title | columnHead }}
+                </span>
+
                 <span v-if="column.title === sortedColumn">
                     <i v-if="order === 'asc'" class="fas fa-chevron-up"></i>
                     <i v-else class="fas fa-chevron-down"></i>

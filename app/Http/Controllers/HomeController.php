@@ -47,7 +47,7 @@ class HomeController extends Controller
 
         $data = [
             'auth' => auth()->user(),
-            'users' => User::getData(),
+            'users' => (new User)->getData(),
             'pages' => Page::getData()
         ];
 
