@@ -3,7 +3,7 @@
         <Toolbar></Toolbar>
         <v-list class="p-0">
             <div v-for="page in pages" :key="page.id" v-if="page.children.length">
-                <v-list-group :prepend-icon="page.icon" :value="false">
+                <v-list-group :value="false">
                     <template v-slot:activator>
                         <v-list-tile>
                             <v-list-tile-title>{{page.name}}</v-list-tile-title>
@@ -11,15 +11,14 @@
                     </template>
                     <Subgroup :pages="page.children"></Subgroup>
                 </v-list-group>
+                <hr class="drawer-hr">
             </div>
 
             <div v-for="page in pages" :key="page.name" v-if="!page.children.length">
                 <v-list-tile :to="page.slug">
-                    <v-list-tile-action>
-                        <v-icon>{{page.icon}}</v-icon>
-                    </v-list-tile-action>
                     <v-list-tile-title>{{page.name}}</v-list-tile-title>
                 </v-list-tile>
+                <hr class="drawer-hr">
             </div>
         </v-list>
     </v-navigation-drawer>

@@ -299,3 +299,11 @@ aside::-webkit-scrollbar-thumb {
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
   background-color: #000;
 }
+.drawer-hr {
+  border-color: rgba(255,255,255,0.12);
+  padding: 0;
+  margin: 0;
+}
+.children a div {
+  margin-left: 20px;
+}

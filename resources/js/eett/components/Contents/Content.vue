@@ -5,9 +5,7 @@
             <v-divider color="white"></v-divider>
             <v-layout>
                 <v-flex>
-                    <transition name="fade">
-                        <router-view></router-view>
-                    </transition>
+                    <router-view></router-view>
                 </v-flex>
             </v-layout>
         </v-container>

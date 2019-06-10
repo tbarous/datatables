@@ -15,10 +15,10 @@ class PageSeeder extends Seeder
         Page::create([
             'name' => 'EETT', 'path' => '/eett', 'icon' => 'fa fa-wrench',  'slug' => '/eett','component' => 'eett/Index', 'redirect'=>'/eett/overview',
             'children' => [
-                ['slug' => '/eett/overview', 'name'=>'EETT Overview', 'path' => 'overview', 'icon' => 'dashboard', 'component' => 'eett/Overview'],
-                ['slug' => '/eett/delta-report', 'name'=>'EETT Delta Report', 'path' => 'delta-report', 'icon' => 'report', 'component' => 'eett/DeltaReport'],
-                ['slug' => '/eett/scripts', 'name'=>'EETT Scripts', 'path' => 'scripts', 'icon' => 'code', 'component' => 'eett/Scripts'],
-                ['slug' => '/eett/log', 'name'=>'EETT Log', 'path' => 'log', 'icon' => 'chat', 'component' => 'eett/Log'],
+                ['slug' => '/eett/overview', 'name'=>'Overview', 'path' => 'overview', 'icon' => 'dashboard', 'component' => 'eett/Overview'],
+                ['slug' => '/eett/delta-report', 'name'=>'Delta Report', 'path' => 'delta-report', 'icon' => 'report', 'component' => 'eett/DeltaReport'],
+                ['slug' => '/eett/scripts', 'name'=>'Scripts', 'path' => 'scripts', 'icon' => 'code', 'component' => 'eett/Scripts'],
+                ['slug' => '/eett/log', 'name'=>'Log', 'path' => 'log', 'icon' => 'chat', 'component' => 'eett/Log'],
             ]
         ]);
 
