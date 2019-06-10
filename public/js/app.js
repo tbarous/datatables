@@ -2519,7 +2519,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     destroy: function destroy(row) {
       var _this = this;
 
-      this.$dialog.confirm('Please confirm to continue').then(function (dialog) {
+      var message = {
+        title: 'Are you sure?',
+        body: 'You are about to delete ' + row.username
+      };
+      this.$dialog.confirm(message).then(function (dialog) {
         _this.$store.commit('ui/START_LOADING');
 
         _this.$store.dispatch('datatable/DESTROY', {

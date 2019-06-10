@@ -50,7 +50,11 @@ export default {
             this.$store.commit('ui/OPEN_UPDATE_DIALOG')
         },
         destroy(row){
-            this.$dialog.confirm('Please confirm to continue')
+            let message = {
+              title: 'Are you sure?',
+              body: 'You are about to delete ' + row.username
+            };
+            this.$dialog.confirm(message)
                 .then(dialog => {
                     this.$store.commit('ui/START_LOADING')
                     this.$store.dispatch('datatable/DESTROY', {row:row, vm: this})
