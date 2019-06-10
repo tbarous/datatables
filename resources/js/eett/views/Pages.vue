@@ -1,14 +1,22 @@
 <template>
 	<div>
-		<v-treeview :items="pages"></v-treeview>
+		<excel></excel>
+        <PDF></PDF>
+        <copy></copy>
+        <v-divider></v-divider>
+		<!-- <v-treeview :items="pages"></v-treeview> -->
 		<datatable></datatable>
 	</div>
 </template>
 
 <script>
 	import Datatable from '../components/Datatable/Datatable'
+	import Excel from './../components/Datatable/Actions/Excel'
+	import PDF from './../components/Datatable/Actions/PDF'
+	import Copy from './../components/Datatable/Actions/Copy'
+
 	export default {
-		components: {Datatable},
+		components: {Datatable, Excel, PDF, Copy},
 
 		created(){
 	        this.$store.commit('datatable/SET_DATATABLE', this.$store.getters['pages/GET_DATATABLE'])

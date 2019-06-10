@@ -148,7 +148,15 @@ export default {
 
     SET_OPTIONS: (state, options) => state.options = options,
     SET_PICKER: (state, payload) => {},
-    EMPTY_QUERY: (state, title) => state.queries[title] = ''
+    EMPTY_QUERY: (state, title) => state.queries[title] = '',
+
+    COPY_ORIGINAL_STATE: (state) => {
+        Object.assign(state.originalState, state)
+    },
+
+    REVERT_STATE: (state) => {
+        Object.assign(state, state.originalState)
+    }
 }
 
 function nullToEmpty(string){

@@ -2161,9 +2161,8 @@ __webpack_require__.r(__webpack_exports__);
       return _this.$store.dispatch('datatable/FETCH_DATA');
     });
   },
-  mounted: function mounted() {
-    var $table = $('table');
-    $table.floatThead();
+  mounted: function mounted() {// var $table = $('table');
+    // $table.floatThead();
   },
   components: {
     TableLoader: _TableLoader__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -3202,6 +3201,13 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Datatable_Datatable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Datatable/Datatable */ "./resources/js/eett/components/Datatable/Datatable.vue");
+/* harmony import */ var _components_Datatable_Actions_Excel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../components/Datatable/Actions/Excel */ "./resources/js/eett/components/Datatable/Actions/Excel.vue");
+/* harmony import */ var _components_Datatable_Actions_PDF__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../components/Datatable/Actions/PDF */ "./resources/js/eett/components/Datatable/Actions/PDF.vue");
+/* harmony import */ var _components_Datatable_Actions_Copy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../components/Datatable/Actions/Copy */ "./resources/js/eett/components/Datatable/Actions/Copy.vue");
+//
+//
+//
+//
 //
 //
 //
@@ -3210,9 +3216,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    Datatable: _components_Datatable_Datatable__WEBPACK_IMPORTED_MODULE_0__["default"]
+    Datatable: _components_Datatable_Datatable__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Excel: _components_Datatable_Actions_Excel__WEBPACK_IMPORTED_MODULE_1__["default"],
+    PDF: _components_Datatable_Actions_PDF__WEBPACK_IMPORTED_MODULE_2__["default"],
+    Copy: _components_Datatable_Actions_Copy__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   created: function created() {
     this.$store.commit('datatable/SET_DATATABLE', this.$store.getters['pages/GET_DATATABLE']);
@@ -54784,7 +54796,13 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("v-treeview", { attrs: { items: _vm.pages } }),
+      _c("excel"),
+      _vm._v(" "),
+      _c("PDF"),
+      _vm._v(" "),
+      _c("copy"),
+      _vm._v(" "),
+      _c("v-divider"),
       _vm._v(" "),
       _c("datatable")
     ],
@@ -98110,6 +98128,7 @@ _store__WEBPACK_IMPORTED_MODULE_1__["default"].commit('auth/SET_DATA', data.auth
 _store__WEBPACK_IMPORTED_MODULE_1__["default"].commit('user/SET_DATA', data.users);
 _store__WEBPACK_IMPORTED_MODULE_1__["default"].commit('pages/SET_MENU', data.menu);
 _store__WEBPACK_IMPORTED_MODULE_1__["default"].commit('pages/SET_PAGES', data.pages);
+_store__WEBPACK_IMPORTED_MODULE_1__["default"].commit('datatable/COPY_ORIGINAL_STATE');
 var app = new Vue({
   router: _router__WEBPACK_IMPORTED_MODULE_2__["default"],
   axios: _api__WEBPACK_IMPORTED_MODULE_3__["default"],
@@ -100100,6 +100119,9 @@ router.beforeEach(function (to, from, next) {
   _store__WEBPACK_IMPORTED_MODULE_3__["default"].commit('ui/CLOSE_ALL_DIALOGS');
   next();
 });
+router.afterEach(function (to, from, next) {
+  _store__WEBPACK_IMPORTED_MODULE_3__["default"].commit('datatable/REVERT_STATE');
+});
 /* harmony default export */ __webpack_exports__["default"] = (router);
 
 /***/ }),
@@ -100432,6 +100454,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var state = {
+  originalState: {},
   options: {
     autoUpdateInput: false,
     autoApply: true,
@@ -100675,6 +100698,12 @@ __webpack_require__.r(__webpack_exports__);
   SET_PICKER: function SET_PICKER(state, payload) {},
   EMPTY_QUERY: function EMPTY_QUERY(state, title) {
     return state.queries[title] = '';
+  },
+  COPY_ORIGINAL_STATE: function COPY_ORIGINAL_STATE(state) {
+    Object.assign(state.originalState, state);
+  },
+  REVERT_STATE: function REVERT_STATE(state) {
+    Object.assign(state, state.originalState);
   }
 });
 

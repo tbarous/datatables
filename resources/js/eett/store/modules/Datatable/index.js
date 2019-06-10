@@ -4,6 +4,7 @@ import mutations from './mutations'
 import actions from './actions'
 
 const state = {
+    originalState: {},
     options: {
         autoUpdateInput: false,
         autoApply: true,

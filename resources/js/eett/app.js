@@ -34,6 +34,8 @@ store.commit('auth/SET_DATA', data.auth)
 store.commit('user/SET_DATA', data.users)
 store.commit('pages/SET_MENU', data.menu)
 store.commit('pages/SET_PAGES', data.pages)
+store.commit('datatable/COPY_ORIGINAL_STATE')
+
 
 const app = new Vue({
     router,

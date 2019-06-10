@@ -15,4 +15,8 @@ router.beforeEach((to, from, next) => {
     next()
 })
 
+router.afterEach((to, from, next) => {
+    store.commit('datatable/REVERT_STATE');
+})
+
 export default router
