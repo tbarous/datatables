@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 class PageFilter extends AbstractFilter
 {
     protected $filters = [
-        // 'name' => UsernamesFilter::class,
+        'name' => NamesFilter::class,
         // 'email' => EmailsFilter::class,
         // 'created_at' => CreatedFilter::class,
         // 'updated_at' => UpdatedFilter::class,
