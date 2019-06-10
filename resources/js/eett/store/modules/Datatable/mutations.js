@@ -1,3 +1,6 @@
+import _ from 'lodash'
+import * as DS from './defaultState.js'
+
 export default {
     CLEAR_ERROR: (state, title) => state.errors[title] = '',
     SET_COLUMNS: (state, columns) => state.columns = columns,
@@ -142,6 +145,7 @@ export default {
     },
 
     SET_DATATABLE: (state, {resourceURL, columns}) => { 
+        console.log(columns)
         state.resourceURL = resourceURL
         state.columns = columns 
     },
@@ -150,12 +154,8 @@ export default {
     SET_PICKER: (state, payload) => {},
     EMPTY_QUERY: (state, title) => state.queries[title] = '',
 
-    COPY_ORIGINAL_STATE: (state) => {
-        Object.assign(state.originalState, state)
-    },
-
-    REVERT_STATE: (state) => {
-        Object.assign(state, state.originalState)
+    RESET_STATE: (state) => {
+        Object.assign(state, DS.defaultState())
     }
 }
 

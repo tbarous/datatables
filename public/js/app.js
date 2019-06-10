@@ -98128,7 +98128,6 @@ _store__WEBPACK_IMPORTED_MODULE_1__["default"].commit('auth/SET_DATA', data.auth
 _store__WEBPACK_IMPORTED_MODULE_1__["default"].commit('user/SET_DATA', data.users);
 _store__WEBPACK_IMPORTED_MODULE_1__["default"].commit('pages/SET_MENU', data.menu);
 _store__WEBPACK_IMPORTED_MODULE_1__["default"].commit('pages/SET_PAGES', data.pages);
-_store__WEBPACK_IMPORTED_MODULE_1__["default"].commit('datatable/COPY_ORIGINAL_STATE');
 var app = new Vue({
   router: _router__WEBPACK_IMPORTED_MODULE_2__["default"],
   axios: _api__WEBPACK_IMPORTED_MODULE_3__["default"],
@@ -100120,7 +100119,8 @@ router.beforeEach(function (to, from, next) {
   next();
 });
 router.afterEach(function (to, from, next) {
-  _store__WEBPACK_IMPORTED_MODULE_3__["default"].commit('datatable/REVERT_STATE');
+  alert(2);
+  _store__WEBPACK_IMPORTED_MODULE_3__["default"].commit('datatable/RESET_STATE');
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
 
@@ -100325,6 +100325,63 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/eett/store/modules/Datatable/defaultState.js":
+/*!*******************************************************************!*\
+  !*** ./resources/js/eett/store/modules/Datatable/defaultState.js ***!
+  \*******************************************************************/
+/*! exports provided: defaultState */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaultState", function() { return defaultState; });
+function defaultState() {
+  return {
+    originalState: {},
+    options: {
+      autoUpdateInput: false,
+      autoApply: true,
+      opens: 'left',
+      buttonClasses: 'btn btn-secondary',
+      locale: {
+        cancelLabel: 'CLEAR',
+        format: 'DD/MM/YYYY H:mm',
+        applyLabel: "CONFIRM"
+      },
+      timePicker: true
+    },
+    smallColumnWidth: '5%',
+    dataFetchUrl: '',
+    resourceURL: '',
+    columns: {},
+    loading: false,
+    pagination: {
+      meta: {
+        to: 1,
+        from: 1
+      }
+    },
+    offset: 4,
+    currentPage: 1,
+    perPage: 15,
+    order: 'desc',
+    itemsShow: [15, 50, 100],
+    sortedColumn: 'updated_at',
+    selectAll: false,
+    generalSearch: '',
+    tableData: [],
+    queries: {},
+    activeColumns: {},
+    selected: [],
+    selectBoxes: {},
+    editingRow: {},
+    editingMultipleRow: {},
+    errors: {}
+  };
+}
+
+/***/ }),
+
 /***/ "./resources/js/eett/store/modules/Datatable/getters.js":
 /*!**************************************************************!*\
   !*** ./resources/js/eett/store/modules/Datatable/getters.js ***!
@@ -100444,8 +100501,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _defaultState_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./defaultState.js */ "./resources/js/eett/store/modules/Datatable/defaultState.js");
 /* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getters */ "./resources/js/eett/store/modules/Datatable/getters.js");
 /* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mutations */ "./resources/js/eett/store/modules/Datatable/mutations.js");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./actions */ "./resources/js/eett/store/modules/Datatable/actions.js");
@@ -100453,48 +100509,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var state = {
-  originalState: {},
-  options: {
-    autoUpdateInput: false,
-    autoApply: true,
-    opens: 'left',
-    buttonClasses: 'btn btn-secondary',
-    locale: {
-      cancelLabel: 'CLEAR',
-      format: 'DD/MM/YYYY H:mm',
-      applyLabel: "CONFIRM"
-    },
-    timePicker: true
-  },
-  smallColumnWidth: '5%',
-  dataFetchUrl: '',
-  resourceURL: '',
-  columns: {},
-  loading: false,
-  pagination: {
-    meta: {
-      to: 1,
-      from: 1
-    }
-  },
-  offset: 4,
-  currentPage: 1,
-  perPage: 15,
-  order: 'desc',
-  itemsShow: [15, 50, 100],
-  sortedColumn: 'updated_at',
-  selectAll: false,
-  generalSearch: '',
-  tableData: [],
-  queries: {},
-  activeColumns: {},
-  selected: [],
-  selectBoxes: {},
-  editingRow: {},
-  editingMultipleRow: {},
-  errors: {}
-};
+var state = _defaultState_js__WEBPACK_IMPORTED_MODULE_0__["defaultState"]();
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
   state: state,
@@ -100514,6 +100529,11 @@ var state = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _defaultState_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./defaultState.js */ "./resources/js/eett/store/modules/Datatable/defaultState.js");
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   CLEAR_ERROR: function CLEAR_ERROR(state, title) {
     return state.errors[title] = '';
@@ -100607,7 +100627,7 @@ __webpack_require__.r(__webpack_exports__);
     state.activeColumns = obj;
   },
   // Fetch datatable data
-  FETCH_DATA: _.debounce(function (state) {
+  FETCH_DATA: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (state) {
     axios.get(state.dataFetchUrl).then(function (_ref) {
       var data = _ref.data;
       state.pagination = data;
@@ -100689,6 +100709,7 @@ __webpack_require__.r(__webpack_exports__);
   SET_DATATABLE: function SET_DATATABLE(state, _ref5) {
     var resourceURL = _ref5.resourceURL,
         columns = _ref5.columns;
+    console.log(columns);
     state.resourceURL = resourceURL;
     state.columns = columns;
   },
@@ -100699,11 +100720,8 @@ __webpack_require__.r(__webpack_exports__);
   EMPTY_QUERY: function EMPTY_QUERY(state, title) {
     return state.queries[title] = '';
   },
-  COPY_ORIGINAL_STATE: function COPY_ORIGINAL_STATE(state) {
-    Object.assign(state.originalState, state);
-  },
-  REVERT_STATE: function REVERT_STATE(state) {
-    Object.assign(state, state.originalState);
+  RESET_STATE: function RESET_STATE(state) {
+    Object.assign(state, _defaultState_js__WEBPACK_IMPORTED_MODULE_1__["defaultState"]());
   }
 });
 
