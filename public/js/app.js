@@ -100116,11 +100116,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 });
 router.beforeEach(function (to, from, next) {
   _store__WEBPACK_IMPORTED_MODULE_3__["default"].commit('ui/CLOSE_ALL_DIALOGS');
-  next();
-});
-router.afterEach(function (to, from, next) {
-  alert(2);
   _store__WEBPACK_IMPORTED_MODULE_3__["default"].commit('datatable/RESET_STATE');
+  next();
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
 

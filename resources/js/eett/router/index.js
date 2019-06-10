@@ -12,12 +12,8 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     store.commit('ui/CLOSE_ALL_DIALOGS');
-    next()
-})
-
-router.afterEach((to, from, next) => {
-	alert(2)
     store.commit('datatable/RESET_STATE');
+    next()
 })
 
 export default router
