@@ -81,17 +81,16 @@ class User extends Authenticatable
     public function getColumns()
     {
         $columns = [];
-        $schema = DB::getDoctrineSchemaManager();
-        $res = $schema->listTableColumns('users');
+        $schema = DB::getDoctrineSchemaManager()->listTableColumns('users');
 
-        foreach ($res as $r) {
-            if (in_array($r->getName(), $this->tableData)) {
+        foreach ($schema as $sch) {
+            if (in_array($sch->getName(), $this->tableData)) {
                 $columns[] = [
-                    'title' => $r->getName(),
-                    'sortable' => in_array($r->getName(), $this->sortable),
-                    'filterable' => in_array($r->getName(), $this->filterable),
-                    'editable' => in_array($r->getName(), $this->editable),
-                    'type'=> $r->getType(),
+                    'title' => $sch->getName(),
+                    'sortable' => in_array($sch->getName(), $this->sortable),
+                    'filterable' => in_array($sch->getName(), $this->filterable),
+                    'editable' => in_array($sch->getName(), $this->editable),
+                    'type'=> $sch->getType(),
                 ];
             }
         }

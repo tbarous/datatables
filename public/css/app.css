@@ -68,7 +68,7 @@ th {
 td {
   text-align: center !important;
   word-wrap: break-word;
-  padding: 0 !important;
+  padding: 5px 20px !important;
   vertical-align: middle !important;
 }
 .v-table__overflow {
