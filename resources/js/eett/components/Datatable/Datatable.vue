@@ -28,8 +28,8 @@ export default {
     },
 
     mounted(){
-        // var $table = $('table');
-        // $table.floatThead();
+        var $table = $('table');
+        $table.floatThead();
     },
 
     components: {
