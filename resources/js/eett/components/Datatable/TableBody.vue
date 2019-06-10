@@ -50,10 +50,16 @@ export default {
             this.$store.commit('ui/OPEN_UPDATE_DIALOG')
         },
         destroy(row){
-            this.$store.commit('ui/START_LOADING')
-            this.$store.dispatch('datatable/DESTROY', {row:row, vm: this})
-                .then(() => this.$store.dispatch('datatable/FETCH_DATA'))
-                .then(() => this.$store.commit('ui/STOP_LOADING'))
+            this.$dialog.confirm('Please confirm to continue')
+                .then(dialog => {
+                    this.$store.commit('ui/START_LOADING')
+                    this.$store.dispatch('datatable/DESTROY', {row:row, vm: this})
+                    .then(() => this.$store.dispatch('datatable/FETCH_DATA'))
+                    .then(() => this.$store.commit('ui/STOP_LOADING'))
+                })
+                .catch(function() {
+                    console.log('Clicked on cancel');
+                });
         }
     }
 }

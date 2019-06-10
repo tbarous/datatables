@@ -23,6 +23,13 @@ Vue.component('layout', require('./layouts/Layout.vue').default);
 import Errors from './components/Form/Errors'
 Vue.component('errors', Errors);
 
+import VuejsDialog from 'vuejs-dialog';
+import VuejsDialogMixin from 'vuejs-dialog/dist/vuejs-dialog-mixin.min.js'; // only needed in custom components
+Vue.use(VuejsDialog, {
+	  okText: 'Proceed',
+	  cancelText: 'Cancel'
+});
+
 store.commit('auth/SET_DATA', data.auth)
 store.commit('user/SET_DATA', data.users)
 store.commit('pages/SET_DATA', data.pages)
