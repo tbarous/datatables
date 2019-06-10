@@ -78,7 +78,7 @@ class User extends Authenticatable
         return (new UserFilter($request))->filter($builder);
     }
 
-    public function getData()
+    public function getColumns()
     {
         $columns = [];
         $schema = DB::getDoctrineSchemaManager();
@@ -96,11 +96,13 @@ class User extends Authenticatable
             }
         }
 
+        return $columns;
+    }
+
+    public function getData()
+    {
         $data = [
-            'columns' => $columns,
-            'form' => [
-                'update' => ['username', 'email']
-            ],
+            'columns' => $this->getColumns(),
             'url' => 'api/users'
         ];
 
