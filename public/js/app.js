@@ -1899,7 +1899,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {// var clipboard = new Clipboard('#export-btn');
+  mounted: function mounted() {
+    var clipboard = new Clipboard('#export-btn');
   }
 });
 
@@ -52878,9 +52879,7 @@ var render = function() {
     [
       _c(
         "v-btn",
-        {
-          attrs: { id: "export-btn", "data-clipboard-target": "#resultsTable" }
-        },
+        { attrs: { id: "export-btn", "data-clipboard-target": "#table" } },
         [
           _vm._v("\n        Export "),
           _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-file-export")])
