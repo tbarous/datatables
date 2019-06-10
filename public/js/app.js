@@ -53863,30 +53863,40 @@ var render = function() {
     [
       _c(
         "v-btn",
-        { staticClass: "ml-0", on: { click: _vm.fetchData } },
+        {
+          staticClass: "ml-0",
+          attrs: { color: "info" },
+          on: { click: _vm.fetchData }
+        },
         [
           _vm._v("\n        Reload "),
-          _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-sync")])
+          _c("v-icon", { staticClass: "ml-2", attrs: { small: "" } }, [
+            _vm._v("fas fa-sync")
+          ])
         ],
         1
       ),
       _vm._v(" "),
       _c(
         "v-btn",
-        { on: { click: _vm.clearFilters } },
+        { attrs: { color: "info" }, on: { click: _vm.clearFilters } },
         [
           _vm._v("\n        Clear "),
-          _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-eraser")])
+          _c("v-icon", { staticClass: "ml-2", attrs: { small: "" } }, [
+            _vm._v("fas fa-eraser")
+          ])
         ],
         1
       ),
       _vm._v(" "),
       _c(
         "v-btn",
-        { on: { click: _vm.openView } },
+        { attrs: { color: "info" }, on: { click: _vm.openView } },
         [
           _vm._v("\n        Columns "),
-          _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-columns")])
+          _c("v-icon", { staticClass: "ml-2", attrs: { small: "" } }, [
+            _vm._v("fas fa-columns")
+          ])
         ],
         1
       ),
@@ -53894,12 +53904,14 @@ var render = function() {
       _c(
         "v-btn",
         {
-          attrs: { disabled: _vm.selected.length < 2 },
+          attrs: { color: "info", disabled: _vm.selected.length < 2 },
           on: { click: _vm.openUpdateMultiple }
         },
         [
           _vm._v("\n        Update "),
-          _c("v-icon", { attrs: { small: "" } }, [_vm._v("fas fa-edit")])
+          _c("v-icon", { staticClass: "ml-2", attrs: { small: "" } }, [
+            _vm._v("fas fa-edit")
+          ])
         ],
         1
       )

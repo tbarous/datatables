@@ -1,19 +1,19 @@
 <template>
     <v-layout>
-        <v-btn class="ml-0" @click="fetchData">
-            Reload <v-icon small>fas fa-sync</v-icon>
+        <v-btn color="info" class="ml-0" @click="fetchData">
+            Reload <v-icon class="ml-2" small>fas fa-sync</v-icon>
         </v-btn>
 
-        <v-btn @click="clearFilters">
-            Clear <v-icon small>fas fa-eraser</v-icon>
+        <v-btn color="info" @click="clearFilters">
+            Clear <v-icon class="ml-2" small>fas fa-eraser</v-icon>
         </v-btn>
 
-        <v-btn @click="openView">
-            Columns <v-icon small>fas fa-columns</v-icon>
+        <v-btn color="info" @click="openView">
+            Columns <v-icon class="ml-2" small>fas fa-columns</v-icon>
         </v-btn>
 
-        <v-btn :disabled="selected.length < 2" @click="openUpdateMultiple">
-            Update <v-icon small>fas fa-edit</v-icon>
+        <v-btn color="info" :disabled="selected.length < 2" @click="openUpdateMultiple">
+            Update <v-icon class="ml-2" small>fas fa-edit</v-icon>
         </v-btn>
     </v-layout>
 </template>

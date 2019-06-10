@@ -50,10 +50,7 @@ export default {
             this.$store.commit('ui/OPEN_UPDATE_DIALOG')
         },
         destroy(row){
-            let message = {
-              title: 'Are you sure?',
-              body: 'You are about to delete ' + row.username
-            };
+            let message = {title: 'Are you sure?', body: 'You are about to delete ' + row.username};
             this.$dialog.confirm(message)
                 .then(dialog => {
                     this.$store.commit('ui/START_LOADING')
