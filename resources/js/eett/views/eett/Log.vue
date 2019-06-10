@@ -1,5 +1,7 @@
 <template>
-	
+	<div>
+		adss
+	</div>
 </template>
 
 <script>

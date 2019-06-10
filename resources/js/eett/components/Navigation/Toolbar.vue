@@ -1,5 +1,6 @@
 <template>
-	<v-toolbar flat class="transparent" style="background-image:url('/images/victus.png');background-position: center right;background-size: contain;">
+    <div>
+        <v-toolbar flat class="transparent" style="background-image:url('/images/victus.png');background-position: center right;background-size: contain;">
             <v-list class="pa-0">
                 <v-list-tile avatar>
                     <v-list-tile-avatar>
@@ -12,6 +13,8 @@
                 </v-list-tile>
             </v-list>
         </v-toolbar>
+        <v-divider class="mt-0 mb-0"></v-divider>
+    </div>
 </template>
 
 <script>

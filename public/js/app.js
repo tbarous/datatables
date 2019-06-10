@@ -2904,9 +2904,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 
 
@@ -2990,8 +2987,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Subgroup',
@@ -3012,6 +3007,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -3206,6 +3204,10 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -3316,6 +3318,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -3329,6 +3333,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -3350,6 +3356,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -3363,11 +3371,25 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core_Opco__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../core/Opco */ "./resources/js/eett/core/Opco.js");
+/* harmony import */ var _core_Service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../core/Service */ "./resources/js/eett/core/Service.js");
+/* harmony import */ var _core_Service__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_core_Service__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      opco: new _core_Opco__WEBPACK_IMPORTED_MODULE_0__["default"]('Vodafone')
+    };
+  },
+  created: function created() {}
+});
 
 /***/ }),
 
@@ -54309,8 +54331,6 @@ var render = function() {
     [
       _c("Toolbar"),
       _vm._v(" "),
-      _c("v-divider", { staticClass: "mt-0 mb-0" }),
-      _vm._v(" "),
       _c(
         "v-list",
         { staticClass: "p-0" },
@@ -54319,7 +54339,7 @@ var render = function() {
             return page.children.length
               ? _c(
                   "div",
-                  { key: page.title },
+                  { key: page.id },
                   [
                     _c(
                       "v-list-group",
@@ -54354,9 +54374,7 @@ var render = function() {
                         _c("Subgroup", { attrs: { pages: page.children } })
                       ],
                       1
-                    ),
-                    _vm._v(" "),
-                    _c("v-divider", { staticClass: "mt-0 mb-0" })
+                    )
                   ],
                   1
                 )
@@ -54382,9 +54400,7 @@ var render = function() {
                         _c("v-list-tile-title", [_vm._v(_vm._s(page.name))])
                       ],
                       1
-                    ),
-                    _vm._v(" "),
-                    _c("v-divider", { staticClass: "mt-0 mb-0" })
+                    )
                   ],
                   1
                 )
@@ -54476,7 +54492,7 @@ var render = function() {
           ? _c(
               "v-list-group",
               {
-                key: page.name,
+                key: page.id,
                 attrs: { "no-action": "", "sub-group": "", value: false },
                 scopedSlots: _vm._u(
                   [
@@ -54503,8 +54519,6 @@ var render = function() {
                 )
               },
               [
-                _vm._v(" "),
-                _c("v-divider", { staticClass: "mt-0 mb-0" }),
                 _vm._v(" "),
                 _c("Subgroup", { attrs: { pages: page.children } })
               ],
@@ -54539,9 +54553,7 @@ var render = function() {
                   ],
                   1
                 )
-              : _vm._e(),
-            _vm._v(" "),
-            _c("v-divider", { staticClass: "mt-0 mb-0" })
+              : _vm._e()
           ],
           1
         )
@@ -54573,37 +54585,47 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-toolbar",
-    {
-      staticClass: "transparent",
-      staticStyle: {
-        "background-image": "url('/images/victus.png')",
-        "background-position": "center right",
-        "background-size": "contain"
-      },
-      attrs: { flat: "" }
-    },
+    "div",
     [
       _c(
-        "v-list",
-        { staticClass: "pa-0" },
+        "v-toolbar",
+        {
+          staticClass: "transparent",
+          staticStyle: {
+            "background-image": "url('/images/victus.png')",
+            "background-position": "center right",
+            "background-size": "contain"
+          },
+          attrs: { flat: "" }
+        },
         [
           _c(
-            "v-list-tile",
-            { attrs: { avatar: "" } },
+            "v-list",
+            { staticClass: "pa-0" },
             [
-              _c("v-list-tile-avatar", [
-                _c("img", {
-                  attrs: {
-                    alt: "alt",
-                    src: "https://randomuser.me/api/portraits/men/86.jpg"
-                  }
-                })
-              ]),
-              _vm._v(" "),
               _c(
-                "v-list-tile-content",
-                [_c("v-list-tile-title", [_vm._v(_vm._s(_vm.auth.username))])],
+                "v-list-tile",
+                { attrs: { avatar: "" } },
+                [
+                  _c("v-list-tile-avatar", [
+                    _c("img", {
+                      attrs: {
+                        alt: "alt",
+                        src: "https://randomuser.me/api/portraits/men/86.jpg"
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-tile-content",
+                    [
+                      _c("v-list-tile-title", [
+                        _vm._v(_vm._s(_vm.auth.username))
+                      ])
+                    ],
+                    1
+                  )
+                ],
                 1
               )
             ],
@@ -54611,7 +54633,9 @@ var render = function() {
           )
         ],
         1
-      )
+      ),
+      _vm._v(" "),
+      _c("v-divider", { staticClass: "mt-0 mb-0" })
     ],
     1
   )
@@ -54842,7 +54866,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", [_vm._v("\n\tasdas\n")])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -54949,7 +54973,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", [_vm._v("\n\tdelta\n")])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -54973,7 +54997,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", [_c("router-view")], 1)
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -54997,7 +55021,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", [_vm._v("\n\tadss\n")])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -55021,7 +55045,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", [_vm._v("\n\t" + _vm._s(_vm.opco.name) + "\n")])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -99982,6 +100006,62 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ToTop_vue_vue_type_template_id_8888e632___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/eett/core/Opco.js":
+/*!****************************************!*\
+  !*** ./resources/js/eett/core/Opco.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Opco; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Opco =
+/*#__PURE__*/
+function () {
+  function Opco(name, service) {
+    _classCallCheck(this, Opco);
+
+    this.name = name;
+    this.service = service;
+  }
+
+  _createClass(Opco, [{
+    key: "getServices",
+    value: function getServices() {}
+  }]);
+
+  return Opco;
+}();
+
+
+
+/***/ }),
+
+/***/ "./resources/js/eett/core/Service.js":
+/*!*******************************************!*\
+  !*** ./resources/js/eett/core/Service.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Service = function Service(name, opco) {
+  _classCallCheck(this, Service);
+
+  this.opco = opco;
+  this.name = name;
+};
 
 /***/ }),
 

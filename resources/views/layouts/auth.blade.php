@@ -8,7 +8,6 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="{{ asset('css/auth.css') }}" rel="stylesheet">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-	
 </head>
 <body>
 	<div id="app">

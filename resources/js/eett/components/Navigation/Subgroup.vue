@@ -1,12 +1,11 @@
 <template>
 	<div>
-		<v-list-group no-action sub-group :value="false" v-for="page in pages" :key="page.name" v-if="page.children.length">
+		<v-list-group no-action sub-group :value="false" v-for="page in pages" :key="page.id" v-if="page.children.length">
 	      	<template v-slot:activator>
 	        	<v-list-tile>
-	          	<v-list-tile-title>{{page.name}}</v-list-tile-title>
+	          		<v-list-tile-title>{{page.name}}</v-list-tile-title>
 	        	</v-list-tile>
 	      	</template>
-	     	<v-divider class="mt-0 mb-0"></v-divider>
 	      	<Subgroup :pages="page.children"></Subgroup>
 	    </v-list-group>
 		
@@ -17,7 +16,6 @@
 		        </v-list-tile-action>
 		        <v-list-tile-title v-text="page.name"></v-list-tile-title>
 	     	</v-list-tile>
-			<v-divider class="mt-0 mb-0"></v-divider>
 		</div>
     </div>
 </template>
