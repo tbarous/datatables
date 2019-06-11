@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSitesTable extends Migration
+class CreateReasonsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateSitesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sites', function (Blueprint $table) {
+        Schema::create('reasons', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('status_id');
+            $table->text('description');
             $table->timestamps();
-            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
         });
     }
 
@@ -28,6 +27,6 @@ class CreateSitesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sites');
+        Schema::dropIfExists('reasons');
     }
 }

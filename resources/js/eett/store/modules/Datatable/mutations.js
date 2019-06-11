@@ -67,7 +67,7 @@ export default {
         state.generalSearch = nullToEmpty(state.generalSearch)
 
         // Prepare the fetch URL
-        state.dataFetchUrl = `${state.resourceURL}?page=${state.currentPage}&column=${state.sortedColumn}&order=${state.order}&per_page=${state.perPage}&search=${state.generalSearch}`
+        state.dataFetchUrl = `/${state.resourceURL}?page=${state.currentPage}&column=${state.sortedColumn}&order=${state.order}&per_page=${state.perPage}&search=${state.generalSearch}`
 
         // Make sure other search null values are ''
         Object.keys(state.queries).forEach(item => {
@@ -88,6 +88,7 @@ export default {
     FETCH_DATA: _.debounce((state) => {
         axios.get(state.dataFetchUrl)
             .then(({ data }) => {
+                console.log(data)
                 state.pagination = data
                 state.tableData = data.data
                 state.loading = false

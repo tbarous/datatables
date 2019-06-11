@@ -1,13 +1,15 @@
 <?php
 
-Route::get('users', 'UserController@index');
-Route::post('users/update', 'UserController@update');
-Route::post('users/update-many', 'UserController@updateMany');
-Route::post('users/destroy', 'UserController@destroy');
-Route::post('users/excel', 'UserController@excel');
+$items = [
+    ['name' => 'users', 'method' => 'UserController'],
+    ['name' => 'pages', 'method' => 'PageController'],
+    ['name' => 'cells', 'method' => 'CellController']
+];
 
-Route::get('pages', 'PageController@index');
-Route::post('pages/update', 'PageController@update');
-Route::post('pages/update-many', 'PageController@updateMany');
-Route::post('pages/destroy', 'PageController@destroy');
-Route::post('pages/excel', 'PageController@excel');
+foreach ($items as $item) {
+    Route::get($item['name'], $item['method'] . '@index');
+    Route::post($item['name'] . '/update', $item['method'] . '@update');
+    Route::post($item['name'] . '/update-many', $item['method'] . '@updateMany');
+    Route::post($item['name'] . '/destroy', $item['method'] . '@destroy');
+    Route::post($item['name'] . '/excel', $item['method'] . '@excel');
+}

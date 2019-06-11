@@ -3,7 +3,7 @@
 use App\Models\Page;
 use Illuminate\Database\Seeder;
 
-class PageSeeder extends Seeder
+class PagesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,7 +13,7 @@ class PageSeeder extends Seeder
     public function run()
     {
         Page::create([
-            'name' => 'EETT', 'path' => '/eett', 'icon' => 'fa fa-wrench',  'slug' => '/eett','component' => 'eett/Index', 'redirect'=>'/eett/overview',
+            'name' => 'EETT', 'path' => '/eett', 'icon' => 'fa fa-wrench',  'slug' => '/eett', 'component' => 'eett/Index', 'redirect'=>'/eett/overview',
             'children' => [
                 ['slug' => '/eett/overview', 'name'=>'Overview', 'path' => 'overview', 'icon' => 'dashboard', 'component' => 'eett/Overview'],
                 ['slug' => '/eett/delta-report', 'name'=>'Delta Report', 'path' => 'delta-report', 'icon' => 'report', 'component' => 'eett/DeltaReport'],
@@ -26,26 +26,26 @@ class PageSeeder extends Seeder
             'name' => 'Mass Update', 'path' => '/mass-update', 'icon' => 'fa fa-edit',  'slug' => '/mass-update','component' => 'mass-update/Index', 'redirect'=>'/mass-update/overview',
             'children' => [
                 [
-                    'slug' => '/mass-update/sites', 'name'=>'Sites', 'path' => 'sites', 'icon' => 'dashboard', 'component' => 'eett/Overview',
-                    'children' => [
-                        [
-                            'slug' => '/mass-update/sites/down', 'name'=>'Sites Down', 'path' => 'down', 'icon' => 'fa fa-chevron-down', 'component' => 'mass-update/sites/Down'
-                        ],
-                        [
-                            'slug' => '/mass-update/sites/halted', 'name'=>'Sites Halted', 'path' => 'halted', 'icon' => 'fa fa-chevron-down', 'component' => 'mass-update/sites/Halted'
-                        ],
-                    ]
+                    'slug' => '/mass-update/sites', 'name'=>'Sites', 'path' => 'sites', 'icon' => 'dashboard', 'component' => 'mass-update/Sites',
+                    // 'children' => [
+                    //     [
+                    //         'slug' => '/mass-update/sites/down', 'name'=>'Sites Down', 'path' => 'down', 'icon' => 'fa fa-chevron-down', 'component' => 'mass-update/sites/Down'
+                    //     ],
+                    //     [
+                    //         'slug' => '/mass-update/sites/halted', 'name'=>'Sites Halted', 'path' => 'halted', 'icon' => 'fa fa-chevron-down', 'component' => 'mass-update/sites/Halted'
+                    //     ],
+                    // ]
                 ],
                 [
-                    'slug' => '/mass-update/cells', 'name'=>'Cells', 'path' => 'cells', 'icon' => 'fa fa-cell', 'component' => 'eett/Overview',
-                    'children' => [
-                        [
-                            'slug' => '/mass-update/cells/down', 'name'=>'Cells Down', 'path' => 'down', 'icon' => 'fa fa-chevron-down', 'component' => 'mass-update/cells/Down'
-                        ],
-                        [
-                            'slug' => '/mass-update/cells/halted', 'name'=>'Cells Halted', 'path' => 'halted', 'icon' => 'fa fa-chevron-down', 'component' => 'mass-update/cells/Halted'
-                        ],
-                    ]
+                    'slug' => '/mass-update/cells', 'name'=>'Cells', 'path' => 'cells', 'icon' => 'fa fa-cell', 'component' => 'mass-update/Cells',
+                    // 'children' => [
+                    //     [
+                    //         'slug' => '/mass-update/cells/down', 'name'=>'Cells Down', 'path' => 'down', 'icon' => 'fa fa-chevron-down', 'component' => 'mass-update/cells/Down'
+                    //     ],
+                    //     [
+                    //         'slug' => '/mass-update/cells/halted', 'name'=>'Cells Halted', 'path' => 'halted', 'icon' => 'fa fa-chevron-down', 'component' => 'mass-update/cells/Halted'
+                    //     ],
+                    // ]
                 ],
             ]
         ]);

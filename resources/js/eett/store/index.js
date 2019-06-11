@@ -6,6 +6,7 @@ import pages from './modules/Page'
 import auth from './modules/Auth'
 import ui from './modules/UI'
 import datatable from './modules/Datatable'
+import cells from './modules/Cells'
 
 Vue.use(Vuex)
 
@@ -18,6 +19,7 @@ export default new Vuex.Store({
     auth,
     ui,
     datatable,
+    cells
   },
   // strict: debug
   strict: false

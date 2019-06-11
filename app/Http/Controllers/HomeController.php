@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Exports\UsersExport;
-use App\Models\User;
+use App\Models\Cell;
 use App\Models\Page;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Redirect;
@@ -38,7 +39,8 @@ class HomeController extends Controller
             'auth' => auth()->user(),
             'users' => (new User)->getData(),
             'menu' => (new Page)->getMenu(),
-            'pages' => (new Page)->getData()
+            'pages' => (new Page)->getData(),
+            'cells' => (new Cell)->getData()
         ];
 
         return view('layouts.app', compact('data'));
