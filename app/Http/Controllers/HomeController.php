@@ -21,17 +21,6 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-
-        $path = request()->path();
-        
-        if ($path != '/') {
-            $result = Page::where('slug', '/' . $path)->get();
-            if ($result->isEmpty()) {
-                abort(404);
-            }
-        } else {
-            Redirect::to('/eett/overview')->send();
-        }
     }
 
     /**

@@ -7,12 +7,14 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\DB;
 use Laravel\Passport\HasApiTokens;
+use App\Traits\ModelTrait;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasApiTokens, SoftDeletes;
+    use ModelTrait, Notifiable, HasApiTokens, SoftDeletes;
+
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -73,38 +75,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * [scopeFilter description]
+     * @param  Builder $builder [description]
+     * @param  [type]  $request [description]
+     * @return [type]           [description]
+     */
     public function scopeFilter(Builder $builder, $request)
     {
         return (new UserFilter($request))->filter($builder);
-    }
-
-    public function getColumns()
-    {
-        $columns = [];
-        $schema = DB::getDoctrineSchemaManager()->listTableColumns('users');
-
-        foreach ($schema as $sch) {
-            if (in_array($sch->getName(), $this->tableData)) {
-                $columns[] = [
-                    'title' => $sch->getName(),
-                    'sortable' => in_array($sch->getName(), $this->sortable),
-                    'filterable' => in_array($sch->getName(), $this->filterable),
-                    'editable' => in_array($sch->getName(), $this->editable),
-                    'type'=> $sch->getType(),
-                ];
-            }
-        }
-
-        return $columns;
-    }
-
-    public function getData()
-    {
-        $data = [
-            'columns' => $this->getColumns(),
-            'url' => 'api/users'
-        ];
-
-        return $data;
     }
 }

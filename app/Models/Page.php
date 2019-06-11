@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Kalnoy\Nestedset\NodeTrait;
 use Illuminate\Database\Eloquent\Builder;
+use App\Traits\ModelTrait;
 
 class Page extends Model
 {
-    use NodeTrait;
+    use NodeTrait, ModelTrait;
+
+    protected $table = 'pages';
 
     protected $fillable = ['title', 'icon', 'component', 'slug'];
 
@@ -55,35 +58,5 @@ class Page extends Model
     public static function getMenu()
     {
         return Page::get()->toTree();
-    }
-
-    public function getColumns()
-    {
-        $columns = [];
-        $schema = DB::getDoctrineSchemaManager()->listTableColumns('pages');
-
-        foreach ($schema as $sch) {
-            if (in_array($sch->getName(), $this->tableData)) {
-                $columns[] = [
-                    'title' => $sch->getName(),
-                    'sortable' => in_array($sch->getName(), $this->sortable),
-                    'filterable' => in_array($sch->getName(), $this->filterable),
-                    'editable' => in_array($sch->getName(), $this->editable),
-                    'type'=> $sch->getType(),
-                ];
-            }
-        }
-
-        return $columns;
-    }
-
-    public function getData()
-    {
-        $data = [
-            'columns' => $this->getColumns(),
-            'url' => 'api/pages'
-        ];
-
-        return $data;
     }
 }

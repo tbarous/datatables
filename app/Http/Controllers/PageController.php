@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\PageResource;
 use App\Models\Page;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -19,7 +20,13 @@ class PageController extends Controller
 
         $pages = $query->paginate($request->per_page);
 
-        return PageResource::collection($pages);
+        $additional = [
+            'meta' => [
+                'last_update' => Carbon::parse(Page::max('updated_at'))->format('d/m/Y - H:i:s a'),
+            ]
+        ];
+
+        return PageResource::collection($pages)->additional($additional);
     }
 
     public function update(Request $request)
