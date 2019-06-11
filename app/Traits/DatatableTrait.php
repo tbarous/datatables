@@ -27,7 +27,8 @@ trait DatatableTrait
     {
         $data = [
             'columns' => $this->getColumns(),
-            'url' => 'api/' . $this->table
+            'url' => 'api/' . $this->table,
+            'selectFilters' => $this->selectFilters
         ];
 
         return $data;

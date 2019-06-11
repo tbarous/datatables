@@ -2146,10 +2146,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
     selectFilters: function selectFilters() {
       return this.$store.getters['datatable/GET_SELECT_FILTERS'];
+    },
+    columns: function columns() {
+      return this.$store.getters['datatable/GET_COLUMNS'];
+    }
+  },
+  methods: {
+    change: function change() {
+      this.$store.dispatch('datatable/FETCH_DATA');
     }
   }
 });
@@ -53325,7 +53334,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    _vm._l(_vm.selectFilters, function(filter) {
+    _vm._l(Object.keys(_vm.selectFilters), function(filter) {
       return _c(
         "div",
         [
@@ -53334,17 +53343,18 @@ var render = function() {
             {
               attrs: { row: "" },
               model: {
-                value: filter.value,
+                value: _vm.columns[3].query,
                 callback: function($$v) {
-                  _vm.$set(filter, "value", $$v)
+                  _vm.$set(_vm.columns[3], "query", $$v)
                 },
-                expression: "filter.value"
+                expression: "columns[3].query"
               }
             },
-            _vm._l(filter.options, function(option) {
+            _vm._l(_vm.selectFilters[filter].options, function(option) {
               return _c("v-radio", {
                 key: option,
-                attrs: { label: "" + option, value: option }
+                attrs: { label: "" + option, value: option },
+                on: { change: _vm.change }
               })
             }),
             1
@@ -100582,6 +100592,7 @@ __webpack_require__.r(__webpack_exports__);
     return state.columns;
   },
   GET_DATATABLE: function GET_DATATABLE(state) {
+    console.log(state.selectFilters);
     return {
       resourceURL: state.resourceURL,
       columns: state.columns,
@@ -100634,7 +100645,6 @@ var state = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   SET_CELLS: function SET_CELLS(state, cells) {
-    console.log(cells.url);
     state.cells = cells;
     state.columns = cells.columns;
     state.resourceURL = cells.url;
@@ -101077,6 +101087,7 @@ __webpack_require__.r(__webpack_exports__);
     var resourceURL = _ref5.resourceURL,
         columns = _ref5.columns,
         selectFilters = _ref5.selectFilters;
+    console.log(selectFilters);
     state.resourceURL = resourceURL;
     state.columns = columns;
     state.selectFilters = selectFilters;

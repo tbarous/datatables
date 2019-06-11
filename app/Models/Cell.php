@@ -31,6 +31,9 @@ class Cell extends Model
     protected $filterable = ['name'];
     protected $editable = ['name'];
     protected $sortable = ['name'];
+    protected $selectFilters = [
+        ['name' => 'status', 'options' => ['halted', 'down']]
+    ];
 
     /**
      * [scopeFilter description]

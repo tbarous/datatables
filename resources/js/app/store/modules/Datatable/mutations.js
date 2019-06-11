@@ -119,6 +119,7 @@ export default {
         }
     },
     SET_DATATABLE: (state, {resourceURL, columns, selectFilters}) => { 
+        console.log(selectFilters)
         state.resourceURL = resourceURL
         state.columns = columns 
         state.selectFilters = selectFilters
