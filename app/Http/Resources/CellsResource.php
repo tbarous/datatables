@@ -16,10 +16,11 @@ class CellResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'created_at' => Carbon::parse($this->created_at)->format('d/m/Y - H:i:s'),
             'updated_at' => Carbon::parse($this->updated_at)->format('d/m/Y - H:i:s'),
-            'status' => $this->status
+            'status.name' => $this->status->name
         ];
     }
 }

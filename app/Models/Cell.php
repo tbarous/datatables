@@ -25,9 +25,9 @@ class Cell extends Model
      * @var array
      */
     protected $table = 'cells';
-    protected $names = ['name'];
+    protected $names = ['name', 'created_at', 'updated_at', 'status'];
     protected $types = ['text'];
-    protected $values = ['name'];
+    protected $values = ['name', 'created_at', 'updated_at', 'status.name'];
     protected $filterable = ['name'];
     protected $editable = ['name'];
     protected $sortable = ['name'];

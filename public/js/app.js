@@ -2101,6 +2101,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2360,7 +2361,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -2385,8 +2388,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("datatable", {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])("datatable", {
     tableData: 'GET_TABLE_DATA',
     noData: 'NO_DATA',
     selectBoxes: 'GET_SELECT_BOXES',
@@ -2407,6 +2411,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     serial: function serial(datakey) {
       // return this.$store.state.getters['datatable/getSerialNumber'](datakey)
       return 1;
+    },
+    val2: function val2(data, value) {
+      return lodash__WEBPACK_IMPORTED_MODULE_0___default.a.get(data, value);
     },
     setEditingRow: function setEditingRow(editingRow) {
       this.$store.commit('datatable/SET_EDITING_ROW', editingRow);
@@ -53266,6 +53273,7 @@ var render = function() {
         [
           _c("v-text-field", {
             staticClass: "generalSearch",
+            staticStyle: { "margin-bottom": "10px" },
             attrs: {
               solo: "",
               "prepend-inner-icon": "search",
@@ -53612,10 +53620,8 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _vm._l(Object.keys(data), function(value, key) {
-                return value != "id"
-                  ? _c("td", [_vm._v(_vm._s(data[value]))])
-                  : _vm._e()
+              _vm._l(Object.keys(data).slice(1), function(value, key) {
+                return _c("td", [_vm._v(_vm._s(_vm.val2(data, value)))])
               }),
               _vm._v(" "),
               _c(
@@ -100673,21 +100679,18 @@ __webpack_require__.r(__webpack_exports__);
     context.dispatch('FETCH_DATA');
   },
   UPDATE: function UPDATE(context, vm) {
-    context.commit('UPDATE', vm);
+    return context.commit('UPDATE', vm);
   },
   UPDATE_MULTIPLE: function UPDATE_MULTIPLE(context, vm) {
-    context.commit('UPDATE_MULTIPLE', vm);
+    return context.commit('UPDATE_MULTIPLE', vm);
   },
   DESTROY: function DESTROY(context, _ref) {
     var row = _ref.row,
         vm = _ref.vm;
-    context.commit('DESTROY', {
+    return context.commit('DESTROY', {
       row: row,
       vm: vm
     });
-  },
-  INITIALIZE: function INITIALIZE(context) {
-    context.commit('INITIALIZE');
   }
 });
 
@@ -100763,13 +100766,6 @@ __webpack_require__.r(__webpack_exports__);
   GET_ERRORS: function GET_ERRORS(state) {
     return state.errors;
   },
-  GET_ERROR: function GET_ERROR(state) {
-    return function (param) {
-      return Object.keys(state.errors).map(function (item) {
-        if (item == param) return state.errors[item][0];
-      });
-    };
-  },
   GET_OPTIONS: function GET_OPTIONS(state) {
     return state.options;
   },
@@ -100830,6 +100826,12 @@ __webpack_require__.r(__webpack_exports__);
   TOTAL_DATA: function TOTAL_DATA(state) {
     return state.pagination.meta.to - state.pagination.meta.from + 1;
   },
+  GET_SMALL_COLUMN_WIDTH: function GET_SMALL_COLUMN_WIDTH(state) {
+    return state.smallColumnWidth;
+  },
+  GET_SELECT_FILTERS: function GET_SELECT_FILTERS(state) {
+    return state.selectFilters;
+  },
   GET_SERIAL_NUMBER: function GET_SERIAL_NUMBER(state) {
     return function (key) {
       return (state.currentPage - 1) * state.perPage + 1 + key;
@@ -100853,11 +100855,12 @@ __webpack_require__.r(__webpack_exports__);
 
     return pagesArray;
   },
-  GET_SMALL_COLUMN_WIDTH: function GET_SMALL_COLUMN_WIDTH(state) {
-    return state.smallColumnWidth;
-  },
-  GET_SELECT_FILTERS: function GET_SELECT_FILTERS(state) {
-    return state.selectFilters;
+  GET_ERROR: function GET_ERROR(state) {
+    return function (param) {
+      return Object.keys(state.errors).map(function (item) {
+        if (item == param) return state.errors[item][0];
+      });
+    };
   }
 });
 
@@ -100936,6 +100939,16 @@ __webpack_require__.r(__webpack_exports__);
   SET_ACTIVE_COLUMNS: function SET_ACTIVE_COLUMNS(state, activeColumns) {
     return state.activeColumns = activeColumns;
   },
+  SET_OPTIONS: function SET_OPTIONS(state, options) {
+    return state.options = options;
+  },
+  SET_PICKER: function SET_PICKER(state, payload) {},
+  EMPTY_QUERY: function EMPTY_QUERY(state, title) {
+    return state.queries[title] = '';
+  },
+  RESET_STATE: function RESET_STATE(state) {
+    return Object.assign(state, _defaultState_js__WEBPACK_IMPORTED_MODULE_1__["defaultState"]());
+  },
   TOGGLE_ALL: function TOGGLE_ALL(state) {
     state.selectAll = !state.selectAll;
     state.selectBoxes = {};
@@ -100945,18 +100958,10 @@ __webpack_require__.r(__webpack_exports__);
       if (state.selected.indexOf(item.id) != -1 && !state.selectAll) state.selected.splice(state.selected.indexOf(item.id), 1);
     });
   },
-  // Set all columns to active and queries to empty strings
-  INITIALIZE: function INITIALIZE(state) {// state.columns.forEach(column => {
-    //     state.activeColumns[column.title] = true;
-    //     state.queries[column.title] = ''
-    // });
-  },
-  // Change datatable page
   CHANGE_PAGE: function CHANGE_PAGE(state, pageNumber) {
     state.currentPage = pageNumber;
     state.selectAll = false;
   },
-  // Sort datatable by column
   SORT_BY_COLUMN: function SORT_BY_COLUMN(state, column) {
     if (column.title === state.sortedColumn) {
       state.order = state.order === 'asc' ? 'desc' : 'asc';
@@ -100965,13 +100970,11 @@ __webpack_require__.r(__webpack_exports__);
       state.order = 'asc';
     }
   },
-  // Select item from datatable, if its included remove it
   SELECT: function SELECT(state, item) {
     var itemIncluded = state.selected.includes(item.id);
     !itemIncluded ? state.selected.push(item.id) : state.selected.splice(state.selected.indexOf(item.id), 1);
     state.selectBoxes[item.id] = !Boolean(itemIncluded);
   },
-  // Clear datatable filters
   CLEAR_FILTERS: function CLEAR_FILTERS(state) {
     state.columns.forEach(function (item) {
       return item.query = '';
@@ -100989,14 +100992,12 @@ __webpack_require__.r(__webpack_exports__);
       state.dataFetchUrl += '&' + item.title + '=' + item.query;
     });
   },
-  // Make changes on active datatable columns
   CHANGE_ACTIVE_COLUMNS: function CHANGE_ACTIVE_COLUMNS(state) {
     var obj = {};
     Object.assign(obj, state.activeColumns);
     state.activeColumns = {};
     state.activeColumns = obj;
   },
-  // Fetch datatable data
   FETCH_DATA: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (state) {
     axios.get(state.dataFetchUrl).then(function (_ref) {
       var data = _ref.data;
@@ -101007,7 +101008,6 @@ __webpack_require__.r(__webpack_exports__);
       state.loading = false;
     });
   }, 500),
-  // Update datatable row
   UPDATE: function UPDATE(state, _ref2) {
     var vm = _ref2.vm;
     axios.put(state.resourceURL + '/' + state.editingRow.id, {
@@ -101025,7 +101025,6 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
   },
-  // Destroy datatable row
   DESTROY: function DESTROY(state, _ref3) {
     var row = _ref3.row,
         vm = _ref3.vm;
@@ -101043,7 +101042,6 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
   },
-  // Update many datatable rows
   UPDATE_MULTIPLE: function UPDATE_MULTIPLE(state, _ref4) {
     var vm = _ref4.vm;
     var row = state.editingMultipleRow;
@@ -101082,16 +101080,6 @@ __webpack_require__.r(__webpack_exports__);
     state.resourceURL = resourceURL;
     state.columns = columns;
     state.selectFilters = selectFilters;
-  },
-  SET_OPTIONS: function SET_OPTIONS(state, options) {
-    return state.options = options;
-  },
-  SET_PICKER: function SET_PICKER(state, payload) {},
-  EMPTY_QUERY: function EMPTY_QUERY(state, title) {
-    return state.queries[title] = '';
-  },
-  RESET_STATE: function RESET_STATE(state) {
-    Object.assign(state, _defaultState_js__WEBPACK_IMPORTED_MODULE_1__["defaultState"]());
   }
 });
 

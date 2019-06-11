@@ -4,7 +4,7 @@
             <td>
                 <v-checkbox v-model="selectBoxes[data.id]" @change="select(data)"></v-checkbox>
             </td>
-            <td v-if="value!='id'" v-for="(value, key) in Object.keys(data)">{{data[value]}}</td>
+            <td v-for="(value, key) in Object.keys(data).slice(1)">{{val2(data, value)}}</td>
             <td style="white-space: nowrap">
                 <v-btn flat fab dark small color="info" @click="setEditingRow(data)">
                     <v-icon dark>edit</v-icon>
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+    import _ from 'lodash'
     import { mapGetters } from 'vuex'
     export default {
         computed: {
@@ -30,7 +31,7 @@
             }),
             options() {
                 return this.$store.getters['daterangepicker/GET_OPTIONS']
-            }
+            },
         },
         
         mounted(){
@@ -44,6 +45,9 @@
             serial(datakey) {
                 // return this.$store.state.getters['datatable/getSerialNumber'](datakey)
                 return 1
+            },
+            val2(data, value){
+                return _.get(data, value)
             },
             setEditingRow(editingRow){
                 this.$store.commit('datatable/SET_EDITING_ROW', editingRow)

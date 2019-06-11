@@ -1,8 +1,5 @@
 export default {
     GET_ERRORS: state => state.errors,
-    GET_ERROR: state => param => Object.keys(state.errors).map(item => {
-        if(item==param) return state.errors[item][0]
-    }),
     GET_OPTIONS: state => state.options,
     GET_LOADING: state =>  state.loading,
     GET_SELECT_ALL: state => state.selectAll,
@@ -23,7 +20,11 @@ export default {
     GET_ACTIVE_COLUMNS: state => state.activeColumns,
     NO_DATA: state => state.tableData.length === 0 && !state.loading,
     TOTAL_DATA: state => state.pagination.meta.to - state.pagination.meta.from + 1,
+    GET_SMALL_COLUMN_WIDTH: (state) => state.smallColumnWidth,
+    GET_SELECT_FILTERS: (state) => state.selectFilters,
     GET_SERIAL_NUMBER: (state) => (key) => (state.currentPage - 1) * state.perPage + 1 + key,
+    
+
     GET_ITEMS_COUNT: (state) => {
         const of = `of ${state.pagination.meta.total} entries`
         return state.perPage < state.pagination.meta.total ? `${state.perPage} ${of}` : `${state.pagination.meta.total} ${of}`
@@ -38,6 +39,7 @@ export default {
         for (let page = from; page <= to; page++) pagesArray.push(page)
         return pagesArray
     },
-    GET_SMALL_COLUMN_WIDTH: (state) => state.smallColumnWidth,
-    GET_SELECT_FILTERS: (state) => state.selectFilters
+    GET_ERROR: state => param => Object.keys(state.errors).map(item => {
+        if(item==param) return state.errors[item][0]
+    }),
 }

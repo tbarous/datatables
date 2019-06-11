@@ -2,6 +2,7 @@
 	<v-layout>
         <v-flex xs3 offset-xs9>
             <v-text-field 
+            style="margin-bottom: 10px;"
                 class="generalSearch" 
                 @input="fetchData(true)" 
                 v-model="generalSearch" 

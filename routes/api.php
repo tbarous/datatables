@@ -1,6 +1,6 @@
 <?php
 
-Route::resources([
+Route::apiResources([
     'users' => 'UserController',
     'pages' => 'PageController',
     'cells' => 'CellController'
