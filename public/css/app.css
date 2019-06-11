@@ -577,6 +577,11 @@ table {
 .pagination {
   padding: 10px;
 }
+.filter-input {
+  font-size: 13px;
+  background: #fff;
+  height: 50px;
+}
 .application {
   font-family: 'Nunito' !important;
 }

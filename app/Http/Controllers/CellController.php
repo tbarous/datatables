@@ -18,7 +18,7 @@ class CellController extends Controller
     {
         $query = Cell::filter($request)->orderBy($request->column, $request->order);
 
-        $cells = $query->paginate($request->per_page);
+        $cells = $query->with('status')->paginate($request->per_page);
 
         $additional = [
             'meta' => [

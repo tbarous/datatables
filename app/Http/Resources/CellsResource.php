@@ -2,11 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Carbon;
 
-class UsersResource extends JsonResource
+class CellResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,10 +17,10 @@ class UsersResource extends JsonResource
     {
         return [
             'id'   => $this->id,
-            'username'   => $this->username,
-            'email'      => $this->email,
+            'name'   => $this->name,
             'created_at' => Carbon::parse($this->created_at)->format('d/m/Y - H:i:s'),
-            'updated_at' => Carbon::parse($this->updated_at)->format('d/m/Y - H:i:s')
+            'updated_at' => Carbon::parse($this->updated_at)->format('d/m/Y - H:i:s'),
+            'status' => $this->status
         ];
     }
 }

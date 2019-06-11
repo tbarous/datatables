@@ -16,7 +16,9 @@ class CreateCellsTable extends Migration
         Schema::create('cells', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->unsignedBigInteger('status_id');
             $table->timestamps();
+            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
         });
     }
 

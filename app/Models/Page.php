@@ -7,17 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Kalnoy\Nestedset\NodeTrait;
 use Illuminate\Database\Eloquent\Builder;
-use App\Traits\ModelTrait;
+use App\Traits\DatatableTrait;
 
 class Page extends Model
 {
-    use NodeTrait, ModelTrait;
-
-    /**
-     * Table name of the model
-     * @var string
-     */
-    protected $table = 'pages';
+    use NodeTrait, DatatableTrait;
 
     /**
      * Fillable fields
@@ -26,45 +20,16 @@ class Page extends Model
     protected $fillable = ['title', 'icon', 'component', 'slug'];
 
     /**
-     * The fields that will appear on the table
-     * @var [type]
-     */
-    protected $tableData = [
-        'name'
-    ];
-
-    /**
-     * The attributes that are filterable
+     * The attributes that are shown on tables
      * @var array
      */
-    protected $filterable = [
-        'name'
-    ];
-
-    /**
-     * The attributes that are filterable
-     * @var array
-     */
-    protected $editable = [
-        'name'
-    ];
-
-    /**
-     * The attributes that are filterable
-     * @var array
-     */
-    protected $sortable = [
-        'name'
-    ];
-
-    /**
-     * [children description]
-     * @return [type] [description]
-     */
-    public function children()
-    {
-        return $this->hasMany('App\Category', 'parent_id', 'id') ;
-    }
+    protected $table = 'pages';
+    protected $names = ['name'];
+    protected $types = ['text'];
+    protected $values = ['name'];
+    protected $filterable = ['name'];
+    protected $editable = ['name'];
+    protected $sortable = ['name'];
 
     /**
      * [scopeFilter description]

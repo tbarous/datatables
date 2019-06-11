@@ -14,6 +14,17 @@ class CellsTableSeeder extends Seeder
     {
         $cell = new Cell();
         $cell->name = 'cellname';
+        $cell->status_id = 1;
+        $cell->save();
+
+        $cell = new Cell();
+        $cell->name = 'cellname2';
+        $cell->status_id = 2;
+        $cell->save();
+
+        $cell = new Cell();
+        $cell->name = 'cellname3';
+        $cell->status_id = 2;
         $cell->save();
     }
 }

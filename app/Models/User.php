@@ -8,13 +8,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
-use App\Traits\ModelTrait;
+use App\Traits\DatatableTrait;
 
 class User extends Authenticatable
 {
-    use ModelTrait, Notifiable, HasApiTokens, SoftDeletes;
-
-    protected $table = 'users';
+    use DatatableTrait, Notifiable, HasApiTokens, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -35,38 +33,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that are shown on tables
-     * @var array
-     */
-    protected $tableData = [
-        'username', 'email', 'created_at', 'updated_at'
-    ];
-
-    /**
-     * The attributes that are filterable
-     * @var array
-     */
-    protected $filterable = [
-        'username', 'email'
-    ];
-
-    /**
-     * The attributes that are filterable
-     * @var array
-     */
-    protected $editable = [
-        'username'
-    ];
-
-    /**
-     * The attributes that are filterable
-     * @var array
-     */
-    protected $sortable = [
-        'username'
-    ];
-
-    /**
      * The attributes that should be cast to native types.
      *
      * @var array
@@ -74,6 +40,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The attributes that are shown on tables
+     * @var array
+     */
+    protected $table = 'users';
+    protected $names = ['username', 'email', 'created_at','updated_at'];
+    protected $types = ['text', 'text', 'date', 'date'];
+    protected $values = ['username', 'email', 'created_at', 'updated_at'];
+    protected $filterable = ['username', 'email'];
+    protected $editable = ['username'];
+    protected $sortable = ['username'];
 
     /**
      * [scopeFilter description]

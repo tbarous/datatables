@@ -3,15 +3,13 @@
 namespace App\Models;
 
 use App\Filters\CellFilter;
-use App\Traits\ModelTrait;
+use App\Traits\DatatableTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Cell extends Model
 {
-    use ModelTrait;
-
-    protected $table = 'cells';
+    use DatatableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -26,33 +24,13 @@ class Cell extends Model
      * The attributes that are shown on tables
      * @var array
      */
-    protected $tableData = [
-        'name'
-    ];
-
-    /**
-     * The attributes that are filterable
-     * @var array
-     */
-    protected $filterable = [
-        'name'
-    ];
-
-    /**
-     * The attributes that are filterable
-     * @var array
-     */
-    protected $editable = [
-        'name'
-    ];
-
-    /**
-     * The attributes that are filterable
-     * @var array
-     */
-    protected $sortable = [
-        'name'
-    ];
+    protected $table = 'cells';
+    protected $names = ['name'];
+    protected $types = ['text'];
+    protected $values = ['name'];
+    protected $filterable = ['name'];
+    protected $editable = ['name'];
+    protected $sortable = ['name'];
 
     /**
      * [scopeFilter description]
@@ -63,5 +41,10 @@ class Cell extends Model
     public function scopeFilter(Builder $builder, $request)
     {
         return (new CellFilter($request))->filter($builder);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo('App\Models\Status');
     }
 }
