@@ -24,7 +24,7 @@ class Page extends Model
      * @var array
      */
     protected $table = 'pages';
-    protected $names = ['name'];
+    protected $names = ['name', 'created_at', 'updated_at'];
     protected $types = ['text'];
     protected $values = ['name'];
     protected $filterable = ['name'];

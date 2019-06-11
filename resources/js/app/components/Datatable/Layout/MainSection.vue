@@ -25,8 +25,7 @@ import SelectFilters from './../Filters/SelectFilters'
 
 export default {
     created() {
-        this.$store.dispatch('datatable/INITIALIZE')
-            .then(() => this.$store.dispatch('datatable/FETCH_DATA'))
+        this.$store.dispatch('datatable/FETCH_DATA')
     },
 
     mounted(){
@@ -35,7 +34,14 @@ export default {
     },
 
     components: {
-        TableLoader, Navigation, PerPage, DataDetails, Tools, Search, TableSection, SelectFilters
+        TableLoader,
+        Navigation,
+        PerPage,
+        DataDetails,
+        Tools,
+        Search,
+        TableSection,
+        SelectFilters
     }
 }
 </script>

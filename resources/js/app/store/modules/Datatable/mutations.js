@@ -55,7 +55,7 @@ export default {
 
     // Clear datatable filters
     CLEAR_FILTERS: state => {
-        state.queries = {}
+        state.columns.forEach(item => item.query = '')
         state.generalSearch = ''
     },
 
@@ -64,20 +64,14 @@ export default {
         if (reset) state.currentPage = 1
 
         // Make sure search null value is ''
-        state.generalSearch = nullToEmpty(state.generalSearch)
+        state.generalSearch = state.generalSearch == null ? '' : state.generalSearch
 
         // Prepare the fetch URL
         state.dataFetchUrl = `/${state.resourceURL}?page=${state.currentPage}&column=${state.sortedColumn}&order=${state.order}&per_page=${state.perPage}&search=${state.generalSearch}`
 
-        // Make sure other search null values are ''
-        Object.keys(state.queries).forEach(item => {
-            state.queries[item] = nullToEmpty(state.queries[item])
-            state.dataFetchUrl += '&' + item + '=' + state.queries[item];
+        state.columns.forEach(item => {
+            state.dataFetchUrl += '&' + item.title + '=' + item.query;
         })
-
-        // Object.keys(state.selectFilters).forEach(item => {
-        //     state.dataFetchUrl += '&' + item + '='
-        // })
     },
 
     // Make changes on active datatable columns
@@ -92,7 +86,6 @@ export default {
     FETCH_DATA: _.debounce((state) => {
         axios.get(state.dataFetchUrl)
             .then(({ data }) => {
-                console.log(data)
                 state.pagination = data
                 state.tableData = data.data
                 state.loading = false
@@ -103,7 +96,7 @@ export default {
 
     // Update datatable row
     UPDATE(state, {vm}) {
-        axios.post(state.resourceURL + '/update', {
+        axios.put(state.resourceURL + '/' + state.editingRow.id, {
             row: JSON.stringify(state.editingRow)
         }).then(response => {
             vm.$notify({type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'})
@@ -157,13 +150,7 @@ export default {
     SET_OPTIONS: (state, options) => state.options = options,
     SET_PICKER: (state, payload) => {},
     EMPTY_QUERY: (state, title) => state.queries[title] = '',
-
     RESET_STATE: (state) => {
         Object.assign(state, DS.defaultState())
     }
-}
-
-function nullToEmpty(string){
-    if(string == null) return ''
-    return string
 }

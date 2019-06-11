@@ -718,7 +718,7 @@ a.v-list__tile--active {
 }
 h3 {
   margin-top: 20px;
-  color: #fff;
+  color: #000;
 }
 .daterangepicker td.active,
 .daterangepicker td.active:hover {

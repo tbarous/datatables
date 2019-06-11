@@ -12,6 +12,12 @@
             }
         },
 
+        mounted(){
+            $(document).on('scroll', () => {
+                $(window).scrollTop() > 500 ? this.$store.commit('ui/SET_TOP', true) : this.$store.commit('ui/SET_TOP', false)
+            })
+        },
+
         methods: {
             toTop(){
                 this.$store.commit('ui/TO_TOP')

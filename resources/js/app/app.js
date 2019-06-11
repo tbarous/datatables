@@ -9,7 +9,7 @@ import axios from './api'
 import Vuetify from 'vuetify'
 import DateRangePicker from '@gravitano/vue-date-range-picker'
 import Notifications from 'vue-notification'
-import Loading from 'vue-loading-overlay'
+
 import Errors from './components/Form/Errors'
 import VuejsDialog from 'vuejs-dialog'
 import VuejsDialogMixin from 'vuejs-dialog/dist/vuejs-dialog-mixin.min'
@@ -20,7 +20,6 @@ Vue.use(Vuetify);
 Vue.use(Notifications)
 Vue.use(VuejsDialog, {okText: 'Proceed', cancelText: 'Cancel'});
 
-Vue.component('loading', Loading);
 Vue.component('layout', require('./layouts/Layout.vue').default);
 Vue.component('errors', Errors);
 

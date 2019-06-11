@@ -1,4 +1,4 @@
-function traverse(array){
+let traverse = (array) => {
     array.forEach(item => {
     	item.component = require('../views/' + item.component).default
         if(item.children.length) traverse(item.children)

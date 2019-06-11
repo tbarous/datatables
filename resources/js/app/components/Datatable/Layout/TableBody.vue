@@ -18,50 +18,50 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-export default {
-    computed: {
-        ...mapGetters("datatable", {
-            tableData: 'GET_TABLE_DATA',
-            noData: 'NO_DATA',
-            selectBoxes: 'GET_SELECT_BOXES',
-            activeColumns: 'GET_ACTIVE_COLUMNS',
-            smallColumnWidth: 'GET_SMALL_COLUMN_WIDTH'
-        }),
-        options() {
-            return this.$store.getters['daterangepicker/GET_OPTIONS']
-        }
-    },
-    
-    mounted(){
-        $('.double-scroll').doubleScroll()
-    },
+    import { mapGetters } from 'vuex'
+    export default {
+        computed: {
+            ...mapGetters("datatable", {
+                tableData: 'GET_TABLE_DATA',
+                noData: 'NO_DATA',
+                selectBoxes: 'GET_SELECT_BOXES',
+                activeColumns: 'GET_ACTIVE_COLUMNS',
+                smallColumnWidth: 'GET_SMALL_COLUMN_WIDTH'
+            }),
+            options() {
+                return this.$store.getters['daterangepicker/GET_OPTIONS']
+            }
+        },
+        
+        mounted(){
+            $('.double-scroll').doubleScroll()
+        },
 
-    methods: {
-        select(item) {
-            this.$store.commit('datatable/SELECT', item)
-        },
-        serial(datakey) {
-            // return this.$store.state.getters['datatable/getSerialNumber'](datakey)
-            return 1
-        },
-        setEditingRow(editingRow){
-            this.$store.commit('datatable/SET_EDITING_ROW', editingRow)
-            this.$store.commit('ui/OPEN_UPDATE_DIALOG')
-        },
-        destroy(row){
-            let message = {title: 'Are you sure?', body: 'You are about to delete ' + row.username};
-            this.$dialog.confirm(message)
-                .then(dialog => {
-                    this.$store.commit('ui/START_LOADING')
-                    this.$store.dispatch('datatable/DESTROY', {row:row, vm: this})
-                    .then(() => this.$store.dispatch('datatable/FETCH_DATA'))
-                    .then(() => this.$store.commit('ui/STOP_LOADING'))
-                })
-                .catch(function() {
-                    console.log('Clicked on cancel');
-                });
+        methods: {
+            select(item) {
+                this.$store.commit('datatable/SELECT', item)
+            },
+            serial(datakey) {
+                // return this.$store.state.getters['datatable/getSerialNumber'](datakey)
+                return 1
+            },
+            setEditingRow(editingRow){
+                this.$store.commit('datatable/SET_EDITING_ROW', editingRow)
+                this.$store.commit('ui/OPEN_UPDATE_DIALOG')
+            },
+            destroy(row){
+                let message = {title: 'Are you sure?', body: 'You are about to delete ' + row.username};
+                this.$dialog.confirm(message)
+                    .then(dialog => {
+                        this.$store.commit('ui/START_LOADING')
+                        this.$store.dispatch('datatable/DESTROY', {row:row, vm: this})
+                        .then(() => this.$store.dispatch('datatable/FETCH_DATA'))
+                        .then(() => this.$store.commit('ui/STOP_LOADING'))
+                    })
+                    .catch(function() {
+                        console.log('Clicked on cancel');
+                    });
+            }
         }
     }
-}
 </script>

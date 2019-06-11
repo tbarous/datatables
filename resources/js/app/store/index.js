@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
 import user from './modules/User'
 import pages from './modules/Page'
 import auth from './modules/Auth'
@@ -11,7 +10,6 @@ import cells from './modules/Cells'
 Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'
-
 export default new Vuex.Store({
   modules: {
     user,
@@ -21,6 +19,5 @@ export default new Vuex.Store({
     datatable,
     cells
   },
-  // strict: debug
-  strict: false
+  strict: false // strict: debug
 })
