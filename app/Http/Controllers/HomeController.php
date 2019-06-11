@@ -40,7 +40,15 @@ class HomeController extends Controller
             'users' => (new User)->getData(),
             'menu' => (new Page)->getMenu(),
             'pages' => (new Page)->getData(),
-            'cells' => (new Cell)->getData()
+            'cells' => array_merge((new Cell)->getData(), [
+                'selectFilters' => [
+                    [
+                        'name' => 'status',
+                        'options' => ['Halted', 'Down'],
+                        'value' => 'Halted'
+                    ]
+                ]
+            ])
         ];
 
         return view('layouts.app', compact('data'));

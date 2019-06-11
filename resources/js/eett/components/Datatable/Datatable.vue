@@ -1,5 +1,7 @@
 <template>
     <div>
+        <select-filters></select-filters>
+
         <per-page></per-page>
         <data-details></data-details>
         <v-divider></v-divider>
@@ -20,6 +22,7 @@ import DataDetails from './DataDetails'
 import Tools from './Tools'
 import Search from './Search'
 import TableSection from './TableSection'
+import SelectFilters from './SelectFilters'
 
 export default {
     created() {
@@ -33,7 +36,7 @@ export default {
     },
 
     components: {
-        TableLoader, Navigation, PerPage, DataDetails, Tools, Search, TableSection
+        TableLoader, Navigation, PerPage, DataDetails, Tools, Search, TableSection, SelectFilters
     }
 }
 </script>

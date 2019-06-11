@@ -74,6 +74,10 @@ export default {
             state.queries[item] = nullToEmpty(state.queries[item])
             state.dataFetchUrl += '&' + item + '=' + state.queries[item];
         })
+
+        Object.keys(state.selectFilters).forEach(item => {
+            state.dataFetchUrl += '&' + item + '='
+        })
     },
 
     // Make changes on active datatable columns
@@ -144,9 +148,10 @@ export default {
         }
     },
 
-    SET_DATATABLE: (state, {resourceURL, columns}) => { 
+    SET_DATATABLE: (state, {resourceURL, columns, selectFilters}) => { 
         state.resourceURL = resourceURL
         state.columns = columns 
+        state.selectFilters = selectFilters
     },
 
     SET_OPTIONS: (state, options) => state.options = options,

@@ -5,7 +5,8 @@ import actions from './actions'
 const state = {
     cells: {},
     columns: [],
-    resourceURL: ''
+    resourceURL: '',
+    selectFilters: []
 }
 
 export default {

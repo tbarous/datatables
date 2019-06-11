@@ -2132,6 +2132,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Tools__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Tools */ "./resources/js/eett/components/Datatable/Tools.vue");
 /* harmony import */ var _Search__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Search */ "./resources/js/eett/components/Datatable/Search.vue");
 /* harmony import */ var _TableSection__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./TableSection */ "./resources/js/eett/components/Datatable/TableSection.vue");
+/* harmony import */ var _SelectFilters__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./SelectFilters */ "./resources/js/eett/components/Datatable/SelectFilters.vue");
 //
 //
 //
@@ -2146,6 +2147,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 
 
 
@@ -2171,7 +2175,8 @@ __webpack_require__.r(__webpack_exports__);
     DataDetails: _DataDetails__WEBPACK_IMPORTED_MODULE_3__["default"],
     Tools: _Tools__WEBPACK_IMPORTED_MODULE_4__["default"],
     Search: _Search__WEBPACK_IMPORTED_MODULE_5__["default"],
-    TableSection: _TableSection__WEBPACK_IMPORTED_MODULE_6__["default"]
+    TableSection: _TableSection__WEBPACK_IMPORTED_MODULE_6__["default"],
+    SelectFilters: _SelectFilters__WEBPACK_IMPORTED_MODULE_7__["default"]
   }
 });
 
@@ -2451,6 +2456,40 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("datatable", {
     fetchData: 'FETCH_DATA'
   }))
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/eett/components/Datatable/SelectFilters.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/eett/components/Datatable/SelectFilters.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  computed: {
+    selectFilters: function selectFilters() {
+      return this.$store.getters['datatable/GET_SELECT_FILTERS'];
+    }
+  }
 });
 
 /***/ }),
@@ -53335,6 +53374,8 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("select-filters"),
+      _vm._v(" "),
       _c("per-page"),
       _vm._v(" "),
       _c("data-details"),
@@ -53741,6 +53782,60 @@ var render = function() {
       )
     ],
     1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/eett/components/Datatable/SelectFilters.vue?vue&type=template&id=0cdcae08&":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/eett/components/Datatable/SelectFilters.vue?vue&type=template&id=0cdcae08& ***!
+  \*******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    _vm._l(_vm.selectFilters, function(filter) {
+      return _c(
+        "div",
+        [
+          _c(
+            "v-radio-group",
+            {
+              model: {
+                value: filter.value,
+                callback: function($$v) {
+                  _vm.$set(filter, "value", $$v)
+                },
+                expression: "filter.value"
+              }
+            },
+            _vm._l(filter.options, function(option) {
+              return _c("v-radio", {
+                key: option,
+                attrs: { label: "" + option, value: option }
+              })
+            }),
+            1
+          )
+        ],
+        1
+      )
+    }),
+    0
   )
 }
 var staticRenderFns = []
@@ -99193,6 +99288,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/eett/components/Datatable/SelectFilters.vue":
+/*!******************************************************************!*\
+  !*** ./resources/js/eett/components/Datatable/SelectFilters.vue ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SelectFilters_vue_vue_type_template_id_0cdcae08___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SelectFilters.vue?vue&type=template&id=0cdcae08& */ "./resources/js/eett/components/Datatable/SelectFilters.vue?vue&type=template&id=0cdcae08&");
+/* harmony import */ var _SelectFilters_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SelectFilters.vue?vue&type=script&lang=js& */ "./resources/js/eett/components/Datatable/SelectFilters.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _SelectFilters_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SelectFilters_vue_vue_type_template_id_0cdcae08___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _SelectFilters_vue_vue_type_template_id_0cdcae08___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/eett/components/Datatable/SelectFilters.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/eett/components/Datatable/SelectFilters.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/eett/components/Datatable/SelectFilters.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SelectFilters_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SelectFilters.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/eett/components/Datatable/SelectFilters.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SelectFilters_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/eett/components/Datatable/SelectFilters.vue?vue&type=template&id=0cdcae08&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/eett/components/Datatable/SelectFilters.vue?vue&type=template&id=0cdcae08& ***!
+  \*************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SelectFilters_vue_vue_type_template_id_0cdcae08___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SelectFilters.vue?vue&type=template&id=0cdcae08& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/eett/components/Datatable/SelectFilters.vue?vue&type=template&id=0cdcae08&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SelectFilters_vue_vue_type_template_id_0cdcae08___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SelectFilters_vue_vue_type_template_id_0cdcae08___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/eett/components/Datatable/TableBody.vue":
 /*!**************************************************************!*\
   !*** ./resources/js/eett/components/Datatable/TableBody.vue ***!
@@ -100448,7 +100612,8 @@ __webpack_require__.r(__webpack_exports__);
   GET_DATATABLE: function GET_DATATABLE(state) {
     return {
       resourceURL: state.resourceURL,
-      columns: state.columns
+      columns: state.columns,
+      selectFilters: state.selectFilters
     };
   }
 });
@@ -100473,7 +100638,8 @@ __webpack_require__.r(__webpack_exports__);
 var state = {
   cells: {},
   columns: [],
-  resourceURL: ''
+  resourceURL: '',
+  selectFilters: []
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
@@ -100500,6 +100666,7 @@ __webpack_require__.r(__webpack_exports__);
     state.cells = cells;
     state.columns = cells.columns;
     state.resourceURL = cells.url;
+    state.selectFilters = cells.selectFilters;
   }
 });
 
@@ -100611,7 +100778,8 @@ function defaultState() {
     selectBoxes: {},
     editingRow: {},
     editingMultipleRow: {},
-    errors: {}
+    errors: {},
+    selectFilters: []
   };
 }
 
@@ -100722,6 +100890,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   GET_SMALL_COLUMN_WIDTH: function GET_SMALL_COLUMN_WIDTH(state) {
     return state.smallColumnWidth;
+  },
+  GET_SELECT_FILTERS: function GET_SELECT_FILTERS(state) {
+    return state.selectFilters;
   }
 });
 
@@ -100853,6 +101024,9 @@ __webpack_require__.r(__webpack_exports__);
       state.queries[item] = nullToEmpty(state.queries[item]);
       state.dataFetchUrl += '&' + item + '=' + state.queries[item];
     });
+    Object.keys(state.selectFilters).forEach(function (item) {
+      state.dataFetchUrl += '&' + item + '=';
+    });
   },
   // Make changes on active datatable columns
   CHANGE_ACTIVE_COLUMNS: function CHANGE_ACTIVE_COLUMNS(state) {
@@ -100943,9 +101117,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   SET_DATATABLE: function SET_DATATABLE(state, _ref5) {
     var resourceURL = _ref5.resourceURL,
-        columns = _ref5.columns;
+        columns = _ref5.columns,
+        selectFilters = _ref5.selectFilters;
     state.resourceURL = resourceURL;
     state.columns = columns;
+    state.selectFilters = selectFilters;
   },
   SET_OPTIONS: function SET_OPTIONS(state, options) {
     return state.options = options;

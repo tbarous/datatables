@@ -4,5 +4,6 @@ export default {
         state.cells = cells
         state.columns = cells.columns
         state.resourceURL = cells.url
+        state.selectFilters = cells.selectFilters
     }
 }

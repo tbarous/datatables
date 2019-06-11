@@ -38,5 +38,6 @@ export default {
         for (let page = from; page <= to; page++) pagesArray.push(page)
         return pagesArray
     },
-    GET_SMALL_COLUMN_WIDTH: (state) => state.smallColumnWidth
+    GET_SMALL_COLUMN_WIDTH: (state) => state.smallColumnWidth,
+    GET_SELECT_FILTERS: (state) => state.selectFilters
 }
