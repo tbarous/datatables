@@ -6,6 +6,7 @@
         <v-divider></v-divider>
 		<datatable></datatable>
 		<update></update>
+        <columns></columns>
 	</div>
 </template>
 

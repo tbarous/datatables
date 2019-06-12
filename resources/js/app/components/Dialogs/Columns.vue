@@ -8,11 +8,11 @@
                 <v-checkbox class="d-inline-block ml-3" 
                     v-for="(column,key) in columns" 
                     :key="column.title" 
-                    v-model="activeColumns[column.title]" 
-                    :label="column.title | columnLow" 
-                    @change="changeActiveColumns"
+                    v-model="column.active" 
+                    :label="column.title | columnLow"
                     color="black">
                 </v-checkbox>
+                <!-- @change="changeActiveColumns" -->
 
                 <v-btn @click="close" class="close-window" flat icon>
                     <v-icon small>fa fa-times</v-icon>
@@ -41,7 +41,7 @@
                 close: 'CLOSE_VIEW_DIALOG',
             }),
             ...mapMutations("datatable", {
-                changeActiveColumns: 'CHANGE_ACTIVE_COLUMNS',
+                // changeActiveColumns: 'CHANGE_ACTIVE_COLUMNS',
             })
         }
     }

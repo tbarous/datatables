@@ -2396,6 +2396,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2404,7 +2407,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     noData: 'NO_DATA',
     selectBoxes: 'GET_SELECT_BOXES',
     activeColumns: 'GET_ACTIVE_COLUMNS',
-    smallColumnWidth: 'GET_SMALL_COLUMN_WIDTH'
+    smallColumnWidth: 'GET_SMALL_COLUMN_WIDTH',
+    columns: 'GET_COLUMNS'
   }), {
     options: function options() {
       return this.$store.getters['daterangepicker/GET_OPTIONS'];
@@ -2734,8 +2738,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   })),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("ui", {
     close: 'CLOSE_VIEW_DIALOG'
-  }), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("datatable", {
-    changeActiveColumns: 'CHANGE_ACTIVE_COLUMNS'
+  }), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("datatable", {// changeActiveColumns: 'CHANGE_ACTIVE_COLUMNS',
   }))
 });
 
@@ -3481,6 +3484,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -53628,7 +53632,13 @@ var render = function() {
               ),
               _vm._v(" "),
               _vm._l(Object.keys(data).slice(1), function(value, key) {
-                return _c("td", [_vm._v(_vm._s(_vm.getValue(data, value)))])
+                return _c("td", [
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(_vm.getValue(data, value)) +
+                      "\n        "
+                  )
+                ])
               }),
               _vm._v(" "),
               _c(
@@ -54081,13 +54091,12 @@ var render = function() {
                     label: _vm._f("columnLow")(column.title),
                     color: "black"
                   },
-                  on: { change: _vm.changeActiveColumns },
                   model: {
-                    value: _vm.activeColumns[column.title],
+                    value: column.active,
                     callback: function($$v) {
-                      _vm.$set(_vm.activeColumns, column.title, $$v)
+                      _vm.$set(column, "active", $$v)
                     },
-                    expression: "activeColumns[column.title]"
+                    expression: "column.active"
                   }
                 })
               }),
@@ -55162,7 +55171,9 @@ var render = function() {
       _vm._v(" "),
       _c("datatable"),
       _vm._v(" "),
-      _c("update")
+      _c("update"),
+      _vm._v(" "),
+      _c("columns")
     ],
     1
   )
@@ -100944,12 +100955,12 @@ __webpack_require__.r(__webpack_exports__);
     state.generalSearch = state.generalSearch == null ? '' : state.generalSearch;
     state.dataFetchUrl = "/".concat(state.resourceURL, "?page=").concat(state.currentPage, "&column=").concat(state.sortedColumn, "&order=").concat(state.order, "&per_page=").concat(state.perPage, "&search=").concat(state.generalSearch);
   },
-  CHANGE_ACTIVE_COLUMNS: function CHANGE_ACTIVE_COLUMNS(state) {
-    var obj = {};
-    Object.assign(obj, state.activeColumns);
-    state.activeColumns = {};
-    state.activeColumns = obj;
-  },
+  // CHANGE_ACTIVE_COLUMNS: (state) => {
+  //     let obj = {}
+  //     Object.assign(obj, state.activeColumns)
+  //     state.activeColumns = {}
+  //     state.activeColumns = obj
+  // },
   FETCH_DATA: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (state) {
     state.columns.forEach(function (item) {
       return state.dataFetchUrl += '&' + item.title + '=' + item.query;

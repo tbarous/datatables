@@ -57,12 +57,12 @@ export default {
         state.generalSearch = state.generalSearch == null ? '' : state.generalSearch
         state.dataFetchUrl = `/${state.resourceURL}?page=${state.currentPage}&column=${state.sortedColumn}&order=${state.order}&per_page=${state.perPage}&search=${state.generalSearch}`
     },
-    CHANGE_ACTIVE_COLUMNS: (state) => {
-        let obj = {}
-        Object.assign(obj, state.activeColumns)
-        state.activeColumns = {}
-        state.activeColumns = obj
-    },
+    // CHANGE_ACTIVE_COLUMNS: (state) => {
+    //     let obj = {}
+    //     Object.assign(obj, state.activeColumns)
+    //     state.activeColumns = {}
+    //     state.activeColumns = obj
+    // },
     FETCH_DATA: _.debounce((state) => {
         state.columns.forEach(item => state.dataFetchUrl += '&' + item.title + '=' + item.query)
         axios.get(state.dataFetchUrl)

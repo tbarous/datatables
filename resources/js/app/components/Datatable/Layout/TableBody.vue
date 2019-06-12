@@ -4,7 +4,10 @@
             <td>
                 <v-checkbox v-model="selectBoxes[data.id]" @change="select(data)"></v-checkbox>
             </td>
-            <td v-for="(value, key) in Object.keys(data).slice(1)">{{getValue(data, value)}}</td>
+            <td v-for="(value, key) in Object.keys(data).slice(1)">
+                <!-- {{columns[columns.findIndex(x => x.name == value)].active}} -->
+                {{getValue(data, value)}}
+            </td>
             <td style="white-space: nowrap">
                 <v-btn flat fab dark small color="info" @click="setEditingRow(data)">
                     <v-icon dark>edit</v-icon>
@@ -28,7 +31,8 @@
                 noData: 'NO_DATA',
                 selectBoxes: 'GET_SELECT_BOXES',
                 activeColumns: 'GET_ACTIVE_COLUMNS',
-                smallColumnWidth: 'GET_SMALL_COLUMN_WIDTH'
+                smallColumnWidth: 'GET_SMALL_COLUMN_WIDTH',
+                columns: 'GET_COLUMNS'
             }),
             options() {
                 return this.$store.getters['daterangepicker/GET_OPTIONS']
