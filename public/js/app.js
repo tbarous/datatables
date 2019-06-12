@@ -2158,11 +2158,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     change: function change() {
-      var _this = this;
-
-      this.$store.dispatch('datatable/PREPARE_FOR_FETCH').then(function () {
-        return _this.$store.dispatch('datatable/FETCH_DATA');
-      });
+      this.$store.dispatch('datatable/FETCH_DATA');
     }
   }
 });
@@ -2346,11 +2342,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
-    var _this = this;
-
-    this.$store.dispatch('datatable/PREPARE_FOR_FETCH').then(function () {
-      return _this.$store.dispatch('datatable/FETCH_DATA');
-    });
+    this.$store.dispatch('datatable/FETCH_DATA');
   },
   mounted: function mounted() {// var $table = $('table');
     // $table.floatThead();
@@ -100673,11 +100665,10 @@ __webpack_require__.r(__webpack_exports__);
     context.commit('CLEAR_FILTERS');
     context.dispatch('FETCH_DATA');
   },
-  PREPARE_FOR_FETCH: function PREPARE_FOR_FETCH(context, reset) {
+  FETCH_DATA: function FETCH_DATA(context) {
+    var reset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
     context.commit('START_LOADING');
     context.commit('PREPARE_FOR_FETCH', reset);
-  },
-  FETCH_DATA: function FETCH_DATA(context) {
     context.commit('FETCH_DATA');
   },
   SORT_BY_COLUMN: function SORT_BY_COLUMN(context, column) {

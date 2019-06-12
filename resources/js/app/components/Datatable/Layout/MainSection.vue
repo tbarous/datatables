@@ -25,8 +25,7 @@ import SelectFilters from './../Filters/SelectFilters'
 
 export default {
     created() {
-        this.$store.dispatch('datatable/PREPARE_FOR_FETCH')
-            .then(() => this.$store.dispatch('datatable/FETCH_DATA'))
+        this.$store.dispatch('datatable/FETCH_DATA')
     },
 
     mounted(){
