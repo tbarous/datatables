@@ -4,9 +4,11 @@ export default {
         context.commit('CLEAR_FILTERS')
         context.dispatch('FETCH_DATA')
     },
-    FETCH_DATA(context, reset){
+    PREPARE_FOR_FETCH(context, reset) {
         context.commit('START_LOADING')
         context.commit('PREPARE_FOR_FETCH', reset)
+    },
+    FETCH_DATA(context){
         context.commit('FETCH_DATA')
     },
     SORT_BY_COLUMN: (context, column) => {

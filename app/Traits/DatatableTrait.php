@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use Carbon\Carbon;
+
 trait DatatableTrait
 {
     public function getColumns()
@@ -28,7 +30,8 @@ trait DatatableTrait
         $data = [
             'columns' => $this->getColumns(),
             'url' => 'api/' . $this->table,
-            'selectFilters' => $this->selectFilters
+            'filters' => $this->filters,
+            'last_update' => Carbon::parse($this->max('updated_at'))->format('d/m/Y - H:i:s a'),
         ];
 
         return $data;

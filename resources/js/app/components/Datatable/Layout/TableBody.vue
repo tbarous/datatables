@@ -4,7 +4,7 @@
             <td>
                 <v-checkbox v-model="selectBoxes[data.id]" @change="select(data)"></v-checkbox>
             </td>
-            <td v-for="(value, key) in Object.keys(data).slice(1)">{{val2(data, value)}}</td>
+            <td v-for="(value, key) in Object.keys(data).slice(1)">{{getValue(data, value)}}</td>
             <td style="white-space: nowrap">
                 <v-btn flat fab dark small color="info" @click="setEditingRow(data)">
                     <v-icon dark>edit</v-icon>
@@ -20,6 +20,7 @@
 <script>
     import _ from 'lodash'
     import { mapGetters } from 'vuex'
+
     export default {
         computed: {
             ...mapGetters("datatable", {
@@ -43,10 +44,9 @@
                 this.$store.commit('datatable/SELECT', item)
             },
             serial(datakey) {
-                // return this.$store.state.getters['datatable/getSerialNumber'](datakey)
-                return 1
+                return 1 // return this.$store.state.getters['datatable/getSerialNumber'](datakey)
             },
-            val2(data, value){
+            getValue(data, value){
                 return _.get(data, value)
             },
             setEditingRow(editingRow){
@@ -63,7 +63,7 @@
                         .then(() => this.$store.commit('ui/STOP_LOADING'))
                     })
                     .catch(function() {
-                        console.log('Clicked on cancel');
+                        //
                     });
             }
         }

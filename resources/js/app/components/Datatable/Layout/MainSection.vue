@@ -1,11 +1,11 @@
 <template>
     <div>
-        <select-filters></select-filters>
         <per-page></per-page>
         <data-details></data-details>
         <v-divider></v-divider>
         <tools></tools>
         <search></search>
+        <select-filters></select-filters>
         <table-loader></table-loader>
         <table-section></table-section>    
         <table-loader></table-loader>
@@ -25,7 +25,8 @@ import SelectFilters from './../Filters/SelectFilters'
 
 export default {
     created() {
-        this.$store.dispatch('datatable/FETCH_DATA')
+        this.$store.dispatch('datatable/PREPARE_FOR_FETCH')
+            .then(() => this.$store.dispatch('datatable/FETCH_DATA'))
     },
 
     mounted(){

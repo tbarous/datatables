@@ -1,11 +1,11 @@
 <template>
 	<div>
-		<div v-for="filter in Object.keys(selectFilters)">
-			<v-radio-group v-model="columns[3].query" row>
+		<div v-for="filter in filters">
+			<v-radio-group v-model="columns[filter.index].query" row class="justify-content-start">
 		      	<v-radio
-		        	v-for="option in selectFilters[filter].options"
+		        	v-for="option in filter.options"
 			        :key="option"
-			        :label="`${option}`"
+			        :label="`${option}` ? option : 'All'"
 			        :value="option"
 			        @change="change"
 		      	></v-radio>
@@ -17,8 +17,8 @@
 <script>
 	export default {
 		computed: {
-			selectFilters(){
-				return this.$store.getters['datatable/GET_SELECT_FILTERS']
+			filters(){
+				return this.$store.getters['datatable/GET_FILTERS']
 			},
 			columns(){
 				return this.$store.getters['datatable/GET_COLUMNS']
@@ -27,7 +27,8 @@
 
 		methods: {
 			change(){
-				this.$store.dispatch('datatable/FETCH_DATA')
+				this.$store.dispatch('datatable/PREPARE_FOR_FETCH')
+					.then(() => this.$store.dispatch('datatable/FETCH_DATA'))
 			}
 		}
 	}

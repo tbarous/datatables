@@ -28,11 +28,12 @@ class Cell extends Model
     protected $names = ['name', 'created_at', 'updated_at', 'status'];
     protected $types = ['text'];
     protected $values = ['name', 'created_at', 'updated_at', 'status.name'];
-    protected $filterable = ['name'];
+    protected $filterable = ['name', 'status'];
     protected $editable = ['name'];
     protected $sortable = ['name'];
-    protected $selectFilters = [
-        ['name' => 'status', 'options' => ['halted', 'down']]
+    protected $filters = [
+        ['name' => 'status', 'index'=>3, 'options' => ['halted', 'down', '']],
+        ['name' => 'name', 'index'=>0, 'options' => ['cellname2', 'cellname3', '']]
     ];
 
     /**

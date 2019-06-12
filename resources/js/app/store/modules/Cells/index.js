@@ -6,7 +6,7 @@ const state = {
     cells: {},
     columns: [],
     resourceURL: '',
-    selectFilters: []
+    filters: []
 }
 
 export default {

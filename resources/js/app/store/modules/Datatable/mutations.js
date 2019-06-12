@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import * as DS from './defaultState.js'
+import * as InitialState from './state'
 
 export default {
     CLEAR_ERROR: (state, title) => state.errors[title] = '',
@@ -15,9 +15,13 @@ export default {
     SET_OPTIONS: (state, options) => state.options = options,
     SET_PICKER: (state, payload) => {},
     EMPTY_QUERY: (state, title) => state.queries[title] = '',
-    RESET_STATE: (state) => Object.assign(state, DS.defaultState()),
+    RESET_STATE: (state) => Object.assign(state, InitialState.getState()),
+    SET_DATATABLE: (state, {resourceURL, columns, filters}) => {
+        state.resourceURL = resourceURL
+        state.columns = columns 
+        state.filters = filters
+    },
 
-    
     TOGGLE_ALL(state){
         state.selectAll = !state.selectAll
         state.selectBoxes = {}
@@ -49,18 +53,9 @@ export default {
         state.generalSearch = ''
     },
     PREPARE_FOR_FETCH: (state, reset) => {
-        // Reset the pagination if needs resetting
         if (reset) state.currentPage = 1
-
-        // Make sure search null value is ''
         state.generalSearch = state.generalSearch == null ? '' : state.generalSearch
-
-        // Prepare the fetch URL
         state.dataFetchUrl = `/${state.resourceURL}?page=${state.currentPage}&column=${state.sortedColumn}&order=${state.order}&per_page=${state.perPage}&search=${state.generalSearch}`
-
-        state.columns.forEach(item => {
-            state.dataFetchUrl += '&' + item.title + '=' + item.query;
-        })
     },
     CHANGE_ACTIVE_COLUMNS: (state) => {
         let obj = {}
@@ -69,8 +64,10 @@ export default {
         state.activeColumns = obj
     },
     FETCH_DATA: _.debounce((state) => {
+        state.columns.forEach(item => state.dataFetchUrl += '&' + item.title + '=' + item.query)
         axios.get(state.dataFetchUrl)
             .then(({ data }) => {
+                console.log(data)
                 state.pagination = data
                 state.tableData = data.data
                 state.loading = false
@@ -109,19 +106,6 @@ export default {
         })
     },
     HANDLE_FAILURE(error, type){
-        this.loading = false
-        this.$store.dispatch('loading/setLoading', false)
-
-        if(error){
-            this.errors[type] = error.response.data.errors
-        } else {
-            this.fetchData(false, {type: 'danger', text: '<i class="fa fa-times" aria-hidden="true"></i> &nbsp;An error occured'})
-        }
+        
     },
-    SET_DATATABLE: (state, {resourceURL, columns, selectFilters}) => { 
-        console.log(selectFilters)
-        state.resourceURL = resourceURL
-        state.columns = columns 
-        state.selectFilters = selectFilters
-    }
 }

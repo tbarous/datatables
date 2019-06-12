@@ -20,13 +20,7 @@ class CellController extends Controller
 
         $cells = $query->with('status')->paginate($request->per_page);
 
-        $additional = [
-            'meta' => [
-                'last_update' => Carbon::parse(Cell::max('updated_at'))->format('d/m/Y - H:i:s a'),
-            ]
-        ];
-
-        return CellResource::collection($cells)->additional($additional);
+        return CellResource::collection($cells);
     }
 
     /**
@@ -34,36 +28,15 @@ class CellController extends Controller
      * @param  Request $request [description]
      * @return [type]           [description]
      */
-    // public function update(UserUpdateRequest $request)
-    // {
-    //     $validated = (object) $request->validated();
-    //     $user = User::find($validated->id);
-    //     $user->username = $validated->username;
-    //     $user->email = $validated->email;
-    //     $user->save();
+    public function update(Request $request)
+    {
+    }
 
-    //     return $user;
-    // }
+    public function updateMany(Request $request)
+    {
+    }
 
-    // public function updateMany(Request $request)
-    // {
-    //     $ids = json_decode($request->selected, true);
-    //     $data = json_decode($request->row, true);
-
-    //     foreach ($ids as $key => $id) {
-    //         $data['id'] = $id;
-    //         User::where('id', $id)->update($data);
-    //     }
-
-    //     $users = User::find($ids);
-
-    //     return UsersResource::collection($users);
-    // }
-
-    // public function destroy(Request $request)
-    // {
-    //     // $user = User::find($request->id);
-
-    //     // $user->delete();
-    // }
+    public function destroy(Request $request)
+    {
+    }
 }

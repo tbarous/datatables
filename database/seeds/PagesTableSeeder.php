@@ -39,7 +39,7 @@ class PagesTableSeeder extends Seeder
                 ],
                 [
                     'slug' => '/eett/scripts',
-                    'name'=>'Scripts',
+                    'name'=> 'Scripts',
                     'path' => 'scripts',
                     'icon' => 'code',
                     'component' => 'eett/Scripts',
@@ -82,6 +82,15 @@ class PagesTableSeeder extends Seeder
                     'menu' => true,
                 ],
             ]
+        ]);
+
+        Page::create([
+            'slug'=>'/',
+            'name' => '',
+            'path' => '/',
+            'menu' => false,
+            'icon' => 'fa fa-file',
+            'component' => 'eett/Index'
         ]);
 
         Page::create([

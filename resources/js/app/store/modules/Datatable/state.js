@@ -1,6 +1,5 @@
-export function defaultState(){
+export function getState(){
   return {
-    	originalState: {},
         options: {
             autoUpdateInput: false,
             autoApply: true,
@@ -34,6 +33,6 @@ export function defaultState(){
         editingRow: {},
         editingMultipleRow: {},
         errors: {},
-        selectFilters: []
+        filters: []
     }
 } 

@@ -1,9 +1,9 @@
 import getters from './getters'
 import mutations from './mutations'
 import actions from './actions'
+import * as InitialState from './state'
 
-import * as DS from './defaultState.js'
-const state = DS.defaultState()
+const state = InitialState.getState()
 
 export default {
     namespaced: true,

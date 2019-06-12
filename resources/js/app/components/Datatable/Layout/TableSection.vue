@@ -21,6 +21,11 @@
 	import TableBody from './TableBody'
 	
 	export default {
-		components: { Headers, ColumnSearch, NoData, TableBody }
+		components: { 
+            Headers, 
+            ColumnSearch, 
+            NoData, 
+            TableBody 
+        }
 	}
 </script>

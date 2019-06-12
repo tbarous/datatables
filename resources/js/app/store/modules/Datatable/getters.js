@@ -21,7 +21,7 @@ export default {
     NO_DATA: state => state.tableData.length === 0 && !state.loading,
     TOTAL_DATA: state => state.pagination.meta.to - state.pagination.meta.from + 1,
     GET_SMALL_COLUMN_WIDTH: (state) => state.smallColumnWidth,
-    GET_SELECT_FILTERS: (state) => state.selectFilters,
+    GET_FILTERS: (state) => state.filters,
     GET_SERIAL_NUMBER: (state) => (key) => (state.currentPage - 1) * state.perPage + 1 + key,
     
 
