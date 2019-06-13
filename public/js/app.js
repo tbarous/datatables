@@ -3218,7 +3218,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$store.dispatch('datatable/UPDATE', {
         vm: this
       }).then(function () {
-        var errors = _this.$store.getters['datatable/GET_ERRORS'];
+        var errors = _this.$store.getters['datatable/GET_IF_THERE_ARE_ERRORS'];
+        console.log(errors);
         if (!errors) _this.$store.dispatch('datatable/FETCH_DATA');
       }).then(function () {
         return _this.$store.commit('ui/STOP_LOADING');
@@ -101758,6 +101759,11 @@ __webpack_require__.r(__webpack_exports__);
         if (item == param) return state.errors[item][0];
       });
     };
+  },
+  GET_IF_THERE_ARE_ERRORS: function GET_IF_THERE_ARE_ERRORS(state) {
+    return Object.values(state.errors).filter(function (item) {
+      return item != '';
+    }).length;
   }
 });
 
@@ -101824,30 +101830,24 @@ __webpack_require__.r(__webpack_exports__);
   SET_GENERAL_SEARCH: function SET_GENERAL_SEARCH(state, generalSearch) {
     return state.generalSearch = generalSearch;
   },
-  SET_QUERIES: function SET_QUERIES(state, queries) {
-    return state.queries = queries;
-  },
   SET_PER_PAGE: function SET_PER_PAGE(state, perPage) {
     return state.perPage = perPage;
-  },
-  SET_EDITING_ROW: function SET_EDITING_ROW(state, editingRow) {
-    return Object.assign(state.editingRow, editingRow);
-  },
-  SET_ACTIVE_COLUMNS: function SET_ACTIVE_COLUMNS(state, activeColumns) {
-    return state.activeColumns = activeColumns;
   },
   SET_OPTIONS: function SET_OPTIONS(state, options) {
     return state.options = options;
   },
   SET_PICKER: function SET_PICKER(state, payload) {},
-  EMPTY_QUERY: function EMPTY_QUERY(state, title) {
-    return state.queries[title] = '';
-  },
+  // SET_QUERIES: (state, queries) => state.queries = queries,
+  // SET_ACTIVE_COLUMNS: (state, activeColumns) => state.activeColumns = activeColumns,
+  // EMPTY_QUERY: (state, title) => state.queries[title] = '',
   RESET_STATE: function RESET_STATE(state) {
     return Object.assign(state, _state__WEBPACK_IMPORTED_MODULE_1__["getState"]());
   },
   SET_ADDING_ROW: function SET_ADDING_ROW(state, row) {
     return state.addingRow = row;
+  },
+  SET_EDITING_ROW: function SET_EDITING_ROW(state, editingRow) {
+    return Object.assign(state.editingRow, editingRow);
   },
   SET_DATATABLE: function SET_DATATABLE(state, _ref) {
     var resourceURL = _ref.resourceURL,
@@ -101859,9 +101859,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   TOGGLE_ALL: function TOGGLE_ALL(state) {
     state.selectAll = !state.selectAll;
-    state.selectBoxes = {};
     state.tableData.forEach(function (item) {
-      state.selectBoxes[item.id] = Boolean(state.selectAll);
       if (state.selected.indexOf(item.id) == -1 && state.selectAll) state.selected.push(item.id);
       if (state.selected.indexOf(item.id) != -1 && !state.selectAll) state.selected.splice(state.selected.indexOf(item.id), 1);
     });
@@ -101879,8 +101877,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   SELECT: function SELECT(state, item) {
-    var itemIncluded = state.selected.includes(item.id);
-    !itemIncluded ? state.selected.push(item.id) : state.selected.splice(state.selected.indexOf(item.id), 1); // state.selectBoxes[item.id] = !Boolean(itemIncluded)
+    return state.selected.includes(item.id) ? state.selected.splice(state.selected.indexOf(item.id), 1) : state.selected.push(item.id);
   },
   CLEAR_FILTERS: function CLEAR_FILTERS(state) {
     state.columns.forEach(function (item) {
@@ -101893,12 +101890,6 @@ __webpack_require__.r(__webpack_exports__);
     state.generalSearch = state.generalSearch == null ? '' : state.generalSearch;
     state.dataFetchUrl = "/".concat(state.resourceURL, "?page=").concat(state.currentPage, "&column=").concat(state.sortedColumn, "&order=").concat(state.order, "&per_page=").concat(state.perPage, "&search=").concat(state.generalSearch);
   },
-  // CHANGE_ACTIVE_COLUMNS: (state) => {
-  //     let obj = {}
-  //     Object.assign(obj, state.activeColumns)
-  //     state.activeColumns = {}
-  //     state.activeColumns = obj
-  // },
   // API
   FETCH_DATA: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (state) {
     state.columns.forEach(function (item) {
@@ -101906,7 +101897,6 @@ __webpack_require__.r(__webpack_exports__);
     });
     axios.get(state.dataFetchUrl).then(function (_ref2) {
       var data = _ref2.data;
-      console.log(data);
       state.pagination = data;
       state.tableData = data.data;
       state.loading = false;
@@ -101948,10 +101938,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   UPDATE_MULTIPLE: function UPDATE_MULTIPLE(state, _ref5) {
     var vm = _ref5.vm;
-    var row = state.editingMultipleRow;
     axios.post(state.resourceURL + '/update-many', {
       selected: JSON.stringify(state.selected),
-      row: JSON.stringify(row)
+      row: JSON.stringify(state.editingMultipleRow)
     }).then(function (response) {
       vm.$notify({
         type: 'success',
@@ -101963,8 +101952,7 @@ __webpack_require__.r(__webpack_exports__);
         text: "<i class=\"fa fa-warning\" aria-hidden=\"true\"></i> &nbsp ".concat(error.response.data.message, " ")
       });
     });
-  },
-  HANDLE_FAILURE: function HANDLE_FAILURE(error, type) {}
+  }
 });
 
 /***/ }),

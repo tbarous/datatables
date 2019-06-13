@@ -92,6 +92,21 @@ class UserController extends Controller
         return $user;
     }
 
+    public function updateMany(Request $request)
+    {
+        $ids = json_decode($request->selected, true);
+        $data = json_decode($request->row, true);
+
+        foreach ($ids as $key => $id) {
+            $data['id'] = $id;
+            User::where('id', $id)->update($data);
+        }
+
+        $users = User::find($ids);
+
+        return UsersResource::collection($users);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
