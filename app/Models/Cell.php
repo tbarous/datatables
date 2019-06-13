@@ -28,7 +28,7 @@ class Cell extends Model
     protected $names = ['name', 'created_at', 'updated_at', 'status'];
     protected $types = ['text'];
     protected $values = ['name', 'created_at', 'updated_at', 'status.name'];
-    protected $filterable = ['name', 'status'];
+    protected $filterable = ['name', 'status', 'created_at'];
     protected $editable = ['name'];
     protected $sortable = ['name'];
     protected $filters = [

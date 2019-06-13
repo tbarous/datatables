@@ -5,7 +5,7 @@
                 <v-checkbox :value="selected(item)" @change="select(item)"></v-checkbox>
             </td>
             <td v-if="column.active" v-for="(column, key) in columns" :key="key">
-                {{item[column.title]}}
+                {{getValue(item, column.value)}}
             </td>
             <td>
                 <crud :data="item"></crud>
@@ -17,6 +17,7 @@
 <script>
     import { mapGetters } from 'vuex'
     import Crud from './../CRUD/Crud'
+    import _ from 'lodash'
 
     export default {
         components: {
@@ -39,6 +40,9 @@
             },
             selected(item){
                 return this.$store.getters['datatable/IN_SELECTED'](item)
+            },
+            getValue(item, value){
+                return _.get(item, value)
             }
         }
     }

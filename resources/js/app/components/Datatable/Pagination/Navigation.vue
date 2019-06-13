@@ -50,7 +50,6 @@
                 this.$store.dispatch('datatable/CHANGE_PAGE', arr[index])
             },
             changePage(page){
-                alert(page)
                 this.$store.dispatch('datatable/CHANGE_PAGE', page)
             }
         }

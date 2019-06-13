@@ -26,7 +26,7 @@ class Page extends Model
     protected $table = 'pages';
     protected $names = ['name', 'created_at', 'updated_at'];
     protected $types = ['text'];
-    protected $values = ['name'];
+    protected $values = ['name', 'created_at', 'updated_at'];
     protected $filterable = ['name'];
     protected $editable = ['name'];
     protected $sortable = ['name'];

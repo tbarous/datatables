@@ -1,12 +1,16 @@
 <template>
 	<div>
-		<excel></excel>
+		<file title="File" url="/storage/invoices.xlsx"></file>
+        <excel title="Excel" url="/storage/invoices.xlsx"></excel>
         <PDF></PDF>
         <copy></copy>
         <v-divider></v-divider>
-		<datatable></datatable>
-		<update></update>
+        <add></add>
+        <update></update>
+        <update-multiple></update-multiple>
         <columns></columns>
+        <v-divider></v-divider>
+		<datatable></datatable>
 	</div>
 </template>
 

@@ -10,7 +10,7 @@ trait DatatableTrait
     {
         $columns = [];
         
-        foreach ($this->names as $column) {
+        foreach ($this->names as $key => $column) {
             $columns[] = [
                 'title' => $column,
                 'sortable' => in_array($column, $this->sortable),
@@ -18,7 +18,8 @@ trait DatatableTrait
                 'editable' => in_array($column, $this->editable),
                 'type'=> $column,
                 'active' => true,
-                'query' => ''
+                'query' => '',
+                'value' => $this->values[$key]
             ];
         }
 

@@ -22,10 +22,10 @@ class UserController extends Controller
         $users = $query->paginate($request->per_page);
 
         $additional = [
-            'meta' => [
-                'last_update' => Carbon::parse(User::max('updated_at'))
-                                            ->format('d/m/Y - H:i:s a'),
-            ]
+            // 'meta' => [
+            //     'last_update' => Carbon::parse(User::max('updated_at'))
+            //                                 ->format('d/m/Y - H:i:s a'),
+            // ]
         ];
 
         return UsersResource::collection($users)->additional($additional);

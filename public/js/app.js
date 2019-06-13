@@ -2719,6 +2719,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _CRUD_Crud__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../CRUD/Crud */ "./resources/js/app/components/Datatable/CRUD/Crud.vue");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -2741,6 +2743,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Crud: _CRUD_Crud__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -2760,6 +2763,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     selected: function selected(item) {
       return this.$store.getters['datatable/IN_SELECTED'](item);
+    },
+    getValue: function getValue(item, value) {
+      return lodash__WEBPACK_IMPORTED_MODULE_2___default.a.get(item, value);
     }
   }
 });
@@ -2871,7 +2877,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$store.dispatch('datatable/CHANGE_PAGE', arr[index]);
     },
     changePage: function changePage(page) {
-      alert(page);
       this.$store.dispatch('datatable/CHANGE_PAGE', page);
     }
   }
@@ -3970,6 +3975,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -54192,7 +54201,7 @@ var render = function() {
                   ? _c("td", { key: key }, [
                       _vm._v(
                         "\n            " +
-                          _vm._s(item[column.title]) +
+                          _vm._s(_vm.getValue(item, column.value)) +
                           "\n        "
                       )
                     ])
@@ -55840,7 +55849,9 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("excel"),
+      _c("file", { attrs: { title: "File", url: "/storage/invoices.xlsx" } }),
+      _vm._v(" "),
+      _c("excel", { attrs: { title: "Excel", url: "/storage/invoices.xlsx" } }),
       _vm._v(" "),
       _c("PDF"),
       _vm._v(" "),
@@ -55848,11 +55859,17 @@ var render = function() {
       _vm._v(" "),
       _c("v-divider"),
       _vm._v(" "),
-      _c("datatable"),
+      _c("add"),
       _vm._v(" "),
       _c("update"),
       _vm._v(" "),
-      _c("columns")
+      _c("update-multiple"),
+      _vm._v(" "),
+      _c("columns"),
+      _vm._v(" "),
+      _c("v-divider"),
+      _vm._v(" "),
+      _c("datatable")
     ],
     1
   )
@@ -101794,7 +101811,6 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   CHECK_IF_THERE_ARE_ERRORS: function CHECK_IF_THERE_ARE_ERRORS(state) {
-    console.log(state.errors);
     Object.values(state.errors).filter(function (item) {
       return item != '';
     }).length;

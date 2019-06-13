@@ -44,7 +44,6 @@ export default {
         if(item==param) return state.errors[item][0]
     }),
     CHECK_IF_THERE_ARE_ERRORS: state => {
-        console.log(state.errors)
         Object.values(state.errors).filter(item => item != '').length
     }
 }
