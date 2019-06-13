@@ -12,7 +12,7 @@
             <v-card>
                 <v-card-title class="headline grey lighten-2" primary-title>Add</v-card-title>
                 <v-card-text>
-                    <v-form method="post" @submit.prevent="update">
+                    <v-form method="post" @submit.prevent="add">
                         <div v-for="(column, key) in columns" :key="column.title">
 
                             <!-- v-if="column.type == 'text'"  -->
@@ -22,7 +22,7 @@
                                 v-if="column.editable"
                                 solo 
                                 type="text" 
-                                v-model="editingRow[column.title]" 
+                                v-model="addingRow[column.title]" 
                                 @input="clearError(column.title)">
                             </v-text-field>
 
@@ -52,7 +52,7 @@
         computed: {
             ...mapGetters("datatable", {
                 columns: 'GET_COLUMNS',
-                editingRow: 'GET_ADDING_ROW'
+                addingRow: 'GET_ADDING_ROW'
             }),
             ...mapGetters("ui", {
                 dialog: 'GET_ADD_DIALOG'
@@ -69,17 +69,13 @@
                 close: 'CLOSE_ADD_DIALOG',
                 open:  'OPEN_ADD_DIALOG'
             }),
-            ...mapActions("datatable", {
-                update: 'UPDATE',
-            }),
             add(){
                 this.$store.commit('ui/START_LOADING')
-                this.$store.dispatch('datatable/UPDATE', {vm: this})
-                    .then(() => {
-                        const errors = this.$store.getters['datatable/GET_ERRORS']
-                        if(!errors) this.$store.dispatch('datatable/FETCH_DATA')
-                    })
-                    .then(() => this.$store.commit('ui/STOP_LOADING'))
+                this.$store.dispatch('datatable/ADD')
+                    .then(() => this.$notify({type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been added'}))
+                    .then(() => this.$store.dispatch('datatable/FETCH_DATA'))
+                    .catch(error => this.$notify({type: 'error', text: `<i class="fa fa-warning" aria-hidden="true"></i> &nbsp ${error.response.data.message} `}))
+                    .finally(() => this.$store.commit('ui/STOP_LOADING'))
             }
         },
     }

@@ -24,8 +24,8 @@ export default {
         context.commit('SET_PER_PAGE', perPage)
         context.dispatch('FETCH_DATA')
     },
-    UPDATE: (context, vm) => context.commit('UPDATE', vm),
-    UPDATE_MULTIPLE: (context, vm) => context.commit('UPDATE_MULTIPLE', vm),
-
-    DESTROY: (context, {row, vm}) => context.commit('DESTROY', {row,vm}),
+    ADD: (context) => new Promise((resolve, reject) => context.commit('ADD', {resolve, reject})),
+    UPDATE: (context) => new Promise((resolve, reject) => context.commit('UPDATE', {resolve, reject})),
+    UPDATE_MULTIPLE: (context) => new Promise((resolve, reject) => context.commit('UPDATE_MULTIPLE', {resolve, reject})),
+    DESTROY: (context, id) => new Promise((resolve, reject) => context.commit('DESTROY', {resolve, reject, id})),
 }

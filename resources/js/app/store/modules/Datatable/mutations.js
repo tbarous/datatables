@@ -70,31 +70,43 @@ export default {
             })
     }, 500),
 
-    UPDATE: (state, {vm}) => {
-        axios.put(state.resourceURL + '/' + state.editingRow.id, {
-            row: JSON.stringify(state.editingRow)
-        }).then(response => {
-            vm.$notify({type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'})
-        }).catch(error => {
-            if(error.response.data.errors) state.errors = error.response.data.errors
-            vm.$notify({type: 'error', text: `<i class="fa fa-warning" aria-hidden="true"></i> &nbsp ${error.response.data.message} `})
+    ADD: (state, {resolve, reject}) => {
+        axios.post(`${state.resourceURL}`, {
+            row: JSON.stringify(state.addingRow)
+        })
+        .then(response => resolve(response))
+        .catch(error => {
+            state.errors = error.response.data.errors
+            reject(error)
         })
     },
 
-    DESTROY: (state, {row, vm}) => {
-        axios.delete(state.resourceURL + "/" + row.id)
-             .then(response => vm.$notify({type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been deleted'}))
-             .catch(error => vm.$notify({type: 'error', text: `<i class="fa fa-warning" aria-hidden="true"></i> &nbsp ${error.response.data.message} `}))
+    UPDATE: (state, {resolve, reject}) => {
+        axios.put(`${state.resourceURL}/${state.editingRow.id}`, {
+            row: JSON.stringify(state.editingRow)
+        })
+        .then(response => resolve(response))
+        .catch(error => {
+            state.errors = error.response.data.errors
+            reject(error)
+        })
     },
 
-    UPDATE_MULTIPLE: (state, {vm}) => {
+    DESTROY: (state, {resolve, reject, id}) => {
+        axios.delete(`${state.resourceURL}/${id}`)
+        .then(response => resolve(response))
+        .catch(error => reject(error))
+    },
+
+    UPDATE_MULTIPLE: (state, {resolve, reject}) => {
         axios.post(state.resourceURL + '/update-many', {
             selected: JSON.stringify(state.selected),
             row: JSON.stringify(state.editingMultipleRow)
-        }).then(response => {
-            vm.$notify({type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Items have been updated'})
-        }).catch(error => {
-            vm.$notify({type: 'error', text: `<i class="fa fa-warning" aria-hidden="true"></i> &nbsp ${error.response.data.message} `})
+        })
+        .then(response => resolve(response))
+        .catch(error => {
+            state.errors = error.response.data.errors
+            reject(error)
         })
     }
 }

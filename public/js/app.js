@@ -2310,25 +2310,27 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.commit('datatable/SET_EDITING_ROW', editingRow);
       this.$store.commit('ui/OPEN_UPDATE_DIALOG');
     },
-    destroy: function destroy(row) {
+    destroy: function destroy(id) {
       var _this = this;
 
-      var message = {
-        title: 'Are you sure?',
-        body: 'You are about to delete ' + row.username
-      };
-      this.$dialog.confirm(message).then(function (dialog) {
-        _this.$store.commit('ui/START_LOADING');
-
-        _this.$store.dispatch('datatable/DESTROY', {
-          row: row,
-          vm: _this
+      this.$dialog.confirm().then(function (dialog) {
+        _this.$store.dispatch('datatable/DESTROY', id).then(function () {
+          return _this.$notify({
+            type: 'success',
+            text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been deleted'
+          });
         }).then(function () {
           return _this.$store.dispatch('datatable/FETCH_DATA');
-        }).then(function () {
+        })["catch"](function (error) {
+          return _this.$notify({
+            type: 'error',
+            text: "<i class=\"fa fa-warning\" aria-hidden=\"true\"></i> &nbsp ".concat(error.response.data.message, " ")
+          });
+        })["finally"](function () {
           return _this.$store.commit('ui/STOP_LOADING');
         });
-      })["catch"](function () {//
+      })["catch"](function (e) {
+        return null;
       });
     }
   }
@@ -3040,7 +3042,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("datatable", {
     columns: 'GET_COLUMNS',
-    editingRow: 'GET_ADDING_ROW'
+    addingRow: 'GET_ADDING_ROW'
   }), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("ui", {
     dialog: 'GET_ADD_DIALOG'
   })),
@@ -3054,19 +3056,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("ui", {
     close: 'CLOSE_ADD_DIALOG',
     open: 'OPEN_ADD_DIALOG'
-  }), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("datatable", {
-    update: 'UPDATE'
   }), {
     add: function add() {
       var _this = this;
 
       this.$store.commit('ui/START_LOADING');
-      this.$store.dispatch('datatable/UPDATE', {
-        vm: this
+      this.$store.dispatch('datatable/ADD').then(function () {
+        return _this.$notify({
+          type: 'success',
+          text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been added'
+        });
       }).then(function () {
-        var errors = _this.$store.getters['datatable/GET_ERRORS'];
-        if (!errors) _this.$store.dispatch('datatable/FETCH_DATA');
-      }).then(function () {
+        return _this.$store.dispatch('datatable/FETCH_DATA');
+      })["catch"](function (error) {
+        return _this.$notify({
+          type: 'error',
+          text: "<i class=\"fa fa-warning\" aria-hidden=\"true\"></i> &nbsp ".concat(error.response.data.message, " ")
+        });
+      })["finally"](function () {
         return _this.$store.commit('ui/STOP_LOADING');
       });
     }
@@ -3208,20 +3215,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("ui", {
     close: 'CLOSE_UPDATE_DIALOG'
-  }), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("datatable", {
-    update: 'UPDATE'
   }), {
     update: function update() {
       var _this = this;
 
       this.$store.commit('ui/START_LOADING');
-      this.$store.dispatch('datatable/UPDATE', {
-        vm: this
+      this.$store.dispatch('datatable/UPDATE').then(function () {
+        return _this.$notify({
+          type: 'success',
+          text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'
+        });
       }).then(function () {
-        var errors = _this.$store.getters['datatable/GET_IF_THERE_ARE_ERRORS'];
-        console.log(errors);
-        if (!errors) _this.$store.dispatch('datatable/FETCH_DATA');
-      }).then(function () {
+        return _this.$store.dispatch('datatable/FETCH_DATA');
+      })["catch"](function (error) {
+        return _this.$notify({
+          type: 'error',
+          text: "<i class=\"fa fa-warning\" aria-hidden=\"true\"></i> &nbsp ".concat(error.response.data.message, " ")
+        });
+      })["finally"](function () {
         return _this.$store.commit('ui/STOP_LOADING');
       });
     }
@@ -3298,11 +3309,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       this.$store.commit('ui/START_LOADING');
-      this.$store.dispatch('datatable/UPDATE_MULTIPLE', {
-        vm: this
+      this.$store.dispatch('datatable/UPDATE_MULTIPLE').then(function () {
+        return _this.$notify({
+          type: 'success',
+          text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Items has been updated'
+        });
       }).then(function () {
         return _this.$store.dispatch('datatable/FETCH_DATA');
-      }).then(function () {
+      })["catch"](function (error) {
+        return _this.$notify({
+          type: 'error',
+          text: "<i class=\"fa fa-warning\" aria-hidden=\"true\"></i> &nbsp ".concat(error.response.data.message, " ")
+        });
+      })["finally"](function () {
         return _this.$store.commit('ui/STOP_LOADING');
       });
     }
@@ -53694,7 +53713,7 @@ var render = function() {
           attrs: { flat: "", fab: "", dark: "", small: "", color: "red" },
           on: {
             click: function($event) {
-              return _vm.destroy(_vm.data)
+              return _vm.destroy(_vm.data.id)
             }
           }
         },
@@ -54534,7 +54553,7 @@ var render = function() {
                       on: {
                         submit: function($event) {
                           $event.preventDefault()
-                          return _vm.update($event)
+                          return _vm.add($event)
                         }
                       }
                     },
@@ -54558,15 +54577,11 @@ var render = function() {
                                     }
                                   },
                                   model: {
-                                    value: _vm.editingRow[column.title],
+                                    value: _vm.addingRow[column.title],
                                     callback: function($$v) {
-                                      _vm.$set(
-                                        _vm.editingRow,
-                                        column.title,
-                                        $$v
-                                      )
+                                      _vm.$set(_vm.addingRow, column.title, $$v)
                                     },
-                                    expression: "editingRow[column.title]"
+                                    expression: "addingRow[column.title]"
                                   }
                                 })
                               : _vm._e(),
@@ -101625,18 +101640,37 @@ __webpack_require__.r(__webpack_exports__);
     context.commit('SET_PER_PAGE', perPage);
     context.dispatch('FETCH_DATA');
   },
-  UPDATE: function UPDATE(context, vm) {
-    return context.commit('UPDATE', vm);
+  ADD: function ADD(context) {
+    return new Promise(function (resolve, reject) {
+      return context.commit('ADD', {
+        resolve: resolve,
+        reject: reject
+      });
+    });
   },
-  UPDATE_MULTIPLE: function UPDATE_MULTIPLE(context, vm) {
-    return context.commit('UPDATE_MULTIPLE', vm);
+  UPDATE: function UPDATE(context) {
+    return new Promise(function (resolve, reject) {
+      return context.commit('UPDATE', {
+        resolve: resolve,
+        reject: reject
+      });
+    });
   },
-  DESTROY: function DESTROY(context, _ref) {
-    var row = _ref.row,
-        vm = _ref.vm;
-    return context.commit('DESTROY', {
-      row: row,
-      vm: vm
+  UPDATE_MULTIPLE: function UPDATE_MULTIPLE(context) {
+    return new Promise(function (resolve, reject) {
+      return context.commit('UPDATE_MULTIPLE', {
+        resolve: resolve,
+        reject: reject
+      });
+    });
+  },
+  DESTROY: function DESTROY(context, id) {
+    return new Promise(function (resolve, reject) {
+      return context.commit('DESTROY', {
+        resolve: resolve,
+        reject: reject,
+        id: id
+      });
     });
   }
 });
@@ -101760,8 +101794,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     };
   },
-  GET_IF_THERE_ARE_ERRORS: function GET_IF_THERE_ARE_ERRORS(state) {
-    return Object.values(state.errors).filter(function (item) {
+  CHECK_IF_THERE_ARE_ERRORS: function CHECK_IF_THERE_ARE_ERRORS(state) {
+    console.log(state.errors);
+    Object.values(state.errors).filter(function (item) {
       return item != '';
     }).length;
   }
@@ -101904,53 +101939,51 @@ __webpack_require__.r(__webpack_exports__);
       state.loading = false;
     });
   }, 500),
-  UPDATE: function UPDATE(state, _ref3) {
-    var vm = _ref3.vm;
-    axios.put(state.resourceURL + '/' + state.editingRow.id, {
+  ADD: function ADD(state, _ref3) {
+    var resolve = _ref3.resolve,
+        reject = _ref3.reject;
+    axios.post("".concat(state.resourceURL), {
+      row: JSON.stringify(state.addingRow)
+    }).then(function (response) {
+      return resolve(response);
+    })["catch"](function (error) {
+      state.errors = error.response.data.errors;
+      reject(error);
+    });
+  },
+  UPDATE: function UPDATE(state, _ref4) {
+    var resolve = _ref4.resolve,
+        reject = _ref4.reject;
+    axios.put("".concat(state.resourceURL, "/").concat(state.editingRow.id), {
       row: JSON.stringify(state.editingRow)
     }).then(function (response) {
-      vm.$notify({
-        type: 'success',
-        text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'
-      });
+      return resolve(response);
     })["catch"](function (error) {
-      if (error.response.data.errors) state.errors = error.response.data.errors;
-      vm.$notify({
-        type: 'error',
-        text: "<i class=\"fa fa-warning\" aria-hidden=\"true\"></i> &nbsp ".concat(error.response.data.message, " ")
-      });
+      state.errors = error.response.data.errors;
+      reject(error);
     });
   },
-  DESTROY: function DESTROY(state, _ref4) {
-    var row = _ref4.row,
-        vm = _ref4.vm;
-    axios["delete"](state.resourceURL + "/" + row.id).then(function (response) {
-      return vm.$notify({
-        type: 'success',
-        text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been deleted'
-      });
+  DESTROY: function DESTROY(state, _ref5) {
+    var resolve = _ref5.resolve,
+        reject = _ref5.reject,
+        id = _ref5.id;
+    axios["delete"]("".concat(state.resourceURL, "/").concat(id)).then(function (response) {
+      return resolve(response);
     })["catch"](function (error) {
-      return vm.$notify({
-        type: 'error',
-        text: "<i class=\"fa fa-warning\" aria-hidden=\"true\"></i> &nbsp ".concat(error.response.data.message, " ")
-      });
+      return reject(error);
     });
   },
-  UPDATE_MULTIPLE: function UPDATE_MULTIPLE(state, _ref5) {
-    var vm = _ref5.vm;
+  UPDATE_MULTIPLE: function UPDATE_MULTIPLE(state, _ref6) {
+    var resolve = _ref6.resolve,
+        reject = _ref6.reject;
     axios.post(state.resourceURL + '/update-many', {
       selected: JSON.stringify(state.selected),
       row: JSON.stringify(state.editingMultipleRow)
     }).then(function (response) {
-      vm.$notify({
-        type: 'success',
-        text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Items have been updated'
-      });
+      return resolve(response);
     })["catch"](function (error) {
-      vm.$notify({
-        type: 'error',
-        text: "<i class=\"fa fa-warning\" aria-hidden=\"true\"></i> &nbsp ".concat(error.response.data.message, " ")
-      });
+      state.errors = error.response.data.errors;
+      reject(error);
     });
   }
 });

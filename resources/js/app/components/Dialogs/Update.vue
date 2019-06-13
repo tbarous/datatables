@@ -58,19 +58,13 @@
             ...mapMutations("ui", {
                 close: 'CLOSE_UPDATE_DIALOG',
             }),
-            ...mapActions("datatable", {
-                update: 'UPDATE',
-            }),
             update(){
                 this.$store.commit('ui/START_LOADING')
-                this.$store.dispatch('datatable/UPDATE', {vm: this})
-                    .then(() => {
-                        const errors = this.$store.getters['datatable/GET_IF_THERE_ARE_ERRORS']
-                        console.log(errors)
-                        if(!errors) 
-                            this.$store.dispatch('datatable/FETCH_DATA')
-                    })
-                    .then(() => this.$store.commit('ui/STOP_LOADING'))
+                this.$store.dispatch('datatable/UPDATE')
+                    .then(() => this.$notify({type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'}))
+                    .then(() => this.$store.dispatch('datatable/FETCH_DATA'))
+                    .catch(error => this.$notify({type: 'error', text: `<i class="fa fa-warning" aria-hidden="true"></i> &nbsp ${error.response.data.message} `}))
+                    .finally(() => this.$store.commit('ui/STOP_LOADING'))
             }
         },
 	}

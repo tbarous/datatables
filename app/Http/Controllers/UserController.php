@@ -49,7 +49,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = json_decode($request->row);
+        $user = new User();
+        $user->username = $data->username;
+        // $user->email = $request->email;
+        $user->save();
     }
 
     /**

@@ -56,9 +56,11 @@
             }),
             update(){
                 this.$store.commit('ui/START_LOADING')
-                this.$store.dispatch('datatable/UPDATE_MULTIPLE', {vm: this})
+                this.$store.dispatch('datatable/UPDATE_MULTIPLE')
+                    .then(() => this.$notify({type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Items has been updated'}))
                     .then(() => this.$store.dispatch('datatable/FETCH_DATA'))
-                    .then(() => this.$store.commit('ui/STOP_LOADING'))
+                    .catch(error => this.$notify({type: 'error', text: `<i class="fa fa-warning" aria-hidden="true"></i> &nbsp ${error.response.data.message} `}))
+                    .finally(() => this.$store.commit('ui/STOP_LOADING'))
             }
         }
 	}
