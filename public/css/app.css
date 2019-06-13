@@ -528,11 +528,6 @@ td {
 table {
   table-layout: fixed;
 }
-.wrapper {
-  height: 600px;
-  overflow-x: scroll;
-  overflow-y: scroll;
-}
 .items-show {
   color: #fff;
 }

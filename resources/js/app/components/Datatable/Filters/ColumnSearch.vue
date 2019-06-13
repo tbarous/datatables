@@ -4,7 +4,7 @@
             <v-checkbox class="mt-0 toggleAll" @click.self="toggleAll" :value="selectAll"></v-checkbox>
         </th>
         <th v-if="column.active" v-for="column in columns" :key="column.title">
-            <input
+            <v-text-field
                 class="form-control filter-input"
                 clearable 
                 @input="fetchData" 
@@ -17,7 +17,7 @@
                 :readonly="column.type == 'date'"
                 :class="{'dateinput': column.type == 'date'}"
             >
-            </input>
+            </v-text-field>
         </th>
         <th></th>
     </tr>

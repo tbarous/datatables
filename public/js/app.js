@@ -3814,19 +3814,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
     this.setDatatable('pages');
-  },
-  computed: {
-    pages: {
-      get: function get() {
-        return this.$store.getters['pages/GET_PAGES'];
-      },
-      set: function set(pages) {
-        this.$store.commit('pages/SET_PAGES', pages);
-      }
-    }
   }
 });
 
@@ -53781,42 +53772,35 @@ var render = function() {
       _vm._v(" "),
       _vm._l(_vm.columns, function(column) {
         return column.active
-          ? _c("th", { key: column.title }, [
-              column.filterable
-                ? _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
+          ? _c(
+              "th",
+              { key: column.title },
+              [
+                column.filterable
+                  ? _c("v-text-field", {
+                      staticClass: "form-control filter-input",
+                      class: { dateinput: column.type == "date" },
+                      attrs: {
+                        clearable: "",
+                        name: column.type,
+                        solo: "",
+                        autocomplete: "off",
+                        id: column.title,
+                        readonly: column.type == "date"
+                      },
+                      on: { input: _vm.fetchData },
+                      model: {
                         value: column.query,
+                        callback: function($$v) {
+                          _vm.$set(column, "query", $$v)
+                        },
                         expression: "column.query"
                       }
-                    ],
-                    staticClass: "form-control filter-input",
-                    class: { dateinput: column.type == "date" },
-                    attrs: {
-                      clearable: "",
-                      name: column.type,
-                      solo: "",
-                      autocomplete: "off",
-                      id: column.title,
-                      readonly: column.type == "date"
-                    },
-                    domProps: { value: column.query },
-                    on: {
-                      input: [
-                        function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(column, "query", $event.target.value)
-                        },
-                        _vm.fetchData
-                      ]
-                    }
-                  })
-                : _vm._e()
-            ])
+                    })
+                  : _vm._e()
+              ],
+              1
+            )
           : _vm._e()
       }),
       _vm._v(" "),
@@ -54246,25 +54230,21 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "wrapper ds", staticStyle: { overflow: "auto!important" } },
-    [
-      _c(
-        "table",
-        {
-          directives: [{ name: "scroll", rawName: "v-scroll" }],
-          staticClass: "m-0 pt-0 table table-bordered elevation-3",
-          attrs: { id: "table", "data-tableName": "Test Table 2" }
-        },
-        [
-          _c("thead", [_c("headers"), _vm._v(" "), _c("column-search")], 1),
-          _vm._v(" "),
-          _c("tbody", [_c("no-data"), _vm._v(" "), _c("table-body")], 1)
-        ]
-      )
-    ]
-  )
+  return _c("div", { staticClass: "wrapper ds" }, [
+    _c(
+      "table",
+      {
+        directives: [{ name: "scroll", rawName: "v-scroll" }],
+        staticClass: "m-0 pt-0 table table-bordered elevation-3",
+        attrs: { id: "table", "data-tableName": "Test Table 2" }
+      },
+      [
+        _c("thead", [_c("headers"), _vm._v(" "), _c("column-search")], 1),
+        _vm._v(" "),
+        _c("tbody", [_c("no-data"), _vm._v(" "), _c("table-body")], 1)
+      ]
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -55648,7 +55628,9 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("excel"),
+      _c("file", { attrs: { title: "File", url: "/storage/invoices.xlsx" } }),
+      _vm._v(" "),
+      _c("excel", { attrs: { title: "Excel", url: "/storage/invoices.xlsx" } }),
       _vm._v(" "),
       _c("PDF"),
       _vm._v(" "),
@@ -101941,6 +101923,9 @@ __webpack_require__.r(__webpack_exports__);
     if (reset) state.currentPage = 1;
     state.generalSearch = state.generalSearch == null ? '' : state.generalSearch;
     state.dataFetchUrl = "/".concat(state.resourceURL, "?page=").concat(state.currentPage, "&column=").concat(state.sortedColumn, "&order=").concat(state.order, "&per_page=").concat(state.perPage, "&search=").concat(state.generalSearch);
+    state.columns.forEach(function (item) {
+      return item.query == null ? item.query = '' : item.query;
+    });
   },
   // API
   FETCH_DATA: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (state) {

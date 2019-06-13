@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper ds" style="overflow: auto!important">
+    <div class="wrapper ds">
         <table id="table" class="m-0 pt-0 table table-bordered elevation-3" data-tableName="Test Table 2" v-scroll>
             <thead>
                 <headers></headers>

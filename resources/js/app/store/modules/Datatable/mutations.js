@@ -55,6 +55,7 @@ export default {
         if (reset) state.currentPage = 1
         state.generalSearch = state.generalSearch == null ? '' : state.generalSearch
         state.dataFetchUrl = `/${state.resourceURL}?page=${state.currentPage}&column=${state.sortedColumn}&order=${state.order}&per_page=${state.perPage}&search=${state.generalSearch}`
+        state.columns.forEach(item => item.query == null ? item.query = '' : item.query)
     },
 
     // API
