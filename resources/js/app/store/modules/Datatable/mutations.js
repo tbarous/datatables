@@ -16,7 +16,7 @@ export default {
     SET_PICKER: (state, payload) => {},
     EMPTY_QUERY: (state, title) => state.queries[title] = '',
     RESET_STATE: (state) => Object.assign(state, InitialState.getState()),
-
+    SET_ADDING_ROW: (state, row) => state.addingRow = row,
 
 
     SET_DATATABLE: (state, {resourceURL, columns, filters}) => {
@@ -66,6 +66,9 @@ export default {
     //     state.activeColumns = {}
     //     state.activeColumns = obj
     // },
+    
+
+    // API
     FETCH_DATA: _.debounce((state) => {
         state.columns.forEach(item => state.dataFetchUrl += '&' + item.title + '=' + item.query)
         axios.get(state.dataFetchUrl)
@@ -89,13 +92,9 @@ export default {
         })
     },
     DESTROY(state, {row, vm}){
-        axios.post(state.resourceURL + '/destroy', {
-            id: row.id
-        }).then(response => {
-            vm.$notify({type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been deleted'})
-        }).catch(error => {
-            vm.$notify({type: 'error', text: `<i class="fa fa-warning" aria-hidden="true"></i> &nbsp ${error.response.data.message} `})
-        })
+        axios.delete(state.resourceURL + "/" + row.id)
+             .then(response => vm.$notify({type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been deleted'}))
+             .catch(error => vm.$notify({type: 'error', text: `<i class="fa fa-warning" aria-hidden="true"></i> &nbsp ${error.response.data.message} `}))
     },
     UPDATE_MULTIPLE(state, {vm}) {
         let row = state.editingMultipleRow

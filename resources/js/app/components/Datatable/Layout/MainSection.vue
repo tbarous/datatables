@@ -1,6 +1,7 @@
 <template>
     <div>
         <per-page></per-page>
+        <hr>
         <data-details></data-details>
         <v-divider></v-divider>
         <tools></tools>
@@ -23,16 +24,14 @@ import Search from './../Filters/Search'
 import TableSection from './TableSection'
 import SelectFilters from './../Filters/SelectFilters'
 
+import DoubleScrollMixin from './../../../mixins/DoubleScrollMixin'
+import FloatHeadersMixin from './../../../mixins/FloatHeadersMixin'
+
 export default {
+    mixins: [DoubleScrollMixin],
     created() {
         this.$store.dispatch('datatable/FETCH_DATA')
     },
-
-    mounted(){
-        // var $table = $('table');
-        // $table.floatThead();
-    },
-
     components: {
         TableLoader,
         Navigation,

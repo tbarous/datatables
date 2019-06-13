@@ -20,8 +20,15 @@
 <script>
 	import Subgroup from './Subgroup'
 	export default {
-		name: 'Subgroup',
-		components: { Subgroup },
-		props: ['pages']
+		props: {
+			pages: {
+				type: Array,
+				required: true
+			}
+		},
+		components: { 
+			Subgroup 
+		},
+		name: 'Subgroup'
 	}
 </script>

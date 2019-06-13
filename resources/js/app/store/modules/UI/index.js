@@ -6,6 +6,7 @@ const state = {
     loading: false,
     top: false,
     drawer: true,
+    addDialog: false,
     viewDialog: false,
     updateDialog: false,
     updateMultipleDialog: false,

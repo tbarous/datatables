@@ -32,9 +32,9 @@
             }
         },
         methods: {
-            ...mapActions("datatable", {
-                fetchData: 'FETCH_DATA'
-            })
+            fetchData() {
+                this.$store.dispatch('datatable/FETCH_DATA', true)
+            }
         }
 	}
 </script>

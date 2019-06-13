@@ -31,9 +31,16 @@ import { mapGetters } from 'vuex'
 
 export default {
     computed: {
-      ...mapGetters("pages", {pages: 'GET_MENU'}),
-      ...mapGetters("ui", {drawer: 'GET_DRAWER'})
+        ...mapGetters("pages", {
+            pages: 'GET_MENU'
+        }),
+        ...mapGetters("ui", {
+            drawer: 'GET_DRAWER'
+        })
     },
-    components: { Subgroup, Toolbar }
+    components: { 
+        Subgroup, 
+        Toolbar 
+    }
 }
 </script>

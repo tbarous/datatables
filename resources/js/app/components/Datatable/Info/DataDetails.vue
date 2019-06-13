@@ -1,8 +1,9 @@
 <template>
 	<div>
-        <br>
         <div v-if="!loading" style="height: 80px">
-            <p class="text-dark">Last Update @ {{pagination.meta.last_update}}</p>
+            <p class="text-dark">
+                Last Update @ {{pagination.meta.last_update}}
+            </p>
             <p class="text-dark">
                  <i class="text-dark">Displaying {{getItemsCount}}</i>
             </p>

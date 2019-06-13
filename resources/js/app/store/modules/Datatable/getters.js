@@ -23,7 +23,7 @@ export default {
     GET_SMALL_COLUMN_WIDTH: (state) => state.smallColumnWidth,
     GET_FILTERS: (state) => state.filters,
     GET_SERIAL_NUMBER: (state) => (key) => (state.currentPage - 1) * state.perPage + 1 + key,
-    
+    GET_ADDING_ROW: (state) => state.addingRow,
     IN_SELECTED: (state) => (item) => state.selected.includes(item.id),    
 
     GET_ITEMS_COUNT: (state) => {

@@ -1,6 +1,8 @@
 <template>
 	<tr v-if="noData">
-        <td class="p-3" :colspan="columns.length + 2">No data was found</td>
+        <td class="p-3" :colspan="columns.length + 2">
+        	No data was found
+        </td>
     </tr>
 </template>
 

@@ -64,7 +64,10 @@
             update(){
                 this.$store.commit('ui/START_LOADING')
                 this.$store.dispatch('datatable/UPDATE', {vm: this})
-                    .then(() => this.$store.dispatch('datatable/FETCH_DATA'))
+                    .then(() => {
+                        const errors = this.$store.getters['datatable/GET_ERRORS']
+                        if(!errors) this.$store.dispatch('datatable/FETCH_DATA')
+                    })
                     .then(() => this.$store.commit('ui/STOP_LOADING'))
             }
         },

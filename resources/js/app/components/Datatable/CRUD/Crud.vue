@@ -18,7 +18,6 @@
 				required: true
 			}
 		},
-
 		methods: {
 			setEditingRow(editingRow){
                 this.$store.commit('datatable/SET_EDITING_ROW', editingRow)
@@ -30,9 +29,11 @@
                     .then(dialog => {
                         this.$store.commit('ui/START_LOADING')
                         this.$store.dispatch('datatable/DESTROY', {row:row, vm: this})
-                        .then(() => this.$store.dispatch('datatable/FETCH_DATA'))
-                        .then(() => this.$store.commit('ui/STOP_LOADING'))
-                    }).catch(function() {});
+	                        .then(() => this.$store.dispatch('datatable/FETCH_DATA'))
+	                        .then(() => this.$store.commit('ui/STOP_LOADING'))
+                    }).catch(function() {
+                    	//
+                    });
             }
 		}
 	}

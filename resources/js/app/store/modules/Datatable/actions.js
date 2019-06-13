@@ -15,6 +15,7 @@ export default {
         context.dispatch('FETCH_DATA')
     },
     CHANGE_PAGE: (context, page) => {
+        context.commit('START_LOADING')
         context.commit('CHANGE_PAGE', page)
         context.dispatch('FETCH_DATA')
     },
@@ -25,6 +26,6 @@ export default {
     },
     UPDATE: (context, vm) => context.commit('UPDATE', vm),
     UPDATE_MULTIPLE: (context, vm) => context.commit('UPDATE_MULTIPLE', vm),
-    DESTROY: (context, {row, vm}) => context.commit('DESTROY', {row,vm}),
 
+    DESTROY: (context, {row, vm}) => context.commit('DESTROY', {row,vm}),
 }

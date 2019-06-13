@@ -1,6 +1,6 @@
 <template>
 	<tr class="bg-dark">
-        <th :width="smallColumnWidth">
+        <th>
             <v-checkbox class="mt-0 toggleAll" @click.self="toggleAll" :value="selectAll"></v-checkbox>
         </th>
         <th v-if="column.active" v-for="column in columns" :key="column.title">
@@ -33,17 +33,7 @@
             ...mapGetters("datatable", {
                 selectAll: 'GET_SELECT_ALL',
                 columns: 'GET_COLUMNS',
-                activeColumns: 'GET_ACTIVE_COLUMNS',
-                smallColumnWidth: 'GET_SMALL_COLUMN_WIDTH'
             }),
-            queries: {
-                get(){
-                    return this.$store.getters['datatable/GET_QUERIES']
-                },
-                set(queries){
-                    this.$store.commit('datatable/SET_QUERIES', queries)
-                }
-            }
         },
         mounted(){
             $('input[name="date"]').daterangepicker(this.$store.getters['datatable/GET_OPTIONS'])

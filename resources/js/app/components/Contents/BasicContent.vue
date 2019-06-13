@@ -2,7 +2,7 @@
 	<v-content>
         <v-container fluid pt-0>
             <h3>{{$route.name}}</h3>
-            <v-divider color="white"></v-divider>
+            <v-divider></v-divider>
             <v-layout>
                 <v-flex>
                     <router-view></router-view>
@@ -13,5 +13,7 @@
 </template>
 
 <script>
-	export default {}
+	export default {
+        //
+    }
 </script>

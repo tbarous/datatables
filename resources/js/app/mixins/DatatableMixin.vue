@@ -1,11 +1,13 @@
 <script>
 	import Datatable from './../components/Datatable/Layout/MainSection'
+	import Add from './../components/Dialogs/Add'
 	import Update from './../components/Dialogs/Update'
 	import UpdateMultiple from './../components/Dialogs/UpdateMultiple'
 	import Excel from './../components/Datatable/Actions/Excel'
 	import PDF from './../components/Datatable/Actions/PDF'
 	import Copy from './../components/Datatable/Actions/Copy'
 	import Columns from './../components/Dialogs/Columns'
+	import File from './../components/Datatable/Actions/File'
 
 	export default {
 		name: 'DatatableMixin',
@@ -16,7 +18,9 @@
 	        Copy, 
 	        Update, 
 	        UpdateMultiple, 
-	        Columns
+	        Columns,
+	        File,
+	        Add
 	    },
 
 	    methods: {

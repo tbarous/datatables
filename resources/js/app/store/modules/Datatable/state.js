@@ -26,13 +26,14 @@ export function getState(){
         selectAll: false,
         generalSearch: '',
         tableData: [],
-        queries: {},
-        activeColumns: {},
+        // queries: {},
+        // activeColumns: {},
         selected: [],
-        selectBoxes: {},
+        // selectBoxes: {},
         editingRow: {},
         editingMultipleRow: {},
         errors: {},
-        filters: []
+        filters: [],
+        addingRow: {}
     }
 } 

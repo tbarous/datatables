@@ -1,10 +1,10 @@
 <template>
     <div class="table-body">
-        <tr v-for="(item, index) in data" :key="item.id" v-if="!noData">
+        <tr v-for="(item, index) in data" :key="index" v-if="!noData">
             <td>
                 <v-checkbox :value="selected(item)" @change="select(item)"></v-checkbox>
             </td>
-            <td v-if="column.active" v-for="(column, key) in columns">
+            <td v-if="column.active" v-for="(column, key) in columns" :key="key">
                 {{item[column.title]}}
             </td>
             <td>
@@ -15,7 +15,6 @@
 </template>
 
 <script>
-    import _ from 'lodash'
     import { mapGetters } from 'vuex'
     import Crud from './../CRUD/Crud'
 
@@ -27,9 +26,6 @@
             ...mapGetters("datatable", {
                 data: 'GET_TABLE_DATA',
                 noData: 'NO_DATA',
-                selectBoxes: 'GET_SELECT_BOXES',
-                activeColumns: 'GET_ACTIVE_COLUMNS',
-                smallColumnWidth: 'GET_SMALL_COLUMN_WIDTH',
                 columns: 'GET_COLUMNS'
             }),
             options() {
@@ -40,9 +36,6 @@
         methods: {
             select(item) {
                 this.$store.commit('datatable/SELECT', item)
-            },
-            getValue(data, value){
-                return _.get(data, value)
             },
             selected(item){
                 return this.$store.getters['datatable/IN_SELECTED'](item)

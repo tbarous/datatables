@@ -18,15 +18,13 @@
 	import ColumnSearch from './../Filters/ColumnSearch'
 	import NoData from './../Info/NoData'
 	import TableBody from './TableBody'
-    import DoubleScroll from './../Utilities/DoubleScroll'
 	
 	export default {
 		components: { 
             Headers, 
             ColumnSearch, 
             NoData, 
-            TableBody,
-            DoubleScroll
+            TableBody
         }
 	}
 </script>
