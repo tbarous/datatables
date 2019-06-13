@@ -1,6 +1,5 @@
 <template>
-	<!-- double-scroll -->
-	<div class="wrapper" style="overflow: auto!important">
+    <div class="wrapper ds" style="overflow: auto!important">
         <table id="table" class="m-0 pt-0 table table-bordered elevation-3" data-tableName="Test Table 2" v-scroll>
             <thead>
                 <headers></headers>
@@ -19,13 +18,15 @@
 	import ColumnSearch from './../Filters/ColumnSearch'
 	import NoData from './../Info/NoData'
 	import TableBody from './TableBody'
+    import DoubleScroll from './../Utilities/DoubleScroll'
 	
 	export default {
 		components: { 
             Headers, 
             ColumnSearch, 
             NoData, 
-            TableBody 
+            TableBody,
+            DoubleScroll
         }
 	}
 </script>

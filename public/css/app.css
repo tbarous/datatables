@@ -582,6 +582,9 @@ table {
   background: #fff;
   height: 50px;
 }
+.table-body {
+  display: contents;
+}
 .application {
   font-family: 'Nunito' !important;
 }

@@ -24,6 +24,7 @@ export default {
     GET_FILTERS: (state) => state.filters,
     GET_SERIAL_NUMBER: (state) => (key) => (state.currentPage - 1) * state.perPage + 1 + key,
     
+    IN_SELECTED: (state) => (item) => state.selected.includes(item.id),    
 
     GET_ITEMS_COUNT: (state) => {
         const of = `of ${state.pagination.meta.total} entries`

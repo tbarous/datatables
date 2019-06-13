@@ -16,6 +16,9 @@ export default {
     SET_PICKER: (state, payload) => {},
     EMPTY_QUERY: (state, title) => state.queries[title] = '',
     RESET_STATE: (state) => Object.assign(state, InitialState.getState()),
+
+
+
     SET_DATATABLE: (state, {resourceURL, columns, filters}) => {
         state.resourceURL = resourceURL
         state.columns = columns 
@@ -46,7 +49,7 @@ export default {
     SELECT(state, item){
         const itemIncluded = state.selected.includes(item.id)
         !itemIncluded ? state.selected.push(item.id) : state.selected.splice(state.selected.indexOf(item.id), 1)
-        state.selectBoxes[item.id] = !Boolean(itemIncluded)
+        // state.selectBoxes[item.id] = !Boolean(itemIncluded)
     },
     CLEAR_FILTERS: state => {
         state.columns.forEach(item => item.query = '')

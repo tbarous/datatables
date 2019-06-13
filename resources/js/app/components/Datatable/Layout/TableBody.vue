@@ -1,20 +1,14 @@
 <template>
-    <div style="display: contents;">
-        <tr v-for="(data, datakey) in tableData" :key="data.id" v-if="!noData">
+    <div class="table-body">
+        <tr v-for="(item, index) in data" :key="item.id" v-if="!noData">
             <td>
-                <v-checkbox v-model="selectBoxes[data.id]" @change="select(data)"></v-checkbox>
+                <v-checkbox :value="selected(item)" @change="select(item)"></v-checkbox>
             </td>
-            <td v-for="(value, key) in Object.keys(data).slice(1)">
-                <!-- {{columns[columns.findIndex(x => x.name == value)].active}} -->
-                {{getValue(data, value)}}
+            <td v-if="column.active" v-for="(column, key) in columns">
+                {{item[column.title]}}
             </td>
-            <td style="white-space: nowrap">
-                <v-btn flat fab dark small color="info" @click="setEditingRow(data)">
-                    <v-icon dark>edit</v-icon>
-                </v-btn>
-                <v-btn flat fab dark small color="red" @click="destroy(data)">
-                    <v-icon dark>delete</v-icon>
-                </v-btn>
+            <td>
+                <crud :data="item"></crud>
             </td>
         </tr>
     </div>
@@ -23,11 +17,15 @@
 <script>
     import _ from 'lodash'
     import { mapGetters } from 'vuex'
+    import Crud from './../CRUD/Crud'
 
     export default {
+        components: {
+            Crud
+        },
         computed: {
             ...mapGetters("datatable", {
-                tableData: 'GET_TABLE_DATA',
+                data: 'GET_TABLE_DATA',
                 noData: 'NO_DATA',
                 selectBoxes: 'GET_SELECT_BOXES',
                 activeColumns: 'GET_ACTIVE_COLUMNS',
@@ -38,37 +36,16 @@
                 return this.$store.getters['daterangepicker/GET_OPTIONS']
             },
         },
-        
-        mounted(){
-            $('.double-scroll').doubleScroll()
-        },
 
         methods: {
             select(item) {
                 this.$store.commit('datatable/SELECT', item)
             },
-            serial(datakey) {
-                return 1 // return this.$store.state.getters['datatable/getSerialNumber'](datakey)
-            },
             getValue(data, value){
                 return _.get(data, value)
             },
-            setEditingRow(editingRow){
-                this.$store.commit('datatable/SET_EDITING_ROW', editingRow)
-                this.$store.commit('ui/OPEN_UPDATE_DIALOG')
-            },
-            destroy(row){
-                let message = {title: 'Are you sure?', body: 'You are about to delete ' + row.username};
-                this.$dialog.confirm(message)
-                    .then(dialog => {
-                        this.$store.commit('ui/START_LOADING')
-                        this.$store.dispatch('datatable/DESTROY', {row:row, vm: this})
-                        .then(() => this.$store.dispatch('datatable/FETCH_DATA'))
-                        .then(() => this.$store.commit('ui/STOP_LOADING'))
-                    })
-                    .catch(function() {
-                        //
-                    });
+            selected(item){
+                return this.$store.getters['datatable/IN_SELECTED'](item)
             }
         }
     }
