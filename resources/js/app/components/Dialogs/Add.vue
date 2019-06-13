@@ -25,10 +25,7 @@
                                 v-model="addingRow[column.title]" 
                                 @input="clearError(column.title)">
                             </v-text-field>
-
-                            <p class="text-danger mt-3" v-for="error in findError(column.title)">
-                                {{error}}
-                            </p>
+                            <errors :item="column.title"></errors>
                         </div>
                        
                         <v-btn class="ml-0 w-100" color="primary" type="submit">edit</v-btn>
@@ -71,12 +68,13 @@
             }),
             add(){
                 this.$store.commit('ui/START_LOADING')
+                this.$store.dispatch('datatable/MAKE_FORM')
                 this.$store.dispatch('datatable/ADD')
                     .then(() => this.$notify({type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been added'}))
                     .then(() => this.$store.dispatch('datatable/FETCH_DATA'))
                     .catch(error => this.$notify({type: 'error', text: `<i class="fa fa-warning" aria-hidden="true"></i> &nbsp ${error.response.data.message} `}))
                     .finally(() => this.$store.commit('ui/STOP_LOADING'))
             }
-        },
+        }
     }
 </script>

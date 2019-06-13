@@ -3038,9 +3038,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 
 
@@ -3066,6 +3063,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       this.$store.commit('ui/START_LOADING');
+      this.$store.dispatch('datatable/MAKE_FORM');
       this.$store.dispatch('datatable/ADD').then(function () {
         return _this.$notify({
           type: 'success',
@@ -54585,23 +54583,9 @@ var render = function() {
                                 })
                               : _vm._e(),
                             _vm._v(" "),
-                            _vm._l(_vm.findError(column.title), function(
-                              error
-                            ) {
-                              return _c(
-                                "p",
-                                { staticClass: "text-danger mt-3" },
-                                [
-                                  _vm._v(
-                                    "\n                            " +
-                                      _vm._s(error) +
-                                      "\n                        "
-                                  )
-                                ]
-                              )
-                            })
+                            _c("errors", { attrs: { item: column.title } })
                           ],
-                          2
+                          1
                         )
                       }),
                       _vm._v(" "),
@@ -98950,7 +98934,8 @@ axios_retry__WEBPACK_IMPORTED_MODULE_2___default()(axios__WEBPACK_IMPORTED_MODUL
   baseURL: baseURL,
   timeout: 1000,
   headers: {
-    'Accept': 'application/json'
+    'Accept': 'application/json',
+    'Content-Type': 'multipart/form-data'
   }
 }));
 
@@ -101656,6 +101641,9 @@ __webpack_require__.r(__webpack_exports__);
     context.commit('SET_PER_PAGE', perPage);
     context.dispatch('FETCH_DATA');
   },
+  MAKE_FORM: function MAKE_FORM(context, obj) {
+    return context.commit('MAKE_FORM', obj);
+  },
   ADD: function ADD(context) {
     return new Promise(function (resolve, reject) {
       return context.commit('ADD', {
@@ -101705,6 +101693,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   GET_ERRORS: function GET_ERRORS(state) {
     return state.errors;
+  },
+  GET_FORM: function GET_FORM(state) {
+    return state.form;
   },
   GET_OPTIONS: function GET_OPTIONS(state) {
     return state.options;
@@ -101957,12 +101948,15 @@ __webpack_require__.r(__webpack_exports__);
       state.loading = false;
     });
   }, 500),
+  MAKE_FORM: function MAKE_FORM(state, obj) {
+    state.form = new FormData();
+    state.form.set('name', 'Tasos');
+  },
   ADD: function ADD(state, _ref3) {
     var resolve = _ref3.resolve,
         reject = _ref3.reject;
-    axios.post("".concat(state.resourceURL), {
-      row: JSON.stringify(state.addingRow)
-    }).then(function (response) {
+    console.log(state.form);
+    axios.post("/".concat(state.resourceURL), state.form).then(function (response) {
       return resolve(response);
     })["catch"](function (error) {
       state.errors = error.response.data.errors;
@@ -101972,7 +101966,7 @@ __webpack_require__.r(__webpack_exports__);
   UPDATE: function UPDATE(state, _ref4) {
     var resolve = _ref4.resolve,
         reject = _ref4.reject;
-    axios.put("".concat(state.resourceURL, "/").concat(state.editingRow.id), {
+    axios.put("/".concat(state.resourceURL, "/").concat(state.editingRow.id), {
       row: JSON.stringify(state.editingRow)
     }).then(function (response) {
       return resolve(response);
@@ -101985,7 +101979,7 @@ __webpack_require__.r(__webpack_exports__);
     var resolve = _ref5.resolve,
         reject = _ref5.reject,
         id = _ref5.id;
-    axios["delete"]("".concat(state.resourceURL, "/").concat(id)).then(function (response) {
+    axios["delete"]("/".concat(state.resourceURL, "/").concat(id)).then(function (response) {
       return resolve(response);
     })["catch"](function (error) {
       return reject(error);
@@ -102020,6 +102014,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getState", function() { return getState; });
 function getState() {
   return {
+    form: {},
     options: {
       autoUpdateInput: false,
       autoApply: true,

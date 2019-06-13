@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserUpdateRequest;
+use App\Http\Requests\UserRequest;
 use App\Http\Resources\UsersResource;
 use App\Models\User;
 use Carbon\Carbon;
@@ -47,12 +47,11 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $data = json_decode($request->row);
         $user = new User();
         $user->username = $data->username;
-        // $user->email = $request->email;
+        $user->email = $request->email;
         $user->save();
     }
 

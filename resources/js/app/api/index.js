@@ -8,7 +8,10 @@ import axiosRetry from 'axios-retry';
 axiosRetry(axios, { retries: 3 });
 
 export default axios.create({
-  baseURL,
-  timeout: 1000,
-  headers: {'Accept': 'application/json'},
+	baseURL,
+	timeout: 1000,
+	headers: {
+		'Accept': 'application/json',
+		'Content-Type': 'multipart/form-data'
+	}
 });

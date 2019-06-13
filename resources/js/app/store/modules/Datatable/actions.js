@@ -24,6 +24,7 @@ export default {
         context.commit('SET_PER_PAGE', perPage)
         context.dispatch('FETCH_DATA')
     },
+    MAKE_FORM: (context, obj) => context.commit('MAKE_FORM', obj),
     ADD: (context) => new Promise((resolve, reject) => context.commit('ADD', {resolve, reject})),
     UPDATE: (context) => new Promise((resolve, reject) => context.commit('UPDATE', {resolve, reject})),
     UPDATE_MULTIPLE: (context) => new Promise((resolve, reject) => context.commit('UPDATE_MULTIPLE', {resolve, reject})),

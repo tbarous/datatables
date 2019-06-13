@@ -1,5 +1,6 @@
 export function getState(){
   return {
+        form: {},
         options: {
             autoUpdateInput: false,
             autoApply: true,

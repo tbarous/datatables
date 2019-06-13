@@ -1,5 +1,6 @@
 export default {
     GET_ERRORS: state => state.errors,
+    GET_FORM: state => state.form,
     GET_OPTIONS: state => state.options,
     GET_LOADING: state =>  state.loading,
     GET_SELECT_ALL: state => state.selectAll,

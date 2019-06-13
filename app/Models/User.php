@@ -50,7 +50,7 @@ class User extends Authenticatable
     protected $types = ['text', 'text', 'date', 'date'];
     protected $values = ['username', 'email', 'created_at', 'updated_at'];
     protected $filterable = ['username', 'email'];
-    protected $editable = ['username'];
+    protected $editable = ['username', 'email'];
     protected $sortable = ['username'];
 
     /**

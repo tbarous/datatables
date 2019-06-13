@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\CellResource;
 use App\Models\Cell;
 use Illuminate\Http\Request;
+use App\Http\Requests\CellRequest;
 
 class CellController extends Controller
 {
@@ -38,9 +39,12 @@ class CellController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CellRequest $request)
     {
-        //
+        $cell = new Cell();
+        $cell->name = $request->name;
+        $cell->status_id = 1;
+        $cell->save();
     }
 
     /**

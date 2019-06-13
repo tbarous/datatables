@@ -71,10 +71,14 @@ export default {
             })
     }, 500),
 
+    MAKE_FORM: (state, obj) => {
+        state.form = new FormData()
+        state.form.set('name', 'Tasos')
+    },
+
     ADD: (state, {resolve, reject}) => {
-        axios.post(`${state.resourceURL}`, {
-            row: JSON.stringify(state.addingRow)
-        })
+        console.log(state.form)
+        axios.post(`/${state.resourceURL}`, state.form)
         .then(response => resolve(response))
         .catch(error => {
             state.errors = error.response.data.errors
@@ -83,7 +87,7 @@ export default {
     },
 
     UPDATE: (state, {resolve, reject}) => {
-        axios.put(`${state.resourceURL}/${state.editingRow.id}`, {
+        axios.put(`/${state.resourceURL}/${state.editingRow.id}`, {
             row: JSON.stringify(state.editingRow)
         })
         .then(response => resolve(response))
@@ -94,7 +98,7 @@ export default {
     },
 
     DESTROY: (state, {resolve, reject, id}) => {
-        axios.delete(`${state.resourceURL}/${id}`)
+        axios.delete(`/${state.resourceURL}/${id}`)
         .then(response => resolve(response))
         .catch(error => reject(error))
     },
