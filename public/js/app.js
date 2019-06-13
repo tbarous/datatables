@@ -3129,7 +3129,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3193,9 +3192,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 
 
@@ -3209,9 +3205,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: _objectSpread({
     clearError: function clearError(title) {
       this.$store.commit('datatable/CLEAR_ERROR', title);
-    },
-    findError: function findError(title) {
-      return this.$store.getters['datatable/GET_ERROR'](title);
     }
   }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("ui", {
     close: 'CLOSE_UPDATE_DIALOG'
@@ -3255,7 +3248,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
 //
 //
 //
@@ -3341,7 +3333,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    item: {
+      type: String,
+      required: true
+    }
+  },
+  methods: {
+    findError: function findError(title) {
+      return this.$store.getters['datatable/GET_ERROR'](title);
+    }
+  }
+});
 
 /***/ }),
 
@@ -54787,7 +54797,7 @@ var render = function() {
               staticClass: "headline grey lighten-2",
               attrs: { "primary-title": "" }
             },
-            [_vm._v("Edit")]
+            [_vm._v("\n                Edit\n            ")]
           ),
           _vm._v(" "),
           _c(
@@ -54833,17 +54843,9 @@ var render = function() {
                             })
                           : _vm._e(),
                         _vm._v(" "),
-                        _vm._l(_vm.findError(column.title), function(error) {
-                          return _c("p", { staticClass: "text-danger mt-3" }, [
-                            _vm._v(
-                              "\n                            " +
-                                _vm._s(error) +
-                                "\n                        "
-                            )
-                          ])
-                        })
+                        _c("errors", { attrs: { item: column.title } })
                       ],
-                      2
+                      1
                     )
                   }),
                   _vm._v(" "),
@@ -54957,28 +54959,37 @@ var render = function() {
                     },
                     [
                       _vm._l(_vm.columns, function(column, key) {
-                        return column.editable
-                          ? _c("v-text-field", {
-                              key: column.title,
-                              staticClass: "mt-3",
-                              attrs: {
-                                label: column.title,
-                                solo: "",
-                                type: "text"
-                              },
-                              model: {
-                                value: _vm.editingMultipleRow[column.title],
-                                callback: function($$v) {
-                                  _vm.$set(
-                                    _vm.editingMultipleRow,
-                                    column.title,
-                                    $$v
-                                  )
-                                },
-                                expression: "editingMultipleRow[column.title]"
-                              }
-                            })
-                          : _vm._e()
+                        return _c(
+                          "div",
+                          { key: column.title },
+                          [
+                            column.editable
+                              ? _c("v-text-field", {
+                                  staticClass: "mt-3",
+                                  attrs: {
+                                    label: column.title,
+                                    solo: "",
+                                    type: "text"
+                                  },
+                                  model: {
+                                    value: _vm.editingMultipleRow[column.title],
+                                    callback: function($$v) {
+                                      _vm.$set(
+                                        _vm.editingMultipleRow,
+                                        column.title,
+                                        $$v
+                                      )
+                                    },
+                                    expression:
+                                      "editingMultipleRow[column.title]"
+                                  }
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c("errors", { attrs: { item: column.title } })
+                          ],
+                          1
+                        )
                       }),
                       _vm._v(" "),
                       _c(
@@ -54992,8 +55003,6 @@ var render = function() {
                     ],
                     2
                   ),
-                  _vm._v(" "),
-                  _c("errors"),
                   _vm._v(" "),
                   _c(
                     "v-btn",
@@ -55044,7 +55053,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c(
+    "div",
+    _vm._l(_vm.findError(_vm.item), function(error) {
+      return _c("p", { staticClass: "text-danger mt-3" }, [
+        _vm._v("\n        " + _vm._s(error) + "\n    ")
+      ])
+    }),
+    0
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

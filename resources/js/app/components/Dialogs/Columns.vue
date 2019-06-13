@@ -21,7 +21,6 @@
                         :label="column.title | columnLow"
                         color="black">
                     </v-checkbox>
-                    <!-- @change="changeActiveColumns" -->
 
                     <v-btn @click="close" class="close-window" flat icon>
                         <v-icon small>fa fa-times</v-icon>

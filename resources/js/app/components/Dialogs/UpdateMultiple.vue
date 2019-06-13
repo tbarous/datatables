@@ -1,9 +1,6 @@
 <template>
     <div style="display: inline-block">
-        <v-btn 
-            color="info" 
-            class="ml-0" 
-            @click="open">
+        <v-btn color="info" class="ml-0" @click="open">
             update multiple
             <v-icon class="ml-2" small>fas fa-plus</v-icon>
         </v-btn>
@@ -15,17 +12,19 @@
                 </v-card-title>
                 <v-card-text>
                     <v-form method="post" @submit.prevent="update">
-                        <v-text-field :label="column.title" solo 
-                            v-for="(column, key) in columns" 
-                            :key="column.title" 
-                            v-if="column.editable" 
-                            type="text" 
-                            v-model="editingMultipleRow[column.title]" class="mt-3">
-                        </v-text-field>
+                        <div v-for="(column, key) in columns" :key="column.title">
+                            <v-text-field 
+                                :label="column.title" solo 
+                                v-if="column.editable" 
+                                type="text" 
+                                v-model="editingMultipleRow[column.title]" 
+                                class="mt-3">
+                            </v-text-field>
+                            <errors :item="column.title"></errors>
+                        </div>
                         <v-btn class="ml-0 w-100" color="primary" type="submit">edit</v-btn>
                     </v-form>
                     
-                    <errors></errors>
                     <v-btn @click="close" class="close-window" flat icon>
                         <v-icon small>fa fa-times</v-icon>
                     </v-btn>
