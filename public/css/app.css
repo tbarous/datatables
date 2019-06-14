@@ -593,6 +593,9 @@ table {
   align-items: center;
   justify-content: center;
 }
+.v-btn--floating .v-btn__content {
+  height: auto !important;
+}
 .application {
   font-family: 'Nunito' !important;
 }
