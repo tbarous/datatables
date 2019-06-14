@@ -33,7 +33,8 @@ trait DatatableTrait
             'resourceURL' => 'api/' . $this->table,
             'filters' => $this->filters,
             'last_update' => Carbon::parse($this->max('updated_at'))->format('d/m/Y - H:i:s a'),
-            'forms' => $this->forms
+            'forms' => $this->forms,
+            'files' => $this->files
         ];
 
         return $data;

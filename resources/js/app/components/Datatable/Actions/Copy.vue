@@ -1,6 +1,6 @@
 <template>
 	<div class="d-inline-block">
-	    <v-btn id="export-btn" data-clipboard-target="#table">
+	    <v-btn color="indigo" dark id="export-btn" data-clipboard-target="#table">
 	        Export 
 	        <!-- <v-icon small>fas fa-file-export</v-icon> -->
 	    </v-btn>

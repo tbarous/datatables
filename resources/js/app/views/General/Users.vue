@@ -1,9 +1,15 @@
 <template>
     <div>
-        <file title="File" url="/storage/invoices.xlsx"></file>
+     <!--    <file title="File" url="/storage/invoices.xlsx"></file>
         <excel title="Excel" url="/storage/invoices.xlsx"></excel>
-        <PDF></PDF>
-        <copy></copy>
+        <PDF></PDF> -->
+
+        <v-btn :class="{'ml-0' : key==0}" :href="file.url" :color="file.color" v-for="(file, key) in files" :key="key">
+            {{file.name}}
+        </v-btn>
+
+
+
         <v-divider></v-divider>
         <!-- <add></add> -->
         
@@ -26,6 +32,9 @@
         computed: {
             forms(){
                 return this.$store.getters['user/GET_FORMS']
+            },
+            files(){
+                return this.$store.getters['user/GET_FILES']
             }
         }
     }

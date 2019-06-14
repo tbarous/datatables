@@ -56,11 +56,6 @@ class User extends Authenticatable
         [
             'button' => 'Add user',
             'name' => 'Add new user',
-            // 'fields' => [
-            //     ['title' => 'username', 'type' => 'text'],
-            //     ['title' => 'email', 'type' => 'text'],
-            //     ['title' => 'updated_at', 'type' => 'date']
-            // ],
             'fields' => [
                 'username' => '',
                 'email' => '',
@@ -69,6 +64,13 @@ class User extends Authenticatable
             'url' => '/api/users',
             'requestType' => 'post'
         ]
+    ];
+    protected $files = [
+        [
+            'name' => 'excel file',
+            'url' => 'http://project.local/storage/invoices.xlsx',
+            'color' => 'green'
+         ]
     ];
 
     /**

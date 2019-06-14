@@ -2977,6 +2977,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -3950,6 +3952,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
     this.setDatatable('user');
@@ -3957,6 +3965,9 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     forms: function forms() {
       return this.$store.getters['user/GET_FORMS'];
+    },
+    files: function files() {
+      return this.$store.getters['user/GET_FILES'];
     }
   }
 });
@@ -53655,7 +53666,14 @@ var render = function() {
     [
       _c(
         "v-btn",
-        { attrs: { id: "export-btn", "data-clipboard-target": "#table" } },
+        {
+          attrs: {
+            color: "indigo",
+            dark: "",
+            id: "export-btn",
+            "data-clipboard-target": "#table"
+          }
+        },
         [_vm._v("\n        Export \n        ")]
       )
     ],
@@ -54584,6 +54602,8 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("columns"),
+      _vm._v(" "),
+      _c("copy"),
       _vm._v(" "),
       _c("update"),
       _vm._v(" "),
@@ -55925,13 +55945,17 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("file", { attrs: { title: "File", url: "/storage/invoices.xlsx" } }),
-      _vm._v(" "),
-      _c("excel", { attrs: { title: "Excel", url: "/storage/invoices.xlsx" } }),
-      _vm._v(" "),
-      _c("PDF"),
-      _vm._v(" "),
-      _c("copy"),
+      _vm._l(_vm.files, function(file, key) {
+        return _c(
+          "v-btn",
+          {
+            key: key,
+            class: { "ml-0": key == 0 },
+            attrs: { href: file.url, color: file.color }
+          },
+          [_vm._v("\n        " + _vm._s(file.name) + "\n    ")]
+        )
+      }),
       _vm._v(" "),
       _c("v-divider"),
       _vm._v(" "),
@@ -102877,6 +102901,7 @@ __webpack_require__.r(__webpack_exports__);
     context.commit('SET_COLUMNS', data.columns);
     context.commit('SET_FORMS', data.forms);
     context.commit('SET_RESOURCE_URL', data.resourceURL);
+    context.commit('SET_FILES', data.files);
   }
 });
 
@@ -102909,6 +102934,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   GET_FORMS: function GET_FORMS(state) {
     return state.forms;
+  },
+  GET_FILES: function GET_FILES(state) {
+    return state.files;
   }
 });
 
@@ -102933,7 +102961,8 @@ var state = {
   // users: {},
   columns: [],
   resourceURL: '',
-  forms: []
+  forms: [],
+  files: []
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
@@ -102957,22 +102986,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core_Form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../core/Form */ "./resources/js/app/core/Form.js");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  // SET_DATA: (state, data) => {
-  //     state[data] = data
-  //     state.columns = data.columns
-  //     state.resourceURL = data.url
-  // }
   SET_COLUMNS: function SET_COLUMNS(state, columns) {
     state.columns = columns;
   },
   SET_FORMS: function SET_FORMS(state, forms) {
-    // state.forms = forms
     forms.forEach(function (item) {
       state.forms.push(new _core_Form__WEBPACK_IMPORTED_MODULE_0__["default"](item));
     });
   },
   SET_RESOURCE_URL: function SET_RESOURCE_URL(state, resourceURL) {
     state.resourceURL = resourceURL;
+  },
+  SET_FILES: function SET_FILES(state, files) {
+    state.files = files;
   }
 });
 

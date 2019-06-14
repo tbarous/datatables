@@ -20,6 +20,8 @@
 
         <columns></columns>
 
+        <copy></copy>
+
         <update></update>
         <update-multiple></update-multiple>
     </v-layout>

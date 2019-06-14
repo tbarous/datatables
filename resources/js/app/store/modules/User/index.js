@@ -6,7 +6,8 @@ const state = {
     // users: {},
     columns: [],
     resourceURL: '',
-    forms: []
+    forms: [],
+    files: []
 }
 
 export default {
