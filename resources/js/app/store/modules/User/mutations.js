@@ -14,5 +14,8 @@ export default {
     },
     SET_FILES: (state, files) => {
         state.files = files
+    },
+    SET_CRUD: (state, crud) => {
+        state.crud = crud
     }
 }

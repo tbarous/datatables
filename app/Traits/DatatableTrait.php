@@ -9,7 +9,6 @@ trait DatatableTrait
     public function getColumns()
     {
         $columns = [];
-        
         foreach ($this->names as $key => $column) {
             $columns[] = [
                 'title' => $column,
@@ -26,17 +25,20 @@ trait DatatableTrait
         return $columns;
     }
 
+    public function getLastUpdated()
+    {
+        return Carbon::parse($this->max('updated_at'))->format('d/m/Y - H:i:s a');
+    }
+
     public function getData()
     {
-        $data = [
+        return [
             'columns' => $this->getColumns(),
-            'resourceURL' => 'api/' . $this->table,
+            'resourceURL' => $this->url,
             'filters' => $this->filters,
-            'last_update' => Carbon::parse($this->max('updated_at'))->format('d/m/Y - H:i:s a'),
-            'forms' => $this->forms,
+            'last_update' => $this->getLastUpdated(),
+            'crud' => $this->crud,
             'files' => $this->files
         ];
-
-        return $data;
     }
 }

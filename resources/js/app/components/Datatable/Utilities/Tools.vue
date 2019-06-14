@@ -1,30 +1,32 @@
 <template>
-    <v-layout>
-        <v-btn 
-            color="indigo" 
-            dark
-            class="ml-0" 
-            @click="fetchData">
-            RELOAD
-            <v-icon class="ml-2" small>fas fa-sync</v-icon>
-        </v-btn>
+    <section>
+        <v-layout>
+            <v-btn 
+                color="indigo" 
+                dark
+                class="ml-0" 
+                @click="fetchData">
+                RELOAD
+                <v-icon class="ml-2" small>fas fa-sync</v-icon>
+            </v-btn>
 
-        <v-btn 
-            color="indigo" 
-            dark
-            class="ml-0" 
-            @click="clearFilters">
-            CLEAR FILTERS
-            <v-icon class="ml-2" small>fas fa-sync</v-icon>
-        </v-btn>
+            <v-btn 
+                color="indigo" 
+                dark
+                class="ml-0" 
+                @click="clearFilters">
+                CLEAR FILTERS
+                <v-icon class="ml-2" small>fas fa-sync</v-icon>
+            </v-btn>
+            <columns></columns>
+            <copy></copy>
+        </v-layout>
 
-        <columns></columns>
-
-        <copy></copy>
-
-        <update></update>
-        <update-multiple></update-multiple>
-    </v-layout>
+        <v-layout>
+            <update></update>
+            <update-multiple></update-multiple>
+        </v-layout>
+    </section>
 </template>
 
 <script>

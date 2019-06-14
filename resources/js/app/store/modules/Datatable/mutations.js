@@ -18,7 +18,6 @@ export default {
     SET_ADDING_ROW: (state, row) => state.addingRow = row,
     SET_EDITING_ROW: (state, editingRow) => Object.assign(state.editingRow, editingRow),
 
-
     SET_DATATABLE: (state, {resourceURL, columns, filters}) => {
         state.resourceURL = resourceURL
         state.columns = columns 
@@ -77,7 +76,6 @@ export default {
     },
 
     ADD: (state, {resolve, reject}) => {
-        console.log(state.form)
         axios.post(`/${state.resourceURL}`, state.form)
         .then(response => resolve(response))
         .catch(error => {
@@ -87,6 +85,7 @@ export default {
     },
 
     UPDATE: (state, {resolve, reject}) => {
+        console.log(state.editingRow)
         axios.put(`/${state.resourceURL}/${state.editingRow.id}`, {
             row: JSON.stringify(state.editingRow)
         })

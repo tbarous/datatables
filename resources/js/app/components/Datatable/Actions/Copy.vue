@@ -1,8 +1,8 @@
 <template>
 	<div class="d-inline-block">
-	    <v-btn color="indigo" dark id="export-btn" data-clipboard-target="#table">
+	    <v-btn class="ml-0" color="indigo" dark id="export-btn" data-clipboard-target="#table">
 	        Export 
-	        <!-- <v-icon small>fas fa-file-export</v-icon> -->
+	        <v-icon small class="ml-2">fas fa-file-export</v-icon>
 	    </v-btn>
 	</div>
 </template>

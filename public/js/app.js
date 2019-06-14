@@ -2979,6 +2979,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -3310,7 +3312,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     update: function update() {
       var _this = this;
 
-      this.$store.commit('ui/START_LOADING');
+      this.$store.commit('ui/START_LOADING'); // this.$store.dispatch('datatable/MAKE_FORM')
+
       this.$store.dispatch('datatable/UPDATE').then(function () {
         return _this.$notify({
           type: 'success',
@@ -3808,10 +3811,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "DoubleScrollMixin",
   mounted: function mounted() {
@@ -3933,17 +3932,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -53667,6 +53655,7 @@ var render = function() {
       _c(
         "v-btn",
         {
+          staticClass: "ml-0",
           attrs: {
             color: "indigo",
             dark: "",
@@ -53674,7 +53663,13 @@ var render = function() {
             "data-clipboard-target": "#table"
           }
         },
-        [_vm._v("\n        Export \n        ")]
+        [
+          _vm._v("\n        Export \n        "),
+          _c("v-icon", { staticClass: "ml-2", attrs: { small: "" } }, [
+            _vm._v("fas fa-file-export")
+          ])
+        ],
+        1
       )
     ],
     1
@@ -54567,47 +54562,51 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-layout",
+    "section",
     [
       _c(
-        "v-btn",
-        {
-          staticClass: "ml-0",
-          attrs: { color: "indigo", dark: "" },
-          on: { click: _vm.fetchData }
-        },
+        "v-layout",
         [
-          _vm._v("\n        RELOAD\n        "),
-          _c("v-icon", { staticClass: "ml-2", attrs: { small: "" } }, [
-            _vm._v("fas fa-sync")
-          ])
+          _c(
+            "v-btn",
+            {
+              staticClass: "ml-0",
+              attrs: { color: "indigo", dark: "" },
+              on: { click: _vm.fetchData }
+            },
+            [
+              _vm._v("\n            RELOAD\n            "),
+              _c("v-icon", { staticClass: "ml-2", attrs: { small: "" } }, [
+                _vm._v("fas fa-sync")
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              staticClass: "ml-0",
+              attrs: { color: "indigo", dark: "" },
+              on: { click: _vm.clearFilters }
+            },
+            [
+              _vm._v("\n            CLEAR FILTERS\n            "),
+              _c("v-icon", { staticClass: "ml-2", attrs: { small: "" } }, [
+                _vm._v("fas fa-sync")
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("columns"),
+          _vm._v(" "),
+          _c("copy")
         ],
         1
       ),
       _vm._v(" "),
-      _c(
-        "v-btn",
-        {
-          staticClass: "ml-0",
-          attrs: { color: "indigo", dark: "" },
-          on: { click: _vm.clearFilters }
-        },
-        [
-          _vm._v("\n        CLEAR FILTERS\n        "),
-          _c("v-icon", { staticClass: "ml-2", attrs: { small: "" } }, [
-            _vm._v("fas fa-sync")
-          ])
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("columns"),
-      _vm._v(" "),
-      _c("copy"),
-      _vm._v(" "),
-      _c("update"),
-      _vm._v(" "),
-      _c("update-multiple")
+      _c("v-layout", [_c("update"), _vm._v(" "), _c("update-multiple")], 1)
     ],
     1
   )
@@ -55778,30 +55777,6 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/app/mixins/DoubleScrollMixin.vue?vue&type=template&id=5290f5f2&":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/app/mixins/DoubleScrollMixin.vue?vue&type=template&id=5290f5f2& ***!
-  \********************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div")
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/app/views/General/404.vue?vue&type=template&id=df3b2758&":
 /*!*************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/app/views/General/404.vue?vue&type=template&id=df3b2758& ***!
@@ -55945,24 +55920,16 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm._l(_vm.files, function(file, key) {
-        return _c(
-          "v-btn",
-          {
-            key: key,
-            class: { "ml-0": key == 0 },
-            attrs: { href: file.url, color: file.color }
-          },
-          [_vm._v("\n        " + _vm._s(file.name) + "\n    ")]
-        )
-      }),
+      _c("excel"),
+      _vm._v(" "),
+      _c("pdf"),
       _vm._v(" "),
       _c("v-divider"),
       _vm._v(" "),
       _vm._l(_vm.forms, function(form, index) {
         return _c(
           "div",
-          { key: index },
+          { key: form.name },
           [_c("simple-dialog", { attrs: { form: form } })],
           1
         )
@@ -101527,7 +101494,6 @@ function () {
       var form = new FormData();
 
       for (var property in this.fields) {
-        console.log(this.fields[property]);
         form.set(property, this.fields[property]);
       }
 
@@ -101559,8 +101525,6 @@ function () {
       var _this = this;
 
       return new Promise(function (resolve, reject) {
-        console.log(_this.data().get('username'));
-
         axios[_this.requestType](_this.url, _this.data()).then(function (response) {
           _this.onSuccess(response.data);
 
@@ -101809,20 +101773,19 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _DoubleScrollMixin_vue_vue_type_template_id_5290f5f2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DoubleScrollMixin.vue?vue&type=template&id=5290f5f2& */ "./resources/js/app/mixins/DoubleScrollMixin.vue?vue&type=template&id=5290f5f2&");
-/* harmony import */ var _DoubleScrollMixin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DoubleScrollMixin.vue?vue&type=script&lang=js& */ "./resources/js/app/mixins/DoubleScrollMixin.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
+/* harmony import */ var _DoubleScrollMixin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DoubleScrollMixin.vue?vue&type=script&lang=js& */ "./resources/js/app/mixins/DoubleScrollMixin.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
 
 
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _DoubleScrollMixin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _DoubleScrollMixin_vue_vue_type_template_id_5290f5f2___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _DoubleScrollMixin_vue_vue_type_template_id_5290f5f2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  _DoubleScrollMixin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
   false,
   null,
   null,
@@ -101848,24 +101811,6 @@ component.options.__file = "resources/js/app/mixins/DoubleScrollMixin.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DoubleScrollMixin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./DoubleScrollMixin.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/app/mixins/DoubleScrollMixin.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DoubleScrollMixin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/app/mixins/DoubleScrollMixin.vue?vue&type=template&id=5290f5f2&":
-/*!**************************************************************************************!*\
-  !*** ./resources/js/app/mixins/DoubleScrollMixin.vue?vue&type=template&id=5290f5f2& ***!
-  \**************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DoubleScrollMixin_vue_vue_type_template_id_5290f5f2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./DoubleScrollMixin.vue?vue&type=template&id=5290f5f2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/app/mixins/DoubleScrollMixin.vue?vue&type=template&id=5290f5f2&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DoubleScrollMixin_vue_vue_type_template_id_5290f5f2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DoubleScrollMixin_vue_vue_type_template_id_5290f5f2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
 
 /***/ }),
 
@@ -102540,7 +102485,6 @@ __webpack_require__.r(__webpack_exports__);
   ADD: function ADD(state, _ref3) {
     var resolve = _ref3.resolve,
         reject = _ref3.reject;
-    console.log(state.form);
     axios.post("/".concat(state.resourceURL), state.form).then(function (response) {
       return resolve(response);
     })["catch"](function (error) {
@@ -102551,6 +102495,7 @@ __webpack_require__.r(__webpack_exports__);
   UPDATE: function UPDATE(state, _ref4) {
     var resolve = _ref4.resolve,
         reject = _ref4.reject;
+    console.log(state.editingRow);
     axios.put("/".concat(state.resourceURL, "/").concat(state.editingRow.id), {
       row: JSON.stringify(state.editingRow)
     }).then(function (response) {
@@ -102899,7 +102844,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   SET_DATA: function SET_DATA(context, data) {
     context.commit('SET_COLUMNS', data.columns);
-    context.commit('SET_FORMS', data.forms);
+    context.commit('SET_CRUD', data.crud);
     context.commit('SET_RESOURCE_URL', data.resourceURL);
     context.commit('SET_FILES', data.files);
   }
@@ -102932,8 +102877,8 @@ __webpack_require__.r(__webpack_exports__);
       columns: state.columns
     };
   },
-  GET_FORMS: function GET_FORMS(state) {
-    return state.forms;
+  GET_CRUD: function GET_CRUD(state) {
+    return state.crud;
   },
   GET_FILES: function GET_FILES(state) {
     return state.files;
@@ -102958,10 +102903,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var state = {
-  // users: {},
+  crud: [],
   columns: [],
   resourceURL: '',
-  forms: [],
+  // forms: [],
   files: []
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -102999,6 +102944,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   SET_FILES: function SET_FILES(state, files) {
     state.files = files;
+  },
+  SET_CRUD: function SET_CRUD(state, crud) {
+    state.crud = crud;
   }
 });
 

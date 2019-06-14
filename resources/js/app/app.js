@@ -30,8 +30,6 @@ store.commit('auth/SET_DATA', data.auth)
 store.commit('pages/SET_MENU', data.menu)
 store.commit('pages/SET_PAGES', data.pages)
 store.commit('cells/SET_CELLS', data.cells)
-
-
 store.dispatch('user/SET_DATA', data.users)
 
 const app = new Vue({router, axios, store, el: '#app'});

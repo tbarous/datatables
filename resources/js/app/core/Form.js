@@ -31,7 +31,6 @@ export default class Form {
         let form = new FormData()
 
         for (let property in this.fields) {
-            console.log(this.fields[property])
             form.set(property, this.fields[property])
         }
 
@@ -57,7 +56,6 @@ export default class Form {
      */
     submit() {
         return new Promise((resolve, reject) => {
-            console.log(this.data().get('username'))
             axios[this.requestType](this.url, this.data())
                 .then(response => {
                     this.onSuccess(response.data);

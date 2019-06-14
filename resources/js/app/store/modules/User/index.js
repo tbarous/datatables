@@ -3,10 +3,10 @@ import mutations from './mutations'
 import actions from './actions'
 
 const state = {
-    // users: {},
+    crud: [],
     columns: [],
     resourceURL: '',
-    forms: [],
+    // forms: [],
     files: []
 }
 

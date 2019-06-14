@@ -54,6 +54,7 @@
             }),
             update(){
                 this.$store.commit('ui/START_LOADING')
+                // this.$store.dispatch('datatable/MAKE_FORM')
                 this.$store.dispatch('datatable/UPDATE')
                     .then(() => this.$notify({type: 'success', text: '<i class="fa fa-check" aria-hidden="true"></i> &nbsp;Item has been updated'}))
                     .then(() => this.$store.dispatch('datatable/FETCH_DATA'))

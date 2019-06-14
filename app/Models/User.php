@@ -42,36 +42,18 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that are shown on tables
+     * The datatable attributes
      * @var array
      */
-    protected $table = 'users';
     protected $names = ['username', 'email', 'created_at','updated_at'];
     protected $types = ['text', 'text', 'date', 'date'];
     protected $values = ['username', 'email', 'created_at', 'updated_at'];
     protected $filterable = ['username', 'email'];
     protected $editable = ['username', 'email'];
     protected $sortable = ['username'];
-    protected $forms = [
-        [
-            'button' => 'Add user',
-            'name' => 'Add new user',
-            'fields' => [
-                'username' => '',
-                'email' => '',
-                'updated_at' => ''
-            ],
-            'url' => '/api/users',
-            'requestType' => 'post'
-        ]
-    ];
-    protected $files = [
-        [
-            'name' => 'excel file',
-            'url' => 'http://project.local/storage/invoices.xlsx',
-            'color' => 'green'
-         ]
-    ];
+    protected $url = 'api/users';
+    protected $crud = ['add', 'update', 'delete', 'update-multiple'];
+    protected $files = ['excel', 'pdf'];
 
     /**
      * [scopeFilter description]
