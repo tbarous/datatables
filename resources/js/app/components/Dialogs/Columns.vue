@@ -1,11 +1,12 @@
 <template>
     <div style="display: inline-block">
         <v-btn 
-            color="info" 
+            color="indigo"
+            dark 
             class="ml-0" 
             @click="open">
             columns
-            <v-icon class="ml-2" small>fas fa-dashboard</v-icon>
+            <v-icon class="ml-2" small>fa fa-columns</v-icon>
         </v-btn>
 
         <v-dialog :value="dialog" persistent width="500">

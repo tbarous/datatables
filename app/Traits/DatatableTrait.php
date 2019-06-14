@@ -30,9 +30,10 @@ trait DatatableTrait
     {
         $data = [
             'columns' => $this->getColumns(),
-            'url' => 'api/' . $this->table,
+            'resourceURL' => 'api/' . $this->table,
             'filters' => $this->filters,
             'last_update' => Carbon::parse($this->max('updated_at'))->format('d/m/Y - H:i:s a'),
+            'forms' => $this->forms
         ];
 
         return $data;

@@ -5,10 +5,13 @@
         <PDF></PDF>
         <copy></copy>
         <v-divider></v-divider>
-        <add></add>
-        <update></update>
-        <update-multiple></update-multiple>
-        <columns></columns>
+        <!-- <add></add> -->
+        
+
+        <div v-for="(form, index) in forms" :key="index">
+            <simple-dialog :form="form"></simple-dialog>
+        </div>
+
         <v-divider></v-divider>
         <datatable></datatable>
     </div>
@@ -18,6 +21,12 @@
     export default {
         created(){
             this.setDatatable('user')
+        },
+
+        computed: {
+            forms(){
+                return this.$store.getters['user/GET_FORMS']
+            }
         }
     }
 </script>

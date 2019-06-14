@@ -3,9 +3,10 @@ import mutations from './mutations'
 import actions from './actions'
 
 const state = {
-    users: {},
+    // users: {},
     columns: [],
-    resourceURL: ''
+    resourceURL: '',
+    forms: []
 }
 
 export default {

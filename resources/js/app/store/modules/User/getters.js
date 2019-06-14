@@ -4,5 +4,6 @@ export default {
     GET_COLUMNS: state => state.columns,
     GET_DATATABLE: (state) => { 
     	return { resourceURL: state.resourceURL, columns: state.columns }
-    }
+    },
+    GET_FORMS: state => state.forms
 }

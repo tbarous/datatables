@@ -1,7 +1,8 @@
 <template>
     <v-layout>
         <v-btn 
-            color="info" 
+            color="indigo" 
+            dark
             class="ml-0" 
             @click="fetchData">
             RELOAD
@@ -9,12 +10,18 @@
         </v-btn>
 
         <v-btn 
-            color="info" 
+            color="indigo" 
+            dark
             class="ml-0" 
             @click="clearFilters">
             CLEAR FILTERS
             <v-icon class="ml-2" small>fas fa-sync</v-icon>
         </v-btn>
+
+        <columns></columns>
+
+        <update></update>
+        <update-multiple></update-multiple>
     </v-layout>
 </template>
 

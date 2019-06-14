@@ -21,12 +21,7 @@ class UserController extends Controller
 
         $users = $query->paginate($request->per_page);
 
-        $additional = [
-            // 'meta' => [
-            //     'last_update' => Carbon::parse(User::max('updated_at'))
-            //                                 ->format('d/m/Y - H:i:s a'),
-            // ]
-        ];
+        $additional = [];
 
         return UsersResource::collection($users)->additional($additional);
     }
@@ -50,7 +45,7 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $user = new User();
-        $user->username = $data->username;
+        $user->username = $request->username;
         $user->email = $request->email;
         $user->save();
     }
@@ -84,7 +79,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserUpdateRequest $request, $id)
+    public function update(UserRequest $request, $id)
     {
         $validated = (object) $request->validated();
         $user = User::find($id);

@@ -8,6 +8,7 @@
 	import Copy from './../components/Datatable/Actions/Copy'
 	import Columns from './../components/Dialogs/Columns'
 	import File from './../components/Datatable/Actions/File'
+    import SimpleDialog from './../components/Dialogs/SimpleDialog'
 
 	export default {
 		name: 'DatatableMixin',
@@ -20,7 +21,8 @@
 	        UpdateMultiple, 
 	        Columns,
 	        File,
-	        Add
+	        Add,
+	        SimpleDialog
 	    },
 
 	    methods: {

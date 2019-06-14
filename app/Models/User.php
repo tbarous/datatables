@@ -52,6 +52,24 @@ class User extends Authenticatable
     protected $filterable = ['username', 'email'];
     protected $editable = ['username', 'email'];
     protected $sortable = ['username'];
+    protected $forms = [
+        [
+            'button' => 'Add user',
+            'name' => 'Add new user',
+            // 'fields' => [
+            //     ['title' => 'username', 'type' => 'text'],
+            //     ['title' => 'email', 'type' => 'text'],
+            //     ['title' => 'updated_at', 'type' => 'date']
+            // ],
+            'fields' => [
+                'username' => '',
+                'email' => '',
+                'updated_at' => ''
+            ],
+            'url' => '/api/users',
+            'requestType' => 'post'
+        ]
+    ];
 
     /**
      * [scopeFilter description]

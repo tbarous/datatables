@@ -1,16 +1,24 @@
 import Errors from './Errors';
 
-class Form {
+export default class Form {
     /**
      * Create a new Form instance.
      *
      * @param {object} data
      */
     constructor(data) {
-        this.originalData = data;
+        this.open = false
+        this.button = data.button
+        this.name = data.name
+        this.url = data.url
+        this.requestType = data.requestType
 
-        for (let field in data) {
-            this[field] = data[field];
+        this.originalData = data.fields
+
+        this.fields = {}
+
+        for (let field in data.fields) {
+            this.fields[field] = data.fields[field]
         }
 
         this.errors = new Errors();
@@ -20,60 +28,25 @@ class Form {
      * Fetch all relevant data for the form.
      */
     data() {
-        let data = {};
+        let form = new FormData()
 
-        for (let property in this.originalData) {
-            data[property] = this[property];
+        for (let property in this.fields) {
+            console.log(this.fields[property])
+            form.set(property, this.fields[property])
         }
 
-        return data;
+        return form;
     }
 
     /**
      * Reset the form fields.
      */
     reset() {
-        for (let field in this.originalData) {
-            this[field] = '';
+        for (let field in this.fields) {
+            this.fields[field] = '';
         }
 
         this.errors.clear();
-    }
-
-    /**
-     * Send a POST request to the given URL.
-     * .
-     * @param {string} url
-     */
-    post(url) {
-        return this.submit('post', url);
-    }
-
-    /**
-     * Send a PUT request to the given URL.
-     * .
-     * @param {string} url
-     */
-    put(url) {
-        return this.submit('put', url);
-    }
-
-    /**
-     * Send a PATCH request to the given URL.
-     * .
-     * @param {string} url
-     */
-    patch(url) {
-        return this.submit('patch', url);
-    }
-
-    /**
-     * Send a DELETE request to the given URL.
-     * .
-     * @param {string} url
-     */
-    delete(url) {
-        return this.submit('delete', url);
     }
 
     /**
@@ -82,17 +55,16 @@ class Form {
      * @param {string} requestType
      * @param {string} url
      */
-    submit(requestType, url) {
+    submit() {
         return new Promise((resolve, reject) => {
-            axios[requestType](url, this.data())
+            console.log(this.data().get('username'))
+            axios[this.requestType](this.url, this.data())
                 .then(response => {
                     this.onSuccess(response.data);
-
                     resolve(response.data);
                 })
                 .catch(error => {
                     this.onFail(error.response.data);
-
                     reject(error.response.data);
                 });
         });
@@ -104,8 +76,7 @@ class Form {
      * @param {object} data
      */
     onSuccess(data) {
-        alert(data.message); // temporary
-
+        // alert(data.message); // temporary
         this.reset();
     }
 
