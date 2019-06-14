@@ -3943,9 +3943,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
     this.setDatatable('user');
@@ -55920,26 +55917,19 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("excel"),
+      _c("excel", { attrs: { title: "Excel Title", url: "#" } }),
       _vm._v(" "),
-      _c("pdf"),
+      _c("PDF", { attrs: { title: "PDF Title", url: "#" } }),
       _vm._v(" "),
       _c("v-divider"),
       _vm._v(" "),
-      _vm._l(_vm.forms, function(form, index) {
-        return _c(
-          "div",
-          { key: form.name },
-          [_c("simple-dialog", { attrs: { form: form } })],
-          1
-        )
-      }),
+      _c("add"),
       _vm._v(" "),
       _c("v-divider"),
       _vm._v(" "),
       _c("datatable")
     ],
-    2
+    1
   )
 }
 var staticRenderFns = []

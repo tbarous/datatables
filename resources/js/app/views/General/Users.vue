@@ -1,12 +1,9 @@
 <template>
     <div>
-        <excel></excel>
-        <pdf></pdf>
+        <excel title="Excel Title" url="#"></excel>
+        <PDF title="PDF Title" url="#"></PDF>
         <v-divider></v-divider>
-        <!-- <add></add> -->
-        <div v-for="(form, index) in forms" :key="form.name">
-            <simple-dialog :form="form"></simple-dialog>
-        </div>
+        <add></add>
         <v-divider></v-divider>
         <datatable></datatable>
     </div>
