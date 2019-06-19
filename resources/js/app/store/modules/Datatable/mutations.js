@@ -86,9 +86,12 @@ export default {
 
     UPDATE: (state, {resolve, reject}) => {
         console.log(state.editingRow)
-        axios.put(`/${state.resourceURL}/${state.editingRow.id}`, {
-            row: JSON.stringify(state.editingRow)
-        })
+        state.form = new FormData()
+        state.form.set('username', 'Tasos')
+        state.form.set('email', 'Tasos')
+        console.log(state.form.get('username'))
+
+        axios.post(`/${state.resourceURL}/${state.editingRow.id}`, state.form)
         .then(response => resolve(response))
         .catch(error => {
             state.errors = error.response.data.errors

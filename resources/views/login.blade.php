@@ -37,7 +37,7 @@
                 
                 <div class="mt-3">
                     <button type="submit" class="btn btn-primary w-100">
-                        <img width="20" id="loading" src="/images/load.gif" alt="">
+                        <img width="20" id="loading" src="/images/492.gif" alt="">
                         <span id="login-text">Login</span>
                     </button>
                 </div>

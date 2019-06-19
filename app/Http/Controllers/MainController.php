@@ -32,6 +32,6 @@ class MainController extends Controller
             'cells' => (new \App\Models\Cell)->getData()
         ];
 
-        return view('layouts.app', compact('data'));
+        return view('app', compact('data'));
     }
 }

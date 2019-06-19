@@ -32,8 +32,12 @@ class Cell extends Model
     protected $editable = ['name'];
     protected $sortable = ['name'];
     protected $filters = [
-        ['name' => 'status', 'index'=>3, 'options' => ['halted', 'down', '']],
-        ['name' => 'name', 'index'=>0, 'options' => ['cellname2', 'cellname3', '']]
+        [
+            'name' => 'status', 'index' => 3, 'options' => ['halted', 'down', '']
+        ],
+        [
+            'name' => 'name', 'index' => 0, 'options' => ['cellname2', 'cellname3', '']
+        ]
     ];
 
     /**

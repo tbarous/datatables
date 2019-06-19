@@ -9,7 +9,7 @@
         window.data = @json($data);
         console.log(data)
     </script>
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app/app.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- To be installed -->

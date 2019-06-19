@@ -1,4 +1,5 @@
 <?php
+Route::post('users/:id', 'UserController@update');
 
 Route::apiResources([
     'users' => 'UserController',
