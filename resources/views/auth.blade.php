@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="overflow-y: hidden;">
+<html lang="en" style="overflow-y: hidden;background-image: url('/images/tel.jpg'); background-size: cover;">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,7 +17,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 </head>
 <body>
-	<div id="app">
+	<div id="app" style="background:none!important">
 		<Login></Login>
 	</div>
 </body>

@@ -38,4 +38,6 @@
   position: relative
 }
 
-
+.theme--light.application {
+  background: none;
+}
