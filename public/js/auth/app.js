@@ -1765,6 +1765,12 @@ module.exports = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-loading-overlay */ "./node_modules/vue-loading-overlay/dist/vue-loading.min.js");
 /* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _core_Form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../core/Form */ "./resources/js/auth/core/Form.js");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1796,7 +1802,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'Login',
   components: {
     Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0___default.a
   },
@@ -1805,29 +1813,40 @@ __webpack_require__.r(__webpack_exports__);
       drawer: null,
       loading: false,
       username: '',
-      password: ''
+      password: '',
+      form: new _core_Form__WEBPACK_IMPORTED_MODULE_1__["default"]({
+        username: '',
+        password: ''
+      })
     };
   },
   props: {
     source: String
   },
   methods: {
-    login: function login() {
+    // login(){
+    // this.loading = true
+    // let data = {'username' : this.username, 'password': this.password};
+    // console.log(window.login)
+    // axios.post(window.login, data)
+    // .then(response => {
+    //   // this.loading = false
+    //   window.location.replace('/eett/overview');
+    // })
+    // .catch(error => {
+    //   alert('error')
+    //   this.loading = false
+    //   // window.location.replace('/eett/overview');
+    // }),
+    onSubmit: function onSubmit() {
       var _this = this;
 
       this.loading = true;
-      var data = {
-        'username': this.username,
-        'password': this.password
-      };
-      console.log(window.login);
-      axios.post(window.login, data).then(function (response) {
-        // this.loading = false
+      this.form.post(window.login).then(function (response) {
         window.location.replace('/eett/overview');
       })["catch"](function (error) {
-        alert('error');
-        _this.loading = false; // window.location.replace('/eett/overview');
-      });
+        _this.loading = false;
+      }); // }
     }
   }
 });
@@ -2383,72 +2402,104 @@ var render = function() {
                             1
                           ),
                           _vm._v(" "),
-                          _c(
-                            "v-card-text",
-                            [
-                              _c(
-                                "v-form",
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      "prepend-icon": "person",
-                                      name: "login",
-                                      label: "Login",
-                                      type: "text"
-                                    },
-                                    model: {
-                                      value: _vm.username,
-                                      callback: function($$v) {
-                                        _vm.username = $$v
-                                      },
-                                      expression: "username"
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      id: "password",
-                                      "prepend-icon": "lock",
-                                      name: "password",
-                                      label: "Password",
-                                      type: "password"
-                                    },
-                                    model: {
-                                      value: _vm.password,
-                                      callback: function($$v) {
-                                        _vm.password = $$v
-                                      },
-                                      expression: "password"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-card-actions",
-                            [
-                              _c("v-spacer"),
-                              _vm._v(" "),
-                              _c(
-                                "v-btn",
-                                {
-                                  attrs: { color: "primary" },
-                                  on: {
-                                    click: function($event) {
-                                      $event.preventDefault()
-                                      return _vm.login($event)
-                                    }
+                          _c("v-card-text", [
+                            _c(
+                              "form",
+                              {
+                                attrs: { method: "post" },
+                                on: {
+                                  submit: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.onSubmit($event)
+                                  },
+                                  input: function($event) {
+                                    return _vm.form.errors.clear(
+                                      $event.target.name
+                                    )
                                   }
-                                },
-                                [_vm._v("Login")]
-                              )
-                            ],
-                            1
-                          )
+                                }
+                              },
+                              [
+                                _c("v-text-field", {
+                                  attrs: {
+                                    autocomplete: "off",
+                                    "prepend-icon": "person",
+                                    name: "username",
+                                    label: "Login",
+                                    type: "text"
+                                  },
+                                  model: {
+                                    value: _vm.form.username,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.form, "username", $$v)
+                                    },
+                                    expression: "form.username"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _vm.form.errors.has("username")
+                                  ? _c("span", {
+                                      staticClass: "help is-danger",
+                                      domProps: {
+                                        textContent: _vm._s(
+                                          _vm.form.errors.get("username")
+                                        )
+                                      }
+                                    })
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _c("v-text-field", {
+                                  attrs: {
+                                    autocomplete: "off",
+                                    id: "password",
+                                    "prepend-icon": "lock",
+                                    name: "password",
+                                    label: "Password",
+                                    type: "password"
+                                  },
+                                  model: {
+                                    value: _vm.form.password,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.form, "password", $$v)
+                                    },
+                                    expression: "form.password"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _vm.form.errors.has("password")
+                                  ? _c("span", {
+                                      staticClass: "help is-danger",
+                                      domProps: {
+                                        textContent: _vm._s(
+                                          _vm.form.errors.get("password")
+                                        )
+                                      }
+                                    })
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _c(
+                                  "v-card-actions",
+                                  [
+                                    _c("v-spacer"),
+                                    _vm._v(" "),
+                                    _c(
+                                      "v-btn",
+                                      {
+                                        attrs: {
+                                          disabled: _vm.form.errors.any(),
+                                          type: "submit",
+                                          color: "primary"
+                                        }
+                                      },
+                                      [_vm._v("Login")]
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ])
                         ],
                         1
                       )
@@ -40623,7 +40674,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 
 Vue.use(vuetify__WEBPACK_IMPORTED_MODULE_0___default.a);
-Vue.component('login', __webpack_require__(/*! ./views/Login.vue */ "./resources/js/auth/views/Login.vue")["default"]);
+Vue.component('Login', __webpack_require__(/*! ./views/Login.vue */ "./resources/js/auth/views/Login.vue")["default"]);
 var app = new Vue({
   axios: _api__WEBPACK_IMPORTED_MODULE_1__["default"],
   el: '#app'
@@ -40642,6 +40693,271 @@ window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 var token = document.head.querySelector('meta[name="csrf-token"]');
 window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+
+/***/ }),
+
+/***/ "./resources/js/auth/core/Errors.js":
+/*!******************************************!*\
+  !*** ./resources/js/auth/core/Errors.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Errors; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Errors =
+/*#__PURE__*/
+function () {
+  /**
+   * Create a new Errors instance.
+   */
+  function Errors() {
+    _classCallCheck(this, Errors);
+
+    this.errors = {};
+  }
+  /**
+   * Determine if an errors exists for the given field.
+   *
+   * @param {string} field
+   */
+
+
+  _createClass(Errors, [{
+    key: "has",
+    value: function has(field) {
+      return this.errors.hasOwnProperty(field);
+    }
+    /**
+     * Determine if we have any errors.
+     */
+
+  }, {
+    key: "any",
+    value: function any() {
+      return Object.keys(this.errors).length > 0;
+    }
+    /**
+     * Retrieve the error message for a field.
+     *
+     * @param {string} field
+     */
+
+  }, {
+    key: "get",
+    value: function get(field) {
+      if (this.errors[field]) {
+        return this.errors[field][0];
+      }
+    }
+    /**
+     * Record the new errors.
+     *
+     * @param {object} errors
+     */
+
+  }, {
+    key: "record",
+    value: function record(errors) {
+      this.errors = errors;
+    }
+    /**
+     * Clear one or all error fields.
+     *
+     * @param {string|null} field
+     */
+
+  }, {
+    key: "clear",
+    value: function clear(field) {
+      if (field) {
+        delete this.errors[field];
+        return;
+      }
+
+      this.errors = {};
+    }
+  }]);
+
+  return Errors;
+}();
+
+
+
+/***/ }),
+
+/***/ "./resources/js/auth/core/Form.js":
+/*!****************************************!*\
+  !*** ./resources/js/auth/core/Form.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Form; });
+/* harmony import */ var _Errors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Errors */ "./resources/js/auth/core/Errors.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+var Form =
+/*#__PURE__*/
+function () {
+  /**
+   * Create a new Form instance.
+   *
+   * @param {object} data
+   */
+  function Form(data) {
+    _classCallCheck(this, Form);
+
+    this.originalData = data;
+
+    for (var field in data) {
+      this[field] = data[field];
+    }
+
+    this.errors = new _Errors__WEBPACK_IMPORTED_MODULE_0__["default"]();
+  }
+  /**
+   * Fetch all relevant data for the form.
+   */
+
+
+  _createClass(Form, [{
+    key: "data",
+    value: function data() {
+      var data = {};
+
+      for (var property in this.originalData) {
+        data[property] = this[property];
+      }
+
+      return data;
+    }
+    /**
+     * Reset the form fields.
+     */
+
+  }, {
+    key: "reset",
+    value: function reset() {
+      for (var field in this.originalData) {
+        this[field] = '';
+      }
+
+      this.errors.clear();
+    }
+    /**
+     * Send a POST request to the given URL.
+     * .
+     * @param {string} url
+     */
+
+  }, {
+    key: "post",
+    value: function post(url) {
+      return this.submit('post', url);
+    }
+    /**
+     * Send a PUT request to the given URL.
+     * .
+     * @param {string} url
+     */
+
+  }, {
+    key: "put",
+    value: function put(url) {
+      return this.submit('put', url);
+    }
+    /**
+     * Send a PATCH request to the given URL.
+     * .
+     * @param {string} url
+     */
+
+  }, {
+    key: "patch",
+    value: function patch(url) {
+      return this.submit('patch', url);
+    }
+    /**
+     * Send a DELETE request to the given URL.
+     * .
+     * @param {string} url
+     */
+
+  }, {
+    key: "delete",
+    value: function _delete(url) {
+      return this.submit('delete', url);
+    }
+    /**
+     * Submit the form.
+     *
+     * @param {string} requestType
+     * @param {string} url
+     */
+
+  }, {
+    key: "submit",
+    value: function submit(requestType, url) {
+      var _this = this;
+
+      return new Promise(function (resolve, reject) {
+        axios[requestType](url, _this.data()).then(function (response) {
+          _this.onSuccess(response.data);
+
+          resolve(response.data);
+        })["catch"](function (error) {
+          _this.onFail(error.response.data.errors);
+
+          console.log(error.response.data);
+          reject(error.response.data.errors);
+        });
+      });
+    }
+    /**
+     * Handle a successful form submission.
+     *
+     * @param {object} data
+     */
+
+  }, {
+    key: "onSuccess",
+    value: function onSuccess(data) {
+      // alert(data.message); // temporary
+      this.reset();
+    }
+    /**
+     * Handle a failed form submission.
+     *
+     * @param {object} errors
+     */
+
+  }, {
+    key: "onFail",
+    value: function onFail(errors) {
+      this.errors.record(errors);
+    }
+  }]);
+
+  return Form;
+}();
+
+
 
 /***/ }),
 
