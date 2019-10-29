@@ -2393,9 +2393,9 @@ var render = function() {
                         [
                           _c(
                             "v-toolbar",
-                            { attrs: { dark: "", color: "primary" } },
+                            { attrs: { dark: "", color: "dark" } },
                             [
-                              _c("v-toolbar-title", [_vm._v("Login form")]),
+                              _c("v-toolbar-title", [_vm._v("Login")]),
                               _vm._v(" "),
                               _c("v-spacer")
                             ],

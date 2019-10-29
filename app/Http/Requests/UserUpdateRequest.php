@@ -16,6 +16,9 @@ class UserUpdateRequest extends FormRequest
         return true;
     }
 
+    /**
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
     protected function getValidatorInstance()
     {
         $data = json_decode($this->row, true);
